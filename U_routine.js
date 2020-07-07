@@ -9,6 +9,13 @@ var creeps = ['H1',
 
 module.exports = {
   run: function() {
+      for(var name in Memory.creeps) {
+        if(!Game.creeps[name]) {
+            delete Memory.creeps[name];
+            console.log('Clearing non-existing creep memory:', name);
+        }
+      }
+
   	  for(var name in Game.creeps) {
         var creep = Game.creeps[name];
         if(creep.memory.role == 'harvester') {
@@ -22,10 +29,10 @@ module.exports = {
       for (var name in creeps){
         if (!(name in Game.creeps)) {
             if (name.startsWith('H')){
-                u_spawner.run(name, 'harvester');
+                Game.spawns['Boopy1'].spawnCreep([WORK, CARRY, MOVE], name, { memory: {role: 'harvester'} });
 			}
             else if (name.startsWith('B')){
-                u_spawner.run(name, 'builder');
+                Game.spawns['Boopy1'].spawnCreep([WORK, CARRY, MOVE], name, { memory: {role: 'builder'} });
 			}
 		}
 	  }
