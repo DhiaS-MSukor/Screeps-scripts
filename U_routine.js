@@ -19,7 +19,7 @@ module.exports = {
         }
       }
 
-      for (var name in creeps){
+      for (var name in Game.creeps){
         if (!creeps.includes(name)) {
             if (name.startsWith('H')){
                 u_spawner.run(name, 'harvester');
