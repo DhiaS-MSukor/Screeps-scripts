@@ -27,8 +27,8 @@ module.exports = {
       }
 
       for (var i in creeps){
-        var name = creeps[i];
-      console.log(name);
+        var name = creeps[i]; 
+
         if (!(name in Game.creeps)) {
             if (name.startsWith('H')){
                 Game.spawns['Boopy1'].spawnCreep([WORK, CARRY, MOVE], name, { memory: {role: 'harvester'} });
