@@ -1,11 +1,11 @@
+// JavaScript source code
+
 var r_harvester = require('R_harvester');
 var r_builder = require('R_builder');
 
-var spawns = 'Boopy1';
-
-module.exports.loop = function () {
-
-    for(var name in Game.creeps) {
+module.exports = {
+  run: function() {
+  	  for(var name in Game.creeps) {
         var creep = Game.creeps[name];
         if(creep.memory.role == 'harvester') {
             r_harvester.run(creep);
@@ -14,4 +14,5 @@ module.exports.loop = function () {
             r_builder.run(creep);
         }
     }
-}
+  }
+};

@@ -13,3 +13,5 @@ module.exports = {
 
 Game.spawns['Boopy1'].spawnCreep([WORK, CARRY, MOVE], 'H1', { memory: {role: 'harvester'} });
 Game.spawns['Boopy1'].spawnCreep([WORK, CARRY, MOVE], 'B1', { memory: {role: 'builder'} });
+Game.spawns['Boopy1'].spawnCreep([WORK, CARRY, MOVE], 'B2', { memory: {role: 'builder'} });
+Game.spawns['Boopy1'].spawnCreep([WORK, CARRY, MOVE], 'B3', { memory: {role: 'builder'} });
