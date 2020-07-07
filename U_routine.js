@@ -26,7 +26,8 @@ module.exports = {
         }
       }
 
-      for (var name in creeps){
+      for (var i in creeps){
+        var name = creeps[i];
       console.log(name);
         if (!(name in Game.creeps)) {
             if (name.startsWith('H')){
