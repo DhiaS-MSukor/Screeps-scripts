@@ -2,6 +2,9 @@
 
 var r_harvester = require('R_harvester');
 var r_builder = require('R_builder');
+var u_spawner = require('U_spawner');
+
+var creeps = ['H1','B1','B2','B3'];
 
 module.exports = {
   run: function() {
@@ -10,9 +13,20 @@ module.exports = {
         if(creep.memory.role == 'harvester') {
             r_harvester.run(creep);
         }
-        if(creep.memory.role == 'builder') {
+        else if(creep.memory.role == 'builder') {
             r_builder.run(creep);
         }
-    }
+      }
+
+      for (var name in creeps){
+        if (!creeps.includes(name)) {
+            if (name.startsWith('H')){
+                u_spawner.run(name, 'harvester');
+			}
+            else if (name.startsWith('B')){
+                u_spawner.run(name, 'builder');
+			}
+		}
+	  }
   }
 };

@@ -8,7 +8,14 @@
  */
 
 module.exports = {
-  
+  run: function(name, s_role){ 
+      if (s_role == 'harvester') {
+        Game.spawns['Boopy1'].spawnCreep([WORK, CARRY, MOVE], name, { memory: {role: s_role} });
+	  }
+      else if (s_role == 'builder') {
+        Game.spawns['Boopy1'].spawnCreep([WORK, CARRY, MOVE], name, { memory: {role: s_role} });
+	  }
+  }
 };
 
 Game.spawns['Boopy1'].spawnCreep([WORK, CARRY, MOVE], 'H1', { memory: {role: 'harvester'} });
