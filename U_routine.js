@@ -30,10 +30,12 @@ module.exports = {
 
         if (!(name in Game.creeps)) {
             if (name.startsWith('H')){
-                Game.spawns['Boopy1'].spawnCreep([WORK, CARRY, MOVE], name, { memory: {role: 'harvester'} });
+                Game.spawns['Boopy1'].spawnCreep([WORK, CARRY, CARRY, MOVE], 
+                name, { memory: {role: 'harvester'} });
 			}
             else if (name.startsWith('B')){
-                Game.spawns['Boopy1'].spawnCreep([WORK, CARRY, MOVE], name, { memory: {role: 'builder'} });
+                Game.spawns['Boopy1'].spawnCreep([WORK, WORK, CARRY, MOVE], 
+                name, { memory: {role: 'builder'} });
 			}
 		}
 	  }
