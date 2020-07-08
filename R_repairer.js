@@ -1,6 +1,6 @@
 var target;
 
-var find_target = function(){
+var find_target = function(creep){
 	let targets = creep.room.find(FIND_STRUCTURES);
 	for (let i in targets) {
 		if (targets[i].hits < targets[i].hitsMax) {
@@ -20,7 +20,7 @@ module.exports = {
 	    }
 	    if(!creep.memory.building && creep.store.getFreeCapacity() == 0) {
 	        creep.memory.building = true;
-			find_target();
+			find_target(creep);
 	        creep.say('repair');
 	    }
 
