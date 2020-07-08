@@ -19,6 +19,13 @@ var roleHarvester = {
                     creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffffff'}});
                 }
             }
+
+			else if(creep.room.controller) {
+				if(creep.upgradeController(creep.room.controller) == ERR_NOT_IN_RANGE) {
+					creep.moveTo(creep.room.controller);
+				}
+			}
+			
 	    }
 	    else {
 	        var sources = creep.room.find(FIND_SOURCES);
