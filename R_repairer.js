@@ -9,7 +9,7 @@ var find_target = function(){
 	}
 }
 
-var roleRepairer = {
+module.exports = {
 
     /** @param {Creep} creep **/
     run: function(creep) {
@@ -38,5 +38,3 @@ var roleRepairer = {
 	}
     
 };
-
-module.exports = roleRepairer;

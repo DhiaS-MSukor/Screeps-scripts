@@ -1,4 +1,4 @@
-var roleHarvester = {
+module.exports = {
 
     /** @param {Creep} creep **/
     run: function(creep) {
@@ -36,5 +36,3 @@ var roleHarvester = {
 	}
     
 };
-
-module.exports = roleHarvester;
