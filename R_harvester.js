@@ -4,11 +4,11 @@ module.exports = {
     run: function(creep) {
         if (creep.memory.harvest && creep.store.getFreeCapacity() == 0) {
             creep.memory.harvest = false;
-            creep.say('harvest');
+            creep.say('transfer');
 	    }
 	    if (!creep.memory.harvest && creep.store.getFreeCapacity() > 0) {
 	        creep.memory.harvest = true;
-	        creep.say('repair');
+	        creep.say('harvest');
 	    }
 
 	    if (creep.memory.harvest) {
