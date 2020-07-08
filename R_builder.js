@@ -30,7 +30,7 @@ module.exports = {
 	    else {
 	        var sources = creep.room.find(FIND_STRUCTURES, {filter: (structure) => { return (structure.structureType == STRUCTURE_CONTAINER)}});
 			for (var i in sources) {
-				if(sources[i].store[RESOURCE_ENERGY] != 0 && creep.withdraw(sources[i]) == ERR_NOT_IN_RANGE) {
+				if(sources[i].store[RESOURCE_ENERGY] != 0 && creep.withdraw(sources[i], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
 					creep.moveTo(sources[i], {visualizePathStyle: {stroke: '#ffaa11'}});
 					return;
 				} 
