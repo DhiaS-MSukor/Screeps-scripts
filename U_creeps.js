@@ -33,7 +33,7 @@ var auto_respawn = function(){
 
         if (!(name in Game.creeps)) {
             if (name.startsWith('H')){
-                Game.spawns['Boopy1'].spawnCreep([WORK, CARRY, CARRY, MOVE], 
+                Game.spawns['Boopy1'].spawnCreep([WORK, CARRY, CARRY, MOVE, MOVE], 
                 name, { memory: {role: 'harvester'} });
 			}
             else if (name.startsWith('B')){
@@ -41,11 +41,11 @@ var auto_respawn = function(){
                 name, { memory: {role: 'builder'} });
 			}
             else if (name.startsWith('R')){
-                Game.spawns['Boopy1'].spawnCreep([WORK, CARRY, MOVE, MOVE], 
+                Game.spawns['Boopy1'].spawnCreep([WORK, CARRY, CARRY, MOVE, MOVE], 
                 name, { memory: {role: 'repairer'} });
 			}
             else if (name.startsWith('r')){
-                Game.spawns['Boopy1'].spawnCreep([WORK, CARRY, MOVE, MOVE], 
+                Game.spawns['Boopy1'].spawnCreep([WORK, CARRY, MOVE, MOVE, MOVE], 
                 name, { memory: {role: 'runner'} });
 			}
 		}
