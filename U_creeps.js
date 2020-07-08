@@ -1,4 +1,7 @@
 // JavaScript source code
+var r_harvester = require('R_harvester');
+var r_builder = require('R_builder');
+var r_repairer = require('R_repairer');
 
 var creeps = ['H1','H2','H3',
               'B1','B2','B3','B4','B5',
