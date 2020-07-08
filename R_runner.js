@@ -9,7 +9,7 @@ module.exports = {
 	    }
 	    if(!creep.memory.building && creep.store.getFreeCapacity() == 0) {
 	        creep.memory.building = true;
-	        creep.say('repair');
+	        creep.say('pass');
 	    }
 
 	    if(creep.memory.building) {
