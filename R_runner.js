@@ -13,11 +13,18 @@ module.exports = {
 	    }
 
 	    if(creep.memory.building) {
-			var targets = creep.room.find(FIND_MY_CREEPS, {filter: (creep) => {return (creep.memory.role == 'builder' || creep.memory.role == 'repairer')}});
+			var targets = creep.room.find(FIND_MY_CREEPS, {filter: (creep) => {return (creep.memory.role == 'builder')}});
 			for (var i in targets) {
 				if (targets[i].store[RESOURCE_ENERGY] <= 50 && creep.transfer(targets[i], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
 					creep.moveTo(targets[i], {visualizePathStyle: {stroke: '#ffeeee'}}); 
-					break;
+					return;
+				}
+			}
+			var targets = creep.room.find(FIND_MY_CREEPS, {filter: (creep) => {return (creep.memory.role == 'repairer')}});
+			for (var i in targets) {
+				if (targets[i].store[RESOURCE_ENERGY] <= 50 && creep.transfer(targets[i], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+					creep.moveTo(targets[i], {visualizePathStyle: {stroke: '#ffeeee'}}); 
+					return;
 				}
 			}
 	    }
