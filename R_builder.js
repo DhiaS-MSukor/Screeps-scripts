@@ -28,10 +28,14 @@ module.exports = {
 			
 	    }
 	    else {
-	        var sources = creep.room.find(FIND_SOURCES);
-            if(creep.harvest(sources[0]) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(sources[0], {visualizePathStyle: {stroke: '#ffaa11'}});
-            }
+	        var sources = creep.room.find(FIND_STRUCTURES, {filter: (structure) => { return (structure.structureType == STRUCTURE_CONTAINER)}});
+			for (var i in sources) {
+				if(sources[i].store[RESOURCE_ENERGY] != 0 && creep.harvest(sources[i]) == ERR_NOT_IN_RANGE) {
+					creep.moveTo(sources[i], {visualizePathStyle: {stroke: '#ffaa11'}});
+				}
+				break;
+			}
+            
 	    }
 	}
     
