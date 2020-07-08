@@ -25,8 +25,8 @@ module.exports = {
 	    }
 
 	    if(creep.memory.building) {
-            if(creep.repair(targets[i]) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(targets[i], {visualizePathStyle: {stroke: '#ffffee'}});
+            if(creep.repair(target) == ERR_NOT_IN_RANGE) {
+                creep.moveTo(target, {visualizePathStyle: {stroke: '#ffffee'}});
             }
 	    }
 	    else {
