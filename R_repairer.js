@@ -10,7 +10,6 @@ module.exports = {
 	    }
 	    if(!creep.memory.building && creep.store.getFreeCapacity() == 0) {
 	        creep.memory.building = true;
-			find_target(creep);
 	        creep.say('repair');
 	    }
 
