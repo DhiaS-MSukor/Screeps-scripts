@@ -1,8 +1,8 @@
 var target;
 
 var find_target = function(creep){
-	let targets = creep.room.find(FIND_STRUCTURES);
-	for (let i in targets) {
+	var targets = creep.room.find(FIND_STRUCTURES);
+	for (var i in targets) {
 		if (targets[i].hits < targets[i].hitsMax) {
 			target = targets[i];
 		}
@@ -25,8 +25,8 @@ module.exports = {
 	    }
 
 	    if(creep.memory.building) {
-            if(creep.repair(target) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(target, {visualizePathStyle: {stroke: '#ffffee'}});
+            if(creep.repair(targets[i]) == ERR_NOT_IN_RANGE) {
+                creep.moveTo(targets[i], {visualizePathStyle: {stroke: '#ffffee'}});
             }
 	    }
 	    else {
