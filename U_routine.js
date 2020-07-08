@@ -2,9 +2,11 @@
 
 var r_harvester = require('R_harvester');
 var r_builder = require('R_builder');
+var r_repairer = require('R_repairer');
 
 var creeps = ['H1',
-              'B1','B2','B3','B4','B5','B6','B7','B8','B9','B10'];
+              'B1','B2','B3','B4','B5','B6','B7','B8','B9','B10',
+              'R1'];
 
 module.exports = {
   run: function() {
@@ -23,6 +25,9 @@ module.exports = {
         else if(creep.memory.role == 'builder') {
             r_builder.run(creep);
         }
+        else if(creep.memory.role == 'repairer') {
+            r_repairer.run(creep);
+        }
       }
 
       for (var i in creeps){
@@ -36,6 +41,10 @@ module.exports = {
             else if (name.startsWith('B')){
                 Game.spawns['Boopy1'].spawnCreep([WORK, WORK, CARRY, MOVE], 
                 name, { memory: {role: 'builder'} });
+			}
+            else if (name.startsWith('R')){
+                Game.spawns['Boopy1'].spawnCreep([WORK, CARRY, CARRY, MOVE], 
+                name, { memory: {role: 'repairer'} });
 			}
 		}
 	  }
