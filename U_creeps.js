@@ -4,8 +4,8 @@ var r_builder = require('R_builder');
 var r_repairer = require('R_repairer');
 var r_runner = require('R_runner');
 
-var creeps = ['H1',
-              'B1',
+var creeps = ['H1', 'H2', 'H3', 
+              'B1', 'B2', 'B3',
               'R1',
               'r1'];
 
