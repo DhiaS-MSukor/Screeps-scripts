@@ -4,9 +4,9 @@ var r_builder = require('R_builder');
 var r_repairer = require('R_repairer');
 var r_runner = require('R_runner');
 
-var creeps = ['H1','H2','H3',
-              'B1','B2','B3','B4','B5',
-              'R1', 'R2', 'R3',
+var creeps = ['H1',
+              'B1',
+              'R1',
               'r1'];
 
 var run_role = function(){
@@ -30,7 +30,6 @@ var run_role = function(){
 var auto_respawn = function(){
     for (var i in creeps){
         var name = creeps[i]; 
-
         if (!(name in Game.creeps)) {
             if (name.startsWith('H')){
                 Game.spawns['Boopy1'].spawnCreep([WORK, CARRY, CARRY, MOVE, MOVE], 
