@@ -36,7 +36,7 @@ var auto_respawn = function(){
                 name, { memory: {role: 'builder'} });
 			}
             else if (name.startsWith('R')){
-                Game.spawns['Boopy1'].spawnCreep([WORK, CARRY, CARRY, MOVE], 
+                Game.spawns['Boopy1'].spawnCreep([WORK, CARRY, MOVE, MOVE], 
                 name, { memory: {role: 'repairer'} });
 			}
 		}
