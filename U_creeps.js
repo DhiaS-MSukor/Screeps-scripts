@@ -5,15 +5,15 @@ var r_repairer = require('R_repairer');
 var r_runner = require('R_runner');
 
 // ordered high to low priority
-var creeps = ['B4', 'B5',
-              'H4', 'H5', 
-              'R2', 'R3', 
-              'B2', 'B3', 
-              'H2', 'H3', 
-              'r1',
+var creeps = ['r1',
               'R1', 
               'B1', 
               'H1', 
+              'H2', 'H3', 
+              'B2', 'B3', 
+              'R2', 'R3', 
+              'H4', 'H5', 
+              'B4', 'B5',
               ];// 5H 5B 3R 1r
 
 var run_role = function(){
@@ -54,6 +54,8 @@ var auto_respawn = function(){
                 Game.spawns['Boopy1'].spawnCreep([WORK, CARRY, MOVE, MOVE, MOVE], 
                 name, { memory: {role: 'runner'} });
 			}
+
+            break;
 		}
 	}
 }
