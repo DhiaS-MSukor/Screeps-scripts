@@ -4,10 +4,17 @@ var r_builder = require('R_builder');
 var r_repairer = require('R_repairer');
 var r_runner = require('R_runner');
 
-var creeps = ['H1', 'H2', 'H3', 'H4', 'H5', 
-              'B1', 'B2', 'B3', 'B4', 'B5', 
-              'R1', 'R2', 'R3', 
-              'r1'];
+// ordered high to low priority
+var creeps = ['B4', 'B5',
+              'H4', 'H5', 
+              'R2', 'R3', 
+              'B2', 'B3', 
+              'H2', 'H3', 
+              'r1',
+              'R1', 
+              'B1', 
+              'H1', 
+              ];
 
 var run_role = function(){
     for(var name in Game.creeps) {
