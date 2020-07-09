@@ -4,7 +4,7 @@ var r_builder = require('R_builder');
 var r_repairer = require('R_repairer');
 var r_runner = require('R_runner');
 
-// ordered high to low priority
+// ordered low to high priority
 var creeps = ['H1', 
               'B1', 
               'R1', 
