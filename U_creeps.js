@@ -14,7 +14,7 @@ var creeps = ['B4', 'B5',
               'R1', 
               'B1', 
               'H1', 
-              ];
+              ];// 5H 5B 3R 1r
 
 var run_role = function(){
     for(var name in Game.creeps) {
