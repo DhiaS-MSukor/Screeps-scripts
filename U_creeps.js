@@ -6,7 +6,7 @@ var r_runner = require('R_runner');
 
 var creeps = ['H1', 'H2', 'H3', 'H4', 'H5', 
               'B1', 'B2', 'B3', 
-              'R1', 'R2', 'R3',
+              'R1', 
               'r1'];
 
 var run_role = function(){
