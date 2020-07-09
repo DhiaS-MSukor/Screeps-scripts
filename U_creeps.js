@@ -5,10 +5,10 @@ var r_repairer = require('R_repairer');
 var r_runner = require('R_runner');
 
 // ordered high to low priority
-var creeps = ['r1',
-              'R1', 
+var creeps = ['H1', 
               'B1', 
-              'H1', 
+              'R1', 
+              'r1',
               'H2', 'H3', 
               'B2', 'B3', 
               'R2', 'R3', 
