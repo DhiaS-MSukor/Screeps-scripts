@@ -25,7 +25,7 @@ module.exports = {
 			var targets = creep.room.find(FIND_MY_CREEPS, {filter: (creep) => {return (creep.memory.role == 'repairer')}});
 			for (var i in targets) {
 				if (targets[i].store[RESOURCE_ENERGY] < 50) {
-					if (creep.transfer(targets[i], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE)) {
+					if (creep.transfer(targets[i], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
 						creep.moveTo(targets[i], {visualizePathStyle: {stroke: '#ffeeee'}}); 
 					}
 					
