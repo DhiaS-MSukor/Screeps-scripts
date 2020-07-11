@@ -13,8 +13,8 @@ var creeps = ['H1',
               'B2', 'B3', 
               'R2', 'R3', 
               'H4', 'H5', 
-              'B4', 'B5', 
-              'B6',
+              //'B4', 'B5', 
+              //'B6',
               ];// 5H 6B 3R 1r
 
 var run_role = function(){
