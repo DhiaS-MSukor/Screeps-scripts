@@ -13,8 +13,8 @@ var creeps = ['H1',
               'B2', 'B3', 
               'R2', 'R3', 
               'H4', 'H5', 
-              //'B4', 'B5', 
-              //'B6',
+              'B4', 'B5', 
+              'B6',
               ];// 5H 6B 3R 1r
 
 var run_role = function(){
@@ -40,7 +40,7 @@ var auto_respawn = function(){
         var name = creeps[i]; 
         if (!(name in Game.creeps)) {
             if (name.startsWith('H')){
-                Game.spawns['Boopy1'].spawnCreep([WORK, CARRY, CARRY, MOVE, MOVE], 
+                Game.spawns['Boopy1'].spawnCreep([WORK, WORK, CARRY, MOVE], 
                 name, { memory: {role: 'harvester'} });
 			}
             else if (name.startsWith('B')){
@@ -48,7 +48,7 @@ var auto_respawn = function(){
                 name, { memory: {role: 'builder'} });
 			}
             else if (name.startsWith('R')){
-                Game.spawns['Boopy1'].spawnCreep([WORK, CARRY, CARRY, MOVE, MOVE], 
+                Game.spawns['Boopy1'].spawnCreep([WORK, CARRY, MOVE, MOVE, MOVE], 
                 name, { memory: {role: 'repairer'} });
 			}
             else if (name.startsWith('r')){
