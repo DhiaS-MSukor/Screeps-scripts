@@ -1,4 +1,4 @@
-var doTransfer = function(targets) {
+var doTransfer = function(targets, creep) {
     if (targets.length > 0) {
         if(creep.transfer(targets[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
             creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffffff'}});
@@ -34,7 +34,7 @@ module.exports = {
                                 structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;}
             });
 
-            if (doTransfer(targets)) {
+            if (doTransfer(targets, creep)) {
                 return;
             }
 
@@ -43,7 +43,7 @@ module.exports = {
                                 structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;}
             });
 
-            if (doTransfer(targets)) {
+            if (doTransfer(targets, creep)) {
                 return;
             }
              
@@ -52,7 +52,7 @@ module.exports = {
                                 structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;}
             });
 
-            if (doTransfer(targets)) {
+            if (doTransfer(targets, creep)) {
                 return;
             }
 

@@ -1,5 +1,5 @@
 // JavaScript source code
-var doTransfer = function(targets) {
+var doTransfer = function(targets, creep) {
 	for (var i in targets) {
 		if (targets[i].store[RESOURCE_ENERGY] < 50) {
 			if (creep.transfer(targets[i], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE){
@@ -26,13 +26,13 @@ module.exports = {
 
 	    if(creep.memory.building) {
 			var targets = creep.room.find(FIND_STRUCTURES, {filter: (structure) => { return (structure.structureType == STRUCTURE_EXTENSION)}});
-			if (doTransfer(targets)) {return;} 
+			if (doTransfer(targets, creep)) {return;} 
 
 			var targets = creep.room.find(FIND_MY_CREEPS, {filter: (creep) => {return (creep.memory.role == 'builder')}});
-			if (doTransfer(targets)) {return;} 
+			if (doTransfer(targets, creep)) {return;} 
 
 			var targets = creep.room.find(FIND_MY_CREEPS, {filter: (creep) => {return (creep.memory.role == 'repairer')}});
-			if (doTransfer(targets)) {return;} 
+			if (doTransfer(targets, creep)) {return;} 
 	    }
 	    else {
 			var sources = creep.room.find(FIND_STRUCTURES, {filter: (structure) => { return (structure.structureType == STRUCTURE_CONTAINER)}});
