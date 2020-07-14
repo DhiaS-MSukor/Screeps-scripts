@@ -3,6 +3,7 @@ module.exports = {
 
     /** @param {Creep} creep **/
     run: function(creep) {
+		var targets;
 
 	    if(creep.memory.building && creep.store[RESOURCE_ENERGY] == 0) {
             creep.memory.building = false;
@@ -14,30 +15,28 @@ module.exports = {
 	    }
 
 	    if(creep.memory.building) {
-			var targets = creep.room.find(FIND_STRUCTURES);
-			for (var i in targets) {
-				if (targets[i].hits < targets[i].hitsMax) {
-					if (creep.repair(targets[i]) == ERR_NOT_IN_RANGE) {
-						creep.moveTo(targets[i], {visualizePathStyle: {stroke: '#ffffee'}}); 
-					}
-					
-					break;
+			targets = creep.room.find(FIND_STRUCTURES, {filter: (structure) => { return (targets[i].hits < targets[i].hitsMax)}});
+			if (targets.length) {
+				if (creep.repair(targets[0]) == ERR_NOT_IN_RANGE) {
+					creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffffee'}}); 
+					return;
 				}
 			}
 	    }
+
 	    else {
-			var sources = creep.room.find(FIND_STRUCTURES, {filter: (structure) => { return (structure.structureType == STRUCTURE_CONTAINER &&
+			targets = creep.room.find(FIND_STRUCTURES, {filter: (structure) => { return (structure.structureType == STRUCTURE_CONTAINER &&
 																							 structure.store[RESOURCE_ENERGY] != 0)}});
-			if (sources.length > 0) {
-				if (creep.withdraw(sources[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-					creep.moveTo(sources[0], {visualizePathStyle: {stroke: '#ffaa11'}});
+			if (targets.length) {
+				if (creep.withdraw(targets[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+					creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffaa11'}});
 					return;
 				} 
 			}
 
-	        var sources = creep.room.find(FIND_SOURCES);
-            if(creep.harvest(sources[0]) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(sources[0], {visualizePathStyle: {stroke: '#ffbb00'}});
+	        targets = creep.room.find(FIND_SOURCES);
+            if(creep.harvest(targets[0]) == ERR_NOT_IN_RANGE) {
+                creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffbb00'}});
             }
 	    }
 	}

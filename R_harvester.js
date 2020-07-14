@@ -1,5 +1,5 @@
 var doTransfer = function(targets, creep) {
-    if (targets.length > 0) {
+    if (targets.length) {
         if(creep.transfer(targets[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
             creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffffff'}});
             return true;
@@ -13,6 +13,7 @@ module.exports = {
 
     /** @param {Creep} creep **/
     run: function(creep) {
+        var targets;
         if (creep.memory.harvest && creep.store.getFreeCapacity() == 0) {
             creep.memory.harvest = false;
             creep.say('transfer');
@@ -23,13 +24,14 @@ module.exports = {
 	    }
 
 	    if (creep.memory.harvest) {
-            var sources = creep.room.find(FIND_SOURCES);
-            if(creep.harvest(sources[0]) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(sources[0], {visualizePathStyle: {stroke: '#ffaa00'}});
+            targets = creep.room.find(FIND_SOURCES);
+            if(creep.harvest(targets[0]) == ERR_NOT_IN_RANGE) {
+                creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffaa00'}});
             }
         }
+
         else {
-            var targets = creep.room.find(FIND_STRUCTURES, {filter: (structure) => { return (structure.structureType == STRUCTURE_CONTAINER) &&
+            targets = creep.room.find(FIND_STRUCTURES, {filter: (structure) => { return (structure.structureType == STRUCTURE_CONTAINER) &&
                                                                                      structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;}
             });
 
@@ -37,7 +39,7 @@ module.exports = {
                 return;
             }
              
-            var targets = creep.room.find(FIND_STRUCTURES, {filter: (structure) => { return (structure.structureType == STRUCTURE_SPAWN) &&
+            targets = creep.room.find(FIND_STRUCTURES, {filter: (structure) => { return (structure.structureType == STRUCTURE_SPAWN) &&
                                                                                      structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;}
             });
 

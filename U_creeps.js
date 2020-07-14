@@ -19,8 +19,11 @@ var creeps = ['H1',
               ];// 5H 6B 3R 3r
 
 var run_role = function(){
+    var creep;
+
     for(var name in Game.creeps) {
-        var creep = Game.creeps[name];
+        creep = Game.creeps[name];
+
         if(creep.memory.role == 'harvester') {
             r_harvester.run(creep);
         }
@@ -37,8 +40,11 @@ var run_role = function(){
 }
 
 var auto_respawn = function(){
+    var name;
+
     for (var i in creeps){
-        var name = creeps[i]; 
+        name = creeps[i]; 
+
         if (!(name in Game.creeps)) {
             if (name.startsWith('H')){
                 Game.spawns['Boopy1'].spawnCreep([WORK, WORK, CARRY, MOVE], 
