@@ -1,12 +1,10 @@
 // JavaScript source code
 var doTransfer = function(targets, creep) {
-	for (var i in targets) {
-		if (targets[i].store[RESOURCE_ENERGY] < 50) {
-			if (creep.transfer(targets[i], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE){
-				creep.moveTo(targets[i], {visualizePathStyle: {stroke: '#ffeeee'}});  
-			} 
+	if (targets.length > 0) {
+		if (creep.transfer(targets[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE){
+			creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffeeee'}});  
 			return true;
-		}
+		} 
 	}
 	return false;
 }
@@ -25,25 +23,30 @@ module.exports = {
 	    }
 
 	    if(creep.memory.building) {
-			var targets = creep.room.find(FIND_STRUCTURES, {filter: (structure) => { return (structure.structureType == STRUCTURE_EXTENSION)}});
+			var targets = creep.room.find(FIND_STRUCTURES, {filter: (targets) => { return (targets.structureType == STRUCTURE_EXTENSION && 
+																						   targets.store.getFreeCapacity(RESOURCE_ENERGY) > 0)}});
 			if (doTransfer(targets, creep)) {return;} 
 
-			var targets = creep.room.find(FIND_MY_CREEPS, {filter: (creep) => {return (creep.memory.role == 'builder')}});
+			var targets = creep.room.find(FIND_STRUCTURES, {filter: (targets) => { return (targets.structureType == STRUCTURE_TOWER && 
+																						   targets.store.getFreeCapacity(RESOURCE_ENERGY) > 0)}});
+			if (doTransfer(targets, creep)) {return;}
+
+			var targets = creep.room.find(FIND_MY_CREEPS, {filter: (targets) => {return (targets.memory.role == 'builder' && 
+																						 targets.store.getFreeCapacity(RESOURCE_ENERGY) > 0)}});
 			if (doTransfer(targets, creep)) {return;} 
 
-			var targets = creep.room.find(FIND_MY_CREEPS, {filter: (creep) => {return (creep.memory.role == 'repairer')}});
+			var targets = creep.room.find(FIND_MY_CREEPS, {filter: (targets) => {return (targets.memory.role == 'repairer' && 
+																						 targets.store.getFreeCapacity(RESOURCE_ENERGY) > 0)}});
 			if (doTransfer(targets, creep)) {return;} 
 	    }
 	    else {
-			var sources = creep.room.find(FIND_STRUCTURES, {filter: (structure) => { return (structure.structureType == STRUCTURE_CONTAINER)}});
-			for (var i in sources) {
-				if(sources[i].store[RESOURCE_ENERGY] != 0) {
-					if (creep.withdraw(sources[i], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-						creep.moveTo(sources[i], {visualizePathStyle: {stroke: '#ff0022'}});
-					}
-					
+			var targets = creep.room.find(FIND_STRUCTURES, {filter: (targets) => { return (targets.structureType == STRUCTURE_CONTAINER && 
+																						   targets.store[RESOURCE_ENERGY] != 0)}});
+			if (targets.length > 0) {
+				if (creep.withdraw(targets[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+					creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ff0022'}});
 					return;
-				} 
+				}
 			}
 
 	        var sources = creep.room.find(FIND_SOURCES);
