@@ -13,6 +13,17 @@ module.exports = {
 	    }
 
 	    if(creep.memory.building) {
+			var sources = creep.room.find(FIND_STRUCTURES, {filter: (structure) => { return (structure.structureType == STRUCTURE_EXTENSION)}});
+			for (var i in sources) {
+				if(sources[i].store[RESOURCE_ENERGY] != 0) {
+					if (creep.transfer(sources[i], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+						creep.moveTo(sources[i], {visualizePathStyle: {stroke: '#ff0022'}});
+					}
+					
+					return;
+				} 
+			}
+
 			var targets = creep.room.find(FIND_MY_CREEPS, {filter: (creep) => {return (creep.memory.role == 'builder')}});
 			for (var i in targets) {
 				if (targets[i].store[RESOURCE_ENERGY] < 50) {
