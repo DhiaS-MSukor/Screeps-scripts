@@ -16,7 +16,7 @@ var creeps = ['H1',
               'H4', 'H5', 
               'B4', 'B5', 
               'B6',
-              ];// 5H 6B 3R 1r
+              ];// 5H 6B 3R 3r
 
 var run_role = function(){
     for(var name in Game.creeps) {
@@ -53,7 +53,7 @@ var auto_respawn = function(){
                 name, { memory: {role: 'repairer'} });
 			}
             else if (name.startsWith('r')){
-                Game.spawns['Boopy1'].spawnCreep([WORK, CARRY, MOVE, MOVE, MOVE], 
+                Game.spawns['Boopy1'].spawnCreep([CARRY, CARRY, CARRY, MOVE, MOVE, MOVE], 
                 name, { memory: {role: 'runner'} });
 			}
 
