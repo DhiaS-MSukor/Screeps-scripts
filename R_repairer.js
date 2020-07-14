@@ -15,7 +15,7 @@ module.exports = {
 	    }
 
 	    if(creep.memory.building) {
-			targets = creep.room.find(FIND_STRUCTURES, {filter: (structure) => { return (targets[i].hits < targets[i].hitsMax)}});
+			targets = creep.room.find(FIND_STRUCTURES, {filter: (structure) => { return (structure.hits < structure.hitsMax)}});
 			if (targets.length) {
 				if (creep.repair(targets[0]) == ERR_NOT_IN_RANGE) {
 					creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffffee'}}); 
