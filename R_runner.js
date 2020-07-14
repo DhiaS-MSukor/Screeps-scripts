@@ -23,14 +23,18 @@ module.exports = {
 	    }
 
 	    if(creep.memory.building) {
-			var targets = creep.room.find(FIND_STRUCTURES, {filter: (targets) => { return (targets.structureType == STRUCTURE_EXTENSION && 
+			var targets = creep.room.find(FIND_STRUCTURES, {filter: (targets) => { return (targets.structureType == STRUCTURE_SPAWN && 
 																						   targets.store.getFreeCapacity(RESOURCE_ENERGY) > 0)}});
-			if (doTransfer(targets, creep)) {return;} 
+			if (doTransfer(targets, creep)) {return;}
 
 			var targets = creep.room.find(FIND_STRUCTURES, {filter: (targets) => { return (targets.structureType == STRUCTURE_TOWER && 
 																						   targets.store.getFreeCapacity(RESOURCE_ENERGY) > 0)}});
 			if (doTransfer(targets, creep)) {return;}
 
+			var targets = creep.room.find(FIND_STRUCTURES, {filter: (targets) => { return (targets.structureType == STRUCTURE_EXTENSION && 
+																						   targets.store.getFreeCapacity(RESOURCE_ENERGY) > 0)}});
+			if (doTransfer(targets, creep)) {return;} 
+			 
 			var targets = creep.room.find(FIND_MY_CREEPS, {filter: (targets) => {return (targets.memory.role == 'builder' && 
 																						 targets.store.getFreeCapacity(RESOURCE_ENERGY) > 0)}});
 			if (doTransfer(targets, creep)) {return;} 

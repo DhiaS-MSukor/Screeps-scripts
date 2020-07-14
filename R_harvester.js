@@ -29,27 +29,16 @@ module.exports = {
             }
         }
         else {
-            var targets = creep.room.find(FIND_STRUCTURES, { filter: (structure) => {
-                        return (structure.structureType == STRUCTURE_TOWER) &&
-                                structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;}
-            });
-
-            if (doTransfer(targets, creep)) {
-                return;
-            }
-
-            var targets = creep.room.find(FIND_STRUCTURES, {filter: (structure) => {
-                        return (structure.structureType == STRUCTURE_CONTAINER) &&
-                                structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;}
+            var targets = creep.room.find(FIND_STRUCTURES, {filter: (structure) => { return (structure.structureType == STRUCTURE_CONTAINER) &&
+                                                                                     structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;}
             });
 
             if (doTransfer(targets, creep)) {
                 return;
             }
              
-            var targets = creep.room.find(FIND_STRUCTURES, {filter: (structure) => {
-                        return (structure.structureType == STRUCTURE_SPAWN) &&
-                                structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;}
+            var targets = creep.room.find(FIND_STRUCTURES, {filter: (structure) => { return (structure.structureType == STRUCTURE_SPAWN) &&
+                                                                                     structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;}
             });
 
             if (doTransfer(targets, creep)) {
