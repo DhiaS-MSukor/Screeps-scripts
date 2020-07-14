@@ -7,8 +7,8 @@ var r_runner = require('R_runner');
 // ordered low to high priority
 var creeps = ['H1', 
               'B1', 
-              'R1', 
               'r1',
+              'R1', 
               'H2', 'H3', 
               'B2', 'B3', 
               'R2', 'R3', 
