@@ -2,20 +2,32 @@
 
 module.exports = {
 	run: function() {
+        var target;
 		var tower = Game.getObjectById('5f0890983513bc4000713369');
 
         if(tower) {
-            var closestDamagedStructure = tower.pos.findClosestByRange(FIND_STRUCTURES, {
+            target = tower.pos.findClosestByRange(FIND_MY_STRUCTURES, {
                 filter: (structure) => structure.hits < structure.hitsMax
             });
 
-            if(closestDamagedStructure) {
-                tower.repair(closestDamagedStructure);
+            if(target) {
+                tower.repair(target);
+                return;
             }
 
-            var closestHostile = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
-            if(closestHostile) {
-                tower.attack(closestHostile);
+            target = tower.pos.findClosestByRange(FIND_STRUCTURES, {
+                filter: (structure) => structure.hits < structure.hitsMax
+            });
+
+            if(target) {
+                tower.repair(target);
+                return;
+            }
+
+            target = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
+            if(target) {
+                tower.attack(target);
+                return;
             }
         } 
 	}
