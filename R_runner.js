@@ -24,6 +24,13 @@ module.exports = {
 	    }
 
 	    if(creep.memory.building) {
+			targets = creep.pos.findClosestByRange(FIND_DROPPED_RESOURCES);
+			if(targets) {
+				if(creep.pickup(targets) == ERR_NOT_IN_RANGE) {
+					creep.moveTo(targets);
+				}
+			} 
+
 			targets = creep.room.find(FIND_STRUCTURES, {filter: (targets) => { return (targets.structureType == STRUCTURE_SPAWN && 
 																						   targets.store.getFreeCapacity(RESOURCE_ENERGY) > 0)}});
 			if (doTransfer(targets, creep)) {return;}
