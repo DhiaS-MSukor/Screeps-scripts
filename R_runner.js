@@ -59,12 +59,7 @@ module.exports = {
 					creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ff0022'}});
 					return;
 				}
-			}
-
-	        targets = creep.room.find(FIND_SOURCES);
-            if(creep.harvest(targets[0]) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ff0022'}});
-            }
+			} 
 	    }
 	}
 };
