@@ -12,7 +12,7 @@ module.exports = {
                 return;
             }
 
-            target = tower.pos.findClosestByRange(FIND_STRUCTURES, {
+            target = tower.pos.findClosestByRange(FIND_MY_STRUCTURES, {
                 filter: (structure) => structure.hits < structure.hitsMax
             });
 
