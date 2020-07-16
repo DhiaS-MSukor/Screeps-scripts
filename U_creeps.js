@@ -84,7 +84,7 @@ var auto_respawn = function(){
         do_spawn('Boopy1', 'repairer'); 
         return;
     }
-    if (runner.length < 3) {
+    if (runner.length < 2) {
         do_spawn('Boopy1', 'runner'); 
         return;
     } 
