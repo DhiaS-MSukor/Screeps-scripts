@@ -45,28 +45,28 @@ var auto_respawn = function(){
 
     var harvester = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester'); 
 
-    if (harvester.length) { 
+    if (!harvester.length) { 
         do_spawn('Boopy1', 'harvester'); 
         return;
     }
 
     var builder = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder'); 
 
-    if (builder.length) {
+    if (!builder.length) {
         do_spawn('Boopy1', 'builder'); 
         return;
     }
 
     var repairer = _.filter(Game.creeps, (creep) => creep.memory.role == 'repairer'); 
 
-    if (repairer.length) {
+    if (!repairer.length) {
         do_spawn('Boopy1', 'repairer'); 
         return;
     }
 
     var runner = _.filter(Game.creeps, (creep) => creep.memory.role == 'runner'); 
 
-    if (runner.length) {
+    if (!runner.length) {
         do_spawn('Boopy1', 'runner'); 
         return;
     } 
