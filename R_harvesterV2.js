@@ -1,8 +1,8 @@
 // JavaScript source code
 var doTransfer = function(targets, creep) {
-    if (targets.length) {
-        if(creep.transfer(targets[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-            creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffffff'}});
+    if (targets) {
+        if(creep.transfer(targets, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+            creep.moveTo(targets, {visualizePathStyle: {stroke: '#ffffff'}});
             return true;
         }
     }
@@ -40,9 +40,9 @@ module.exports = {
                 return;
 			}
 
-            targets = creep.room.find(FIND_SOURCES);
-            if(creep.harvest(targets[0]) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffaa00'}});
+            targets = creep.pos.findClosestByRange(FIND_SOURCES);
+            if(creep.harvest(targets) == ERR_NOT_IN_RANGE) {
+                creep.moveTo(targets, {visualizePathStyle: {stroke: '#ffaa00'}});
             }
         }
 
@@ -52,12 +52,12 @@ module.exports = {
                 return;
 			}
 
-            targets = creep.room.find(FIND_STRUCTURES, {filter: (structure) => { return (structure.structureType == STRUCTURE_CONTAINER) &&
-                                                                                     structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;}});
+            targets = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => { return (structure.structureType == STRUCTURE_CONTAINER) &&
+                                                                                                      structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;}});
             if (doTransfer(targets, creep)) { return; }
              
-            targets = creep.room.find(FIND_STRUCTURES, {filter: (structure) => { return (structure.structureType == STRUCTURE_SPAWN) &&
-                                                                                     structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;}});
+            targets = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => { return (structure.structureType == STRUCTURE_SPAWN) &&
+                                                                                                      structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;}});
             if (doTransfer(targets, creep)) { return; }
 
         }
