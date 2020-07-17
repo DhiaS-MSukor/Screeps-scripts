@@ -3,6 +3,8 @@ var r_harvester = require('R_harvester');
 var r_builder = require('R_builder');
 var r_repairer = require('R_repairer');
 var r_runner = require('R_runner'); 
+var r_claimer = require('R_claimer'); 
+var r_harvesterV2 = require('R_harvesterV2'); 
 
 var run_role = function(){
     var creep;
@@ -22,6 +24,12 @@ var run_role = function(){
         else if(creep.memory.role == 'runner') {
             r_runner.run(creep);
         }
+        else if(creep.memory.role == 'claimer') {
+            r_claimer.run(creep);
+        }
+        else if(creep.memory.role == 'harvesterV2') {
+            r_harvesterV2.run(creep);
+        }
     }
 }
 
@@ -37,6 +45,12 @@ var do_spawn = function(spawn, theRole) {
 	}
     else if (theRole == 'runner') {
         Game.spawns[spawn].spawnCreep([CARRY, CARRY, CARRY, MOVE, MOVE, MOVE], theRole + Game.time, {memory: {role: theRole}});
+	}
+    else if (theRole == 'claimer') {
+        Game.spawns[spawn].spawnCreep([CLAIM, MOVE], theRole + Game.time, {memory: {role: theRole}});
+	}
+    else if (theRole == 'harvesterV2') {
+        Game.spawns[spawn].spawnCreep([WORK, CARRY, MOVE, MOVE, MOVE], theRole + Game.time, {memory: {role: theRole}});
 	}
 }
 
@@ -86,6 +100,19 @@ var auto_respawn = function(){
     }
     if (runner.length < 2) {
         do_spawn('Boopy1', 'runner'); 
+        return;
+    } 
+
+    //==========
+    var claimer = _.filter(Game.creeps, (creep) => creep.memory.role == 'claimer'); 
+    if (!claimer.length) {
+        do_spawn('Boopy1', 'claimer'); 
+        return;
+    } 
+
+    var harvesterV2 = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvesterV2'); 
+    if (harvesterV2.length < 5) {
+        do_spawn('Boopy1', 'harvesterV2'); 
         return;
     } 
 }
