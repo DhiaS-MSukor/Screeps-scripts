@@ -45,10 +45,10 @@ module.exports = {
 			if (doTransfer(targets, creep)) {return;} 
 	    }
 	    else { 
-			targets = creep.pos.findClosestByRange(FIND_DROPPED_RESOURCES);
-			if(targets) {
-				if(creep.pickup(targets) == ERR_NOT_IN_RANGE) {
-					creep.moveTo(targets);
+			targets = creep.room.find(FIND_DROPPED_RESOURCES);
+			if(targets.length) {
+				if(creep.pickup(targets[0]) == ERR_NOT_IN_RANGE) {
+					creep.moveTo(targets[0]);
 				}
 			} 
 
