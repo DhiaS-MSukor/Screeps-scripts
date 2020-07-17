@@ -14,11 +14,11 @@ module.exports = {
 	    }
 
 	    if(creep.memory.building) {
-	        targets = creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES);
+	        targets = creep.room.find(FIND_CONSTRUCTION_SITES);
             
-			if(targets) {
-                if(creep.build(targets) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(targets, {visualizePathStyle: {stroke: '#ffeeff'}});
+			if(targets.length) {
+                if(creep.build(targets[0]) == ERR_NOT_IN_RANGE) {
+                    creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffeeff'}});
                 }
             }
 
@@ -30,18 +30,18 @@ module.exports = {
 			
 	    }
 	    else {
-	        var sources = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => { return (structure.structureType == STRUCTURE_CONTAINER &&
+	        var sources = creep.room.find(FIND_STRUCTURES, {filter: (structure) => { return (structure.structureType == STRUCTURE_CONTAINER &&
 																							 structure.store[RESOURCE_ENERGY] != 0)}});
-			if (sources) {
-				if (creep.withdraw(sources, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-					creep.moveTo(sources, {visualizePathStyle: {stroke: '#ffaa11'}});
+			if (sources.length) {
+				if (creep.withdraw(sources[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+					creep.moveTo(sources[0], {visualizePathStyle: {stroke: '#ffaa11'}});
 					return;
 				} 
 			}
 
-            var sources = creep.pos.findClosestByRange(FIND_SOURCES);
-            if(creep.harvest(sources) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(sources, {visualizePathStyle: {stroke: '#ffaa11'}});
+            var sources = creep.room.find(FIND_SOURCES);
+            if(creep.harvest(sources[0]) == ERR_NOT_IN_RANGE) {
+                creep.moveTo(sources[0], {visualizePathStyle: {stroke: '#ffaa11'}});
             }
 	    }
 	}
