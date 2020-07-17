@@ -1,14 +1,12 @@
 // JavaScript source code
-var doClaim = function(creep, targets) {
-    if (targets.length) {
-        if(creep.attackController(targets[0]) != OK) {
-            if (creep.claimController(targets[0]) != OK) {
-                if (creep.reserveController(targets[0]) != OK) {
-                    creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffffff'}}); 
-				}  
-            }
+var doClaim = function(creep, targets) { 
+    if(creep.attackController(targets[0]) != OK) {
+        if (creep.claimController(targets[0]) != OK) {
+            if (creep.reserveController(targets[0]) != OK) {
+                creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffffff'}}); 
+			}  
         }
-    } 
+    }
 }
 
 var goToRoom = function (creep, target) {
@@ -30,6 +28,6 @@ module.exports = {
             return;
 		} 
 
-        doClaim(creep, )
+        doClaim(creep, creep,room.controller);
 	}
 };
