@@ -112,7 +112,7 @@ var auto_respawn = function(){
 
     //==========
     var defender = _.filter(Game.creeps, (creep) => creep.memory.role == 'defender'); 
-    if (harvesterV2.length < 1) {
+    if (defender.length < 1) {
         do_spawn('Boopy1', 'defender'); 
         return;
     } 
