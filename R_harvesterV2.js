@@ -60,9 +60,9 @@ module.exports = {
                 return;
 			}
 
-            targets = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => { return (structure.structureType == STRUCTURE_CONTAINER) &&
+            targets = creep.room.find(FIND_STRUCTURES, {filter: (structure) => { return (structure.structureType == STRUCTURE_CONTAINER) &&
                                                                                      structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;}});
-            if (doTransfer([targets], creep)) { return; }
+            if (doTransfer(targets, creep)) { return; }
              
             targets = creep.room.find(FIND_STRUCTURES, {filter: (structure) => { return (structure.structureType == STRUCTURE_SPAWN) &&
                                                                                      structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;}});
