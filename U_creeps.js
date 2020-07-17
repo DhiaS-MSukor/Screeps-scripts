@@ -72,7 +72,7 @@ var auto_respawn = function(){
     } 
 
     //============
-    if (harvester.length < 4) {
+    if (harvester.length < 3) {
         do_spawn('Boopy1', 'harvester'); 
         return;
     }
