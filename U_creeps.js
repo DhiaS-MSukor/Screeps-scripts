@@ -105,7 +105,7 @@ var auto_respawn = function(){
 
     //==========
     var claimer = _.filter(Game.creeps, (creep) => creep.memory.role == 'claimer'); 
-    if (!claimer.length) {
+    if (claimer.length < 0) {
         do_spawn('Boopy1', 'claimer'); 
         return;
     } 
