@@ -12,19 +12,13 @@ module.exports = {
                 return;
             }
 
-            target = tower.pos.findClosestByRange(FIND_MY_STRUCTURES, {
-                filter: (structure) => structure.hits < structure.hitsMax
-            });
-
+            target = tower.pos.findClosestByRange(FIND_MY_STRUCTURES, {filter: (structure) => structure.hits < structure.hitsMax}); 
             if(target) {
                 tower.repair(target);
                 return;
             }
 
-            target = tower.pos.findClosestByRange(FIND_STRUCTURES, {
-                filter: (structure) => structure.hits < structure.hitsMax
-            });
-
+            target = tower.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => structure.hits < structure.hitsMax}); 
             if(target) {
                 tower.repair(target);
                 return;
