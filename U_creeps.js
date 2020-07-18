@@ -118,13 +118,13 @@ var auto_respawn = function(){
     } 
 
     var harvesterV2 = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvesterV2'); 
-    if (harvesterV2.length < 10) {
+    if (harvesterV2.length < 20) {
         do_spawn('Boopy1', 'harvesterV2'); 
         return;
     } 
 
     var claimer = _.filter(Game.creeps, (creep) => creep.memory.role == 'claimer'); 
-    if (claimer.length < 10) {
+    if (claimer.length < 1) {
         do_spawn('Boopy1', 'claimer'); 
         return;
     }  
