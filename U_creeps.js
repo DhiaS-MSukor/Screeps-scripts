@@ -63,7 +63,7 @@ var do_spawn = function(spawn, theRole) {
 
 var auto_respawn = function(){
     var name;
-    var spawn = Memory.mainSpawn;
+    var spawn = 'Boopy';
 
     var harvester = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester'); 
 
