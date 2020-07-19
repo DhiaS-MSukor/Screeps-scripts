@@ -93,8 +93,8 @@ var auto_respawn = function(){
     else if (spawn_check(spawn, 'runner', 5)) {return;}  
 
     else if (spawn_check(spawn, 'defender', 1)) {return;}  
-    else if (spawn_check(spawn, 'harvesterV2', 10)) {return;} 
-    else if (spawn_check(spawn, 'raider', 1)) {return;}    
+    else if (spawn_check(spawn, 'raider', 1)) {return;}   
+    else if (spawn_check(spawn, 'harvesterV2', 10)) {return;}  
     else if (spawn_check(spawn, 'claimer', 1)) {return;}   
 }
 
