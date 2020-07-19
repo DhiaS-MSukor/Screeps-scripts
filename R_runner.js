@@ -25,6 +25,7 @@ module.exports = {
     /** @param {Creep} creep **/
     run: function(creep) {
 		var targets;
+		var cache
 
 	    if(creep.memory.building && creep.store[RESOURCE_ENERGY] == 0) {
             creep.memory.building = false;
