@@ -44,8 +44,8 @@ module.exports = {
 			cache = Game.getObjectById(creep.memory.sourceTarget);
 			if (cache) {
 				if (cache.store[RESOURCE_ENERGY] != 0) {
-					if (creep.withdraw(targets[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-						creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffff00'}});
+					if (creep.withdraw(cache, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+						creep.moveTo(cache, {visualizePathStyle: {stroke: '#ffff00'}});
 						return;
 					}
 				}
