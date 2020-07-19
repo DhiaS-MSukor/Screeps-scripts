@@ -81,9 +81,9 @@ var auto_respawn = function(){
     else if (spawn_check(spawn, 'runner', 1)) {return;}
 
     else if (spawn_check(spawn, 'harvester', 3)) {return;} 
-    else if (spawn_check(spawn, 'builder', 3)) {return;} 
+    else if (spawn_check(spawn, 'builder', 5)) {return;} 
     else if (spawn_check(spawn, 'repairer', 1)) {return;} 
-    else if (spawn_check(spawn, 'runner', 2)) {return;}  
+    else if (spawn_check(spawn, 'runner', 5)) {return;}  
 
     else if (spawn_check(spawn, 'defender', 1)) {return;}  
     else if (spawn_check(spawn, 'harvesterV2', 20)) {return;}  
