@@ -35,7 +35,7 @@ module.exports = {
                                                                                      structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;}
             });
 
-            if (doTransfer(targets, creep)) {
+            if (doTransfer([targets], creep)) {
                 return;
             }
              
