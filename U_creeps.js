@@ -61,74 +61,33 @@ var do_spawn = function(spawn, theRole) {
 	}
 }
 
+var spawn_check = function(spawn, theRole, n) {
+    var creeps = _.filter(Game.creeps, (creep) => creep.memory.role == theRole); 
+
+    if (creeps.length < n) { 
+        do_spawn(spawn, 'harvester'); 
+        return true;
+    }
+    return false;
+}
+
 var auto_respawn = function(){
     var name;
     var spawn = Memory.mainSpawn;
 
-    var harvester = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester'); 
+    if (spawn_check(spawn, 'harvester', 1)) {return;}
+    else if (spawn_check(spawn, 'builder', 1)) {return;}
+    else if (spawn_check(spawn, 'repairer', 1)) {return;}
+    else if (spawn_check(spawn, 'runner', 1)) {return;}
 
-    if (!harvester.length) { 
-        do_spawn(spawn, 'harvester'); 
-        return;
-    }
+    else if (spawn_check(spawn, 'harvester', 3)) {return;} 
+    else if (spawn_check(spawn, 'builder', 3)) {return;} 
+    else if (spawn_check(spawn, 'repairer', 1)) {return;} 
+    else if (spawn_check(spawn, 'runner', 2)) {return;}  
 
-    var builder = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder'); 
-
-    if (!builder.length) {
-        do_spawn(spawn, 'builder'); 
-        return;
-    }
-
-    var repairer = _.filter(Game.creeps, (creep) => creep.memory.role == 'repairer'); 
-
-    if (!repairer.length) {
-        do_spawn(spawn, 'repairer'); 
-        return;
-    }
-
-    var runner = _.filter(Game.creeps, (creep) => creep.memory.role == 'runner'); 
-
-    if (!runner.length) {
-        do_spawn(spawn, 'runner'); 
-        return;
-    } 
-
-    //============
-    if (harvester.length < 3) {
-        do_spawn(spawn, 'harvester'); 
-        return;
-    }
-    if (builder.length < 3) {
-        do_spawn(spawn, 'builder'); 
-        return;
-    }
-    if (repairer.length < 1) {
-        do_spawn(spawn, 'repairer'); 
-        return;
-    }
-    if (runner.length < 2) {
-        do_spawn(spawn, 'runner'); 
-        return;
-    } 
-
-    //==========
-    var defender = _.filter(Game.creeps, (creep) => creep.memory.role == 'defender'); 
-    if (defender.length < 1) {
-        do_spawn(spawn, 'defender'); 
-        return;
-    } 
-
-    var harvesterV2 = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvesterV2'); 
-    if (harvesterV2.length < 20) {
-        do_spawn(spawn, 'harvesterV2'); 
-        return;
-    } 
-
-    var claimer = _.filter(Game.creeps, (creep) => creep.memory.role == 'claimer'); 
-    if (claimer.length < 1) {
-        do_spawn(spawn, 'claimer'); 
-        return;
-    }  
+    else if (spawn_check(spawn, 'defender', 1)) {return;}  
+    else if (spawn_check(spawn, 'harvesterV2', 20)) {return;}  
+    else if (spawn_check(spawn, 'claimer', 1)) {return;}   
 }
 
 module.exports = {
