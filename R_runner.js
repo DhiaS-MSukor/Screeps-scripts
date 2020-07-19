@@ -69,12 +69,9 @@ module.exports = {
 			targets = creep.room.find(FIND_TOMBSTONES, {filter: (targets) => { return (targets.store[RESOURCE_ENERGY] != 0)}});
 			if (doWithdraw(creep, targets)) {return;} 
 
-			targets = creep.room.find(FIND_STRUCTURES, {filter: (targets) => { return (targets.structureType == STRUCTURE_CONTAINER && 
+			targets = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (targets) => { return (targets.structureType == STRUCTURE_CONTAINER && 
 																						   targets.store[RESOURCE_ENERGY] != 0)}});
-			if (doWithdraw(creep, targets)) {return;} 
-
-	        targets = creep.room.find(FIND_SOURCES);
-			if (doWithdraw(creep, targets)) {return;} 
+			if (doWithdraw(creep, [targets])) {return;}  
 	    }
 	}
 };
