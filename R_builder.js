@@ -38,10 +38,13 @@ module.exports = {
 			
 	    }
 	    else {
-			if (Game.getObjectById(creep.memory.energySource).store[RESOURCE_ENERGY] != 0) {
-				if (creep.withdraw(sources[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-					creep.moveTo(sources[0], {visualizePathStyle: {stroke: '#0000ff'}});
-					return;
+			var cache = Game.getObjectById(creep.memory.energySource);
+			if (cache) {
+				if (cache.store[RESOURCE_ENERGY] != 0) {
+					if (creep.withdraw(sources[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+						creep.moveTo(sources[0], {visualizePathStyle: {stroke: '#0000ff'}});
+						return;
+					} 
 				} 
 			}
 
