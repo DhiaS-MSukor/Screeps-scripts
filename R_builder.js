@@ -14,9 +14,17 @@ module.exports = {
 	    }
 
 	    if(creep.memory.building) {
+			if (Game.getObjectById(creep.memory.buildTarget) instanceof ConstructionSite) {
+				if(creep.build(targets[0]) == ERR_NOT_IN_RANGE) {
+                    creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#0000ff'}});
+                }
+				return;
+			}
+
 	        targets = creep.room.find(FIND_CONSTRUCTION_SITES);
             
 			if(targets.length) {
+				creep.memory.buildTarget = targets[0].id;
                 if(creep.build(targets[0]) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#0000ff'}});
                 }
@@ -30,9 +38,17 @@ module.exports = {
 			
 	    }
 	    else {
+			if (Game.getObjectById(creep.memory.energySource).store[RESOURCE_ENERGY] != 0) {
+				if (creep.withdraw(sources[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+					creep.moveTo(sources[0], {visualizePathStyle: {stroke: '#0000ff'}});
+					return;
+				} 
+			}
+
 	        var sources = creep.room.find(FIND_STRUCTURES, {filter: (structure) => { return (structure.structureType == STRUCTURE_CONTAINER &&
 																							 structure.store[RESOURCE_ENERGY] != 0)}});
 			if (sources.length) {
+				creep.memory.energySource = sources[0].id;
 				if (creep.withdraw(sources[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
 					creep.moveTo(sources[0], {visualizePathStyle: {stroke: '#0000ff'}});
 					return;
