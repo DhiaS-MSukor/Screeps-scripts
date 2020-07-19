@@ -65,7 +65,7 @@ var spawn_check = function(spawn, theRole, n) {
     var creeps = _.filter(Game.creeps, (creep) => creep.memory.role == theRole); 
 
     if (creeps.length < n) { 
-        do_spawn(spawn, 'harvester'); 
+        do_spawn(spawn, theRole); 
         return true;
     }
     return false;
