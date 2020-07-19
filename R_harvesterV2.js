@@ -2,7 +2,7 @@
 var doTransfer = function(targets, creep) {
     if (targets.length) {
         if(creep.transfer(targets[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-            creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffffff'}});
+            creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#00ff00'}});
             return true;
         }
     }
@@ -14,7 +14,7 @@ var goToRoom = function (creep, target) {
     var routes = Game.map.findRoute(creep.room, target);
 
     if (routes.length) {
-        creep.moveTo(creep.pos.findClosestByRange(routes[0].exit), {visualizePathStyle: {stroke: '#ffaa00'}});
+        creep.moveTo(creep.pos.findClosestByRange(routes[0].exit), {visualizePathStyle: {stroke: '#00ff00'}});
 	} 
 }
 
@@ -50,7 +50,7 @@ module.exports = {
 
             targets = creep.room.find(FIND_SOURCES);
             if(creep.harvest(targets[0]) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffaa00'}});
+                creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#00ff00'}});
             }
         }
 

@@ -8,7 +8,7 @@ module.exports = {
         target = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
         if(target) {
             if (creep.attack(target) != OK) {
-                creep.moveTo(target, {visualizePathStyle: {stroke: '#ff0f0f'}}); 
+                creep.moveTo(target, {visualizePathStyle: {stroke: '#ff0000'}}); 
 			} 
         }
 	}
