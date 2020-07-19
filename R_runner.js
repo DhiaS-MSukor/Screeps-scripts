@@ -46,13 +46,13 @@ module.exports = {
 																						   targets.store.getFreeCapacity(RESOURCE_ENERGY) > 0)}});
 			if (doTransfer(targets, creep)) {return;} 
 			 
-			targets = creep.room.find(FIND_MY_CREEPS, {filter: (targets) => {return (targets.memory.role == 'builder' && 
+			targets = creep.pos.findClosestByRange(FIND_MY_CREEPS, {filter: (targets) => {return (targets.memory.role == 'builder' && 
 																						 targets.store.getFreeCapacity(RESOURCE_ENERGY) > 0)}});
-			if (doTransfer(targets, creep)) {return;} 
+			if (doTransfer([targets], creep)) {return;} 
 
-			targets = creep.room.find(FIND_MY_CREEPS, {filter: (targets) => {return (targets.memory.role == 'repairer' && 
+			targets = creep.pos.findClosestByRange(FIND_MY_CREEPS, {filter: (targets) => {return (targets.memory.role == 'repairer' && 
 																						 targets.store.getFreeCapacity(RESOURCE_ENERGY) > 0)}});
-			if (doTransfer(targets, creep)) {return;} 
+			if (doTransfer([targets], creep)) {return;} 
 	    }
 	    else { 
 			targets = creep.room.find(FIND_DROPPED_RESOURCES);
