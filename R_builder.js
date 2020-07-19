@@ -17,7 +17,7 @@ module.exports = {
 	    if(creep.memory.building) {
 			cache = Game.getObjectById(creep.memory.buildTarget);
 			if (cache instanceof ConstructionSite) {
-				if(creep.build(cache == ERR_NOT_IN_RANGE) {
+				if(creep.build(cache) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(cache, {visualizePathStyle: {stroke: '#0000ff'}});
                 }
 				return;
