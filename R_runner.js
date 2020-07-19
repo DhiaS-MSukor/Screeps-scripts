@@ -86,7 +86,7 @@ module.exports = {
 			if (doWithdraw(creep, targets)) {return;}  
 			
 			if (cache) {
-				if (cache.store[RESOURCE_ENERGY] != 0)) {
+				if (cache.store[RESOURCE_ENERGY] != 0) {
 					if (doWithdraw([cache], creep)) {return;}
 				}
 			}
