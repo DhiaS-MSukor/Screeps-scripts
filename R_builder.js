@@ -34,14 +34,14 @@ module.exports = {
 																							 structure.store[RESOURCE_ENERGY] != 0)}});
 			if (sources.length) {
 				if (creep.withdraw(sources[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-					creep.moveTo(sources[0], {visualizePathStyle: {stroke: '#ffaa11'}});
+					creep.moveTo(sources[0], {visualizePathStyle: {stroke: '#0000ff'}});
 					return;
 				} 
 			}
 
             var sources = creep.pos.findClosestByRange(FIND_SOURCES);
             if(creep.harvest(sources) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(sources, {visualizePathStyle: {stroke: '#ffaa11'}});
+                creep.moveTo(sources, {visualizePathStyle: {stroke: '#0000ff'}});
             }
 	    }
 	}

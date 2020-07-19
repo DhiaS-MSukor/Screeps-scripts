@@ -1,7 +1,7 @@
 var doTransfer = function(targets, creep) {
     if (targets.length) {
         if(creep.transfer(targets[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-            creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffffff'}});
+            creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#00ff00'}});
             return true;
         }
     }
@@ -26,7 +26,7 @@ module.exports = {
 	    if (creep.memory.harvest) {
             targets = creep.room.find(FIND_SOURCES);
             if(creep.harvest(targets[0]) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffaa00'}});
+                creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#00ff00'}});
             }
         }
 

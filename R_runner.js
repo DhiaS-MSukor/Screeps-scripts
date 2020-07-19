@@ -2,7 +2,7 @@
 var doTransfer = function(targets, creep) {
 	if (targets.length) {
 		if (creep.transfer(targets[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE){
-			creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffeeee'}});  
+			creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ff00ff'}});  
 			return true;
 		} 
 	}
@@ -12,7 +12,7 @@ var doTransfer = function(targets, creep) {
 var doWithdraw = function(creep, targets) {
 	if (targets.length) {
 		if (creep.withdraw(targets[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE){
-			creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ff0022'}});  
+			creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ff00ff'}});  
 			return true;
 		} 
 	}
