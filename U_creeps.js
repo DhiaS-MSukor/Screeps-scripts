@@ -6,6 +6,7 @@ var r_runner = require('R_runner');
 var r_claimer = require('R_claimer'); 
 var r_harvesterV2 = require('R_harvesterV2'); 
 var r_defender = require('R_defender');
+var r_raider = require('R_raider');
 
 var run_role = function(){
     var creep;
@@ -34,6 +35,9 @@ var run_role = function(){
         else if(creep.memory.role == 'defender') {
             r_defender.run(creep);
         }
+        else if(creep.memory.role == 'raider') {
+            r_raider.run(creep);
+        }
     }
 }
 
@@ -55,6 +59,9 @@ var do_spawn = function(spawn, theRole) {
 	}
     else if (theRole == 'defender') {
         Game.spawns[spawn].spawnCreep([ATTACK, ATTACK, MOVE, MOVE, TOUGH, TOUGH, TOUGH, TOUGH], theRole + Game.time, {memory: {role: theRole}});
+	}
+    else if (theRole == 'raider') {
+        Game.spawns[spawn].spawnCreep([ATTACK, ATTACK, MOVE, MOVE], theRole + Game.time, {memory: {role: theRole}});
 	}
     else if (theRole == 'claimer') {
         Game.spawns[spawn].spawnCreep([CLAIM, MOVE], theRole + Game.time, {memory: {role: theRole}});
@@ -86,7 +93,8 @@ var auto_respawn = function(){
     else if (spawn_check(spawn, 'runner', 5)) {return;}  
 
     else if (spawn_check(spawn, 'defender', 1)) {return;}  
-    else if (spawn_check(spawn, 'harvesterV2', 10)) {return;}  
+    else if (spawn_check(spawn, 'harvesterV2', 10)) {return;} 
+    else if (spawn_check(spawn, 'raider', 1)) {return;}    
     else if (spawn_check(spawn, 'claimer', 1)) {return;}   
 }
 
