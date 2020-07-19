@@ -3,6 +3,7 @@ module.exports = {
     /** @param {Creep} creep **/
     run: function(creep) {
 		var targets;
+		var cache;
 
 	    if(creep.memory.building && creep.store[RESOURCE_ENERGY] == 0) {
             creep.memory.building = false;
@@ -14,9 +15,10 @@ module.exports = {
 	    }
 
 	    if(creep.memory.building) {
-			if (Game.getObjectById(creep.memory.buildTarget) instanceof ConstructionSite) {
-				if(creep.build(targets[0]) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#0000ff'}});
+			cache = Game.getObjectById(creep.memory.buildTarget);
+			if (cache instanceof ConstructionSite) {
+				if(creep.build(cache == ERR_NOT_IN_RANGE) {
+                    creep.moveTo(cache, {visualizePathStyle: {stroke: '#0000ff'}});
                 }
 				return;
 			}
@@ -38,11 +40,11 @@ module.exports = {
 			
 	    }
 	    else {
-			var cache = Game.getObjectById(creep.memory.energySource);
+			cache = Game.getObjectById(creep.memory.energySource);
 			if (cache) {
 				if (cache.store[RESOURCE_ENERGY] != 0) {
-					if (creep.withdraw(sources[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-						creep.moveTo(sources[0], {visualizePathStyle: {stroke: '#0000ff'}});
+					if (creep.withdraw(cache, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+						creep.moveTo(cache, {visualizePathStyle: {stroke: '#0000ff'}});
 						return;
 					} 
 				} 
