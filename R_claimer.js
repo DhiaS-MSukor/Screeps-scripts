@@ -1,9 +1,9 @@
 // JavaScript source code
 var doClaim = function(creep, targets) { 
-    if(creep.attackController(targets[0]) != OK) {
-        if (creep.claimController(targets[0]) != OK) {
-            if (creep.reserveController(targets[0]) != OK) {
-                creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ff0000'}}); 
+    if(creep.attackController(targets) != OK) {
+        if (creep.claimController(targets) != OK) {
+            if (creep.reserveController(targets) != OK) {
+                creep.moveTo(targets, {visualizePathStyle: {stroke: '#ff0000'}}); 
 			}  
         }
     }
