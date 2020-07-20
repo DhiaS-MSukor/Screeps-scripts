@@ -1,12 +1,10 @@
 // JavaScript source code
-var doClaim = function(creep, targets) { 
-    if(creep.attackController(targets) != OK) {
-        if (creep.claimController(targets) != OK) {
-            if (creep.reserveController(targets) != OK) {
-                creep.moveTo(targets, {visualizePathStyle: {stroke: '#ff0000'}}); 
-			}  
-        }
-    }
+var doClaim = function(creep, targets) {  
+    if (creep.claimController(targets) != OK) {
+        if (creep.reserveController(targets) != OK) {
+            creep.moveTo(targets, {visualizePathStyle: {stroke: '#ff0000'}}); 
+		}  
+    } 
 }
 
 var goToRoom = function (creep, target) {
