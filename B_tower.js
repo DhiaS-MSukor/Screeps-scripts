@@ -11,13 +11,13 @@ var doRole = function(tower) {
         }
 
         target = tower.pos.findClosestByRange(FIND_MY_STRUCTURES, {filter: (structure) => structure.hits < structure.hitsMax}); 
-        if(target.length) {
+        if(target) {
             tower.repair(target);
             return;
         }
 
         target = tower.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => structure.hits < structure.hitsMax}); 
-        if(target.length) {
+        if(target) {
             tower.repair(target);
             return;
         }
