@@ -2,21 +2,23 @@
 
 var doRole = function(tower) {
     if (tower) { 
+        if (tower.store[RESOURCE_ENERGY] == 0) {return;}
+
         var target = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
         if(target) {
             tower.attack(target);
             return;
         }
 
-        target = tower.room.find(FIND_MY_STRUCTURES, {filter: (structure) => structure.hits < structure.hitsMax}); 
+        target = tower.pos.findClosestByRange(FIND_MY_STRUCTURES, {filter: (structure) => structure.hits < structure.hitsMax}); 
         if(target.length) {
-            tower.repair(target[0]);
+            tower.repair(target);
             return;
         }
 
-        target = tower.room.find(FIND_STRUCTURES, {filter: (structure) => structure.hits < structure.hitsMax}); 
+        target = tower.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => structure.hits < structure.hitsMax}); 
         if(target.length) {
-            tower.repair(target[0]);
+            tower.repair(target);
             return;
         }
     } 
