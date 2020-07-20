@@ -69,7 +69,7 @@ module.exports = {
 			} 
 	    }
 	    else { 
-			cache = Game.getObjectById(creep.memory.target); 
+			cache = Game.getObjectById(creep.memory.source); 
 			if (cache) {
 				if (cache.store[RESOURCE_ENERGY] != 0 && !(cache instanceof Structure)) {
 					if (doWithdraw([cache], creep)) {return;}
