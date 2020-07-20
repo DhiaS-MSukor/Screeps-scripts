@@ -28,6 +28,6 @@ module.exports = {
             return;
 		} 
 
-        doClaim(creep, creep,room.controller);
+        doClaim(creep, creep.room.controller);
 	}
 };
