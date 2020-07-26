@@ -13,8 +13,8 @@ module.exports = {
     run: function(creep) {
         var target;
 
-        if (creep.memory.raid && creep.room.name != Memory.raidLocation) {
-            goToRoom(creep, Memory.raidLocation)
+        if (creep.memory.raid && creep.room.name != Memory.roomTarget) {
+            goToRoom(creep, Memory.roomTarget)
             return;
 		}
 
