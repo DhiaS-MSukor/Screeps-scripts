@@ -42,7 +42,7 @@ module.exports = {
                 targets = creep.room.find(FIND_DROPPED_RESOURCES);
 			    if(targets.length) {
 				    if(creep.pickup(targets[0]) == ERR_NOT_IN_RANGE) {
-					    creep.moveTo(targets[0]);
+					    creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#00ff00'}});
                         return;
 				    }
 			    }
