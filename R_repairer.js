@@ -29,6 +29,12 @@ module.exports = {
 
 			targets = creep.room.find(FIND_STRUCTURES, {filter: (structure) => { return (structure.hits < structure.hitsMax)}});
 			if(doRepair(creep, targets)) {return;} 
+
+			if(creep.room.controller) {
+				if(creep.upgradeController(creep.room.controller) == ERR_NOT_IN_RANGE) {
+					creep.moveTo(creep.room.controller);
+				}
+			}
 	    }
 
 	    else {
