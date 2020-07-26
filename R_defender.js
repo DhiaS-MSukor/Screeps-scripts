@@ -17,6 +17,10 @@ module.exports = {
             goToRoom(creep, Memory.roomTarget)
             return;
 		}
+        if (creep.memory.v == 2 && creep.room.name != Memory.raidTarget) {
+            goToRoom(creep, Memory.roomTarget)
+            return;
+		}
 
         target = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
         if(target) {

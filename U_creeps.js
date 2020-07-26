@@ -34,7 +34,7 @@ var run_role = function(){
 }
 
 var do_spawn = function(spawn, theRole, varience) {
-    if (varience == 0) {
+    if (varience == 'v0') {
         if (theRole == 'harvester') {
             Game.spawns[spawn].spawnCreep([WORK, WORK, CARRY, MOVE], theRole + Game.time, {memory: {role: theRole, v: varience}});
         }
@@ -54,7 +54,7 @@ var do_spawn = function(spawn, theRole, varience) {
             Game.spawns[spawn].spawnCreep([CLAIM, MOVE], theRole + Game.time, {memory: {role: theRole, v: varience}});
         } 
 	}
-    else if (varience == 1) {
+    else if (varience == 'v1') {
         if (theRole == 'harvester') {
             Game.spawns[spawn].spawnCreep([WORK, CARRY, MOVE, MOVE, MOVE], theRole + Game.time, {memory: {role: theRole, v: varience}});
         }
@@ -80,21 +80,22 @@ var auto_respawn = function(){
 
     if (Game.spawns[spawn].store[RESOURCE_ENERGY] < 300 || Game.spawns[spawn].spawning) {return;}
 
-    if (spawn_check(spawn, 'harvester', 1, 0)) {return;}
-    else if (spawn_check(spawn, 'builder', 1, 0)) {return;}
-    else if (spawn_check(spawn, 'repairer', 1, 0)) {return;}
-    else if (spawn_check(spawn, 'runner', 1, 0)) {return;}
+    if (spawn_check(spawn, 'harvester', 'v0', 1)) {return;}
+    else if (spawn_check(spawn, 'builder', 'v0', 1)) {return;}
+    else if (spawn_check(spawn, 'repairer', 'v0', 1)) {return;}
+    else if (spawn_check(spawn, 'runner', 'v0', 1)) {return;}
 
-    else if (spawn_check(spawn, 'harvester', 3, 0)) {return;} 
-    else if (spawn_check(spawn, 'builder', 5, 0)) {return;} 
-    else if (spawn_check(spawn, 'repairer', 1, 0)) {return;} 
-    else if (spawn_check(spawn, 'runner', 5, 0)) {return;}  
+    else if (spawn_check(spawn, 'harvester', 'v0', 3)) {return;} 
+    else if (spawn_check(spawn, 'builder', 'v0', 5)) {return;} 
+    else if (spawn_check(spawn, 'repairer', 'v0', 1)) {return;} 
+    else if (spawn_check(spawn, 'runner', 'v0', 5)) {return;}  
 
-    else if (spawn_check(spawn, 'defender', 1, 0)) {return;}  
+    else if (spawn_check(spawn, 'defender', 'v0', 1)) {return;}  
 
-    else if (spawn_check(spawn, 'raider', 1, 1)) {return;}   
-    else if (spawn_check(spawn, 'harvesterV2', 10, 1)) {return;}  
-    else if (spawn_check(spawn, 'claimer', 2, 0)) {return;}   
+    else if (spawn_check(spawn, 'defender', 'v1', 1)) {return;} 
+    else if (spawn_check(spawn, 'defender', 'v2', 1)) {return;} 
+    else if (spawn_check(spawn, 'harvester', 'v1', 10)) {return;}  
+    else if (spawn_check(spawn, 'claimer', 'v0', 2)) {return;}   
 }
 
 module.exports = {
