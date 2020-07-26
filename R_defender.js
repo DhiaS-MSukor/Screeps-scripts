@@ -22,7 +22,14 @@ module.exports = {
         if(target) {
             if (creep.attack(target) != OK) {
                 creep.moveTo(target, {visualizePathStyle: {stroke: '#ff0000'}}); 
+                return;
 			} 
         }
+
+        target = creep.room.controller;
+        if (target){
+            creep.moveTo(target, {visualizePathStyle: {stroke: '#ff0000'}}); 
+                return;
+		}
 	}
 };
