@@ -1,4 +1,12 @@
 // JavaScript source code
+var goToRoom = function (creep, target) {
+    var routes = Game.map.findRoute(creep.room, target);
+
+    if (routes.length) {
+        creep.moveTo(creep.pos.findClosestByRange(routes[0].exit), {visualizePathStyle: {stroke: '#ff0000'}});
+	} 
+}
+
 module.exports = {
 
     /** @param {Creep} creep **/
