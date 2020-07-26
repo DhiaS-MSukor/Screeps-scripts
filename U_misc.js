@@ -10,7 +10,7 @@ var clean_mem = function(){
 }
 
 var gen_pixel = function(){
-    if(Game.cpu.bucket > 9000) {
+    if(Game.cpu.bucket > 5000) {
         Game.cpu.generatePixel();
     }
 }
