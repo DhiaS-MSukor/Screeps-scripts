@@ -3,8 +3,7 @@ var r_harvester = require('R_harvester');
 var r_builder = require('R_builder');
 var r_repairer = require('R_repairer');
 var r_runner = require('R_runner'); 
-var r_claimer = require('R_claimer'); 
-var r_harvesterV2 = require('R_harvesterV2'); 
+var r_claimer = require('R_claimer');  
 var r_defender = require('R_defender');
 var r_raider = require('R_raider');
 
@@ -14,7 +13,7 @@ var run_role = function(){
     for(var name in Game.creeps) {
         creep = Game.creeps[name];
 
-        if(creep.memory.role == 'harvester') {
+        if(creep.memory.role == 'harvester' || creep.memory.role == 'harvesterV2') {
             r_harvester.run(creep);
         }
         else if(creep.memory.role == 'builder') {
@@ -28,9 +27,6 @@ var run_role = function(){
         }
         else if(creep.memory.role == 'claimer') {
             r_claimer.run(creep);
-        }
-        else if(creep.memory.role == 'harvesterV2') {
-            r_harvesterV2.run(creep);
         } 
         else if(creep.memory.role == 'defender') {
             r_defender.run(creep);
@@ -55,7 +51,7 @@ var do_spawn = function(spawn, theRole) {
         Game.spawns[spawn].spawnCreep([CARRY, CARRY, CARRY, MOVE, MOVE, MOVE], theRole + Game.time, {memory: {role: theRole}});
 	}
     else if (theRole == 'harvesterV2') {
-        Game.spawns[spawn].spawnCreep([WORK, CARRY, MOVE, MOVE, MOVE], theRole + Game.time, {memory: {role: theRole}});
+        Game.spawns[spawn].spawnCreep([WORK, CARRY, MOVE, MOVE, MOVE], theRole + Game.time, {memory: {role: theRole, v2: true}});
 	}
     else if (theRole == 'defender') {
         Game.spawns[spawn].spawnCreep([ATTACK, ATTACK, MOVE, MOVE, TOUGH, TOUGH, TOUGH, TOUGH], theRole + Game.time, {memory: {role: theRole}});

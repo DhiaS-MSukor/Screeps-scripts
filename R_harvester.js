@@ -9,6 +9,14 @@ var doTransfer = function(targets, creep) {
     return false;
 }
 
+var goToRoom = function (creep, target) {
+    var routes = Game.map.findRoute(creep.room, target);
+
+    if (routes.length) {
+        creep.moveTo(creep.pos.findClosestByRange(routes[0].exit), {visualizePathStyle: {stroke: '#00ff00'}});
+	} 
+}
+
 module.exports = {
 
     /** @param {Creep} creep **/
@@ -25,6 +33,11 @@ module.exports = {
 	    }
 
 	    if (creep.memory.harvest) {
+            if (creep.memory.v2 && creep.room.name != Memory.roomTarget) {
+                goToRoom(creep, Memory.roomTarget)
+                return;
+			}
+
             targets = creep.room.find(FIND_SOURCES);
             if(creep.harvest(targets[0]) == ERR_NOT_IN_RANGE) {
                 creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#00ff00'}});
@@ -32,6 +45,10 @@ module.exports = {
         }
 
         else {
+            if (creep.memory.v2 && creep.room.name != Memory.mainRoom) {
+                goToRoom(creep, Memory.mainRoom)
+                return;
+			}
 
             targets = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => { return (structure.structureType == STRUCTURE_CONTAINER) &&
                                                                                      structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;}
