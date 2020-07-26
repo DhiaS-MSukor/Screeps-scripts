@@ -33,10 +33,28 @@ module.exports = {
 	    }
 
 	    if (creep.memory.harvest) {
-            if (creep.memory.v2 && creep.room.name != Memory.roomTarget) {
-                goToRoom(creep, Memory.roomTarget)
-                return;
-			}
+            if (creep.memory.v2) {
+                if(creep.room.name != Memory.roomTarget) {
+                    goToRoom(creep, Memory.roomTarget)
+                    return;
+			    }
+
+                targets = creep.room.find(FIND_DROPPED_RESOURCES);
+			    if(targets.length) {
+				    if(creep.pickup(targets[0]) == ERR_NOT_IN_RANGE) {
+					    creep.moveTo(targets[0]);
+                        return;
+				    }
+			    }
+
+                targets = creep.room.find(FIND_TOMBSTONES, {filter: (targets) => { return (targets.store[RESOURCE_ENERGY] != 0)}});
+                if(targets.length) {
+				    if(creep.withdraw(targets[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+					    creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#00ff00'}});
+                        return;
+				    }
+			    }
+            }
 
             targets = creep.room.find(FIND_SOURCES);
             if(creep.harvest(targets[0]) == ERR_NOT_IN_RANGE) {
