@@ -74,6 +74,8 @@ var auto_respawn = function(){
     var name;
     var spawn = Memory.mainSpawn;
 
+    if (spawn.spawning) {return;}
+
     if (spawn_check(spawn, 'harvester', 1)) {return;}
     else if (spawn_check(spawn, 'builder', 1)) {return;}
     else if (spawn_check(spawn, 'repairer', 1)) {return;}
