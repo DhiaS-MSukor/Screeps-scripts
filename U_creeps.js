@@ -94,7 +94,7 @@ var auto_respawn = function(){
 
     else if (spawn_check(spawn, 'raider', 1, 1)) {return;}   
     else if (spawn_check(spawn, 'harvesterV2', 10, 1)) {return;}  
-    else if (spawn_check(spawn, 'claimer', 2, 1)) {return;}   
+    else if (spawn_check(spawn, 'claimer', 2, 0)) {return;}   
 }
 
 module.exports = {

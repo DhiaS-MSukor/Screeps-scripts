@@ -13,7 +13,7 @@ module.exports = {
     run: function(creep) {
         var target;
 
-        if (creep.memory.raid && creep.room.name != Memory.roomTarget) {
+        if (creep.memory.v == 1 && creep.room.name != Memory.roomTarget) {
             goToRoom(creep, Memory.roomTarget)
             return;
 		}
