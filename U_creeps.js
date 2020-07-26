@@ -4,8 +4,7 @@ var r_builder = require('R_builder');
 var r_repairer = require('R_repairer');
 var r_runner = require('R_runner'); 
 var r_claimer = require('R_claimer');  
-var r_defender = require('R_defender');
-var r_raider = require('R_raider');
+var r_defender = require('R_defender'); 
 
 var run_role = function(){
     var creep;
@@ -28,12 +27,9 @@ var run_role = function(){
         else if(creep.memory.role == 'claimer') {
             r_claimer.run(creep);
         } 
-        else if(creep.memory.role == 'defender') {
+        else if(creep.memory.role == 'defender' || creep.memory.role == 'raider') {
             r_defender.run(creep);
-        }
-        else if(creep.memory.role == 'raider') {
-            r_raider.run(creep);
-        }
+        } 
     }
 }
 
@@ -60,7 +56,7 @@ var do_spawn = function(spawn, theRole) {
         Game.spawns[spawn].spawnCreep([ATTACK, ATTACK, MOVE, MOVE], theRole + Game.time, {memory: {role: theRole}});
 	}
     else if (theRole == 'claimer') {
-        Game.spawns[spawn].spawnCreep([CLAIM, MOVE], theRole + Game.time, {memory: {role: theRole}});
+        Game.spawns[spawn].spawnCreep([CLAIM, MOVE], theRole + Game.time, {memory: {role: theRole, raid: true}});
 	}
 }
 

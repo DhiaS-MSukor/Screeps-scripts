@@ -5,6 +5,11 @@ module.exports = {
     run: function(creep) {
         var target;
 
+        if (creep.memory.raid && creep.room.name != Memory.raidLocation) {
+            goToRoom(creep, Memory.raidLocation)
+            return;
+		}
+
         target = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
         if(target) {
             if (creep.attack(target) != OK) {
