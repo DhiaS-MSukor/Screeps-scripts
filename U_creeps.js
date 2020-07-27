@@ -62,6 +62,11 @@ var do_spawn = function(spawn, theRole, varience) {
             Game.spawns[spawn].spawnCreep([ATTACK, ATTACK, MOVE, MOVE], theRole + Game.time, {memory: {role: theRole, v: varience}});
         }
     }
+    else if (varience == 'v2') { 
+        else if (theRole == 'defender') {
+            Game.spawns[spawn].spawnCreep([ATTACK, ATTACK, MOVE, MOVE], theRole + Game.time, {memory: {role: theRole, v: varience}});
+        }
+    }
 }
 
 var spawn_check = function(spawn, theRole, varience, n) {
