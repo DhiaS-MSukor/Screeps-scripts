@@ -34,46 +34,40 @@ var run_role = function(){
 }
 
 var do_spawn = function(spawn, theRole, varience) {
+    var name = theRole + varience + Game.time;
+    var mem = {memory: {role: theRole, v: varience, spawn: spawn}};
+
     if (varience == 'v0') {
         if (theRole == 'harvester') {
-            Game.spawns[spawn].spawnCreep([WORK, WORK, CARRY, MOVE], theRole + Game.time, 
-                                          {memory: {role: theRole, v: varience, spawn: spawn}});
+            Game.spawns[spawn].spawnCreep([WORK, WORK, CARRY, MOVE], name, mem);
         }
         else if (theRole == 'builder') {
-            Game.spawns[spawn].spawnCreep([WORK, WORK, CARRY, MOVE], theRole + Game.time, 
-                                          {memory: {role: theRole, v: varience, spawn: spawn}});
+            Game.spawns[spawn].spawnCreep([WORK, WORK, CARRY, MOVE], name, mem);
         }
         else if (theRole == 'repairer') {
-            Game.spawns[spawn].spawnCreep([WORK, MOVE, CARRY, MOVE], theRole + Game.time, 
-                                          {memory: {role: theRole, v: varience, spawn: spawn}});
+            Game.spawns[spawn].spawnCreep([WORK, MOVE, CARRY, MOVE], name, mem);
         }
         else if (theRole == 'runner') {
-            Game.spawns[spawn].spawnCreep([CARRY, CARRY, CARRY, MOVE, MOVE, MOVE], theRole + Game.time, 
-                                          {memory: {role: theRole, v: varience, spawn: spawn}});
+            Game.spawns[spawn].spawnCreep([CARRY, CARRY, CARRY, MOVE, MOVE, MOVE], name, mem}});
         } 
         else if (theRole == 'defender') {
-            Game.spawns[spawn].spawnCreep([TOUGH, ATTACK, ATTACK, ATTACK, MOVE], theRole + Game.time, 
-                                          {memory: {role: theRole, v: varience, spawn: spawn}});
+            Game.spawns[spawn].spawnCreep([TOUGH, ATTACK, ATTACK, ATTACK, MOVE], name, mem}});
         }
         else if (theRole == 'claimer') {
-            Game.spawns[spawn].spawnCreep([CLAIM, MOVE], theRole + Game.time, 
-                                          {memory: {role: theRole, v: varience, spawn: spawn}});
+            Game.spawns[spawn].spawnCreep([CLAIM, MOVE], name, mem}});
         } 
 	}
     else if (varience == 'v1') {
         if (theRole == 'harvester') {
-            Game.spawns[spawn].spawnCreep([WORK, MOVE, CARRY, MOVE], theRole + Game.time, 
-                                          {memory: {role: theRole, v: varience, spawn: spawn}});
+            Game.spawns[spawn].spawnCreep([WORK, MOVE, CARRY, MOVE], name, mem}});
         }
         else if (theRole == 'defender') {
-            Game.spawns[spawn].spawnCreep([ATTACK, MOVE, ATTACK, MOVE], theRole + Game.time, 
-                                          {memory: {role: theRole, v: varience, spawn: spawn}});
+            Game.spawns[spawn].spawnCreep([ATTACK, MOVE, ATTACK, MOVE], name, mem}});
         }
     }
     else if (varience == 'v2') { 
         if (theRole == 'defender') {
-            Game.spawns[spawn].spawnCreep([ATTACK, MOVE, ATTACK, MOVE], theRole + Game.time, 
-                                          {memory: {role: theRole, v: varience, spawn: spawn}});
+            Game.spawns[spawn].spawnCreep([ATTACK, MOVE, ATTACK, MOVE], name, mem}});
         }
     }
 }
