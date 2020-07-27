@@ -19,8 +19,8 @@ module.exports = {
 
     /** @param {Creep} creep **/
     run: function(creep) {  
-        if (creep.room.name != Memory.roomTarget) {
-            goToRoom(creep, Memory.roomTarget)
+        if (creep.room.name != Game.spawns[creep.memory.spawn].memory.roomTarget) {
+            goToRoom(creep, Game.spawns[creep.memory.spawn].memory.roomTarget)
             return;
 		} 
 

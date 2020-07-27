@@ -13,12 +13,12 @@ module.exports = {
     run: function(creep) {
         var target;
 
-        if (creep.memory.v == 'v1' && creep.room.name != Memory.roomTarget) {
-            goToRoom(creep, Memory.roomTarget)
+        if (creep.memory.v == 'v1' && creep.room.name != Game.spawns[creep.memory.spawn].memory.roomTarget) {
+            goToRoom(creep, Game.spawns[creep.memory.spawn].memory.roomTarget)
             return;
 		}
-        else if (creep.memory.v == 'v2' && creep.room.name != Memory.raidTarget) {
-            goToRoom(creep, Memory.raidTarget)
+        else if (creep.memory.v == 'v2' && creep.room.name != Game.spawns[creep.memory.spawn].memory.raidTarget) {
+            goToRoom(creep, Game.spawns[creep.memory.spawn].memory.raidTarget)
             return;
 		}
 
