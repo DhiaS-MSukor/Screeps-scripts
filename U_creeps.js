@@ -36,35 +36,44 @@ var run_role = function(){
 var do_spawn = function(spawn, theRole, varience) {
     if (varience == 'v0') {
         if (theRole == 'harvester') {
-            Game.spawns[spawn].spawnCreep([WORK, WORK, CARRY, MOVE], theRole + Game.time, {memory: {role: theRole, v: varience}});
+            Game.spawns[spawn].spawnCreep([WORK, WORK, CARRY, MOVE], theRole + Game.time, 
+                                          {memory: {role: theRole, v: varience, spawn: spawn}});
         }
         else if (theRole == 'builder') {
-            Game.spawns[spawn].spawnCreep([WORK, WORK, CARRY, MOVE], theRole + Game.time, {memory: {role: theRole, v: varience}});
+            Game.spawns[spawn].spawnCreep([WORK, WORK, CARRY, MOVE], theRole + Game.time, 
+                                          {memory: {role: theRole, v: varience, spawn: spawn}});
         }
         else if (theRole == 'repairer') {
-            Game.spawns[spawn].spawnCreep([WORK, CARRY, MOVE, MOVE, MOVE], theRole + Game.time, {memory: {role: theRole, v: varience}});
+            Game.spawns[spawn].spawnCreep([WORK, CARRY, MOVE, MOVE, MOVE], theRole + Game.time, 
+                                          {memory: {role: theRole, v: varience, spawn: spawn}});
         }
         else if (theRole == 'runner') {
-            Game.spawns[spawn].spawnCreep([CARRY, CARRY, CARRY, MOVE, MOVE, MOVE], theRole + Game.time, {memory: {role: theRole, v: varience}});
+            Game.spawns[spawn].spawnCreep([CARRY, CARRY, CARRY, MOVE, MOVE, MOVE], theRole + Game.time, 
+                                          {memory: {role: theRole, v: varience, spawn: spawn}});
         } 
         else if (theRole == 'defender') {
-            Game.spawns[spawn].spawnCreep([ATTACK, ATTACK, MOVE, MOVE, TOUGH, TOUGH, TOUGH, TOUGH], theRole + Game.time, {memory: {role: theRole, v: varience}});
+            Game.spawns[spawn].spawnCreep([ATTACK, ATTACK, MOVE, MOVE, TOUGH, TOUGH, TOUGH, TOUGH], theRole + Game.time, 
+                                          {memory: {role: theRole, v: varience, spawn: spawn}});
         }
         else if (theRole == 'claimer') {
-            Game.spawns[spawn].spawnCreep([CLAIM, MOVE], theRole + Game.time, {memory: {role: theRole, v: varience}});
+            Game.spawns[spawn].spawnCreep([CLAIM, MOVE], theRole + Game.time, 
+                                          {memory: {role: theRole, v: varience, spawn: spawn}});
         } 
 	}
     else if (varience == 'v1') {
         if (theRole == 'harvester') {
-            Game.spawns[spawn].spawnCreep([WORK, CARRY, MOVE, MOVE, MOVE], theRole + Game.time, {memory: {role: theRole, v: varience}});
+            Game.spawns[spawn].spawnCreep([WORK, CARRY, MOVE, MOVE, MOVE], theRole + Game.time, 
+                                          {memory: {role: theRole, v: varience, spawn: spawn}});
         }
         else if (theRole == 'defender') {
-            Game.spawns[spawn].spawnCreep([ATTACK, ATTACK, MOVE, MOVE], theRole + Game.time, {memory: {role: theRole, v: varience}});
+            Game.spawns[spawn].spawnCreep([ATTACK, ATTACK, MOVE, MOVE], theRole + Game.time, 
+                                          {memory: {role: theRole, v: varience, spawn: spawn}});
         }
     }
     else if (varience == 'v2') { 
         if (theRole == 'defender') {
-            Game.spawns[spawn].spawnCreep([ATTACK, ATTACK, MOVE, MOVE], theRole + Game.time, {memory: {role: theRole, v: varience}});
+            Game.spawns[spawn].spawnCreep([ATTACK, ATTACK, MOVE, MOVE], theRole + Game.time, 
+                                          {memory: {role: theRole, v: varience, spawn: spawn}});
         }
     }
 }
