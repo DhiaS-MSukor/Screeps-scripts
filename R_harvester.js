@@ -33,7 +33,7 @@ module.exports = {
 	    }
 
 	    if (creep.memory.harvest) {
-            if (creep.memory.v == 1) {
+            if (creep.memory.v == 'v1') {
                 if(creep.room.name != Memory.roomTarget) {
                     goToRoom(creep, Memory.roomTarget)
                     return;
@@ -63,7 +63,7 @@ module.exports = {
         }
 
         else {
-            if (creep.memory.v == 1 && creep.room.name != Memory.mainRoom) {
+            if (creep.memory.v == 'v1' && creep.room.name != Memory.mainRoom) {
                 goToRoom(creep, Memory.mainRoom)
                 return;
 			}
