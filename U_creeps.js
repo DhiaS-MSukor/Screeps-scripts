@@ -110,7 +110,7 @@ var auto_respawn = function(){
         else if (spawn_check(spawn, 'defender', 'v2', 1)) {return;} 
         else if (spawn_check(spawn, 'harvester', 'v1', 10)) {return;}  
         else if (spawn_check(spawn, 'claimer', 'v0', 2)) {return;}   
-        else if (spawn_check(spawn, 'defender', 'v2', 10)) {return;}  
+        else if (spawn_check(spawn, 'defender', 'v2', 1)) {return;}  
 	}
 }
 
