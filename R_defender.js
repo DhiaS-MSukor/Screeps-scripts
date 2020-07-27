@@ -18,7 +18,7 @@ module.exports = {
             return;
 		}
         else if (creep.memory.v == 'v2' && creep.room.name != Memory.raidTarget) {
-            goToRoom(creep, Memory.roomTarget)
+            goToRoom(creep, Memory.raidTarget)
             return;
 		}
 
