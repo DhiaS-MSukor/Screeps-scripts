@@ -14,6 +14,8 @@ module.exports = {
 	    }
 
 	    if(creep.memory.building) {
+			if (creep.store[RESOURCE_ENERGY] == 0) {return;}
+
 	        targets = creep.room.find(FIND_CONSTRUCTION_SITES);
             
 			if(targets.length) {
@@ -31,6 +33,8 @@ module.exports = {
 			
 	    }
 	    else {
+			if (creep.fatigue > 0) {return;}
+
 	        var sources = creep.room.find(FIND_STRUCTURES, {filter: (structure) => { return (structure.structureType == STRUCTURE_CONTAINER &&
 																							 structure.store[RESOURCE_ENERGY] != 0)}});
 			if (sources.length) {

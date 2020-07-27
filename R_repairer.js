@@ -24,6 +24,8 @@ module.exports = {
 	    }
 
 	    if(creep.memory.building) { 
+			if (creep.store[RESOURCE_ENERGY] == 0) {return;}
+
 			targets = creep.room.find(FIND_MY_STRUCTURES, {filter: (structure) => { return (structure.hits < structure.hitsMax)}});
 			if(doRepair(creep, targets)) {return;} 
 
@@ -38,6 +40,8 @@ module.exports = {
 	    }
 
 	    else {
+			if (creep.fatigue > 0) {return;}
+
 			targets = creep.room.find(FIND_STRUCTURES, {filter: (structure) => { return (structure.structureType == STRUCTURE_CONTAINER &&
 																							 structure.store[RESOURCE_ENERGY] != 0)}});
 			if (targets.length) {

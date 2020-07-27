@@ -22,6 +22,8 @@ var doWithdraw = function(creep, targets, res = RESOURCE_ENERGY) {
 module.exports = {
     /** @param {Creep} creep **/
     run: function(creep) {
+		if (creep.fatigue > 0) {return;}
+
 		var targets;
 		var res;
 
@@ -43,6 +45,8 @@ module.exports = {
 				doTransfer([targets], creep, res[0])
 				return;
 			}
+
+			if (creep.store[RESOURCE_ENERGY] == 0) {return;}
 
 			targets = creep.room.find(FIND_STRUCTURES, {filter: (targets) => { return (targets.structureType == STRUCTURE_SPAWN && 
 																						   targets.store.getFreeCapacity(RESOURCE_ENERGY) > 0)}});
@@ -69,6 +73,8 @@ module.exports = {
 			} 
 	    }
 	    else { 
+			if (creep.fatigue > 0) {return;}
+
 			targets = creep.room.find(FIND_DROPPED_RESOURCES);
 			if(targets.length) {
 				if(creep.pickup(targets[0]) == ERR_NOT_IN_RANGE) {
