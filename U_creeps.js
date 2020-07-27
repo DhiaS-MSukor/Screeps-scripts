@@ -12,7 +12,7 @@ var run_role = function(){
     for(var name in Game.creeps) {
         creep = Game.creeps[name];
 
-        if(creep.memory.role == 'harvester' || creep.memory.role == 'harvesterV2') {
+        if(creep.memory.role == 'harvester') {
             r_harvester.run(creep);
         }
         else if(creep.memory.role == 'builder') {
@@ -27,7 +27,7 @@ var run_role = function(){
         else if(creep.memory.role == 'claimer') {
             r_claimer.run(creep);
         } 
-        else if(creep.memory.role == 'defender' || creep.memory.role == 'raider') {
+        else if(creep.memory.role == 'defender') {
             r_defender.run(creep);
         } 
     }
@@ -90,26 +90,28 @@ var spawn_check = function(spawn, theRole, varience, n) {
 
 var auto_respawn = function(){
     var name;
-    var spawn = Memory.mainSpawn;
 
-    if (Game.spawns[spawn].store[RESOURCE_ENERGY] < 300 || Game.spawns[spawn].spawning) {return;}
+    for (var spawn in Memory.spawns) {
+        if (Game.spawns[spawn].store[RESOURCE_ENERGY] < 300 || Game.spawns[spawn].spawning) {return;}
 
-    if (spawn_check(spawn, 'harvester', 'v0', 1)) {return;}
-    else if (spawn_check(spawn, 'builder', 'v0', 1)) {return;}
-    else if (spawn_check(spawn, 'repairer', 'v0', 1)) {return;}
-    else if (spawn_check(spawn, 'runner', 'v0', 1)) {return;}
+        if (spawn_check(spawn, 'harvester', 'v0', 1)) {return;}
+        else if (spawn_check(spawn, 'builder', 'v0', 1)) {return;}
+        else if (spawn_check(spawn, 'repairer', 'v0', 1)) {return;}
+        else if (spawn_check(spawn, 'runner', 'v0', 1)) {return;}
 
-    else if (spawn_check(spawn, 'harvester', 'v0', 3)) {return;} 
-    else if (spawn_check(spawn, 'builder', 'v0', 5)) {return;} 
-    else if (spawn_check(spawn, 'repairer', 'v0', 1)) {return;} 
-    else if (spawn_check(spawn, 'runner', 'v0', 5)) {return;}  
+        else if (spawn_check(spawn, 'harvester', 'v0', 3)) {return;} 
+        else if (spawn_check(spawn, 'builder', 'v0', 5)) {return;} 
+        else if (spawn_check(spawn, 'repairer', 'v0', 1)) {return;} 
+        else if (spawn_check(spawn, 'runner', 'v0', 5)) {return;}  
 
-    else if (spawn_check(spawn, 'defender', 'v0', 1)) {return;}  
+        else if (spawn_check(spawn, 'defender', 'v0', 1)) {return;}  
 
-    else if (spawn_check(spawn, 'defender', 'v1', 1)) {return;} 
-    else if (spawn_check(spawn, 'defender', 'v2', 1)) {return;} 
-    else if (spawn_check(spawn, 'harvester', 'v1', 10)) {return;}  
-    else if (spawn_check(spawn, 'claimer', 'v0', 2)) {return;}   
+        else if (spawn_check(spawn, 'defender', 'v1', 1)) {return;} 
+        else if (spawn_check(spawn, 'defender', 'v2', 1)) {return;} 
+        else if (spawn_check(spawn, 'harvester', 'v1', 10)) {return;}  
+        else if (spawn_check(spawn, 'claimer', 'v0', 2)) {return;}   
+        else if (spawn_check(spawn, 'defender', 'v2', 10)) {return;}  
+	}
 }
 
 module.exports = {
