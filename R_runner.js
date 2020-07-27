@@ -37,7 +37,7 @@ module.exports = {
 	    }
 
 	    if(creep.memory.building) { 
-			res = _.filter(Object.keys(creep.store), (res) => (res != 'RESOURCE_ENERGY' && creep.store[res] != 0));
+			res = _.filter(Object.keys(creep.store), (res) => (res != RESOURCE_ENERGY && creep.store[res] != 0));
 
 			if (res.length) {
 				targets = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (targets) => { return (targets.structureType == STRUCTURE_CONTAINER && 
