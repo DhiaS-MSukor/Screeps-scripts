@@ -79,7 +79,7 @@ var do_spawn = function(spawn, theRole, varience) {
 }
 
 var spawn_check = function(spawn, theRole, varience, n) {
-    var creeps = _.filter(Game.creeps, (creep) => creep.memory.role == theRole && creep.memory.v == varience); 
+    var creeps = _.filter(Game.creeps, (creep) => creep.memory.role == theRole && creep.memory.v == varience && creep.memory.spawn == spawn); 
 
     if (creeps.length < n) { 
         do_spawn(spawn, theRole, varience); 
@@ -91,8 +91,7 @@ var spawn_check = function(spawn, theRole, varience, n) {
 var auto_respawn = function(){
     var name;
 
-    for (var spawn in Memory.spawns) { 
-        console.log(spawn);
+    for (var spawn in Memory.spawns) {  
         if (Game.spawns[spawn].store[RESOURCE_ENERGY] < 300 || Game.spawns[spawn].spawning) {continue;}
 
         if (spawn_check(spawn, 'harvester', 'v0', 1)) {return;}
