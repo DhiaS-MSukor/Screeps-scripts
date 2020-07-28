@@ -79,7 +79,7 @@ var do_spawn = function(spawn, theRole, varience) {
 }
 
 var spawn_check = function(spawn, theRole, varience, n) {
-    var creeps = _.filter(Game.creeps, (creep) => creep.memory.role == theRole && creep.memory.v == varience && creep.memory.spawn == spawn); 
+    var creeps = _.filter(Game.creeps, (creep) => creep.memory.role == theRole && creep.memory.v == varience); 
 
     if (creeps.length < n) { 
         do_spawn(spawn, theRole, varience); 
