@@ -24,11 +24,11 @@ var run_role = function(){
         else if(creep.memory.role == 'runner') {
             r_runner.run(creep);
         }
-        else if(creep.memory.role == 'claimer') {
-            r_claimer.run(creep);
-        } 
         else if(creep.memory.role == 'defender') {
             r_defender.run(creep);
+        } 
+        else if(creep.memory.role == 'claimer') {
+            r_claimer.run(creep);
         } 
     }
 }
@@ -61,6 +61,9 @@ var do_spawn = function(spawn, theRole, varience) {
         if (theRole == 'harvester') {
             Game.spawns[spawn].spawnCreep([WORK, MOVE, CARRY, MOVE], name, mem);
         }
+        else if (theRole == 'builder') {
+            Game.spawns[spawn].spawnCreep([WORK, WORK, WORK, WORK, CARRY, CARRY, MOVE, MOVE], name, mem);
+        }
         else if (theRole == 'defender') {
             Game.spawns[spawn].spawnCreep([ATTACK, MOVE, ATTACK, MOVE], name, mem);
         }
@@ -75,6 +78,9 @@ var do_spawn = function(spawn, theRole, varience) {
         else if (theRole == 'runner') {
             Game.spawns[spawn].spawnCreep([CARRY, CARRY, CARRY, MOVE, MOVE, MOVE], name, mem);
         } 
+        else if (theRole == 'harvester') {
+            Game.spawns[spawn].spawnCreep([WORK, MOVE, CARRY, MOVE, WORK, MOVE, CARRY, MOVE], name, mem);
+        }
     }
 }
 
@@ -99,25 +105,30 @@ var auto_respawn = function(){
     for (var spawn in Memory.spawns) {  
         if (spawnBusy(spawn)) {continue;}
 
+        // essentials
         if (spawn_check(spawn, 'harvester', 'v0', 1)) {return;}
         else if (spawn_check(spawn, 'builder', 'v0', 1)) {return;}
         else if (spawn_check(spawn, 'repairer', 'v0', 1)) {return;}
         else if (spawn_check(spawn, 'runner', 'v0', 1)) {return;}
 
-        else if (spawn_check(spawn, 'harvester', 'v0', 3)) {return;} 
-        else if (spawn_check(spawn, 'builder', 'v0', 5)) {return;} 
-        else if (spawn_check(spawn, 'repairer', 'v0', 1)) {return;} 
+        // additions
         else if (spawn_check(spawn, 'runner', 'v1', 1)) {return;}  
         else if (spawn_check(spawn, 'runner', 'v2', 1)) {return;}  
-        else if (spawn_check(spawn, 'runner', 'v0', 3)) {return;}  
-
         else if (spawn_check(spawn, 'defender', 'v0', 1)) {return;}  
 
+        // looters
+        else if (spawn_check(spawn, 'harvester', 'v1', 1)) {return;} 
         else if (spawn_check(spawn, 'defender', 'v1', 1)) {return;} 
+
+        // raiders
         else if (spawn_check(spawn, 'defender', 'v2', 1)) {return;} 
-        else if (spawn_check(spawn, 'harvester', 'v1', 10)) {return;}  
-        else if (Memory.spawnClaimer && spawn_check(spawn, 'claimer', 'v0', 1)) {return;}   
-        else if (spawn_check(spawn, 'defender', 'v2', 1)) {return;}  
+        
+        // megas
+        else if (spawn_check(spawn, 'builder', 'v1', 1)) {return;}   
+        else if (spawn_check(spawn, 'harvester', 'v2', 1)) {return;} 
+
+        // claimer
+        else if (Memory.spawnClaimer && spawn_check(spawn, 'claimer', 'v0', 1)) {return;}  
 	}
 }
 
