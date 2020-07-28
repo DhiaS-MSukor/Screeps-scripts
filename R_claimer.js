@@ -21,8 +21,8 @@ module.exports = {
     run: function(creep) {  
         if (creep.fatigue > 0) {return;}
 
-        if (creep.room.name != Game.spawns[creep.memory.spawn].memory.roomTarget) {
-            goToRoom(creep, Game.spawns[creep.memory.spawn].memory.roomTarget)
+        if (creep.room.name != Memory.roomTarget) {
+            goToRoom(creep, Memory.roomTarget)
             return;
 		} 
 
