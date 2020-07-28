@@ -13,17 +13,17 @@ module.exports = {
     run: function(creep) {
         var target;
 
-        if (creep.memory.v == 'v1' && creep.room.name != Game.spawns[creep.memory.spawn].memory.roomTarget) {
+        if (creep.memory.v == 'v1' && creep.room.name != Memory.roomTarget) {
             goToRoom(creep, Memory.roomTarget)
             return;
 		}
-        else if (creep.memory.v == 'v2' && creep.room.name != Game.spawns[creep.memory.spawn].memory.raidTarget) {
+        else if (creep.memory.v == 'v2' && creep.room.name != Memory.raidTarget) {
             goToRoom(creep, Memory.raidTarget)
             return;
 		}
 
         target = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
-        if(target) {
+        if (target) {
             if (creep.attack(target) != OK) {
                 creep.moveTo(target, {visualizePathStyle: {stroke: '#ff0000'}}); 
                 return;
