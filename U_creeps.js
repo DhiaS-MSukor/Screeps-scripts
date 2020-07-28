@@ -91,10 +91,8 @@ var spawn_check = function(spawn, theRole, varience, n) {
 var auto_respawn = function(){
     var name;
 
-    for (var spawn in Memory.spawns) {
-        if (! spawn in Game.spawns) {return;}
-        
-        if (Game.spawns[spawn].store[RESOURCE_ENERGY] < 300 || Game.spawns[spawn].spawning) {return;}
+    for (var spawn in Memory.spawns) { 
+        if (Game.spawns[spawn] == null || Game.spawns[spawn].store[RESOURCE_ENERGY] < 300 || Game.spawns[spawn].spawning) {return;}
 
         if (spawn_check(spawn, 'harvester', 'v0', 1)) {return;}
         else if (spawn_check(spawn, 'builder', 'v0', 1)) {return;}
