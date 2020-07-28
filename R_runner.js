@@ -60,24 +60,19 @@ module.exports = {
 
 			if (creep.memory.v == 'v1') {
 				if (doTransfer(transferStructureTarget(creep, STRUCTURE_EXTENSION), creep)) {return;}
+				if (doTransfer(transferStructureTarget(creep, STRUCTURE_TOWER), creep)) {return;} 
+				if (doTransfer(transferStructureTarget(creep, STRUCTURE_SPAWN), creep)) {return;} 
 			}
-			if (creep.memory.v == 'v2') {
+			else if (creep.memory.v == 'v2') {
 				if (doTransfer(transferStructureTarget(creep, STRUCTURE_TOWER), creep)) {return;}
+				if (doTransfer(transferStructureTarget(creep, STRUCTURE_SPAWN), creep)) {return;} 
+				if (doTransfer(transferStructureTarget(creep, STRUCTURE_EXTENSION), creep)) {return;} 
 			}
-
-			if (doTransfer(transferStructureTarget(creep, STRUCTURE_SPAWN), creep)) {return;} 
-			if (doTransfer(transferStructureTarget(creep, STRUCTURE_TOWER), creep)) {return;} 
-			if (doTransfer(transferStructureTarget(creep, STRUCTURE_EXTENSION), creep)) {return;} 
-			 
-			targets = transferCreepTarget(creep, 'builder');
-			if (targets) {
-				if (doTransfer([targets], creep)) {return;} 
-			} 
-
-			targets = transferCreepTarget(creep, 'repairer'); 
-			if (targets) {
-				if (doTransfer([targets], creep)) {return;} 
-			} 
+			else {
+				if (doTransfer(transferStructureTarget(creep, STRUCTURE_SPAWN), creep)) {return;} 
+				if (doTransfer(transferStructureTarget(creep, STRUCTURE_TOWER), creep)) {return;} 
+				if (doTransfer(transferStructureTarget(creep, STRUCTURE_EXTENSION), creep)) {return;} 
+			}
 	    }
 	    else { 
 			if (creep.fatigue > 0) {return;}
@@ -90,8 +85,10 @@ module.exports = {
 				}
 			} 
 
-			targets = creep.room.find(FIND_RUINS, {filter: (targets) => { return (targets.store[RESOURCE_ENERGY] != 0)}});
-			if (doWithdraw(creep, targets)) {return;} 
+			if (creep.memory.v == 'v1') {
+				targets = creep.room.find(FIND_RUINS, {filter: (targets) => { return (targets.store[RESOURCE_ENERGY] != 0)}});
+				if (doWithdraw(creep, targets)) {return;} 
+			} 
 
 			targets = creep.room.find(FIND_TOMBSTONES, {filter: (targets) => { return (targets.store[RESOURCE_ENERGY] != 0)}});
 			if (doWithdraw(creep, targets)) {return;}  
