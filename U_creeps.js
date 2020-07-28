@@ -93,7 +93,7 @@ var auto_respawn = function(){
 
     for (var spawn in Memory.spawns) { 
         console.log(spawn);
-        if (Game.spawns[spawn].store[RESOURCE_ENERGY] < 300 || Game.spawns[spawn].spawning) {return;}
+        if (Game.spawns[spawn].store[RESOURCE_ENERGY] < 300 || Game.spawns[spawn].spawning) {continue;}
 
         if (spawn_check(spawn, 'harvester', 'v0', 1)) {return;}
         else if (spawn_check(spawn, 'builder', 'v0', 1)) {return;}
