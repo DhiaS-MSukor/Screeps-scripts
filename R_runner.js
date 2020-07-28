@@ -19,12 +19,12 @@ var doWithdraw = function(creep, targets, res = RESOURCE_ENERGY) {
 	return false;
 }
 
-var transferStructureTarget = function(type) {
+var transferStructureTarget = function(creep, type) {
 	return creep.room.find(FIND_STRUCTURES, {filter: (targets) => { return (targets.structureType == type && 
 																	targets.store.getFreeCapacity(RESOURCE_ENERGY) > 0)}});
 }
 
-var transferCreepTarget = function(role) {
+var transferCreepTarget = function(creep, role) {
 	return creep.pos.findClosestByRange(FIND_MY_CREEPS, {filter: (targets) => {return (targets.memory.role == role && 
 																			   targets.store.getFreeCapacity(RESOURCE_ENERGY) > 0)}});;
 }
@@ -59,22 +59,22 @@ module.exports = {
 			if (creep.store[RESOURCE_ENERGY] == 0) {return;}
 
 			if (creep.memory.v = 'v1') {
-				if (doTransfer(transferStructureTarget(STRUCTURE_EXTENSION), creep)) {return;}
+				if (doTransfer(transferStructureTarget(creep, STRUCTURE_EXTENSION), creep)) {return;}
 			}
 			if (creep.memory.v = 'v2') {
-				if (doTransfer(transferStructureTarget(STRUCTURE_TOWER), creep)) {return;}
+				if (doTransfer(transferStructureTarget(creep, STRUCTURE_TOWER), creep)) {return;}
 			}
 
-			if (doTransfer(transferStructureTarget(STRUCTURE_SPAWN), creep)) {return;} 
-			if (doTransfer(transferStructureTarget(STRUCTURE_TOWER), creep)) {return;} 
-			if (doTransfer(transferStructureTarget(STRUCTURE_EXTENSION), creep)) {return;} 
+			if (doTransfer(transferStructureTarget(creep, STRUCTURE_SPAWN), creep)) {return;} 
+			if (doTransfer(transferStructureTarget(creep, STRUCTURE_TOWER), creep)) {return;} 
+			if (doTransfer(transferStructureTarget(creep, STRUCTURE_EXTENSION), creep)) {return;} 
 			 
-			targets = transferCreepTarget('builder');
+			targets = transferCreepTarget(creep, 'builder');
 			if (targets) {
 				if (doTransfer([targets], creep)) {return;} 
 			} 
 
-			targets = transferCreepTarget('repairer'); 
+			targets = transferCreepTarget(creep, 'repairer'); 
 			if (targets) {
 				if (doTransfer([targets], creep)) {return;} 
 			} 
