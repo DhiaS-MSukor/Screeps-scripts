@@ -58,10 +58,10 @@ module.exports = {
 
 			if (creep.store[RESOURCE_ENERGY] == 0) {return;}
 
-			if (creep.memory.v = 'v1') {
+			if (creep.memory.v == 'v1') {
 				if (doTransfer(transferStructureTarget(creep, STRUCTURE_EXTENSION), creep)) {return;}
 			}
-			if (creep.memory.v = 'v2') {
+			if (creep.memory.v == 'v2') {
 				if (doTransfer(transferStructureTarget(creep, STRUCTURE_TOWER), creep)) {return;}
 			}
 
