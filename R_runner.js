@@ -74,12 +74,12 @@ module.exports = {
 				if (doTransfer(transferStructureTarget(creep, STRUCTURE_EXTENSION), creep)) {return;}  
 			}
 
-			targets = transferCreepTarget('builder');
+			targets = transferCreepTarget(creep, 'builder');
 			if (targets) {
 				if (doTransfer([targets], creep)) {return;} 
 			} 
 
-			targets = transferCreepTarget('repairer'); 
+			targets = transferCreepTarget(creep, 'repairer'); 
 			if (targets) {
 				if (doTransfer([targets], creep)) {return;} 
 			} 
