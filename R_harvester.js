@@ -49,8 +49,8 @@ module.exports = {
         else {
 			if (creep.fatigue > 0) {return;}
 
-            if (creep.memory.v == 'v1' && creep.room.name != Memory.mainRoom) {
-                goToRoom(creep, Memory.mainRoom)
+            if (creep.memory.v == 'v1' && creep.room.name != Game.spawns[creep.memory.spawn].memory.mainRoom) {
+                goToRoom(creep, Game.spawns[creep.memory.spawn].memory.mainRoom)
                 return;
 			}
 
