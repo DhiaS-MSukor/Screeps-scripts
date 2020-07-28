@@ -64,11 +64,17 @@ var do_spawn = function(spawn, theRole, varience) {
         else if (theRole == 'defender') {
             Game.spawns[spawn].spawnCreep([ATTACK, MOVE, ATTACK, MOVE], name, mem);
         }
+        else if (theRole == 'runner') {
+            Game.spawns[spawn].spawnCreep([CARRY, CARRY, CARRY, MOVE, MOVE, MOVE], name, mem);
+        } 
     }
     else if (varience == 'v2') { 
         if (theRole == 'defender') {
             Game.spawns[spawn].spawnCreep([ATTACK, MOVE, ATTACK, MOVE], name, mem);
         }
+        else if (theRole == 'runner') {
+            Game.spawns[spawn].spawnCreep([CARRY, CARRY, CARRY, MOVE, MOVE, MOVE], name, mem);
+        } 
     }
 }
 
@@ -96,7 +102,9 @@ var auto_respawn = function(){
         else if (spawn_check(spawn, 'harvester', 'v0', 3)) {return;} 
         else if (spawn_check(spawn, 'builder', 'v0', 5)) {return;} 
         else if (spawn_check(spawn, 'repairer', 'v0', 1)) {return;} 
-        else if (spawn_check(spawn, 'runner', 'v0', 5)) {return;}  
+        else if (spawn_check(spawn, 'runner', 'v1', 1)) {return;}  
+        else if (spawn_check(spawn, 'runner', 'v2', 1)) {return;}  
+        else if (spawn_check(spawn, 'runner', 'v0', 3)) {return;}  
 
         else if (spawn_check(spawn, 'defender', 'v0', 1)) {return;}  
 

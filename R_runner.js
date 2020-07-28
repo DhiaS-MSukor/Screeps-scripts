@@ -19,6 +19,16 @@ var doWithdraw = function(creep, targets, res = RESOURCE_ENERGY) {
 	return false;
 }
 
+var transferStructureTarget = function(type) {
+	return creep.room.find(FIND_STRUCTURES, {filter: (targets) => { return (targets.structureType == type && 
+																	targets.store.getFreeCapacity(RESOURCE_ENERGY) > 0)}});
+}
+
+var transferCreepTarget = function(role) {
+	return creep.pos.findClosestByRange(FIND_MY_CREEPS, {filter: (targets) => {return (targets.memory.role == role && 
+																			   targets.store.getFreeCapacity(RESOURCE_ENERGY) > 0)}});;
+}
+
 module.exports = {
     /** @param {Creep} creep **/
     run: function(creep) {
@@ -48,26 +58,23 @@ module.exports = {
 
 			if (creep.store[RESOURCE_ENERGY] == 0) {return;}
 
-			targets = creep.room.find(FIND_STRUCTURES, {filter: (targets) => { return (targets.structureType == STRUCTURE_SPAWN && 
-																						   targets.store.getFreeCapacity(RESOURCE_ENERGY) > 0)}});
-			if (doTransfer(targets, creep)) {return;}
+			if (creep.memory.v = 'v1') {
+				if (doTransfer(transferStructureTarget(STRUCTURE_EXTENSION), creep)) {return;}
+			}
+			if (creep.memory.v = 'v2') {
+				if (doTransfer(transferStructureTarget(STRUCTURE_TOWER), creep)) {return;}
+			}
 
-			targets = creep.room.find(FIND_STRUCTURES, {filter: (targets) => { return (targets.structureType == STRUCTURE_TOWER && 
-																						   targets.store.getFreeCapacity(RESOURCE_ENERGY) > 0)}});
-			if (doTransfer(targets, creep)) {return;}
-
-			targets = creep.room.find(FIND_STRUCTURES, {filter: (targets) => { return (targets.structureType == STRUCTURE_EXTENSION && 
-																						   targets.store.getFreeCapacity(RESOURCE_ENERGY) > 0)}});
-			if (doTransfer(targets, creep)) {return;} 
+			if (doTransfer(transferStructureTarget(STRUCTURE_SPAWN), creep)) {return;} 
+			if (doTransfer(transferStructureTarget(STRUCTURE_TOWER), creep)) {return;} 
+			if (doTransfer(transferStructureTarget(STRUCTURE_EXTENSION), creep)) {return;} 
 			 
-			targets = creep.pos.findClosestByRange(FIND_MY_CREEPS, {filter: (targets) => {return (targets.memory.role == 'builder' && 
-																						 targets.store.getFreeCapacity(RESOURCE_ENERGY) > 0)}});
+			targets = transferCreepTarget('builder');
 			if (targets) {
 				if (doTransfer([targets], creep)) {return;} 
 			} 
 
-			targets = creep.pos.findClosestByRange(FIND_MY_CREEPS, {filter: (targets) => {return (targets.memory.role == 'repairer' && 
-																						 targets.store.getFreeCapacity(RESOURCE_ENERGY) > 0)}});
+			targets = transferCreepTarget('repairer'); 
 			if (targets) {
 				if (doTransfer([targets], creep)) {return;} 
 			} 
