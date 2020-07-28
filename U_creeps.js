@@ -88,11 +88,16 @@ var spawn_check = function(spawn, theRole, varience, n) {
     return false;
 }
 
+var spawnBusy = function (spawn) {
+    if (Game.spawns[spawn].spawning) {return true;}
+    return (Game.spawns[spawn].spawnCreep([WORK, WORK, CARRY, MOVE], 'null', {dryRun:true}) != OK);
+}
+
 var auto_respawn = function(){
     var name;
 
     for (var spawn in Memory.spawns) {  
-        if (Game.spawns[spawn].spawning) {continue;}
+        if (spawnBusy(spawn)) {continue;}
 
         if (spawn_check(spawn, 'harvester', 'v0', 1)) {return;}
         else if (spawn_check(spawn, 'builder', 'v0', 1)) {return;}
