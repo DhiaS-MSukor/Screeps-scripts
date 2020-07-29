@@ -116,10 +116,10 @@ var auto_respawn = function(){
 
         // looters
         else if (spawn_check(spawn, 'harvester', 'v0', 1, 1)) {return;} 
-        else if (spawn_check(spawn, 'defender', 'v0', 1, 1)) {return;} 
+        else if (spawn_check(spawn, 'defender', 'v0', 1, 2)) {return;} 
 
         // raiders
-        else if (spawn_check(spawn, 'defender', 'v0', 2, 1)) {return;} 
+        else if (spawn_check(spawn, 'defender', 'v0', 2, 3)) {return;} 
         
         // megas 
         else if (spawn_check(spawn, 'runner', 'v1', 0, 1)) {return;} 
