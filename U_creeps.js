@@ -98,7 +98,7 @@ var spawn_check = function(spawn, theRole, varience, n) {
 
 var spawnBusy = function (spawn) {
     if (Game.spawns[spawn].spawning) {return true;}
-    return (Game.spawns[spawn].store[RESOURCE_ENERGY] < 300);
+    return (Game.spawns[spawn].room.energyAvailable < 300);
 }
 
 var auto_respawn = function(){
