@@ -15,7 +15,7 @@ module.exports = {
 
         target = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
         if (target) {
-            if (creep.attack(target) != OK) {
+            if (creep.attack(target) == ERR_NOT_IN_RANGE) {
                 creep.moveTo(target, {visualizePathStyle: {stroke: '#ff0000'}}); 
                 return;
 			} 
@@ -23,7 +23,7 @@ module.exports = {
 
         target = creep.pos.findClosestByRange(FIND_HOSTILE_STRUCTURES);
         if(target) {
-            if (creep.attack(target) != OK) {
+            if (creep.attack(target) == ERR_NOT_IN_RANGE) {
                 creep.moveTo(target, {visualizePathStyle: {stroke: '#ff0000'}}); 
                 return;
 			} 
