@@ -29,11 +29,11 @@ module.exports = {
 			} 
         }
 
-        if (creep.memory.v == 'v1' && creep.room.name != Memory.roomTarget) {
+        if (creep.memory.mode == 1 && creep.room.name != Memory.roomTarget) {
             goToRoom(creep, Memory.roomTarget)
             return;
 		}
-        else if (creep.memory.v == 'v2' && creep.room.name != Memory.raidTarget) {
+        else if (creep.memory.mode == 2 && creep.room.name != Memory.raidTarget) {
             goToRoom(creep, Memory.raidTarget)
             return;
 		}

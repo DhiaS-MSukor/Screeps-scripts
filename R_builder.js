@@ -17,7 +17,6 @@ module.exports = {
 			if (creep.store[RESOURCE_ENERGY] == 0) {return;}
 
 	        targets = creep.room.find(FIND_CONSTRUCTION_SITES);
-            
 			if(targets.length) {
 				creep.memory.buildTarget = targets[0].id;
                 if(creep.build(targets[0]) == ERR_NOT_IN_RANGE) {

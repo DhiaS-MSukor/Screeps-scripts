@@ -33,7 +33,7 @@ module.exports = {
 	    }
 
 	    if (creep.memory.harvest) {
-            if (creep.memory.v == 'v1') {
+            if (creep.memory.mode == 1) {
                 if(creep.room.name != Memory.roomTarget) {
                     goToRoom(creep, Memory.roomTarget)
                     return;
@@ -49,7 +49,7 @@ module.exports = {
         else {
 			if (creep.fatigue > 0) {return;}
 
-            if (creep.memory.v == 'v1' && creep.room.name != Game.spawns[creep.memory.spawn].memory.mainRoom) {
+            if (creep.memory.mode == 1 && creep.room.name != Game.spawns[creep.memory.spawn].memory.mainRoom) {
                 goToRoom(creep, Game.spawns[creep.memory.spawn].memory.mainRoom)
                 return;
 			}

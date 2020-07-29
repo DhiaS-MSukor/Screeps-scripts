@@ -43,6 +43,7 @@ module.exports = {
 	    }
 	    if(!creep.memory.building && creep.store[RESOURCE_ENERGY] != 0) {
 	        creep.memory.building = true;
+			creep.memory.mode = (creep.memory.mode + 1) % 3;
 	        creep.say('pass');
 	    }
 
@@ -58,7 +59,7 @@ module.exports = {
 
 			if (creep.store[RESOURCE_ENERGY] == 0) {return;}
 
-			if (creep.memory.v == 'v1') {
+			if (creep.memory.mode == 1) {
 				if (doTransfer(transferStructureTarget(creep, STRUCTURE_EXTENSION), creep)) {return;}
 				if (doTransfer(transferStructureTarget(creep, STRUCTURE_TOWER), creep)) {return;} 
 				if (doTransfer(transferStructureTarget(creep, STRUCTURE_SPAWN), creep)) {return;} 
@@ -68,7 +69,7 @@ module.exports = {
 					if (doTransfer([targets], creep)) {return;} 
 				} 
 			}
-			else if (creep.memory.v == 'v2') {
+			else if (creep.memory.mode == 2) {
 				if (doTransfer(transferStructureTarget(creep, STRUCTURE_TOWER), creep)) {return;}
 				if (doTransfer(transferStructureTarget(creep, STRUCTURE_SPAWN), creep)) {return;} 
 				if (doTransfer(transferStructureTarget(creep, STRUCTURE_EXTENSION), creep)) {return;} 
