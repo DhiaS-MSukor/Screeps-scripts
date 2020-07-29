@@ -52,7 +52,7 @@ var do_spawn = function(spawn, theRole, varience, mode) {
             res = Game.spawns[spawn].spawnCreep([CARRY, CARRY, CARRY, MOVE, MOVE, MOVE], name, mem);
         } 
         else if (theRole == 'defender') {
-            res = Game.spawns[spawn].spawnCreep([TOUGH, ATTACK, ATTACK, ATTACK, MOVE], name, mem);
+            res = Game.spawns[spawn].spawnCreep(new Array(4).fill(TOUGH).concat([ATTACK, MOVE, ATTACK, MOVE]), name, mem);
         }
         else if (theRole == 'claimer') {
             res = Game.spawns[spawn].spawnCreep([CLAIM, MOVE], name, mem);
@@ -66,21 +66,21 @@ var do_spawn = function(spawn, theRole, varience, mode) {
             res = Game.spawns[spawn].spawnCreep([WORK, WORK, WORK, WORK, CARRY, MOVE], name, mem);
         }
         else if (theRole == 'defender') {
-            res = Game.spawns[spawn].spawnCreep([ATTACK, MOVE, ATTACK, MOVE], name, mem);
+            res = Game.spawns[spawn].spawnCreep([TOUGH, MOVE, MOVE, ATTACK, MOVE, ATTACK, MOVE, ATTACK, MOVE], name, mem);
         }
         else if (theRole == 'runner') {
-            res = Game.spawns[spawn].spawnCreep([CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE], name, mem);
+            res = Game.spawns[spawn].spawnCreep(new Array(10).fill(CARRY,0,5).fill(MOVE,5), name, mem);
         } 
     }
     else if (varience == 'v2') { 
         if (theRole == 'defender') {
-            res = Game.spawns[spawn].spawnCreep([ATTACK, MOVE, ATTACK, MOVE], name, mem);
+            res = Game.spawns[spawn].spawnCreep([TOUGH, MOVE, MOVE, ATTACK, MOVE, ATTACK, MOVE, ATTACK, MOVE], name, mem);
         }
         else if (theRole == 'runner') {
-            res = Game.spawns[spawn].spawnCreep(new Array(10).fill(CARRY,0,5).fill(MOVE,5,10), name, mem);
+            res = Game.spawns[spawn].spawnCreep(new Array(16).fill(CARRY,0,8).fill(MOVE,8), name, mem);
         } 
         else if (theRole == 'harvester') {
-            res = Game.spawns[spawn].spawnCreep([WORK, WORK, WORK, WORK, CARRY, MOVE], name, mem);
+            res = Game.spawns[spawn].spawnCreep(new Array(7).fill(WORK).concat([CARRY, MOVE]), name, mem);
         }
     }
 
