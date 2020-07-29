@@ -112,10 +112,6 @@ var auto_respawn = function(){
         else if (spawn_check(spawn, 'builder', 'v0', 0, 1)) {return;}
         else if (spawn_check(spawn, 'repairer', 'v0', 0, 1)) {return;}
         else if (spawn_check(spawn, 'runner', 'v0', 0, 1)) {return;}
-
-        // additions
-        else if (spawn_check(spawn, 'runner', 'v1', 0, 1)) {return;}  
-        else if (spawn_check(spawn, 'runner', 'v2', 0, 1)) {return;}  
         else if (spawn_check(spawn, 'defender', 'v0', 0, 1)) {return;}  
 
         // looters
@@ -125,12 +121,19 @@ var auto_respawn = function(){
         // raiders
         else if (spawn_check(spawn, 'defender', 'v0', 2, 1)) {return;} 
         
-        // megas
+        // megas 
+        else if (spawn_check(spawn, 'runner', 'v1', 0, 1)) {return;} 
         else if (spawn_check(spawn, 'builder', 'v1', 0, 1)) {return;}   
         else if (spawn_check(spawn, 'harvester', 'v1', 0, 1)) {return;} 
+        else if (spawn_check(spawn, 'defender', 'v1', 0, 1)) {return;} 
 
         // claimer
         else if (Memory.spawnClaimer && spawn_check(spawn, 'claimer', 'v0', 0, 1)) {return;}  
+
+        // megas v2 
+        else if (spawn_check(spawn, 'runner', 'v2', 0, 1)) {return;}   
+        else if (spawn_check(spawn, 'harvester', 'v2', 0, 1)) {return;} 
+        else if (spawn_check(spawn, 'defender', 'v2', 0, 1)) {return;} 
 	}
 }
 
