@@ -125,7 +125,7 @@ var do_spawn = function(spawn, theRole, varience, mode) {
             res = Game.spawns[spawn].spawnCreep(new Array(22).fill(WORK).concat([CARRY, MOVE]), name, mem);
         }
         else if (theRole == 'defender') {
-            res = Game.spawns[spawn].spawnCreep(new Array(34).fill(MOVE,0,17).fill(ATTACK,17)concat([MOVE]), name, mem);
+            res = Game.spawns[spawn].spawnCreep(new Array(34).fill(MOVE,0,17).fill(ATTACK,17).concat([MOVE]), name, mem);
         }
 	}
     else if (varience == 'v6') { // 5300 energy
