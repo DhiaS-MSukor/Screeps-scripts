@@ -52,11 +52,14 @@ var do_spawn = function(spawn, theRole, varience, mode) {
             res = Game.spawns[spawn].spawnCreep([CARRY, CARRY, CARRY, MOVE, MOVE, MOVE], name, mem);
         } 
         else if (theRole == 'defender') {
-            res = Game.spawns[spawn].spawnCreep(new Array(4).fill(TOUGH).concat([ATTACK, MOVE, ATTACK, MOVE]), name, mem);
+            res = Game.spawns[spawn].spawnCreep([ATTACK, MOVE, ATTACK, MOVE], name, mem);
         }
-        else if (theRole == 'claimer') {
-            res = Game.spawns[spawn].spawnCreep([CLAIM, MOVE], name, mem);
-        } 
+        else if (theRole == 'healer') {
+            res = Game.spawns[spawn].spawnCreep([HEAL, MOVE], name, mem);
+        }
+        else if (theRole == 'ranger') {
+            res = Game.spawns[spawn].spawnCreep([TOUGH,MOVE,MOVE,RANGED_ATTACK], name, mem);
+        }
 	}
     else if (varience == 'v1') { // 550 energy
         if (theRole == 'harvester') {
@@ -71,6 +74,12 @@ var do_spawn = function(spawn, theRole, varience, mode) {
         else if (theRole == 'runner') {
             res = Game.spawns[spawn].spawnCreep(new Array(10).fill(CARRY,0,5).fill(MOVE,5), name, mem);
         } 
+        else if (theRole == 'ranger') {
+            res = Game.spawns[spawn].spawnCreep([MOVE,MOVE,RANGED_ATTACK,RANGED_ATTACK,RANGED_ATTACK], name, mem);
+        }
+        else if (theRole == 'healer') {
+            res = Game.spawns[spawn].spawnCreep([HEAL, HEAL, MOVE], name, mem);
+        }
     }
     else if (varience == 'v2') { // 800 energy
         if (theRole == 'defender') {
@@ -85,6 +94,15 @@ var do_spawn = function(spawn, theRole, varience, mode) {
         else if (theRole == 'builder') {
             res = Game.spawns[spawn].spawnCreep(new Array(13).fill(CARRY,0,3).fill(WORK,3,6).fill(MOVE,6), name, mem);
         }
+        else if (theRole == 'ranger') {
+            res = Game.spawns[spawn].spawnCreep(new Array(8).fill(MOVE,0,4).fill(RANGED_ATTACK,4), name, mem);
+        }
+        else if (theRole == 'healer') {
+            res = Game.spawns[spawn].spawnCreep([HEAL, HEAL, HEAL, MOVE], name, mem);
+        }
+        else if (theRole == 'claimer') {
+            res = Game.spawns[spawn].spawnCreep([CLAIM, MOVE], name, mem);
+        } 
     }
     else if (varience == 'v3') { // 1300 energy
         if (theRole == 'runner') {
@@ -99,6 +117,15 @@ var do_spawn = function(spawn, theRole, varience, mode) {
         else if (theRole == 'defender') {
             res = Game.spawns[spawn].spawnCreep(new Array(20).fill(MOVE,0,10).fill(ATTACK,10), name, mem);
         }
+        else if (theRole == 'ranger') {
+            res = Game.spawns[spawn].spawnCreep(new Array(12).fill(MOVE,0,6).fill(RANGED_ATTACK,6), name, mem);
+        }
+        else if (theRole == 'healer') {
+            res = Game.spawns[spawn].spawnCreep(new Array(8).fill(MOVE,0,4).fill(HEAL,4), name, mem);
+        }
+        else if (theRole == 'claimer') {
+            res = Game.spawns[spawn].spawnCreep([MOVE,MOVE,CLAIM,CLAIM], name, mem);
+        } 
 	}
     else if (varience == 'v4') { // 1800 energy
         if (theRole == 'runner') {
@@ -112,6 +139,12 @@ var do_spawn = function(spawn, theRole, varience, mode) {
         }
         else if (theRole == 'defender') {
             res = Game.spawns[spawn].spawnCreep(new Array(26).fill(MOVE,0,13).fill(ATTACK,13).concat([MOVE, MOVE]), name, mem);
+        }
+        else if (theRole == 'ranger') {
+            res = Game.spawns[spawn].spawnCreep(new Array(18).fill(MOVE,0,9).fill(RANGED_ATTACK,9), name, mem);
+        }
+        else if (theRole == 'healer') {
+            res = Game.spawns[spawn].spawnCreep(new Array(12).fill(MOVE,0,6).fill(HEAL,6), name, mem);
         }
 	}
     else if (varience == 'v5') { // 2300 energy
@@ -127,6 +160,15 @@ var do_spawn = function(spawn, theRole, varience, mode) {
         else if (theRole == 'defender') {
             res = Game.spawns[spawn].spawnCreep(new Array(34).fill(MOVE,0,17).fill(ATTACK,17).concat([MOVE]), name, mem);
         }
+        else if (theRole == 'ranger') {
+            res = Game.spawns[spawn].spawnCreep(new Array(22).fill(MOVE,0,11).fill(RANGED_ATTACK,11), name, mem);
+        }
+        else if (theRole == 'healer') {
+            res = Game.spawns[spawn].spawnCreep(new Array(14).fill(MOVE,0,7).fill(HEAL,7), name, mem);
+        }
+        else if (theRole == 'claimer') {
+            res = Game.spawns[spawn].spawnCreep([MOVE,MOVE,MOVE,CLAIM,CLAIM,CLAIM], name, mem);
+        } 
 	}
     else if (varience == 'v6') { // 5300 energy
         if (theRole == 'runner') {
@@ -141,9 +183,23 @@ var do_spawn = function(spawn, theRole, varience, mode) {
         else if (theRole == 'defender') {
             res = Game.spawns[spawn].spawnCreep(new Array(50).fill(MOVE,0,25).fill(ATTACK,25), name, mem);
         }
+        else if (theRole == 'ranger') {
+            res = Game.spawns[spawn].spawnCreep(new Array(50).fill(MOVE,0,25).fill(RANGED_ATTACK,25), name, mem);
+        }
+        else if (theRole == 'healer') {
+            res = Game.spawns[spawn].spawnCreep(new Array(36).fill(MOVE,0,18).fill(HEAL,18), name, mem);
+        }
+        else if (theRole == 'claimer') {
+            res = Game.spawns[spawn].spawnCreep(new Array(16).fill(CLAIM,0,8).fill(MOVE,8), name, mem);
+        } 
 	}
     else if (varience == 'v7') { // 12300 energy 
-         
+        if (theRole == 'healer') {
+            res = Game.spawns[spawn].spawnCreep(new Array(50).fill(MOVE,0,25).fill(HEAL,25), name, mem);
+        }
+        else if (theRole == 'claimer') {
+            res = Game.spawns[spawn].spawnCreep(new Array(38).fill(CLAIM,0,19).fill(MOVE,19), name, mem);
+        } 
 	} 
 
     return res == OK;
@@ -153,7 +209,8 @@ var spawn_check = function(spawn, theRole, mode, n) {
     var creeps = _.filter(Game.creeps, (creep) => creep.memory.role == theRole && creep.memory.mode == mode && creep.memory.spawn == spawn); 
 
     if (creeps.length < n) {  
-        if (do_spawn(spawn, theRole, 'v6', mode)) {return true;} 
+        if (do_spawn(spawn, theRole, 'v7', mode)) {return true;} 
+        else if (do_spawn(spawn, theRole, 'v6', mode)) {return true;} 
         else if (do_spawn(spawn, theRole, 'v5', mode)) {return true;} 
         else if (do_spawn(spawn, theRole, 'v4', mode)) {return true;} 
         else if (do_spawn(spawn, theRole, 'v3', mode)) {return true;} 
@@ -189,6 +246,10 @@ var auto_respawn = function(){
         else if (spawn_check(spawn, 'harvester', 1, 1)) {return;} 
         else if (spawn_check(spawn, 'defender', 1, 1)) {return;} 
 
+        // local healer and ranger
+        else if (spawn_check(spawn, 'healer', 0, 1)) {return;}  
+        else if (spawn_check(spawn, 'ranger', 0, 1)) {return;}  
+
         // raiders
         else if (spawn_check(spawn, 'defender', 2, 1)) {return;} 
 
@@ -210,7 +271,7 @@ var auto_respawn = function(){
         // else if (spawn_check(spawn, 'defender', 2, 1)) {return;} 
         
         // claimer
-        else if (Memory.spawnClaimer && spawn_check(spawn, 'claimer', 'v0', 0, 1)) {return;}  
+        else if (Memory.spawnClaimer && spawn_check(spawn, 'claimer', 0, 1)) {return;}  
 	}
 }
 
