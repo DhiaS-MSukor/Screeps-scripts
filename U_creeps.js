@@ -36,7 +36,7 @@ var run_role = function(){
 var do_spawn = function(spawn, theRole, varience, mode) {
     var name = theRole + varience + Game.time;
     var mem = {memory: {role: theRole, v: varience, spawn: spawn, mode: mode}};
-    var res;
+    var res = -2;
 
     if (varience == 'v0') { // 300 energy
         if (theRole == 'harvester') {
@@ -104,17 +104,24 @@ var do_spawn = function(spawn, theRole, varience, mode) {
         }
 	}
     else if (varience == 'v7') { // 12300 energy 
-        return;
-	}
+         
+	} 
 
     return res == OK;
 }
 
-var spawn_check = function(spawn, theRole, varience, mode, n) {
-    var creeps = _.filter(Game.creeps, (creep) => creep.memory.role == theRole && creep.memory.v == varience && creep.memory.spawn == spawn); 
+var spawn_check = function(spawn, theRole, mode, n) {
+    var creeps = _.filter(Game.creeps, (creep) => creep.memory.role == theRole && creep.memory.mode == mode && creep.memory.spawn == spawn); 
 
     if (creeps.length < n) {  
-        return do_spawn(spawn, theRole, varience, mode);
+        if (do_spawn(spawn, theRole, 'v7', mode)) {return true;} 
+        else if (do_spawn(spawn, theRole, 'v6', mode)) {return true;} 
+        else if (do_spawn(spawn, theRole, 'v5', mode)) {return true;} 
+        else if (do_spawn(spawn, theRole, 'v4', mode)) {return true;} 
+        else if (do_spawn(spawn, theRole, 'v3', mode)) {return true;} 
+        else if (do_spawn(spawn, theRole, 'v2', mode)) {return true;} 
+        else if (do_spawn(spawn, theRole, 'v1', mode)) {return true;} 
+        else if (do_spawn(spawn, theRole, 'v0', mode)) {return true;} 
     }
     return false;
 }
@@ -130,45 +137,42 @@ var auto_respawn = function(){
     for (var spawn in Memory.spawns) {  
         if (spawnBusy(spawn)) {continue;}
 
+        // first spawn
         // essentials
-        if (spawn_check(spawn, 'harvester', 'v0', 0, 1)) {return;}
-        else if (spawn_check(spawn, 'builder', 'v0', 0, 1)) {return;}
-        else if (spawn_check(spawn, 'repairer', 'v0', 0, 1)) {return;}
-        else if (spawn_check(spawn, 'runner', 'v0', 0, 1)) {return;}
-        else if (spawn_check(spawn, 'defender', 'v0', 0, 1)) {return;}  
+        if (spawn_check(spawn, 'harvester', 0, 1)) {return;}
+        else if (spawn_check(spawn, 'builder', 0, 1)) {return;}
+        else if (spawn_check(spawn, 'runner', 0, 1)) {return;}
+        else if (spawn_check(spawn, 'repairer', 0, 1)) {return;}
+
+        // local defender
+        else if (spawn_check(spawn, 'defender', 0, 1)) {return;}  
 
         // looters
-        else if (spawn_check(spawn, 'harvester', 'v0', 1, 1)) {return;} 
-        else if (spawn_check(spawn, 'defender', 'v0', 1, 2)) {return;} 
+        else if (spawn_check(spawn, 'harvester', 1, 1)) {return;} 
+        else if (spawn_check(spawn, 'defender', 1, 1)) {return;} 
 
         // raiders
-        else if (spawn_check(spawn, 'defender', 'v0', 2, 3)) {return;} 
-        
-        // megas 
-        else if (spawn_check(spawn, 'runner', 'v1', 0, 1)) {return;} 
-        else if (spawn_check(spawn, 'builder', 'v1', 0, 1)) {return;}   
-        else if (spawn_check(spawn, 'harvester', 'v1', 0, 1)) {return;} 
-        else if (spawn_check(spawn, 'defender', 'v1', 0, 1)) {return;} 
+        else if (spawn_check(spawn, 'defender', 2, 1)) {return;} 
 
+        // spawn to num
+        // essentials
+        else if (spawn_check(spawn, 'harvester', 0, 2)) {return;}
+        else if (spawn_check(spawn, 'builder', 0, 2)) {return;}
+        else if (spawn_check(spawn, 'runner', 0, 2)) {return;}
+        else if (spawn_check(spawn, 'repairer', 0, 1)) {return;}
+
+        // local defender
+        // else if (spawn_check(spawn, 'defender', 0, 1)) {return;}  
+
+        // looters
+        // else if (spawn_check(spawn, 'harvester', 1, 1)) {return;} 
+        // else if (spawn_check(spawn, 'defender', 1, 1)) {return;} 
+
+        // raiders
+        // else if (spawn_check(spawn, 'defender', 2, 1)) {return;} 
+        
         // claimer
         else if (Memory.spawnClaimer && spawn_check(spawn, 'claimer', 'v0', 0, 1)) {return;}  
-
-        // megas v2 
-        else if (spawn_check(spawn, 'runner', 'v2', 0, 1)) {return;}   
-        else if (spawn_check(spawn, 'harvester', 'v2', 0, 1)) {return;} 
-        else if (spawn_check(spawn, 'defender', 'v2', 0, 1)) {return;} 
-
-        // megas v3
-        else if (spawn_check(spawn, 'runner', 'v3', 0, 1)) {return;}  
-
-        // megas v4
-        else if (spawn_check(spawn, 'runner', 'v4', 0, 1)) {return;}  
-
-        // megas v5
-        else if (spawn_check(spawn, 'runner', 'v5', 0, 1)) {return;}  
-
-        // megas v6
-        else if (spawn_check(spawn, 'runner', 'v6', 0, 1)) {return;}  
 	}
 }
 
