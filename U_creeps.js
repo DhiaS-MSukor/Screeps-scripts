@@ -200,7 +200,7 @@ var auto_respawn = function(){
         //else if (spawn_check(spawn, 'repairer', 0, 1)) {return;}
 
         // local defender
-        else if (spawn_check(spawn, 'defender', 0, 3)) {return;}  
+        //else if (spawn_check(spawn, 'defender', 0, 3)) {return;}  
 
         // looters
         // else if (spawn_check(spawn, 'harvester', 1, 1)) {return;} 
