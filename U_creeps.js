@@ -83,6 +83,11 @@ var do_spawn = function(spawn, theRole, varience, mode) {
             res = Game.spawns[spawn].spawnCreep(new Array(7).fill(WORK).concat([CARRY, MOVE]), name, mem);
         }
     }
+    else if (varience == 'v3') {
+        if (theRole == 'runner') {
+            res = Game.spawns[spawn].spawnCreep(new Array(26).fill(CARRY,0,13).fill(MOVE,13), name, mem);
+        }
+	}
 
     return res == OK;
 }
@@ -134,6 +139,9 @@ var auto_respawn = function(){
         else if (spawn_check(spawn, 'runner', 'v2', 0, 1)) {return;}   
         else if (spawn_check(spawn, 'harvester', 'v2', 0, 1)) {return;} 
         else if (spawn_check(spawn, 'defender', 'v2', 0, 1)) {return;} 
+
+        // megas v3
+        else if (spawn_check(spawn, 'runner', 'v3', 0, 1)) {return;}  
 	}
 }
 
