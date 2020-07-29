@@ -36,14 +36,14 @@ module.exports = {
 
         if (creep.memory.role == 'healer') {
             target = creep.pos.findClosestByRange(FIND_MY_CREEPS, {filter: (targets) => {return (targets.hits < targets.hitsMax)}});
-            if (target) { doRole(creep, target); } 
+            if (target) { doRole(creep, target); return;} 
 	    } 
         else {
             target = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
-            if (target) { doRole(creep, target); }
+            if (target) { doRole(creep, target); return;}
 
             target = creep.pos.findClosestByRange(FIND_HOSTILE_STRUCTURES);
-            if(target) { doRole(creep, target); }
+            if(target) { doRole(creep, target); return;}
 		} 
 
         if (creep.memory.mode == 1 && creep.room.name != Memory.roomTarget) {
