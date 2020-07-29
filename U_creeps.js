@@ -66,7 +66,7 @@ var do_spawn = function(spawn, theRole, varience, mode) {
             res = Game.spawns[spawn].spawnCreep([WORK, WORK, WORK, WORK, CARRY, MOVE], name, mem);
         }
         else if (theRole == 'defender') {
-            res = Game.spawns[spawn].spawnCreep([TOUGH, MOVE, MOVE, ATTACK, MOVE, ATTACK, MOVE, ATTACK, MOVE], name, mem);
+            res = Game.spawns[spawn].spawnCreep(new Array(8).fill(MOVE,0,4).fill(ATTACK,4), name, mem);
         }
         else if (theRole == 'runner') {
             res = Game.spawns[spawn].spawnCreep(new Array(10).fill(CARRY,0,5).fill(MOVE,5), name, mem);
@@ -74,7 +74,7 @@ var do_spawn = function(spawn, theRole, varience, mode) {
     }
     else if (varience == 'v2') { // 800 energy
         if (theRole == 'defender') {
-            res = Game.spawns[spawn].spawnCreep([TOUGH, TOUGH, ATTACK, MOVE, ATTACK, MOVE, ATTACK, MOVE, ATTACK, MOVE, ATTACK, MOVE, ATTACK, MOVE], name, mem);
+            res = Game.spawns[spawn].spawnCreep(new Array(11).fill(MOVE,0,5).fill(ATTACK,5).concat([MOVE]), name, mem);
         }
         else if (theRole == 'runner') {
             res = Game.spawns[spawn].spawnCreep(new Array(16).fill(CARRY,0,8).fill(MOVE,8), name, mem);
