@@ -36,7 +36,7 @@ module.exports = {
 
         if (creep.memory.role == 'healer') {
             target = creep.pos.findClosestByRange(FIND_MY_CREEPS, {filter: (targets) => {return (targets.hits < targets.hitsMax)}});
-            if (target) { doRole(creep, target); 
+            if (target) { doRole(creep, target)}; 
 	    } 
         else {
             target = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
