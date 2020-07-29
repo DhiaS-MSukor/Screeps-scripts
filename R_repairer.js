@@ -20,7 +20,7 @@ module.exports = {
 	    }
 	    if(!creep.memory.building && creep.store.getFreeCapacity() == 0) {
 	        creep.memory.building = true;
-			creep.memory.task = (creep.memory.task + 1) % 2;
+			creep.memory.task = (creep.memory.task + 1) % 3;
 	        creep.say('repair');
 	    }
 
@@ -29,6 +29,16 @@ module.exports = {
 
 			if (creep.memory.task == 0) {
 				targets = creep.room.find(FIND_MY_STRUCTURES, {filter: (structure) => { return (structure.hits < structure.hitsMax)}});
+				if(doRepair(creep, targets)) {return;} 
+			} 
+			else if (creep.memory.task == 1) {
+				targets = creep.room.find(FIND_STRUCTURES, {filter: (structure) => { return (structure.hits < structure.hitsMax &&
+																								structure.structureType == STRUCTURE_CONTAINER)}});
+				if(doRepair(creep, targets)) {return;} 
+			} 
+			else if (creep.memory.task == 1) {
+				targets = creep.room.find(FIND_STRUCTURES, {filter: (structure) => { return (structure.hits < structure.hitsMax &&
+																								structure.structureType == STRUCTURE_ROAD)}});
 				if(doRepair(creep, targets)) {return;} 
 			} 
 
