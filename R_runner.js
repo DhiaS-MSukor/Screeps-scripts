@@ -43,7 +43,7 @@ module.exports = {
 	    }
 	    if(!creep.memory.building && creep.store[RESOURCE_ENERGY] != 0) {
 	        creep.memory.building = true;
-			creep.memory.mode = (creep.memory.mode + 1) % 3;
+			creep.memory.task = (creep.memory.task + 1) % 3;
 	        creep.say('pass');
 	    }
 
@@ -59,7 +59,7 @@ module.exports = {
 
 			if (creep.store[RESOURCE_ENERGY] == 0) {return;}
 
-			if (creep.memory.mode == 1) {
+			if (creep.memory.task == 1) {
 				if (doTransfer(transferStructureTarget(creep, STRUCTURE_EXTENSION), creep)) {return;}
 				if (doTransfer(transferStructureTarget(creep, STRUCTURE_TOWER), creep)) {return;} 
 				if (doTransfer(transferStructureTarget(creep, STRUCTURE_SPAWN), creep)) {return;} 
@@ -69,7 +69,7 @@ module.exports = {
 					if (doTransfer([targets], creep)) {return;} 
 				} 
 			}
-			else if (creep.memory.mode == 2) {
+			else if (creep.memory.task == 2) {
 				if (doTransfer(transferStructureTarget(creep, STRUCTURE_TOWER), creep)) {return;}
 				if (doTransfer(transferStructureTarget(creep, STRUCTURE_SPAWN), creep)) {return;} 
 				if (doTransfer(transferStructureTarget(creep, STRUCTURE_EXTENSION), creep)) {return;} 
@@ -101,7 +101,7 @@ module.exports = {
 				}
 			} 
 
-			if (creep.memory.v == 'v1') {
+			if (creep.memory.task == 'v1') {
 				targets = creep.room.find(FIND_RUINS, {filter: (targets) => { return (targets.store[RESOURCE_ENERGY] != 0)}});
 				if (doWithdraw(creep, targets)) {return;} 
 			} 

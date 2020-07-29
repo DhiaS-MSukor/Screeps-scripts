@@ -35,7 +35,7 @@ var run_role = function(){
 
 var do_spawn = function(spawn, theRole, varience, mode) {
     var name = theRole + varience + Game.time;
-    var mem = {memory: {role: theRole, v: varience, spawn: spawn, mode: mode}};
+    var mem = {memory: {role: theRole, v: varience, spawn: spawn, mode: mode, task: 0}};
     var res = -2;
 
     if (varience == 'v0') { // 300 energy
@@ -82,25 +82,64 @@ var do_spawn = function(spawn, theRole, varience, mode) {
         else if (theRole == 'harvester') {
             res = Game.spawns[spawn].spawnCreep(new Array(7).fill(WORK).concat([CARRY, MOVE]), name, mem);
         }
+        else if (theRole == 'builder') {
+            res = Game.spawns[spawn].spawnCreep(new Array(7).fill(WORK).concat([CARRY, MOVE]), name, mem);
+        }
     }
     else if (varience == 'v3') { // 1300 energy
         if (theRole == 'runner') {
             res = Game.spawns[spawn].spawnCreep(new Array(26).fill(CARRY,0,13).fill(MOVE,13), name, mem);
+        }
+        else if (theRole == 'harvester') {
+            res = Game.spawns[spawn].spawnCreep(new Array(12).fill(WORK).concat([CARRY, MOVE]), name, mem);
+        }
+        else if (theRole == 'builder') {
+            res = Game.spawns[spawn].spawnCreep(new Array(12).fill(WORK).concat([CARRY, MOVE]), name, mem);
+        }
+        else if (theRole == 'defender') {
+            res = Game.spawns[spawn].spawnCreep(new Array(20).fill(MOVE,0,10).fill(ATTACK,10), name, mem);
         }
 	}
     else if (varience == 'v4') { // 1800 energy
         if (theRole == 'runner') {
             res = Game.spawns[spawn].spawnCreep(new Array(36).fill(CARRY,0,18).fill(MOVE,18), name, mem);
         }
+        else if (theRole == 'harvester') {
+            res = Game.spawns[spawn].spawnCreep(new Array(17).fill(WORK).concat([CARRY, MOVE]), name, mem);
+        }
+        else if (theRole == 'builder') {
+            res = Game.spawns[spawn].spawnCreep(new Array(17).fill(WORK).concat([CARRY, MOVE]), name, mem);
+        }
+        else if (theRole == 'defender') {
+            res = Game.spawns[spawn].spawnCreep(new Array(26).fill(MOVE,0,13).fill(ATTACK,13).push(MOVE).push(MOVE), name, mem);
+        }
 	}
     else if (varience == 'v5') { // 2300 energy
         if (theRole == 'runner') {
             res = Game.spawns[spawn].spawnCreep(new Array(46).fill(CARRY,0,23).fill(MOVE,23), name, mem);
         }
+        else if (theRole == 'harvester') {
+            res = Game.spawns[spawn].spawnCreep(new Array(22).fill(WORK).concat([CARRY, MOVE]), name, mem);
+        }
+        else if (theRole == 'builder') {
+            res = Game.spawns[spawn].spawnCreep(new Array(22).fill(WORK).concat([CARRY, MOVE]), name, mem);
+        }
+        else if (theRole == 'defender') {
+            res = Game.spawns[spawn].spawnCreep(new Array(34).fill(MOVE,0,17).fill(ATTACK,17).push(MOVE), name, mem);
+        }
 	}
     else if (varience == 'v6') { // 5300 energy
         if (theRole == 'runner') {
             res = Game.spawns[spawn].spawnCreep(new Array(50).fill(CARRY,0,25).fill(MOVE,25), name, mem);
+        }
+        else if (theRole == 'harvester') {
+            res = Game.spawns[spawn].spawnCreep(new Array(48).fill(WORK).concat([CARRY, MOVE]), name, mem);
+        }
+        else if (theRole == 'builder') {
+            res = Game.spawns[spawn].spawnCreep(new Array(48).fill(WORK).concat([CARRY, MOVE]), name, mem);
+        }
+        else if (theRole == 'defender') {
+            res = Game.spawns[spawn].spawnCreep(new Array(50).fill(MOVE,0,25).fill(ATTACK,25), name, mem);
         }
 	}
     else if (varience == 'v7') { // 12300 energy 
@@ -114,8 +153,7 @@ var spawn_check = function(spawn, theRole, mode, n) {
     var creeps = _.filter(Game.creeps, (creep) => creep.memory.role == theRole && creep.memory.mode == mode && creep.memory.spawn == spawn); 
 
     if (creeps.length < n) {  
-        if (do_spawn(spawn, theRole, 'v7', mode)) {return true;} 
-        else if (do_spawn(spawn, theRole, 'v6', mode)) {return true;} 
+        if (do_spawn(spawn, theRole, 'v6', mode)) {return true;} 
         else if (do_spawn(spawn, theRole, 'v5', mode)) {return true;} 
         else if (do_spawn(spawn, theRole, 'v4', mode)) {return true;} 
         else if (do_spawn(spawn, theRole, 'v3', mode)) {return true;} 
