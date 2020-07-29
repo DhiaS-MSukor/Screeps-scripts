@@ -63,7 +63,7 @@ var do_spawn = function(spawn, theRole, varience) {
             res = Game.spawns[spawn].spawnCreep([WORK, MOVE, CARRY, MOVE], name, mem);
         }
         else if (theRole == 'builder') {
-            res = Game.spawns[spawn].spawnCreep([WORK, WORK, WORK, WORK, CARRY, CARRY, MOVE, MOVE], name, mem);
+            res = Game.spawns[spawn].spawnCreep([WORK, WORK, WORK, WORK, CARRY, MOVE], name, mem);
         }
         else if (theRole == 'defender') {
             res = Game.spawns[spawn].spawnCreep([ATTACK, MOVE, ATTACK, MOVE], name, mem);
