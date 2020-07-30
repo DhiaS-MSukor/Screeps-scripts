@@ -12,13 +12,13 @@ var doRole = function(tower) {
 
         target = tower.room.find(FIND_MY_STRUCTURES, {filter: (structure) => structure.hits < structure.hitsMax}); 
         if(target.length) {
-            tower.repair(target.sort(function(a,b){b.hits - a.hits})[0]);
+            tower.repair((target.sort(function(a,b){b.hits - a.hits}))[0]);
             return;
         }
 
         target = tower.room.find(FIND_STRUCTURES, {filter: (structure) => structure.hits < structure.hitsMax}); 
         if(target.length) {
-            tower.repair(target.sort(function(a,b){b.hits - a.hits})[0]);
+            tower.repair((target.sort(function(a,b){b.hits - a.hits}))[0]);
             return;
         }
     } 
