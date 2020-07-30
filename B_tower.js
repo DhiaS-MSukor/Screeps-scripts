@@ -10,7 +10,7 @@ var doRole = function(tower) {
             return;
         }
 
-        target = tower.room.find(FIND_MY_STRUCTURES, {filter: (structure) => structure.hits < structure.hitsMax}); 
+        var target = tower.room.find(FIND_MY_STRUCTURES, {filter: (structure) => structure.hits < structure.hitsMax}); 
         target = target.sort(function(a,b){a.hits - b.hits});
         if(target.length) {
             tower.repair(target[0]);
