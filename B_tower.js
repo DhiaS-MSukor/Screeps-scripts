@@ -10,15 +10,15 @@ var doRole = function(tower) {
             return;
         }
 
-        target = tower.pos.findClosestByRange(FIND_MY_STRUCTURES, {filter: (structure) => structure.hits < structure.hitsMax}); 
-        if(target) {
-            tower.repair(target);
+        target = tower.room.find(FIND_MY_STRUCTURES, {filter: (structure) => structure.hits < structure.hitsMax}); 
+        if(target.length) {
+            tower.repair(target.sort(function(a,b){a.hits - b.hits})[0]);
             return;
         }
 
-        target = tower.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => structure.hits < structure.hitsMax}); 
-        if(target) {
-            tower.repair(target);
+        target = tower.room.find(FIND_STRUCTURES, {filter: (structure) => structure.hits < structure.hitsMax}); 
+        if(target.length) {
+            tower.repair(target.sort(function(a,b){a.hits - b.hits})[0]);
             return;
         }
     } 
