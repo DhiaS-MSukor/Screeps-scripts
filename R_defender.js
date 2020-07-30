@@ -14,7 +14,8 @@ var doTask = function(creep, target) {
     else if (creep.memory.role == 'healer') {
         var res = creep.heal(target);
         if (res == ERR_NOT_IN_RANGE) {
-            return creep.rangedHeal(target);
+            creep.rangedHeal(target);
+            return res;
 		}
         return res;
 	} 
