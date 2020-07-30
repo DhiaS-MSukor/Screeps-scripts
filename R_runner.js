@@ -1,6 +1,6 @@
 // JavaScript source code
 var doTransfer = function(targets, creep, res = RESOURCE_ENERGY) {
-	if (targets.length) {
+	if (targets) {
 		if (creep.transfer(targets[0], res) == ERR_NOT_IN_RANGE){
 			creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ff00ff'}});  
 			return true;
@@ -10,7 +10,7 @@ var doTransfer = function(targets, creep, res = RESOURCE_ENERGY) {
 }
 
 var doWithdraw = function(creep, targets, res = RESOURCE_ENERGY) {
-	if (targets.length) {
+	if (targets) {
 		if (creep.withdraw(targets[0], res) == ERR_NOT_IN_RANGE){
 			creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ff00ff'}});  
 			return true;
@@ -20,7 +20,7 @@ var doWithdraw = function(creep, targets, res = RESOURCE_ENERGY) {
 }
 
 var withdrawAll = function(creep, targets) {
-	if (targets.length) {
+	if (targets) {
 		res = _.filter(Object.keys(targets[0].store), (res) => (targets[0].store[res] != 0)); 
 		if (res.length) {
 			return doWithdraw(creep, targets, res[0]);
@@ -30,13 +30,13 @@ var withdrawAll = function(creep, targets) {
 }
 
 var transferStructureTarget = function(creep, type) {
-	return creep.room.find(FIND_STRUCTURES, {filter: (targets) => { return (targets.structureType == type && 
+	return creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (targets) => { return (targets.structureType == type && 
 																	targets.store.getFreeCapacity(RESOURCE_ENERGY) > 0)}});
 }
 
 var transferCreepTarget = function(creep, role) {
 	return creep.pos.findClosestByRange(FIND_MY_CREEPS, {filter: (targets) => {return (targets.memory.role == role && 
-																			   targets.store.getFreeCapacity(RESOURCE_ENERGY) > 0)}});;
+																			   targets.store.getFreeCapacity(RESOURCE_ENERGY) > 0)}});
 }
 
 module.exports = {
@@ -103,8 +103,8 @@ module.exports = {
 	    else { 
 			if (creep.fatigue > 0) {return;}
 
-			targets = creep.room.find(FIND_DROPPED_RESOURCES);
-			if(targets.length) {
+			targets = creep.pos.findClosestByRange(FIND_DROPPED_RESOURCES);
+			if(targets) {
 				if(creep.pickup(targets[0]) == ERR_NOT_IN_RANGE) {
 					creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ff00ff'}});
 					return;
@@ -112,11 +112,11 @@ module.exports = {
 			} 
 
 			if (creep.memory.task == 'v1') {
-				targets = creep.room.find(FIND_RUINS, {filter: (targets) => { return (targets.store[RESOURCE_ENERGY] != 0)}});
+				targets = creep.pos.findClosestByRange(FIND_RUINS, {filter: (targets) => { return (targets.store[RESOURCE_ENERGY] != 0)}});
 				if (withdrawAll(creep, targets)) {return;} 
 			} 
 
-			targets = creep.room.find(FIND_TOMBSTONES, {filter: (targets) => { return (targets.store.getUsedCapacity() != 0)}});
+			targets = creep.pos.findClosestByRange(FIND_TOMBSTONES, {filter: (targets) => { return (targets.store.getUsedCapacity() != 0)}});
 			if (withdrawAll(creep, targets)) {return;} 
 
 			targets = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (targets) => { return (targets.structureType == STRUCTURE_CONTAINER && 
