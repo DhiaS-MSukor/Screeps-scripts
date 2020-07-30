@@ -27,7 +27,7 @@ module.exports = {
             creep.memory.harvest = false;
             creep.say('transfer');
 	    }
-	    if (!creep.memory.harvest && creep.store.getFreeCapacity() > 0) {
+	    if (!creep.memory.harvest && creep.store.getFreeCapacity() != 0) {
 	        creep.memory.harvest = true;
 	        creep.say('harvest');
 	    }
@@ -47,7 +47,7 @@ module.exports = {
             } 
             else if (harv == ERR_NOT_ENOUGH_RESOURCES) {
                 creep.memory.harvest = false;
-                creep.say('no resource');
+                creep.say('!_!');
 			}
         }
 
