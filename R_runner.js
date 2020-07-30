@@ -76,7 +76,7 @@ module.exports = {
 
 				targets = transferCreepTarget(creep, 'repairer'); 
 				if (targets) {
-					if (doTransfer([targets], creep)) {return;} 
+					if (doTransfer(targets, creep)) {return;} 
 				} 
 			}
 			else if (creep.memory.task == 2) {
@@ -86,7 +86,7 @@ module.exports = {
 
 				targets = transferCreepTarget(creep, 'builder');
 				if (targets) {
-					if (doTransfer([targets], creep)) {return;} 
+					if (doTransfer(targets, creep)) {return;} 
 				}
 			}
 			else {
@@ -96,7 +96,7 @@ module.exports = {
 				
 				targets = transferCreepTarget(creep, 'builder');
 				if (targets) {
-					if (doTransfer([targets], creep)) {return;} 
+					if (doTransfer(targets, creep)) {return;} 
 				}
 			} 
 	    }
@@ -105,8 +105,8 @@ module.exports = {
 
 			targets = creep.pos.findClosestByRange(FIND_DROPPED_RESOURCES);
 			if(targets) {
-				if(creep.pickup(targets[0]) == ERR_NOT_IN_RANGE) {
-					creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ff00ff'}});
+				if(creep.pickup(targets) == ERR_NOT_IN_RANGE) {
+					creep.moveTo(targets, {visualizePathStyle: {stroke: '#ff00ff'}});
 					return;
 				}
 			} 
