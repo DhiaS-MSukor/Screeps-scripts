@@ -111,13 +111,15 @@ module.exports = {
 				}
 			} 
 
-			if (creep.memory.task == 'v1') {
+			if (creep.memory.task % 2 == 1) {
 				targets = creep.pos.findClosestByRange(FIND_RUINS, {filter: (targets) => { return (targets.store[RESOURCE_ENERGY] != 0)}});
 				if (withdrawAll(creep, targets)) {return;} 
 			} 
-
-			targets = creep.pos.findClosestByRange(FIND_TOMBSTONES, {filter: (targets) => { return (targets.store.getUsedCapacity() != 0)}});
-			if (withdrawAll(creep, targets)) {return;} 
+			else if (creep.memory.task % 2 == 0) {
+				targets = creep.pos.findClosestByRange(FIND_TOMBSTONES, {filter: (targets) => { return (targets.store.getUsedCapacity() != 0)}});
+				if (withdrawAll(creep, targets)) {return;} 
+			}
+			
 
 			targets = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (targets) => { return (targets.structureType == STRUCTURE_CONTAINER && 
 																						   targets.store[RESOURCE_ENERGY] != 0)}}); 
