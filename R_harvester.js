@@ -41,9 +41,14 @@ module.exports = {
             }
 
             targets = creep.room.find(FIND_SOURCES);
-            if(creep.harvest(targets[0]) == ERR_NOT_IN_RANGE) {
+            var harv = creep.harvest(targets[0]);
+            if(harv == ERR_NOT_IN_RANGE) {
                 creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#00ff00'}});
-            }
+            } 
+            else if (harv == ERR_NOT_ENOUGH_RESOURCES) {
+                creep.memory.harvest = false;
+                creep.say('transfer');
+			}
         }
 
         else {
