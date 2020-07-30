@@ -19,6 +19,16 @@ var doWithdraw = function(creep, targets, res = RESOURCE_ENERGY) {
 	return false;
 }
 
+var withdrawAll = function(creep, targets) {
+	if (targets.length) {
+		res = _.filter(Object.keys(targets[0].store), (res) => (targets[0].store[res] != 0)); 
+		if (res.length) {
+			return doWithdraw(creep, targets, res[0]);
+		}
+	} 
+	return false;
+}
+
 var transferStructureTarget = function(creep, type) {
 	return creep.room.find(FIND_STRUCTURES, {filter: (targets) => { return (targets.structureType == type && 
 																	targets.store.getFreeCapacity(RESOURCE_ENERGY) > 0)}});
@@ -103,17 +113,11 @@ module.exports = {
 
 			if (creep.memory.task == 'v1') {
 				targets = creep.room.find(FIND_RUINS, {filter: (targets) => { return (targets.store[RESOURCE_ENERGY] != 0)}});
-				if (doWithdraw(creep, targets)) {return;} 
+				if (withdrawAll(creep, targets)) {return;} 
 			} 
 
 			targets = creep.room.find(FIND_TOMBSTONES, {filter: (targets) => { return (targets.store.getUsedCapacity() != 0)}});
-			if (targets.length) {
-				res = _.filter(Object.keys(targets[0].store), (res) => (targets[0].store[res] != 0)); 
-				if (res.length) {
-					if (doWithdraw(creep, targets, res[0])) {return;} 
-				}
-			}
-			if (doWithdraw(creep, targets)) {return;}  
+			if (withdrawAll(creep, targets)) {return;} 
 
 			targets = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (targets) => { return (targets.structureType == STRUCTURE_CONTAINER && 
 																						   targets.store[RESOURCE_ENERGY] != 0)}}); 
