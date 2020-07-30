@@ -1,8 +1,8 @@
 // JavaScript source code
 var doTransfer = function(targets, creep, res = RESOURCE_ENERGY) {
 	if (targets) {
-		if (creep.transfer(targets[0], res) == ERR_NOT_IN_RANGE){
-			creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ff00ff'}});  
+		if (creep.transfer(targets, res) == ERR_NOT_IN_RANGE){
+			creep.moveTo(targets, {visualizePathStyle: {stroke: '#ff00ff'}});  
 			return true;
 		} 
 	}
@@ -11,8 +11,8 @@ var doTransfer = function(targets, creep, res = RESOURCE_ENERGY) {
 
 var doWithdraw = function(creep, targets, res = RESOURCE_ENERGY) {
 	if (targets) {
-		if (creep.withdraw(targets[0], res) == ERR_NOT_IN_RANGE){
-			creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ff00ff'}});  
+		if (creep.withdraw(targets, res) == ERR_NOT_IN_RANGE){
+			creep.moveTo(targets, {visualizePathStyle: {stroke: '#ff00ff'}});  
 			return true;
 		} 
 	}
@@ -121,9 +121,7 @@ module.exports = {
 
 			targets = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (targets) => { return (targets.structureType == STRUCTURE_CONTAINER && 
 																						   targets.store[RESOURCE_ENERGY] != 0)}}); 
-			if (targets) {
-				if (doWithdraw(creep, [targets])) {return;}  
-			} 
+			if (doWithdraw(creep, targets)) {return;}   
 	    }
 	}
 };
