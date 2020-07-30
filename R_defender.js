@@ -43,7 +43,7 @@ module.exports = {
             target = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
             if (target) { doRole(creep, target); return;}
 
-            target = creep.pos.findClosestByRange(FIND_HOSTILE_STRUCTURES);
+            target = creep.pos.findClosestByRange(FIND_HOSTILE_STRUCTURES, {filter: (targets) => {return (targets.structureType != STRUCTURE_CONTROLLER)}});
             if(target) { doRole(creep, target); return;}
 		} 
 
