@@ -41,7 +41,7 @@ module.exports = {
             creep.memory.building = false;
             creep.say('harvest');
 	    }
-	    if(!creep.memory.building && creep.store[RESOURCE_ENERGY] > 25) {
+	    if(!creep.memory.building && creep.store.getUsedCapacity() > 25) {
 	        creep.memory.building = true;
 			creep.memory.task = (creep.memory.task + 1) % 3;
 	        creep.say('pass');
@@ -106,7 +106,13 @@ module.exports = {
 				if (doWithdraw(creep, targets)) {return;} 
 			} 
 
-			targets = creep.room.find(FIND_TOMBSTONES, {filter: (targets) => { return (targets.store[RESOURCE_ENERGY] != 0)}});
+			targets = creep.room.find(FIND_TOMBSTONES, {filter: (targets) => { return (targets.store.getUsedCapacity() != 0)}});
+			if (targets.length) {
+				res = _.filter(Object.keys(targets[0].store), (res) => (targets[0].store[res] != 0)); 
+				if (res.length) {
+					if (doWithdraw(creep, targets, res[0])) {return;} 
+				}
+			}
 			if (doWithdraw(creep, targets)) {return;}  
 
 			targets = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (targets) => { return (targets.structureType == STRUCTURE_CONTAINER && 
