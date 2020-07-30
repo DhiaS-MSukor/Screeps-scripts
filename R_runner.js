@@ -63,7 +63,7 @@ module.exports = {
 			if (res.length) {
 				targets = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (targets) => { return (targets.structureType == STRUCTURE_CONTAINER && 
 																						   targets.store.getFreeCapacity() > 0)}});
-				doTransfer([targets], creep, res[0])
+				doTransfer(targets, creep, res[0])
 				return;
 			}
 
