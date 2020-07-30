@@ -10,19 +10,14 @@ var doRole = function(tower) {
             return;
         }
 
-        var target = tower.room.find(FIND_MY_STRUCTURES, {filter: (structure) => structure.hits < structure.hitsMax});  
+        var target = tower.room.find(FIND_MY_STRUCTURES, {filter: (structure) => structure.hits < structure.hitsMax}).sort((a,b) => b.hits - a.hits);  
         if(target.length) {
             tower.repair(target[0]);
             return;
-        }
+        } 
 
-        target = tower.room.find(FIND_STRUCTURES, {filter: (structure) => (structure.hits < structure.hitsMax && structure.hits < 5000)});   
-        if(target.length) {
-            tower.repair(target[0]);
-            return;
-        }
-
-        target = tower.room.find(FIND_STRUCTURES, {filter: (structure) => structure.hits < structure.hitsMax});   
+        target = tower.room.find(FIND_STRUCTURES, {filter: (structure) => structure.hits < structure.hitsMax}).sort((a,b) => b.hits - a.hits);   
+        console.log(target[0].hits + ' ' + target[1]);
         if(target.length) {
             tower.repair(target[0]);
             return;
