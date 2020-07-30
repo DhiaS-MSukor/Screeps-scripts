@@ -24,7 +24,7 @@ var run_role = function(){
         else if(creep.memory.role == 'runner') {
             r_runner.run(creep);
         }
-        else if(['defender', 'healer', 'ranger', 'tank'].includes(creep.memory.role)) {
+        else if(['defender', 'healer', 'ranger', 'troll'].includes(creep.memory.role)) {
             r_defender.run(creep);
         } 
         else if(creep.memory.role == 'claimer') {
@@ -80,6 +80,9 @@ var do_spawn = function(spawn, theRole, varience, mode) {
         else if (theRole == 'healer') {
             res = Game.spawns[spawn].spawnCreep([HEAL, HEAL, MOVE], name, mem);
         }
+        else if (theRole == 'troll') {
+            res = Game.spawns[spawn].spawnCreep([TOUGH,TOUGH,MOVE,MOVE,MOVE,MOVE,ATTACK,HEAL], name, mem);
+        }
     }
     else if (varience == 'v2') { // 800 energy
         if (theRole == 'defender') {
@@ -103,6 +106,9 @@ var do_spawn = function(spawn, theRole, varience, mode) {
         else if (theRole == 'claimer') {
             res = Game.spawns[spawn].spawnCreep([CLAIM, MOVE], name, mem);
         } 
+        else if (theRole == 'troll') {
+            res = Game.spawns[spawn].spawnCreep([TOUGH,MOVE,MOVE,MOVE,MOVE,ATTACK,HEAL,HEAL], name, mem);
+        }
     }
     else if (varience == 'v3') { // 1300 energy
         if (theRole == 'runner') {
@@ -126,6 +132,11 @@ var do_spawn = function(spawn, theRole, varience, mode) {
         else if (theRole == 'claimer') {
             res = Game.spawns[spawn].spawnCreep([MOVE,MOVE,CLAIM,CLAIM], name, mem);
         } 
+        else if (theRole == 'troll') {
+            res = Game.spawns[spawn].spawnCreep(
+            [TOUGH,TOUGH,TOUGH,TOUGH,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,ATTACK,HEAL,HEAL,HEAL]
+            , name, mem);
+        }
 	}
     else if (varience == 'v4') { // 1800 energy
         if (theRole == 'runner') {
@@ -145,6 +156,11 @@ var do_spawn = function(spawn, theRole, varience, mode) {
         }
         else if (theRole == 'healer') {
             res = Game.spawns[spawn].spawnCreep(new Array(12).fill(MOVE,0,6).fill(HEAL,6), name, mem);
+        }
+        else if (theRole == 'troll') {
+            res = Game.spawns[spawn].spawnCreep(
+            [TOUGH,TOUGH,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,ATTACK,HEAL,HEAL,HEAL,HEAL,HEAL]
+            , name, mem);
         }
 	}
     else if (varience == 'v5') { // 2300 energy
@@ -169,6 +185,11 @@ var do_spawn = function(spawn, theRole, varience, mode) {
         else if (theRole == 'claimer') {
             res = Game.spawns[spawn].spawnCreep([MOVE,MOVE,MOVE,CLAIM,CLAIM,CLAIM], name, mem);
         } 
+        else if (theRole == 'troll') {
+            res = Game.spawns[spawn].spawnCreep(
+            [TOUGH,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,ATTACK,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL]
+            , name, mem);
+        }
 	}
     else if (varience == 'v6') { // 5300 energy
         if (theRole == 'runner') {
@@ -192,6 +213,12 @@ var do_spawn = function(spawn, theRole, varience, mode) {
         else if (theRole == 'claimer') {
             res = Game.spawns[spawn].spawnCreep(new Array(16).fill(CLAIM,0,8).fill(MOVE,8), name, mem);
         } 
+        else if (theRole == 'troll') {
+            res = Game.spawns[spawn].spawnCreep(
+            [TOUGH,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,
+            ATTACK,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL]
+            , name, mem);
+        }
 	}
     else if (varience == 'v7') { // 12300 energy 
         if (theRole == 'healer') {
@@ -200,6 +227,12 @@ var do_spawn = function(spawn, theRole, varience, mode) {
         else if (theRole == 'claimer') {
             res = Game.spawns[spawn].spawnCreep(new Array(38).fill(CLAIM,0,19).fill(MOVE,19), name, mem);
         } 
+        else if (theRole == 'troll') {
+            res = Game.spawns[spawn].spawnCreep(
+            [MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,
+            MOVE,MOVE,MOVE,MOVE,ATTACK,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL]
+            , name, mem);
+        }
 	} 
 
     return res == OK;
@@ -251,6 +284,7 @@ var auto_respawn = function(){
         else if (spawn_check(spawn, 'defender', 0, 1)) {return;}  
 
         // raiders
+        else if (Memory.spawnTroll && spawn_check(spawn, 'troll', 2, 1)) {return;} 
         else if (spawn_check(spawn, 'defender', 2, 1)) {return;} 
 
         // spawn to num

@@ -19,6 +19,10 @@ var doTask = function(creep, target) {
 		}
         return res;
 	} 
+    else if (creep.memory.role == 'troll') {
+        creep.heal(creep);
+        return ERR_NOT_IN_RANGE;
+	}
     return creep.attack(target); 
 }
 
