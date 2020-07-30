@@ -112,7 +112,7 @@ module.exports = {
 			} 
 
 			if (creep.memory.task % 2 == 1) {
-				targets = creep.pos.findClosestByRange(FIND_RUINS, {filter: (targets) => { return (targets.store[RESOURCE_ENERGY] != 0)}});
+				targets = creep.pos.findClosestByRange(FIND_RUINS, {filter: (targets) => { return (targets.store.getUsedCapacity() != 0)}});
 				if (withdrawAll(creep, targets)) {return;} 
 			} 
 			else if (creep.memory.task % 2 == 0) {
