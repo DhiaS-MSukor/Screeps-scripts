@@ -47,7 +47,7 @@ module.exports = {
             } 
             else if (harv == ERR_NOT_ENOUGH_RESOURCES) {
                 creep.memory.harvest = false;
-                creep.say('transfer');
+                creep.say('no resource');
 			}
         }
 
