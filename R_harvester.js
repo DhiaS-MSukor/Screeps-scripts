@@ -27,7 +27,7 @@ module.exports = {
             creep.memory.harvest = false;
             creep.say('transfer');
 	    }
-	    if (!creep.memory.harvest && creep.store.getFreeCapacity() != 0) {
+	    if (!creep.memory.harvest && creep.store.getUsedCapacity() == 0) {
 	        creep.memory.harvest = true;
 	        creep.say('harvest');
 	    }
