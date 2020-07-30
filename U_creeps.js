@@ -24,7 +24,7 @@ var run_role = function(){
         else if(creep.memory.role == 'runner') {
             r_runner.run(creep);
         }
-        else if(creep.memory.role == 'defender' || creep.memory.role == 'healer' || creep.memory.role == 'ranger') {
+        else if(['defender', 'healer', 'ranger', 'tank'].includes(creep.memory.role)) {
             r_defender.run(creep);
         } 
         else if(creep.memory.role == 'claimer') {
