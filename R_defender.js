@@ -44,8 +44,7 @@ module.exports = {
             if (target) { doRole(creep, target); return;} 
 	    } 
         else {
-            target = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS, 
-                     {filter: (target) => {return ([HEAL, CLAIM, RANGED_ATTACK, ATTACK, WORK].some((val) => target.body.includes(val)))}});
+            target = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
             if (target) { doRole(creep, target); return;}
 
             target = creep.pos.findClosestByRange(FIND_HOSTILE_STRUCTURES, {filter: (targets) => {return (targets.hits > 0)}});

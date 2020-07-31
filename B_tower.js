@@ -4,8 +4,7 @@ var doRole = function(tower) {
     if (tower) { 
         if (tower.store[RESOURCE_ENERGY] == 0) {return;}
 
-        var target = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS, 
-                     {filter: (target) => {return ([HEAL, CLAIM, RANGED_ATTACK, ATTACK, WORK].some((val) => target.body.includes(val)))}});
+        var target = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
         if(target) {
             tower.attack(target);
             return;
