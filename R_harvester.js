@@ -1,5 +1,5 @@
 var doTransfer = function(targets, creep) {
-    if (targets.length) {
+    if (targets.length > 0) {
         if(creep.transfer(targets[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
             creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#00ff00'}});
         }
@@ -69,7 +69,7 @@ module.exports = {
                                                                                      structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;}
             });
 
-            if (doTransfer([targets], creep)) { return; } 
+            if (doTransfer(targets, creep)) { return; } 
         }
 	}
 };
