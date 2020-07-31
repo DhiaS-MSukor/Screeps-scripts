@@ -51,7 +51,7 @@ module.exports = {
             creep.memory.building = false;
             creep.say('harvest');
 	    }
-	    if(!creep.memory.building && creep.store.getUsedCapacity() > creep.store.getCapacity() / 2) {
+	    if(!creep.memory.building && creep.store.getUsedCapacity() > 49) {
 	        creep.memory.building = true;
 			creep.memory.task = (creep.memory.task + 1) % 2;
 	        creep.say('pass');
