@@ -4,6 +4,7 @@ var doTransfer = function(targets, creep) {
             creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#00ff00'}});
             return true;
         }
+        return true;
     }
 
     return false;
