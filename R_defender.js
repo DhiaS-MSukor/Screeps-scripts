@@ -67,9 +67,10 @@ module.exports = {
                 return;
 		}
 
-        target = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => { return structure.structureType == STRUCTURE_EXTRACTOR;}}); 
-        if (target){
-            creep.moveTo(target, {visualizePathStyle: {stroke: '#ff0000'}}); 
+        target = creep.room.find(FIND_STRUCTURES, {filter: (structure) => { return structure.structureType == STRUCTURE_KEEPER_LAIR;}});
+        target = target.sort((a,b) => a.ticksToSpawn - b.ticksToSpawn);
+        if (target.length > 0){
+            creep.moveTo(target[0], {visualizePathStyle: {stroke: '#ff0000'}}); 
                 return;
 		} 
 	}
