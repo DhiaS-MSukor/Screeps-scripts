@@ -53,7 +53,7 @@ module.exports = {
 	    }
 	    if(!creep.memory.building && creep.store.getUsedCapacity() > creep.store.getCapacity() / 2) {
 	        creep.memory.building = true;
-			creep.memory.task = (creep.memory.task + 1) % 3;
+			creep.memory.task = (creep.memory.task + 1) % 2;
 	        creep.say('pass');
 	    }
 
@@ -70,28 +70,18 @@ module.exports = {
 			if (creep.store[RESOURCE_ENERGY] == 0) {return;}
 
 			if (creep.memory.task == 1) {
-				if (doTransfer(transferStructureTarget(creep, STRUCTURE_EXTENSION), creep)) {return;}
 				if (doTransfer(transferStructureTarget(creep, STRUCTURE_TOWER), creep)) {return;} 
-				if (doTransfer(transferStructureTarget(creep, STRUCTURE_SPAWN), creep)) {return;} 
 
-				targets = transferCreepTarget(creep, 'repairer'); 
+				targets = transferCreepTarget(creep, 'builder'); 
 				if (targets) {
 					if (doTransfer(targets, creep)) {return;} 
 				} 
-			}
-			else if (creep.memory.task == 2) {
-				if (doTransfer(transferStructureTarget(creep, STRUCTURE_TOWER), creep)) {return;}
-
-				targets = transferCreepTarget(creep, 'builder');
-				if (targets) {
-					if (doTransfer(targets, creep)) {return;} 
-				}
-				if (doTransfer(transferStructureTarget(creep, STRUCTURE_EXTENSION), creep)) {return;} 
+				if (doTransfer(transferStructureTarget(creep, STRUCTURE_EXTENSION), creep)) {return;}
 				if (doTransfer(transferStructureTarget(creep, STRUCTURE_SPAWN), creep)) {return;} 
-			}
+			} 
 			else {
-				if (doTransfer(transferStructureTarget(creep, STRUCTURE_SPAWN), creep)) {return;} 
 				if (doTransfer(transferStructureTarget(creep, STRUCTURE_EXTENSION), creep)) {return;} 
+				if (doTransfer(transferStructureTarget(creep, STRUCTURE_SPAWN), creep)) {return;} 
 				
 				targets = transferCreepTarget(creep, 'builder');
 				if (targets) {
