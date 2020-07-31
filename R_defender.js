@@ -66,7 +66,7 @@ module.exports = {
                 return;
 		}
 
-        target = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => { return structure.structureType == STRUCTURE_EXTRACTOR }); 
+        target = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => { return structure.structureType == STRUCTURE_EXTRACTOR;}}); 
         if (target){
             creep.moveTo(target, {visualizePathStyle: {stroke: '#ff0000'}}); 
                 return;
