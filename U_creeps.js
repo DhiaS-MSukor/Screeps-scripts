@@ -255,7 +255,8 @@ var spawn_check = function(spawn, theRole, mode, n) {
 }
 
 var spawnBusy = function (spawn) {
-    if (Game.spawns[spawn] && Game.spawns[spawn].spawning) {return true;}
+    if (!Game.spawns[spawn]){return false};
+    if (Game.spawns[spawn].spawning) {return true;}
     return (Game.spawns[spawn].room.energyAvailable < 300);
 }
 
