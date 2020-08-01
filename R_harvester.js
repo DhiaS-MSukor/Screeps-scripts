@@ -15,7 +15,7 @@ var goToRoom = function (creep, target) {
     var routes = Game.map.findRoute(creep.room, target);
 
     if (routes.length) {
-        creep.moveTo(creep.pos.findClosestByRange(routes[0].exit), {visualizePathStyle: {stroke: '#00ff00'}});
+        creep.moveTo(creep.room.find(routes[0].exit)[0], {visualizePathStyle: {stroke: '#00ff00'}});
 	} 
 }
 
