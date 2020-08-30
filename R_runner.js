@@ -71,23 +71,23 @@ module.exports = {
 
 			if (creep.memory.task == 1) {
 				if (doTransfer(transferStructureTarget(creep, STRUCTURE_TOWER), creep)) {return;} 
+				if (doTransfer(transferStructureTarget(creep, STRUCTURE_EXTENSION), creep)) {return;}
+				if (doTransfer(transferStructureTarget(creep, STRUCTURE_SPAWN), creep)) {return;} 
 
 				targets = transferCreepTarget(creep, 'builder'); 
 				if (targets) {
 					if (doTransfer(targets, creep)) {return;} 
 				} 
-				if (doTransfer(transferStructureTarget(creep, STRUCTURE_EXTENSION), creep)) {return;}
-				if (doTransfer(transferStructureTarget(creep, STRUCTURE_SPAWN), creep)) {return;} 
 			} 
 			else {
 				if (doTransfer(transferStructureTarget(creep, STRUCTURE_EXTENSION), creep)) {return;} 
 				if (doTransfer(transferStructureTarget(creep, STRUCTURE_SPAWN), creep)) {return;} 
+				if (doTransfer(transferStructureTarget(creep, STRUCTURE_TOWER), creep)) {return;} 
 				
 				targets = transferCreepTarget(creep, 'builder');
 				if (targets) {
 					if (doTransfer(targets, creep)) {return;} 
 				}
-				if (doTransfer(transferStructureTarget(creep, STRUCTURE_TOWER), creep)) {return;} 
 			} 
 	    }
 	    else { 
