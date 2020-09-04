@@ -285,8 +285,8 @@ var auto_respawn = function(){
         // else if (spawn_check(spawn, 'defender', 0, 1)) {return;}  
 
         // raiders
-        else if (Memory.spawnTroll && spawn_check(spawn, 'troll', 2, 1)) {return;} 
-        else if (spawn_check(spawn, 'defender', 2, 1)) {return;} 
+        // else if (Memory.spawnTroll && spawn_check(spawn, 'troll', 2, 1)) {return;} 
+        // else if (spawn_check(spawn, 'defender', 2, 1)) {return;} 
 
         // spawn to num
         // essentials
