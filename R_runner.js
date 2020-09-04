@@ -1,10 +1,12 @@
 // JavaScript source code
 var doTransfer = function(targets, creep, res = RESOURCE_ENERGY) {
 	if (targets) {
-		if (creep.transfer(targets, res) == ERR_NOT_IN_RANGE){
+		var result = creep.transfer(targets, res);
+		if ( result == ERR_NOT_IN_RANGE){
 			creep.moveTo(targets, {visualizePathStyle: {stroke: '#ff00ff'}});  
 			return true;
 		} 
+		return result == OK;
 	}
 	return false;
 }
