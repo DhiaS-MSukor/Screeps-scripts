@@ -274,7 +274,7 @@ var auto_respawn = function(){
         else if (spawn_check(spawn, 'repairer', 0, 1)) {return;}
 
         // local ranger
-        //else if (spawn_check(spawn, 'ranger', 0, 1)) {return;}  
+        else if (spawn_check(spawn, 'ranger', 0, 1)) {return;}  
 
         // looters
         else if (spawn_check(spawn, 'harvester', 1, 1)) {return;} 
@@ -282,7 +282,7 @@ var auto_respawn = function(){
 
         // local healer and defender
         //else if (spawn_check(spawn, 'healer', 0, 1)) {return;}  
-        else if (spawn_check(spawn, 'defender', 0, 1)) {return;}  
+        // else if (spawn_check(spawn, 'defender', 0, 1)) {return;}  
 
         // raiders
         else if (Memory.spawnTroll && spawn_check(spawn, 'troll', 2, 1)) {return;} 
