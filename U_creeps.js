@@ -11,6 +11,7 @@ var run_role = function(){
 
     for(var name in Game.creeps) {
         creep = Game.creeps[name];
+		if (creep.fatigue > 0) {continue;}
 
         if(creep.memory.role == 'harvester') {
             r_harvester.run(creep);

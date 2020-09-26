@@ -18,9 +18,7 @@ var goToRoom = function (creep, target) {
 module.exports = {
 
     /** @param {Creep} creep **/
-    run: function(creep) {  
-        if (creep.fatigue > 0) {return;}
-
+    run: function(creep) {    
         if (creep.room.name != Memory.roomTarget) {
             goToRoom(creep, Memory.roomTarget)
             return;

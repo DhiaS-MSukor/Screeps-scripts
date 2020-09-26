@@ -43,9 +43,7 @@ var transferCreepTarget = function(creep, role) {
 
 module.exports = {
     /** @param {Creep} creep **/
-    run: function(creep) {
-		if (creep.fatigue > 0) {return;}
-
+    run: function(creep) { 
 		var targets;
 		var res;
 
@@ -99,9 +97,7 @@ module.exports = {
 				}
 			} 
 	    }
-	    else { 
-			if (creep.fatigue > 0) {return;}
-
+	    else {  
 			targets = creep.pos.findClosestByRange(FIND_DROPPED_RESOURCES);
 			if(targets) {
 				if(creep.pickup(targets) == ERR_NOT_IN_RANGE) {
