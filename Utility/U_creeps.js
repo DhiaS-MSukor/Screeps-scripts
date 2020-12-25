@@ -276,7 +276,7 @@ var auto_respawn = function(){
         else if (spawn_check(spawn, 'repairer', 0, 1)) {return;}
 
         // local ranger
-        //else if (spawn_check(spawn, 'ranger', 0, 1)) {return;}  
+        else if (spawn_check(spawn, 'ranger', 0, 1)) {return;}  
 
         // looters
         else if (spawn_check(spawn, 'harvester', 1, 1)) {return;} 
@@ -284,17 +284,17 @@ var auto_respawn = function(){
 
         // local healer and defender
         //else if (spawn_check(spawn, 'healer', 0, 1)) {return;}  
-        else if (spawn_check(spawn, 'defender', 0, 1)) {return;}  
+        // else if (spawn_check(spawn, 'defender', 0, 1)) {return;}  
 
         // raiders
-        else if (Memory.spawnTroll && spawn_check(spawn, 'troll', 2, 1)) {return;} 
-        else if (spawn_check(spawn, 'defender', 2, 1)) {return;} 
+        // else if (Memory.spawnTroll && spawn_check(spawn, 'troll', 2, 1)) {return;} 
+        // else if (spawn_check(spawn, 'defender', 2, 1)) {return;} 
 
         // spawn to num
         // essentials
-        else if (spawn_check(spawn, 'harvester', 0, Memory.localHarvester)) {return;}
-        else if (spawn_check(spawn, 'builder', 0, Memory.localBuilder)) {return;}
-        else if (spawn_check(spawn, 'runner', 0, Memory.localRunner)) {return;}
+        else if (spawn_check(spawn, 'harvester', 0, Memory.spawns[spawn].harvester)) {return;}
+        else if (spawn_check(spawn, 'builder', 0, Memory.spawns[spawn].builder)) {return;}
+        else if (spawn_check(spawn, 'runner', 0, Memory.spawns[spawn].runner)) {return;}
         //else if (spawn_check(spawn, 'repairer', 0, 1)) {return;}
 
         // local defender

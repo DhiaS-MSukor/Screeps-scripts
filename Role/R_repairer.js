@@ -52,9 +52,7 @@ module.exports = {
 			}
 	    }
 
-	    else {
-			if (creep.fatigue > 0) {return;}
-
+	    else { 
 			targets = creep.room.find(FIND_STRUCTURES, {filter: (structure) => { return (structure.structureType == STRUCTURE_CONTAINER &&
 																							 structure.store[RESOURCE_ENERGY] != 0)}});
 			if (targets.length) { 

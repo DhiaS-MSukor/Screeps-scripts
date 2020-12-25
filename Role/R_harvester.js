@@ -19,10 +19,9 @@ var goToRoom = function (creep, target) {
 	} 
 }
 
-module.exports = {
-
+module.exports = { 
     /** @param {Creep} creep **/
-    run: function(creep) {
+    run: function(creep) { 
         var targets;
 
         if (creep.memory.harvest && creep.store.getFreeCapacity() == 0) {
@@ -53,9 +52,7 @@ module.exports = {
 			}
         }
 
-        else {
-			if (creep.fatigue > 0) {return;}
-
+        else { 
             if (creep.memory.mode == 1 && creep.room.name != Game.spawns[creep.memory.spawn].memory.mainRoom) {
                 goToRoom(creep, Game.spawns[creep.memory.spawn].memory.mainRoom)
                 return;

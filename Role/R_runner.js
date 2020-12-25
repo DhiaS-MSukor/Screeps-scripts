@@ -1,10 +1,12 @@
 // JavaScript source code
 var doTransfer = function(targets, creep, res = RESOURCE_ENERGY) {
 	if (targets) {
-		if (creep.transfer(targets, res) == ERR_NOT_IN_RANGE){
+		var result = creep.transfer(targets, res);
+		if ( result == ERR_NOT_IN_RANGE){
 			creep.moveTo(targets, {visualizePathStyle: {stroke: '#ff00ff'}});  
 			return true;
 		} 
+		return result == OK;
 	}
 	return false;
 }
@@ -41,9 +43,7 @@ var transferCreepTarget = function(creep, role) {
 
 module.exports = {
     /** @param {Creep} creep **/
-    run: function(creep) {
-		if (creep.fatigue > 0) {return;}
-
+    run: function(creep) { 
 		var targets;
 		var res;
 
@@ -61,8 +61,15 @@ module.exports = {
 			res = _.filter(Object.keys(creep.store), (res) => (res != RESOURCE_ENERGY && creep.store[res] != 0));
 
 			if (res.length) {
-				targets = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (targets) => { return (targets.structureType == STRUCTURE_CONTAINER && 
-																						   targets.store.getFreeCapacity() > 0)}});
+				mem = Memory.spawns[creep.memory.spawn];
+				if (mem.has('rescon')){
+					targets = Game.getObjectById(mem.rescon);
+				}
+				else {
+					targets = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (targets) => { return (targets.structureType == STRUCTURE_CONTAINER && 
+																											targets.store.getFreeCapacity() > 0)}});
+				}
+				
 				doTransfer(targets, creep, res[0])
 				return;
 			}
@@ -71,28 +78,26 @@ module.exports = {
 
 			if (creep.memory.task == 1) {
 				if (doTransfer(transferStructureTarget(creep, STRUCTURE_TOWER), creep)) {return;} 
+				if (doTransfer(transferStructureTarget(creep, STRUCTURE_EXTENSION), creep)) {return;}
+				if (doTransfer(transferStructureTarget(creep, STRUCTURE_SPAWN), creep)) {return;} 
 
 				targets = transferCreepTarget(creep, 'builder'); 
 				if (targets) {
 					if (doTransfer(targets, creep)) {return;} 
 				} 
-				if (doTransfer(transferStructureTarget(creep, STRUCTURE_EXTENSION), creep)) {return;}
-				if (doTransfer(transferStructureTarget(creep, STRUCTURE_SPAWN), creep)) {return;} 
 			} 
 			else {
 				if (doTransfer(transferStructureTarget(creep, STRUCTURE_EXTENSION), creep)) {return;} 
 				if (doTransfer(transferStructureTarget(creep, STRUCTURE_SPAWN), creep)) {return;} 
+				if (doTransfer(transferStructureTarget(creep, STRUCTURE_TOWER), creep)) {return;} 
 				
 				targets = transferCreepTarget(creep, 'builder');
 				if (targets) {
 					if (doTransfer(targets, creep)) {return;} 
 				}
-				if (doTransfer(transferStructureTarget(creep, STRUCTURE_TOWER), creep)) {return;} 
 			} 
 	    }
-	    else { 
-			if (creep.fatigue > 0) {return;}
-
+	    else {  
 			targets = creep.pos.findClosestByRange(FIND_DROPPED_RESOURCES);
 			if(targets) {
 				if(creep.pickup(targets) == ERR_NOT_IN_RANGE) {
@@ -102,11 +107,17 @@ module.exports = {
 			} 
 
 			if (creep.memory.task % 2 == 1) {
-				targets = creep.pos.findClosestByRange(FIND_RUINS, {filter: (targets) => { return (targets.store.getUsedCapacity() != 0)}});
-				if (withdrawAll(creep, targets)) {return;} 
+				targets = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (targets) => { return (targets.structureType == STRUCTURE_CONTAINER)}}); 
+				res = _.filter(Object.keys(targets.store), (res) => (res != RESOURCE_ENERGY && targets.store[res] != 0));
+				if (res.length) {
+					if (doWithdraw(creep, targets, res[0])) {return;}  
+				}
 			} 
 			else if (creep.memory.task % 2 == 0) {
 				targets = creep.pos.findClosestByRange(FIND_TOMBSTONES, {filter: (targets) => { return (targets.store.getUsedCapacity() != 0)}});
+				if (withdrawAll(creep, targets)) {return;} 
+
+				targets = creep.pos.findClosestByRange(FIND_RUINS, {filter: (targets) => { return (targets.store.getUsedCapacity() != 0)}});
 				if (withdrawAll(creep, targets)) {return;} 
 			}
 			
