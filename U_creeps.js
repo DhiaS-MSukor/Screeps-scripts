@@ -1,10 +1,10 @@
 // JavaScript source code
-var r_harvester = require('../Role/R_harvester');
-var r_builder = require('../Role/R_builder');
-var r_repairer = require('../Role/R_repairer');
-var r_runner = require('../Role/R_runner'); 
-var r_claimer = require('../Role/R_claimer');  
-var r_defender = require('../Role/R_defender'); 
+var r_harvester = require('R_harvester');
+var r_builder = require('R_builder');
+var r_repairer = require('R_repairer');
+var r_runner = require('R_runner'); 
+var r_claimer = require('R_claimer');  
+var r_defender = require('R_defender'); 
 
 var run_role = function(){
     var creep;

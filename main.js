@@ -1,6 +1,6 @@
-var u_creeps = require('Utility/U_creeps');
-var u_misc = require('Utility/U_misc');
-var b_tower = require('Building/B_tower');
+var u_creeps = require('U_creeps');
+var u_misc = require('U_misc');
+var b_tower = require('B_tower');
 
 module.exports.loop = function () { 
 	u_misc.run();
