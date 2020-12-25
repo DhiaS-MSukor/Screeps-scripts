@@ -9,28 +9,30 @@ var r_defender = require('R_defender');
 var run_role = function(){
     var creep;
 
-    for(var name in Game.creeps) {
-        creep = Game.creeps[name];
-
-        if(creep.memory.role == 'harvester') {
-            r_harvester.run(creep);
+    try{
+        for(var name in Game.creeps) {
+            creep = Game.creeps[name];
+    
+            if(creep.memory.role == 'harvester') {
+                r_harvester.run(creep);
+            }
+            else if(creep.memory.role == 'builder') {
+                r_builder.run(creep);
+            }
+            else if(creep.memory.role == 'repairer') {
+                r_repairer.run(creep);
+            }
+            else if(creep.memory.role == 'runner') {
+                r_runner.run(creep);
+            }
+            else if(['defender', 'healer', 'ranger', 'troll'].includes(creep.memory.role)) {
+                r_defender.run(creep);
+            } 
+            else if(creep.memory.role == 'claimer') {
+                r_claimer.run(creep);
+            } 
         }
-        else if(creep.memory.role == 'builder') {
-            r_builder.run(creep);
-        }
-        else if(creep.memory.role == 'repairer') {
-            r_repairer.run(creep);
-        }
-        else if(creep.memory.role == 'runner') {
-            r_runner.run(creep);
-        }
-        else if(['defender', 'healer', 'ranger', 'troll'].includes(creep.memory.role)) {
-            r_defender.run(creep);
-        } 
-        else if(creep.memory.role == 'claimer') {
-            r_claimer.run(creep);
-        } 
-    }
+    }catch(err){}
 }
 
 var do_spawn = function(spawn, theRole, varience, mode) {
