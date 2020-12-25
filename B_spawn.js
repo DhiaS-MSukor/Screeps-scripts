@@ -1,10 +1,9 @@
-var c_creepbuild = require('C_creepbuild.js');
 
 var do_spawn = function (spawn, theRole, varience, mode) {
     var name = theRole + varience + Game.time;
     var mem = { memory: { role: theRole, v: varience, spawn: spawn, mode: mode, task: 0 } };
     var res = -2; 
-    
+
     if (varience == 'v0') { // 300 energy
         if (theRole == 'harvester') {
             res = Game.spawns[spawn].spawnCreep([WORK, WORK, CARRY, MOVE], name, mem);
