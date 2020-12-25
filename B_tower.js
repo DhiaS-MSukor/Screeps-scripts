@@ -1,27 +1,29 @@
 // JavaScript source code 
 
-var doRole = function(tower) {
-    if (tower) { 
-        if (tower.store[RESOURCE_ENERGY] == 0) {return;}
+var doRole = function (tower) {
+    if (tower) {
+        if (tower.store[RESOURCE_ENERGY] == 0) { return; }
 
         var target = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
-        if(target) {
+        if (target) {
             tower.attack(target);
             return;
-        } 
+        }
 
-        target = tower.room.find(FIND_STRUCTURES, {filter: (structure) => structure.hits < structure.hitsMax}).sort((a,b) => a.hits - b.hits);
-        if(target.length) {
+        target = tower.room.find(FIND_STRUCTURES, { filter: (structure) => structure.hits < structure.hitsMax }).sort((a, b) => a.hits - b.hits);
+        if (target.length) {
             tower.repair(target[0]);
             return;
         }
-    } 
+    }
 }
 
 module.exports = {
-	run: function() {
-        for (var name in Memory.towers) {
-            doRole(Game.getObjectById(Memory.towers[name]));  
-		}
-	}
+    run: function () {
+        try {
+            for (var name in Memory.towers) {
+                doRole(Game.getObjectById(Memory.towers[name]));
+            }
+        } catch (e) { }
+    }
 }

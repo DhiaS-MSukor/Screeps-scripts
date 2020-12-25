@@ -1,27 +1,29 @@
 // JavaScript source code
 
-var clean_mem = function(){
-    try{
-        for(var name in Memory.creeps) {
-            if(!Game.creeps[name]) {
+var clean_mem = function () {
+    try {
+        for (var name in Memory.creeps) {
+            if (!Game.creeps[name]) {
                 delete Memory.creeps[name];
                 return;
             }
-        } 
-    }catch(err){}
+        }
+    } catch (err) { }
 }
 
-var gen_pixel = function(){
-    try{
-        if(Game.cpu.bucket > 5000) {
+var gen_pixel = function () {
+    try {
+        if (Game.cpu.bucket > 5000) {
             Game.cpu.generatePixel();
-        } 
-    }catch(err){}
+        }
+    } catch (err) { }
 }
 
 module.exports = {
-    run: function(){
-        clean_mem();
-        gen_pixel();
-	}
+    run: function () {
+        try {
+            gen_pixel();
+            clean_mem();
+        } catch (e) { }
+    }
 }
