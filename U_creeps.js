@@ -34,8 +34,6 @@ var run_role = function () {
 
 module.exports = {
     run: function () {
-        try {
-            run_role();
-        } catch (e) { }
+        run_role(); 
     }
 }
