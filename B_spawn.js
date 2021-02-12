@@ -241,8 +241,8 @@ var auto_respawn = function (spawn) {
     else if (spawn_check(spawn, 'ranger', 0, 1)) { return; }
 
     // looters
-    else if (spawn_check(spawn, 'harvester', 1, 1)) { return; }
-    else if (spawn_check(spawn, 'ranger', 1, 1)) { return; }
+    //else if (spawn_check(spawn, 'harvester', 1, 1)) { return; }
+    //else if (spawn_check(spawn, 'ranger', 1, 1)) { return; }
 
     // local healer and defender
     else if (spawn_check(spawn, 'healer', 0, 1)) {return;}  
