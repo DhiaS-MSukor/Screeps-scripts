@@ -242,7 +242,6 @@ var auto_respawn = function (spawn) {
 
     // looters
     //else if (spawn_check(spawn, 'harvester', 1, 1)) { return; }
-    //else if (spawn_check(spawn, 'ranger', 1, 1)) { return; }
 
     // local healer and defender
     else if (spawn_check(spawn, 'healer', 0, 1)) {return;}  
@@ -271,6 +270,7 @@ var auto_respawn = function (spawn) {
 
     // claimer
     else if (Memory.spawnClaimer && spawn_check(spawn, 'claimer', 0, 1)) { return; }
+    else if (spawn_check(spawn, 'ranger', 1, 1)) { return; }
 }
 
 module.exports = {
