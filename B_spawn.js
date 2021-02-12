@@ -275,10 +275,8 @@ var auto_respawn = function (spawn) {
 
 module.exports = {
     run: function () {
-        for (var spawn in Memory.spawns) {
-            try {
-                auto_respawn(spawn);
-            } catch (e) { }
+        for (var spawn in Memory.spawns) { 
+            auto_respawn(spawn); 
         }
     }
 }
