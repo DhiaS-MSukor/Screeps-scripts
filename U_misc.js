@@ -12,17 +12,15 @@ var clean_mem = function () {
 }
 
 var gen_pixel = function () {
-    try {
-        if (Game.cpu.bucket > 5000) {
-            Game.cpu.generatePixel();
-        }
-    } catch (err) { }
+    if (Game.cpu.bucket > 5000) {
+        Game.cpu.generatePixel();
+     
 }
 
 module.exports = {
     run: function () {
+        gen_pixel();
         try {
-            gen_pixel();
             clean_mem();
         } catch (e) { }
     }
