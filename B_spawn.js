@@ -228,7 +228,7 @@ var spawnBusy = function (spawn) {
 
 var auto_respawn = function (spawn) {
     var name;
-    if (spawnBusy(spawn)) { continue; }
+    if (spawnBusy(spawn)) { return; }
 
     // first spawn
     // essentials
