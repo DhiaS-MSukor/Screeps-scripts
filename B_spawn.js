@@ -242,10 +242,10 @@ var auto_respawn = function (spawn) {
 
     // looters
     else if (spawn_check(spawn, 'harvester', 1, 1)) { return; }
-    else if (spawn_check(spawn, 'defender', 1, 1)) { return; }
+    else if (spawn_check(spawn, 'ranger', 1, 1)) { return; }
 
     // local healer and defender
-    //else if (spawn_check(spawn, 'healer', 0, 1)) {return;}  
+    else if (spawn_check(spawn, 'healer', 0, 1)) {return;}  
     // else if (spawn_check(spawn, 'defender', 0, 1)) {return;}  
 
     // raiders
@@ -274,7 +274,7 @@ var auto_respawn = function (spawn) {
 }
 
 module.exports = {
-    run: function () {
+    run: function () { 
         for (var spawn in Memory.spawns) { 
             auto_respawn(spawn); 
         }
