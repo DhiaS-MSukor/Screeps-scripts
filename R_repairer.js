@@ -82,8 +82,8 @@ module.exports = {
 
 	/** @param {Creep} creep **/
 	run: function (creep) {
-			doTask(creep);
 		try {
+			doTask(creep);
 		} catch (e) { }
 	}
 
