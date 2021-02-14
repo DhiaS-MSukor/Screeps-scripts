@@ -47,7 +47,7 @@ var doTask = function (creep) {
 			if (doRepair(creep, targets)) { return; }
 		}
 
-		targets = creep.room.find(FIND_STRUCTURES, { filter: (structure) => { return (structure.hits < structure.hitsMax) } }).sort((a, b) => a.hits - b.hits);
+		targets = creep.room.find(FIND_STRUCTURES, { filter: (structure) => { return (structure.hits < structure.hitsMax) } });
 		if (doRepair(creep, targets)) { return; }
 
 		if (creep.room.controller) {
