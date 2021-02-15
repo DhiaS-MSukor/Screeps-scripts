@@ -25,5 +25,8 @@ module.exports = {
                 doRole(Game.getObjectById(Memory.towers[name]));
             }
         } catch (e) { }
+    },
+    fx:function(tower){
+        doRole(tower);
     }
 }
