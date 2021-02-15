@@ -11,7 +11,7 @@ module.exports = {
                     break;
                 
                 case STRUCTURE_SPAWN:
-                    b_spawn.fx(element);
+                    b_spawn.fx(Game.getObjectById(element).name);
                     break;
                 default:
                     break;
