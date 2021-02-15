@@ -8,12 +8,13 @@ module.exports = {
                 case STRUCTURE_TOWER:
                     b_tower.fx(structure)
                     break;
-            
+                
+                case STRUCTURE_SPAWN:
+                    b_spawn.fx(structure);
+                    break;
                 default:
                     break;
             }
-        }
-        b_tower.run();
-        b_spawn.run();
+        } 
     }
 }
