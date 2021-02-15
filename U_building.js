@@ -3,7 +3,7 @@ var b_spawn = require('B_spawn');
 
 module.exports = {
     run: function () {
-        Game.structures.forEach(element => {
+        for (var structure in Game.structures){
             switch (element.structureType) {
                 case STRUCTURE_TOWER:
                     b_tower.fx(element)
@@ -12,7 +12,7 @@ module.exports = {
                 default:
                     break;
             }
-        });
+        }
         b_tower.run();
         b_spawn.run();
     }
