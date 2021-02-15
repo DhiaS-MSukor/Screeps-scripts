@@ -3,7 +3,8 @@ var b_spawn = require('B_spawn');
 
 module.exports = {
     run: function () {
-        for (var structure in Game.structures){
+        for (var element in Game.structures){
+            var structure = Game.structures[element];
             switch (structure.structureType) {
                 case STRUCTURE_TOWER:
                     b_tower.fx(structure)
