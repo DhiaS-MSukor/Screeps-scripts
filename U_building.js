@@ -6,7 +6,7 @@ module.exports = {
         for (var element in Game.structures){
             var structure = Game.structures[element];
             switch (structure.structureType) {
-                case STRUCTURE_TOWER:Game.getObjectById
+                case STRUCTURE_TOWER: 
                     b_tower.fx(Game.getObjectById(element));
                     break;
                 
