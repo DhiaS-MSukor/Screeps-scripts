@@ -72,7 +72,7 @@ var doTask = function (creep) {
 		}
 
 		targets = creep.pos.findClosestByRange(FIND_SOURCES);
-		if (creep.harvest(targets) == ERR_NOT_IN_RANGE) {
+		if (creep.harvest(targets) != OK) {
 			creep.moveTo(targets, { visualizePathStyle: { stroke: '#ffff00' } });
 		}
 	}

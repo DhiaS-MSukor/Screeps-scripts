@@ -43,7 +43,7 @@ var doRole = function (creep) {
 		}
 
 		var sources = creep.pos.findClosestByRange(FIND_SOURCES);
-		if (creep.harvest(sources) == ERR_NOT_IN_RANGE) {
+		if (creep.harvest(sources) != OK) {
 			creep.moveTo(sources, { visualizePathStyle: { stroke: '#0000ff' } });
 		}
 	}
