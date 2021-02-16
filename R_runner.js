@@ -117,9 +117,13 @@ var doTask = function (creep) {
 		}
 
 		if (creep.memory.task % 2 == 1) {
-			targets = creep.pos.findClosestByRange(FIND_STRUCTURES, { filter: (targets) => { return (targets.structureType == STRUCTURE_CONTAINER) } });
-			res = _.filter(Object.keys(targets.store), (res) => (res != RESOURCE_ENERGY && targets.store[res] != 0));
-			if (res.length) {
+			targets = creep.pos.findClosestByRange(FIND_STRUCTURES, {
+				filter: (targets) => {
+					return targets.structureType == STRUCTURE_CONTAINER
+						&& targets.store.getUsedCapacity() > targets.store.getUsedCapacity(RESOURCE_ENERGY)
+				}
+			});
+			if (targets) {
 				if (doWithdraw(creep, targets, res[0])) { return; }
 			}
 		}

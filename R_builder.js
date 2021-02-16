@@ -35,7 +35,7 @@ var doRole = function (creep) {
 					structure.store[RESOURCE_ENERGY] > creep.store.getFreeCapacity())
 			}
 		});
-		if (sources) { 
+		if (sources) {
 			if (creep.withdraw(sources, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
 				creep.moveTo(sources, { visualizePathStyle: { stroke: '#0000ff' } });
 				return;
