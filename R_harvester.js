@@ -22,7 +22,7 @@ var goToRoom = function (creep, target) {
 var doTask = function (creep) {
     var targets;
 
-    if (creep.memory.harvest && creep.store.getFreeCapacity() == 0) {
+    if (creep.memory.harvest && creep.store.getFreeCapacity() < HARVEST_POWER * creep.getActiveBodyparts(WORK)) {
         creep.memory.harvest = false;
         creep.say('transfer');
     }
@@ -48,7 +48,7 @@ var doTask = function (creep) {
             creep.memory.harvest = false;
             creep.say('!_!');
         }
-        else { 
+        else {
             targets = creep.pos.findInRange(FIND_STRUCTURES, 1, {
                 filter: (structure) => {
                     return (structure.structureType == STRUCTURE_CONTAINER) &&

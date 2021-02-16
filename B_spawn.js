@@ -275,7 +275,7 @@ var auto_respawn = function (spawn) {
 var renewCreep = function (spawn) {
     var creep = spawn.pos.findInRange(FIND_MY_CREEPS, 1, {
         filter: (creep) => {
-            return creep.ticksToLive < 1500 - floor(600 / creep.body.length)
+            return creep.ticksToLive < CREEP_LIFE_TIME - floor(600 / creep.body.length)
         }
     }).sort((a, b) => a.ticksToLive - b.ticksToLive);
     if (creep && creep.length) {

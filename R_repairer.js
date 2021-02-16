@@ -15,7 +15,7 @@ var doTask = function (creep) {
 		creep.memory.building = false;
 		creep.say('harvest');
 	}
-	if (!creep.memory.building && creep.store.getFreeCapacity() == 0) {
+	if (!creep.memory.building && creep.store.getFreeCapacity() < HARVEST_POWER * creep.getActiveBodyparts(WORK)) {
 		creep.memory.building = true;
 		creep.memory.task = (creep.memory.task + 1) % 3;
 		creep.say('repair');

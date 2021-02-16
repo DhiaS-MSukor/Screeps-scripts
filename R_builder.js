@@ -5,7 +5,7 @@ var doRole = function (creep) {
 		creep.memory.building = false;
 		creep.say('harvest');
 	}
-	if (!creep.memory.building && creep.store.getFreeCapacity() == 0) {
+	if (!creep.memory.building && creep.store.getFreeCapacity() < HARVEST_POWER * creep.getActiveBodyparts(WORK)) {
 		creep.memory.building = true;
 		creep.say('build');
 	}
