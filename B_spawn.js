@@ -2,7 +2,7 @@
 var do_spawn = function (spawn, theRole, varience, mode) {
     var name = theRole + varience + Game.time;
     var mem = { memory: { role: theRole, v: varience, spawn: spawn, mode: mode, task: 0 } };
-    var res = -2; 
+    var res = -2;
 
     if (varience == 'v0') { // 300 energy
         if (theRole == 'harvester') {
@@ -227,7 +227,6 @@ var spawnBusy = function (spawn) {
 }
 
 var auto_respawn = function (spawn) {
-    var name;
     if (spawnBusy(spawn)) { return; }
 
     // first spawn
@@ -273,13 +272,24 @@ var auto_respawn = function (spawn) {
     else if (spawn_check(spawn, 'ranger', 1, 1)) { return; }
 }
 
+var renewCreep = function (spawn) {
+    var creep = spawn.pos.findInRange(FIND_MY_CREEPS, 1, {
+        filter: (creep) => {
+            return creep.ticksToLive < 1500 - floor(600 / creep.body.length)
+        }
+    }).sort((a, b) => a.ticksToLive - b.ticksToLive);
+    if (creep && creep.length) {
+        spawn.renewCreep(creep[0]);
+    }
+}
+
 module.exports = {
-    run: function () { 
-        for (var spawn in Memory.spawns) { 
+    run: function () {
+        for (var spawn in Memory.spawns) {
             auto_respawn(spawn);
         }
     },
-    fx:function(spawn){
-        auto_respawn(spawn); 
+    fx: function (spawn) {
+        auto_respawn(spawn);
     }
 }
