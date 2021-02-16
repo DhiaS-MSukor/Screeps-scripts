@@ -61,7 +61,7 @@ var doTask = function (creep) {
 		targets = creep.room.find(FIND_STRUCTURES, {
 			filter: (structure) => {
 				return (structure.structureType == STRUCTURE_CONTAINER &&
-					structure.store[RESOURCE_ENERGY] > creep.st.getFreeCapacity())
+					structure.store[RESOURCE_ENERGY] > creep.store.getFreeCapacity())
 			}
 		});
 		if (targets.length) {
