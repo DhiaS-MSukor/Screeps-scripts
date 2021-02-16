@@ -29,16 +29,15 @@ var doRole = function (creep) {
 
 	}
 	else {
-		var sources = creep.room.find(FIND_STRUCTURES, {
+		var sources = creep.pos.findClosestByRange(FIND_STRUCTURES, {
 			filter: (structure) => {
 				return (structure.structureType == STRUCTURE_CONTAINER &&
 					structure.store[RESOURCE_ENERGY] > creep.store.getFreeCapacity())
 			}
 		});
-		if (sources.length) {
-			creep.memory.energySource = sources[0].id;
-			if (creep.withdraw(sources[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-				creep.moveTo(sources[0], { visualizePathStyle: { stroke: '#0000ff' } });
+		if (sources) { 
+			if (creep.withdraw(sources, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+				creep.moveTo(sources, { visualizePathStyle: { stroke: '#0000ff' } });
 				return;
 			}
 		}

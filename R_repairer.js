@@ -58,22 +58,22 @@ var doTask = function (creep) {
 	}
 
 	else {
-		targets = creep.room.find(FIND_STRUCTURES, {
+		targets = creep.pos.findClosestByRange(FIND_STRUCTURES, {
 			filter: (structure) => {
 				return (structure.structureType == STRUCTURE_CONTAINER &&
 					structure.store[RESOURCE_ENERGY] > creep.store.getFreeCapacity())
 			}
 		});
-		if (targets.length) {
-			if (creep.withdraw(targets[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-				creep.moveTo(targets[0], { visualizePathStyle: { stroke: '#ffff00' } });
+		if (targets) {
+			if (creep.withdraw(targets, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+				creep.moveTo(targets, { visualizePathStyle: { stroke: '#ffff00' } });
 				return;
 			}
 		}
 
-		targets = creep.room.find(FIND_SOURCES);
-		if (creep.harvest(targets[0]) == ERR_NOT_IN_RANGE) {
-			creep.moveTo(targets[0], { visualizePathStyle: { stroke: '#ffff00' } });
+		targets = creep.pos.findClosestByRange(FIND_SOURCES);
+		if (creep.harvest(targets) == ERR_NOT_IN_RANGE) {
+			creep.moveTo(targets, { visualizePathStyle: { stroke: '#ffff00' } });
 		}
 	}
 }
