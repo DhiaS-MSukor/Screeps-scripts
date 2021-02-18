@@ -126,7 +126,7 @@ var doTask = function (creep) {
 		if (creep.memory.task % 2 == 1) {
 			targets = creep.pos.findClosestByRange(FIND_STRUCTURES, {
 				filter: (targets) => {
-					return targets.structureType != STRUCTURE_TERMINAL
+					return targets.structureType != STRUCTURE_TERMINAL && targets.store
 						&& targets.store.getUsedCapacity() > targets.store.getUsedCapacity(RESOURCE_ENERGY)
 				}
 			});
