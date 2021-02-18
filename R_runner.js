@@ -71,7 +71,7 @@ var doTask = function (creep) {
 			if (mem.has('rescon')) {
 				targets = Game.getObjectById(mem.rescon);
 			}
-			else {
+			if (!targets) {
 				targets = creep.pos.findClosestByRange(FIND_STRUCTURES, {
 					filter: (targets) => {
 						return (targets.structureType == STRUCTURE_CONTAINER &&
