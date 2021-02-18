@@ -72,9 +72,16 @@ var doTask = function (creep) {
 				targets = Game.getObjectById(mem.rescon);
 			}
 			if (!targets) {
-				targets = creep.pos.findClosestByRange(FIND_STRUCTURES, {
+				targets = creep.pos.findClosestByRange(STRUCTURE_TERMINAL, {
 					filter: (targets) => {
 						return targets.store && (targets.store.getFreeCapacity() > 0)
+					}
+				});
+			}
+			if (!targets) {
+				targets = creep.pos.findClosestByRange(FIND_STRUCTURES, {
+					filter: (targets) => { return structureType == STRUCTURE_CONTAINER 
+						&& (targets.store.getFreeCapacity() > 0)
 					}
 				});
 			}
