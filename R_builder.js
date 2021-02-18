@@ -52,8 +52,8 @@ var doRole = function (creep) {
 module.exports = {
 	/** @param {Creep} creep **/
 	run: function (creep) {
+		doRole(creep);
 		try {
-			doRole(creep);
 		} catch (e) { }
 	}
 };
