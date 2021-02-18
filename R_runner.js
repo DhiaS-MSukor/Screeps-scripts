@@ -130,7 +130,7 @@ var doTask = function (creep) {
 				}
 			});
 			if (targets) {
-				res = _.filter(Object.keys(targets.store), (res) => (res != RESOURCE_ENERGY && creep.store[res] != 0));
+				res = _.filter(Object.keys(targets.store), (res) => (res != RESOURCE_ENERGY && targets.store[res] != 0));
 				if (doWithdraw(creep, targets, res[0])) { return; }
 			}
 		}
