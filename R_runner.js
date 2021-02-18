@@ -68,7 +68,7 @@ var doTask = function (creep) {
 
 		if (res.length) {
 			mem = Memory.spawns[creep.memory.spawn];
-			if (mem.has('rescon')) {
+			if (mem['rescon']) {
 				targets = Game.getObjectById(mem.rescon);
 			}
 			if (!targets) {
