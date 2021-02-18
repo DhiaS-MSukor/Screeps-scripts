@@ -74,8 +74,7 @@ var doTask = function (creep) {
 			if (!targets) {
 				targets = creep.pos.findClosestByRange(FIND_STRUCTURES, {
 					filter: (targets) => {
-						return (targets.structureType == STRUCTURE_CONTAINER &&
-							targets.store.getFreeCapacity() > 0)
+						return (targets.store.getFreeCapacity(res[0]) > 0)
 					}
 				});
 			}
