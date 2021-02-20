@@ -1,7 +1,10 @@
 var doRepair = function (creep, targets) {
 	if (targets.length) {
 		if (creep.repair(targets[0]) == ERR_NOT_IN_RANGE) {
-			creep.moveTo(targets[0], { visualizePathStyle: { stroke: '#ffff00' } });
+			creep.moveTo(targets[0], { 
+				visualizePathStyle: { stroke: '#ffff00' },
+				range: 3
+			 });
 		}
 		return true;
 	}

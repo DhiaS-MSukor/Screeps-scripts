@@ -17,7 +17,10 @@ var doRole = function (creep) {
 		if (targets.length) {
 			creep.memory.buildTarget = targets[0].id;
 			if (creep.build(targets[0]) == ERR_NOT_IN_RANGE) {
-				creep.moveTo(targets[0], { visualizePathStyle: { stroke: '#0000ff' } });
+				creep.moveTo(targets[0], { 
+					visualizePathStyle: { stroke: '#0000ff' } ,
+					range:3
+				});
 			}
 		}
 
