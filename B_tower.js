@@ -4,6 +4,23 @@ var doRole = function (tower) {
     if (tower) {
         if (tower.store[RESOURCE_ENERGY] == 0) { return; }
 
+        var target = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS,
+            {
+                filter: (creep) => creep.getActiveBodyparts(HEAL) > 0
+            });
+        if (target) {
+            tower.attack(target);
+            return;
+        }
+        var target = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS,
+            {
+                filter: (creep) => creep.getActiveBodyparts(ATTACK) > 0
+                    || creep.getActiveBodyparts(RANGED_ATTACK) > 0
+            });
+        if (target) {
+            tower.attack(target);
+            return;
+        }
         var target = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
         if (target) {
             tower.attack(target);
@@ -26,7 +43,7 @@ module.exports = {
             }
         } catch (e) { }
     },
-    fx:function(tower){
+    fx: function (tower) {
         doRole(tower);
     }
 }
