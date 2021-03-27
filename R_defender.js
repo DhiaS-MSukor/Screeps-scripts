@@ -4,7 +4,7 @@ function goToRoom(creep, target) {
     return;
 }
 
-function doTask(creep, target) {
+function doTask1(creep, target) {
     if (creep.memory.role == 'ranger') {
         return creep.rangedAttack(target);
     }
@@ -24,7 +24,7 @@ function doTask(creep, target) {
 }
 
 function doRole(creep, target) {
-    if (doTask(creep, target) == ERR_NOT_IN_RANGE) {
+    if (doTask1(creep, target) == ERR_NOT_IN_RANGE) {
         creep.moveTo(target, { visualizePathStyle: { stroke: '#ff0000' }, maxOps: 10 });
         return;
     }
