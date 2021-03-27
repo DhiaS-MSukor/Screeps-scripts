@@ -18,6 +18,6 @@ module.exports = {
 
     /** @param {Creep} creep **/
     run: function (creep) {
-        doClaim(creep, Game.maps[Memory.roomTarget].controller);
+        doClaim(creep, Game.maps[Memory.roomTarget]?.controller);
     }
 };
