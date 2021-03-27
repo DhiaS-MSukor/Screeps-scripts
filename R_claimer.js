@@ -1,5 +1,5 @@
 // JavaScript source code
-var doClaim = function (creep, targets) {
+function doClaim(creep, targets) {
     if (creep.claimController(targets) != OK) {
         if (creep.reserveController(targets) != OK) {
             creep.moveTo(targets, { visualizePathStyle: { stroke: '#ff0000' } });
@@ -7,9 +7,8 @@ var doClaim = function (creep, targets) {
     }
 }
 
-var goToRoom = function (creep, target) {
+function goToRoom(creep, target) {
     // var routes = Game.map.findRoute(creep.room, target);
-
     // if (routes.length) {
     // }
     creep.moveTo(Game.maps[target].controller.pos, { visualizePathStyle: { stroke: '#ff0000' } });
