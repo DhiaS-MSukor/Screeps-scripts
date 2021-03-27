@@ -1,5 +1,5 @@
 // JavaScript source code
-var goToRoom = function (creep, target) {
+function goToRoom(creep, target) {
     var routes = Game.map.findRoute(creep.room, target);
 
     if (routes.length) {
@@ -7,7 +7,7 @@ var goToRoom = function (creep, target) {
     }
 }
 
-var doTask = function (creep, target) {
+function doTask(creep, target) {
     if (creep.memory.role == 'ranger') {
         return creep.rangedAttack(target);
     }
@@ -26,34 +26,34 @@ var doTask = function (creep, target) {
     return creep.attack(target);
 }
 
-var doRole = function (creep, target) {
+function doRole(creep, target) {
     if (doTask(creep, target) == ERR_NOT_IN_RANGE) {
         creep.moveTo(target, { visualizePathStyle: { stroke: '#ff0000' } });
         return;
     }
 }
 
-var doTask = function (creep) {
+function doTask(creep) {
     var target;
 
     if (creep.memory.role == 'healer') {
-        target = creep.pos.findClosestByRange(FIND_MY_CREEPS, { filter: (targets) => { return (targets.hits < targets.hitsMax) } });
+        target = creep.pos.findClosestByRange(FIND_MY_CREEPS, { filter: (targets) => { return (targets.hits < targets.hitsMax); } });
         if (target) { doRole(creep, target); return; }
     }
     else {
         target = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
         if (target) { doRole(creep, target); return; }
 
-        target = creep.pos.findClosestByRange(FIND_HOSTILE_STRUCTURES, { filter: (targets) => { return (targets.hits > 0) } });
+        target = creep.pos.findClosestByRange(FIND_HOSTILE_STRUCTURES, { filter: (targets) => { return (targets.hits > 0); } });
         if (target) { doRole(creep, target); return; }
     }
 
     if (creep.memory.mode == 1 && creep.room.name != Memory.roomTarget) {
-        goToRoom(creep, Memory.roomTarget)
+        goToRoom(creep, Memory.roomTarget);
         return;
     }
     else if (creep.memory.mode == 2 && creep.room.name != Memory.raidTarget) {
-        goToRoom(creep, Memory.raidTarget)
+        goToRoom(creep, Memory.raidTarget);
         return;
     }
 
