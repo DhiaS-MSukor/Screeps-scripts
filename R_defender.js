@@ -4,7 +4,7 @@ function goToRoom(creep, target) {
 
     if (routes.length) {
     }
-    creep.moveTo(Game.maps[target].controller, { visualizePathStyle: { stroke: '#ff0000' } });
+    creep.moveTo(Game.maps[target].controller.pos, { visualizePathStyle: { stroke: '#ff0000' } });
 }
 
 function doTask(creep, target) {
