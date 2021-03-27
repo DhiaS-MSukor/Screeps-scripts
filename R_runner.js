@@ -3,7 +3,7 @@ var doTransfer = function (targets, creep, res = RESOURCE_ENERGY) {
 	if (targets) {
 		var result = creep.transfer(targets, res);
 		if (result == ERR_NOT_IN_RANGE) {
-			creep.moveTo(targets, { visualizePathStyle: { stroke: '#ff00ff' } });
+			creep.moveTo(targets, { visualizePathStyle: { stroke: '#ff00ff' }, maxOps: 100});
 			return true;
 		}
 		return result == OK;
@@ -14,7 +14,7 @@ var doTransfer = function (targets, creep, res = RESOURCE_ENERGY) {
 var doWithdraw = function (creep, targets, res = RESOURCE_ENERGY) {
 	if (targets) {
 		if (creep.withdraw(targets, res) == ERR_NOT_IN_RANGE) {
-			creep.moveTo(targets, { visualizePathStyle: { stroke: '#ff00ff' } });
+			creep.moveTo(targets, { visualizePathStyle: { stroke: '#ff00ff' }, maxOps: 100});
 			return true;
 		}
 	}
@@ -118,7 +118,7 @@ var doTask = function (creep) {
 		targets = creep.pos.findClosestByRange(FIND_DROPPED_RESOURCES);
 		if (targets) {
 			if (creep.pickup(targets) == ERR_NOT_IN_RANGE) {
-				creep.moveTo(targets, { visualizePathStyle: { stroke: '#ff00ff' } });
+				creep.moveTo(targets, { visualizePathStyle: { stroke: '#ff00ff' }, maxOps: 100});
 				return;
 			}
 		}

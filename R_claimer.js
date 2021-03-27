@@ -2,16 +2,9 @@
 function doClaim(creep, targets) {
     if (creep.claimController(targets) != OK) {
         if (creep.reserveController(targets) != OK) {
-            creep.moveTo(targets, { visualizePathStyle: { stroke: '#ff0000' } });
+            creep.moveTo(targets, { visualizePathStyle: { stroke: '#ff0000' }, maxOps: 100 });
         }
     }
-}
-
-function goToRoom(creep, target) {
-    // var routes = Game.map.findRoute(creep.room, target);
-    // if (routes.length) {
-    // }
-    creep.moveTo(Game.maps[target].controller.pos, { visualizePathStyle: { stroke: '#ff0000' } });
 }
 
 module.exports = {
