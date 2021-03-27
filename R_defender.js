@@ -1,6 +1,6 @@
 // JavaScript source code
 function goToRoom(creep, target) {
-    creep.moveTo(Game.rooms[target].controller, { visualizePathStyle: { stroke: '#ff0000'}, maxOps: 10  });
+    creep.moveTo(Game.rooms[target].controller, { visualizePathStyle: { stroke: '#ff0000' }, maxOps: 10 });
     return;
 }
 
@@ -25,7 +25,7 @@ function doTask(creep, target) {
 
 function doRole(creep, target) {
     if (doTask(creep, target) == ERR_NOT_IN_RANGE) {
-        creep.moveTo(target, { visualizePathStyle: { stroke: '#ff0000' } });
+        creep.moveTo(target, { visualizePathStyle: { stroke: '#ff0000' }, maxOps: 10 });
         return;
     }
 }
@@ -71,7 +71,7 @@ function doTask(creep) {
 module.exports = {
 
     /** @param {Creep} creep **/
-    run: function (creep) { 
+    run: function (creep) {
         doTask(creep);
     }
 };
