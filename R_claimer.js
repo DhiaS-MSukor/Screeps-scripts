@@ -10,8 +10,8 @@ var doClaim = function (creep, targets) {
 var goToRoom = function (creep, target) {
     // var routes = Game.map.findRoute(creep.room, target);
 
-    if (routes.length) {
-    }
+    // if (routes.length) {
+    // }
     creep.moveTo(Game.maps[target].controller.pos, { visualizePathStyle: { stroke: '#ff0000' } });
 }
 
