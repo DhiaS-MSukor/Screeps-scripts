@@ -1,6 +1,6 @@
 // JavaScript source code
 function goToRoom(creep, target) {
-    creep.moveTo(Game.map[target].controller.pos, { visualizePathStyle: { stroke: '#ff0000' } });
+    // creep.moveTo(Game.map[target].controller.pos, { visualizePathStyle: { stroke: '#ff0000' } });
 }
 
 function doTask(creep, target) {
