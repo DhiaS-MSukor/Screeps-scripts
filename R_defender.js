@@ -45,10 +45,10 @@ function doTask(creep) {
         if (target) { doRole(creep, target); return; }
     }
 
-    // if (creep.memory.mode == 1 && creep.room.name != Memory.roomTarget) {
-    //     goToRoom(creep, Memory.roomTarget);
-    //     return;
-    // }
+    if (creep.memory.mode == 1 && creep.room.name != Memory.roomTarget) {
+        goToRoom(creep, Memory.roomTarget);
+        return;
+    }
     // else if (creep.memory.mode == 2 && creep.room.name != Memory.raidTarget) {
     //     goToRoom(creep, Memory.raidTarget);
     //     return;
