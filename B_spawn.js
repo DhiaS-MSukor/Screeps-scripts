@@ -265,11 +265,11 @@ var auto_respawn = function (spawn) {
     // else if (spawn_check(spawn, 'defender', 1, 1)) {return;} 
 
     // raiders
-    // else if (spawn_check(spawn, 'defender', 2, 1)) {return;} 
+    else if (Memory.raidTarget != 'false' && spawn_check(spawn, 'defender', 2, 1)) { return; }
 
     // claimer
-    else if (Memory.spawnClaimer && spawn_check(spawn, 'claimer', 0, 1)) { return; }
-    else if (Memory.spawnClaimer && spawn_check(spawn, 'ranger', 1, 1)) { return; }
+    else if (Memory.roomTarget != 'false' && spawn_check(spawn, 'claimer', 0, 1)) { return; }
+    else if (Memory.roomTarget != 'false' && spawn_check(spawn, 'ranger', 1, 1)) { return; }
 }
 
 var renewCreep = function (spawn) {
