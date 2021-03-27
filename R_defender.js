@@ -3,8 +3,8 @@ function goToRoom(creep, target) {
     // var routes = Game.map.findRoute(creep.room, target);
 
     if (routes.length) {
-        creep.moveTo(Game.maps[target].controller, { visualizePathStyle: { stroke: '#ff0000' } });
     }
+    creep.moveTo(Game.maps[target].controller, { visualizePathStyle: { stroke: '#ff0000' } });
 }
 
 function doTask(creep, target) {
