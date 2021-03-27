@@ -1,10 +1,6 @@
 // JavaScript source code
 function goToRoom(creep, target) {
-    // var routes = Game.map.findRoute(creep.room, target);
-
-    // if (routes.length) {
-    // }
-    creep.moveTo(Game.maps[target].controller.pos, { visualizePathStyle: { stroke: '#ff0000' } });
+    creep.moveTo(Game.map[target].controller.pos, { visualizePathStyle: { stroke: '#ff0000' } });
 }
 
 function doTask(creep, target) {
