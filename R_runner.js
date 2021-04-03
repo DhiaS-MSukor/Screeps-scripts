@@ -130,9 +130,18 @@ var doTask = function (creep) {
 		targets = creep.pos.findClosestByRange(FIND_STRUCTURES, {
 			filter: (targets) => {
 				return (targets.structureType == STRUCTURE_CONTAINER &&
-					targets.store[RESOURCE_ENERGY] != 0)
+					targets.store[RESOURCE_ENERGY] > 50)
 			}
 		});
+		if (!targets) {
+			targets = creep.pos.findClosestByRange(FIND_STRUCTURES, {
+				filter: (targets) => {
+					return (targets.structureType == STRUCTURE_CONTAINER &&
+						targets.store[RESOURCE_ENERGY] != 0)
+				}
+			});
+
+		}
 		if (doWithdraw(creep, targets)) { return; }
 	}
 }
