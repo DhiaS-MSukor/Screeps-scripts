@@ -146,8 +146,6 @@ var doTask = function (creep) {
 module.exports = {
 	/** @param {Creep} creep **/
 	run: function (creep) {
-		try {
-			doTask(creep);
-		} catch (e) { }
+		doTask(creep); 
 	}
 };
