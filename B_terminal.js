@@ -18,7 +18,7 @@ function doRole(terminal) {
                         var cost = Game.market.calcTransactionCost(amount, terminal.room.name, order.roomName);
                         if (cost < terminal.store.getUsedCapacity(RESOURCE_ENERGY)) {
                             var deal = Game.market.deal(order.id, amount, terminal.room.name);
-                            if (deal == OK || deal == ERR_TIRED || deal == ERR_FULL) { break; }
+                            if (deal == OK || deal == ERR_TIRED || deal == ERR_FULL) { return; }
                         }
                     }
                 }
