@@ -2,7 +2,7 @@ function doRole(creep) {
 	var targets;
 
 	if (creep.memory.mode == 1 && creep.room.name != Memory.roomTarget) {
-		if (Game.rooms[Memory.roomTarget]) { 
+		if (Game.rooms[Memory.roomTarget]) {
 			creep.moveTo(Game.rooms[Memory.roomTarget].controller
 				, { visualizePathStyle: { stroke: '#ff0000' }, maxOps: 100 });
 			return;
@@ -27,6 +27,7 @@ function doRole(creep) {
 			if (creep.build(targets[0]) == ERR_NOT_IN_RANGE) {
 				creep.moveTo(targets[0], {
 					visualizePathStyle: { stroke: '#0000ff' },
+					reusePath = 2,
 					range: 3,
 					maxOps: 100
 				});
