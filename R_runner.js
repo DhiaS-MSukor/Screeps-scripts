@@ -94,6 +94,7 @@ var doTask = function (creep) {
 			}
 			else {
 				if (doTransfer(transferStructureTarget(creep, STRUCTURE_SPAWN), creep)) { return; }
+				if (doTransfer(transferStructureTarget(creep, STRUCTURE_TERMINAL), creep)) { return; }
 				if (doTransfer(transferStructureTarget(creep, STRUCTURE_TOWER), creep)) { return; }
 				if (doTransfer(transferStructureTarget(creep, STRUCTURE_EXTENSION), creep)) { return; }
 
