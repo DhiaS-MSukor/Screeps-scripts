@@ -138,6 +138,8 @@ var doTask = function (creep) {
 				res = _.filter(Object.keys(targets.store), (res) => (res != RESOURCE_ENERGY && targets.store[res] != 0));
 				if (doWithdraw(creep, targets, res[0])) { return; }
 			}
+		} else if (res.length > 0 && creep.store.getFreeCapacity() == 0) {
+			creep.drop(res[0]);
 		}
 		else if (creep.memory.task == 0) {
 			targets = creep.pos.findClosestByRange(FIND_TOMBSTONES, { filter: (targets) => { return (targets.store.getUsedCapacity() != 0) } });
@@ -164,7 +166,7 @@ var doTask = function (creep) {
 
 		}
 		if (doWithdraw(creep, targets)) { return; }
-		
+
 		if (creep.room.terminal) {
 
 			targets = creep.pos.findClosestByRange(FIND_STRUCTURES, {
