@@ -4,7 +4,10 @@ function doRole(terminal) {
         for (const key in res) {
             if (Object.hasOwnProperty.call(res, key)) {
                 const element = res[key];
-                var orders = Game.market.getAllOrders({ type: ORDER_BUY, resourceType: element });
+                var orders = Game.market.getAllOrders(
+                    {
+                        type: ORDER_BUY, resourceType: element
+                    }).sort((a, b) => a.price - b.price);
                 for (const key1 in orders) {
                     if (Object.hasOwnProperty.call(orders, key1)) {
                         const order = orders[key1];
