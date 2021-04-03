@@ -17,12 +17,14 @@ var gen_pixel = function () {
 }
 function trade_pixel() {
     var orders = Game.market.getAllOrders({
-        type: ORDER_SELL , resourceType: PIXEL
+        type: ORDER_SELL, resourceType: PIXEL
     }).sort((a, b) => b.price - a.price);
     for (const key in orders) {
         if (Object.hasOwnProperty.call(orders, key)) {
             const order = orders[key];
-            
+            const amount = Math.floor(Game.market.credits / order.price);
+            const deal = Game.market.deal(order.id, amount);
+            if (deal == OK || deal == ERR_TIRED || deal == ERR_FULL) { return; }
         }
     }
 }
