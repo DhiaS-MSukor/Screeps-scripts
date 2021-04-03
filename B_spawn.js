@@ -204,7 +204,7 @@ var do_spawn = function (spawn, theRole, varience, mode) {
     return res == OK;
 }
 
-var spawn_check = function (spawn, theRole, mode, n) {
+function spawn_check(spawn, theRole, mode, n) {
     var creeps = _.filter(Game.creeps, (creep) => creep.memory.role == theRole && creep.memory.mode == mode && creep.memory.spawn == spawn);
 
     if (creeps.length < n) {
@@ -270,6 +270,7 @@ var auto_respawn = function (spawn) {
     // claimer
     else if (Memory.roomTarget != 'false' && spawn_check(spawn, 'claimer', 0, 1)) { return; }
     else if (Memory.roomTarget != 'false' && spawn_check(spawn, 'ranger', 1, 1)) { return; }
+    else if (Memory.roomTarget != 'false' && spawn_check(spawn, 'builder', 1, 2)) { return; }
 }
 
 var renewCreep = function (spawn) {
