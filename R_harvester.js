@@ -97,8 +97,16 @@ var doTask = function (creep) {
             }
         });
         if (doTransfer(targets, creep)) { return; }
-        creep.memory.harvest = true;
-        creep.say('harvest');
+
+        if (creep.store.getFreeCapacity() > HARVEST_POWER * creep.getActiveBodyparts(WORK)) {
+            creep.memory.harvest = true;
+            creep.say('harvest');
+        }
+
+        targets = creep.room.find(FIND_STRUCTURES, {
+            filter: (structure) => (structure.structureType == STRUCTURE_SPAWN)
+        });
+        if (doTransfer(targets, creep)) { return; }
     }
 }
 
