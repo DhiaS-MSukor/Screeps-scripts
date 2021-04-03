@@ -1,5 +1,7 @@
 function doRole(terminal) {
-    res = _.filter(Object.keys(terminal.store), (res) => (res != RESOURCE_ENERGY && terminal.store[res] != 0));
+    res = _.filter(Object.keys(terminal.store)
+        , (res) => (res != RESOURCE_ENERGY && terminal.store[res] != 0)
+    ).sort((a, b) => terminal.store[a] - terminal.store[b]);
     if (res.length) {
         for (const key in res) {
             if (Object.hasOwnProperty.call(res, key)) {
