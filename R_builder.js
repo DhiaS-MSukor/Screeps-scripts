@@ -1,5 +1,10 @@
-var doRole = function (creep) {
+function doRole(creep) {
 	var targets;
+
+	if (creep.memory.contract == true) {
+		creep.moveTo(Game.rooms[Memory.roomTarget].controller
+			, { visualizePathStyle: { stroke: '#ff0000' }, maxOps: 100 });
+	}
 
 	if (creep.memory.building && creep.store[RESOURCE_ENERGY] == 0) {
 		creep.memory.building = false;
@@ -40,7 +45,7 @@ var doRole = function (creep) {
 		var sources = creep.pos.findClosestByRange(FIND_STRUCTURES, {
 			filter: (structure) => {
 				return (structure.structureType == STRUCTURE_CONTAINER &&
-					structure.store[RESOURCE_ENERGY] > creep.store.getFreeCapacity())
+					structure.store[RESOURCE_ENERGY] > creep.store.getFreeCapacity());
 			}
 		});
 		if (sources) {
@@ -61,7 +66,5 @@ module.exports = {
 	/** @param {Creep} creep **/
 	run: function (creep) {
 		doRole(creep);
-		try {
-		} catch (e) { }
 	}
 };
