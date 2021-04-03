@@ -7,7 +7,7 @@ var doTransfer = function (targets, creep, res = RESOURCE_ENERGY) {
 				visualizePathStyle: { stroke: '#ff00ff' }
 				, reusePath: 2
 				, maxOps: 100
-				, ignoreCreeps: true 
+				, ignoreCreeps: true
 			});
 			return true;
 		}
@@ -36,11 +36,11 @@ var withdrawAll = function (creep, targets) {
 	return false;
 }
 
-function transferStructureTarget(creep, type, res = RESOURCE_ENERGY) {
+function transferStructureTarget(creep, type, res = RESOURCE_ENERGY, minCap = 0) {
 	return creep.pos.findClosestByRange(FIND_STRUCTURES, {
 		filter: (targets) => {
 			return (targets.structureType == type &&
-				targets.store.getFreeCapacity(res) > 0);
+				targets.store.getFreeCapacity(res) > minCap);
 		}
 	});
 }
@@ -85,7 +85,7 @@ var doTask = function (creep) {
 			if (creep.memory.task == 1) {
 				if (doTransfer(transferStructureTarget(creep, STRUCTURE_SPAWN), creep)) { return; }
 				if (doTransfer(transferStructureTarget(creep, STRUCTURE_EXTENSION), creep)) { return; }
-				if (doTransfer(transferStructureTarget(creep, STRUCTURE_TERMINAL), creep)) { return; }
+				if (doTransfer(transferStructureTarget(creep, STRUCTURE_TERMINAL, RESOURCE_ENERGY, 200000), creep)) { return; }
 				if (doTransfer(transferStructureTarget(creep, STRUCTURE_TOWER), creep)) { return; }
 
 				targets = transferCreepTarget(creep, 'builder');
@@ -95,7 +95,7 @@ var doTask = function (creep) {
 			}
 			else if (creep.memory.task == 2) {
 				if (doTransfer(transferStructureTarget(creep, STRUCTURE_SPAWN), creep)) { return; }
-				if (doTransfer(transferStructureTarget(creep, STRUCTURE_TERMINAL), creep)) { return; }
+				if (doTransfer(transferStructureTarget(creep, STRUCTURE_TERMINAL, RESOURCE_ENERGY, 200000), creep)) { return; }
 				if (doTransfer(transferStructureTarget(creep, STRUCTURE_TOWER), creep)) { return; }
 				if (doTransfer(transferStructureTarget(creep, STRUCTURE_EXTENSION), creep)) { return; }
 
