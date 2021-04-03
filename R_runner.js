@@ -69,7 +69,7 @@ var doTask = function (creep) {
 			targets = creep.pos.findClosestByRange(STRUCTURE_TERMINAL, {
 				filter: (t) => t.store.getFreeCapacity(res[0]) > 0
 			});
-			creep.say(targets);
+			creep.say(res.length);
 			if (!targets) {
 				targets = creep.pos.findClosestByRange(STRUCTURE_CONTAINER, {
 					filter: (t) => t.store.getFreeCapacity() > 0
