@@ -18,7 +18,7 @@ var gen_pixel = function () {
 function trade_pixel() {
     var orders = Game.market.getAllOrders({
         type: ORDER_SELL, resourceType: PIXEL
-    }).sort((a, b) => b.price - a.price);
+    }).sort((a, b) => a.price - b.price);
     for (const key in orders) {
         if (Object.hasOwnProperty.call(orders, key)) {
             const order = orders[key];
