@@ -37,7 +37,8 @@ var doTask = function (creep) {
                     filter: (structure) => (structure.structureType == STRUCTURE_TERMINAL) &&
                         structure.store.getFreeCapacity() > 0
                 });
-                doTransfer(targets, creep)
+                res = _.filter(Object.keys(creep.store), (res) => (res != RESOURCE_ENERGY && creep.store[res] != 0));
+                doTransfer([targets], creep, res[0]);
             }
             return;
         }
