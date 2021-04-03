@@ -69,12 +69,12 @@ var doTask = function (creep) {
 			targets = creep.pos.findClosestByRange(STRUCTURE_TERMINAL, {
 				filter: (t) => t.store && (t.store.getFreeCapacity() > 0)
 			});
+			creep.say(targets);
 			if (!targets) {
 				targets = creep.pos.findClosestByRange(STRUCTURE_CONTAINER, {
 					filter: (t) => t.store.getFreeCapacity() > 0
 				});
 			}
-			creep.say(targets);
 			
 			doTransfer(targets, creep, res[0])
 			return;
