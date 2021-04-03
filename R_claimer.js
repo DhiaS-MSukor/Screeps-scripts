@@ -11,6 +11,8 @@ module.exports = {
 
     /** @param {Creep} creep **/
     run: function (creep) {
-        doClaim(creep, Game.rooms[Memory.roomTarget].controller);
+        if (Game.rooms[Memory.roomTarget]){ 
+            doClaim(creep, Game.rooms[Memory.roomTarget].controller);
+        }
     }
 };
