@@ -270,7 +270,7 @@ var auto_respawn = function (spawn) {
     // claimer
     else if (Memory.roomTarget != 'false' && spawn_check(spawn, 'claimer', 0, 1)) { return; }
     else if (Memory.roomTarget != 'false' && spawn_check(spawn, 'ranger', 1, 1)) { return; }
-    else if (Memory.roomTarget != 'false' && spawn_check(spawn, 'builder', 1, 2)) { return; }
+    else if (Memory.roomTarget != 'false' && spawn_check(spawn, 'builder', 1, 1)) { return; }
 }
 
 var renewCreep = function (spawn) {
