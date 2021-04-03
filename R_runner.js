@@ -5,7 +5,7 @@ var doTransfer = function (targets, creep, res = RESOURCE_ENERGY) {
 		if (result == ERR_NOT_IN_RANGE) {
 			creep.moveTo(targets, { visualizePathStyle: { stroke: '#ff00ff' } });
 			return true;
-		} 
+		}
 		return result == OK;
 	}
 	return false;
@@ -31,11 +31,11 @@ var withdrawAll = function (creep, targets) {
 	return false;
 }
 
-var transferStructureTarget = function (creep, type) {
+function transferStructureTarget(creep, type, res = RESOURCE_ENERGY) {
 	return creep.pos.findClosestByRange(FIND_STRUCTURES, {
 		filter: (targets) => {
 			return (targets.structureType == type &&
-				targets.store.getFreeCapacity(RESOURCE_ENERGY) > 0)
+				targets.store.getFreeCapacity(res) > 0);
 		}
 	});
 }
@@ -66,14 +66,12 @@ var doTask = function (creep) {
 	if (creep.memory.building) {
 		res = _.filter(Object.keys(creep.store), (res) => (res != RESOURCE_ENERGY && creep.store[res] != 0));
 		if (res.length) {
-			targets = creep.pos.findClosestByRange(STRUCTURE_TERMINAL);
-			creep.say(targets);
+			targets = transferStructureTarget(creep, STRUCTURE_TERMINAL, res[0]);
 			if (!targets) {
-				targets = creep.pos.findClosestByRange(STRUCTURE_CONTAINER, {
-					filter: (t) => t.store.getFreeCapacity() > 0
-				});
+				targets = transferStructureTarget(creep, STRUCTURE_CONTAINER, res[0]);
 			}
-			
+			creep.say(targets);
+
 			doTransfer(targets, creep, res[0])
 			return;
 		}
