@@ -5,10 +5,9 @@ var doTransfer = function (targets, creep, res = RESOURCE_ENERGY) {
 		if (result == ERR_NOT_IN_RANGE) {
 			creep.moveTo(targets, {
 				visualizePathStyle: { stroke: '#ff00ff' }
-				, reusePath: 1
+				, reusePath: 2
 				, maxOps: 100
-				, ignoreCreeps: true
-				, ignoreRoads: true
+				, ignoreCreeps: true 
 			});
 			return true;
 		}
