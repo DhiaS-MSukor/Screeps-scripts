@@ -116,6 +116,7 @@ var doTask = function (creep) {
 				}
 			}
 		}
+		return;
 	}
 	else {
 		targets = creep.pos.findClosestByRange(FIND_DROPPED_RESOURCES);
