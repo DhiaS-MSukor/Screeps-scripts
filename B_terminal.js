@@ -11,9 +11,10 @@ function doRole(terminal) {
                 for (const key1 in orders) {
                     if (Object.hasOwnProperty.call(orders, key1)) {
                         const order = orders[key1];
-                        var cost = Game.market.calcTransactionCost(terminal.store.getUsedCapacity(element)
-                            , terminal.room.name
-                            , order.roomName);
+                        var amount = terminal.store.getUsedCapacity(element) > order.amount
+                            ? order.amount
+                            : terminal.store.getUsedCapacity(element);
+                        var cost = Game.market.calcTransactionCost(amount, terminal.room.name, order.roomName);
                         if (cost < terminal.store.getUsedCapacity(RESOURCE_ENERGY)) {
                             Game.market.deal(order.id, order.amount, terminal.room.name);
                         }
