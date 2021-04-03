@@ -5,8 +5,7 @@ var doTransfer = function (targets, creep, res = RESOURCE_ENERGY) {
 		if (result == ERR_NOT_IN_RANGE) {
 			creep.moveTo(targets, { visualizePathStyle: { stroke: '#ff00ff' } });
 			return true;
-		}
-		creep.say(result);
+		} 
 		return result == OK;
 	}
 	return false;
@@ -75,7 +74,8 @@ var doTask = function (creep) {
 					filter: (targets) => targets.store.getFreeCapacity() > 0
 				});
 			}
-
+			creep.say(targets);
+			
 			doTransfer(targets, creep, res[0])
 			return;
 		}
