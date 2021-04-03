@@ -3,7 +3,7 @@ var doTransfer = function (targets, creep, res = RESOURCE_ENERGY) {
 	if (targets) {
 		var result = creep.transfer(targets, res);
 		if (result == ERR_NOT_IN_RANGE) {
-			creep.moveTo(targets, { visualizePathStyle: { stroke: '#ff00ff' }, maxOps: 100});
+			creep.moveTo(targets, { visualizePathStyle: { stroke: '#ff00ff' }, maxOps: 100 });
 			return true;
 		}
 		return result == OK;
@@ -14,7 +14,7 @@ var doTransfer = function (targets, creep, res = RESOURCE_ENERGY) {
 var doWithdraw = function (creep, targets, res = RESOURCE_ENERGY) {
 	if (targets) {
 		if (creep.withdraw(targets, res) == ERR_NOT_IN_RANGE) {
-			creep.moveTo(targets, { visualizePathStyle: { stroke: '#ff00ff' }, maxOps: 100});
+			creep.moveTo(targets, { visualizePathStyle: { stroke: '#ff00ff' }, maxOps: 100 });
 			return true;
 		}
 	}
@@ -65,25 +65,18 @@ var doTask = function (creep) {
 
 	if (creep.memory.building) {
 		res = _.filter(Object.keys(creep.store), (res) => (res != RESOURCE_ENERGY && creep.store[res] != 0));
+		res.concat(_.filter(Object.keys(creep.store), (res) => (res != RESOURCE_ENERGY && creep.store[res] != 0)));
 
 		if (res.length) {
 			mem = Memory.spawns[creep.memory.spawn];
-			if (mem['rescon']) {
-				targets = Game.getObjectById(mem.rescon);
-			}
 			if (!targets) {
 				targets = creep.pos.findClosestByRange(STRUCTURE_TERMINAL, {
-					filter: (targets) => {
-						return targets.store && (targets.store.getFreeCapacity() > 0)
-					}
+					filter: (targets) => targets.store && (targets.store.getFreeCapacity() > 0)
 				});
 			}
 			if (!targets) {
-				targets = creep.pos.findClosestByRange(FIND_STRUCTURES, {
-					filter: (targets) => {
-						return targets.structureType == STRUCTURE_CONTAINER 
-						&& (targets.store.getFreeCapacity() > 0)
-					}
+				targets = creep.pos.findClosestByRange(STRUCTURE_CONTAINER, {
+					filter: (targets) => targets.store.getFreeCapacity() > 0
 				});
 			}
 
@@ -118,7 +111,7 @@ var doTask = function (creep) {
 		targets = creep.pos.findClosestByRange(FIND_DROPPED_RESOURCES);
 		if (targets) {
 			if (creep.pickup(targets) == ERR_NOT_IN_RANGE) {
-				creep.moveTo(targets, { visualizePathStyle: { stroke: '#ff00ff' }, maxOps: 100});
+				creep.moveTo(targets, { visualizePathStyle: { stroke: '#ff00ff' }, maxOps: 100 });
 				return;
 			}
 		}
