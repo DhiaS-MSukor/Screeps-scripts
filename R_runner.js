@@ -70,7 +70,6 @@ var doTask = function (creep) {
 			if (!targets) {
 				targets = transferStructureTarget(creep, STRUCTURE_CONTAINER, res[0]);
 			}
-			creep.say(targets);
 
 			doTransfer(targets, creep, res[0])
 			return;
