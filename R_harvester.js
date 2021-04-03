@@ -9,7 +9,7 @@ var doTransfer = function (targets, creep, res = RESOURCE_ENERGY) {
     }
 
     return false;
-} 
+}
 
 var doTask = function (creep) {
     var targets;
@@ -25,8 +25,8 @@ var doTask = function (creep) {
 
     if (creep.memory.harvest) {
         if (creep.memory.mode == 1) {
-            targets = creep.pos.findClosestByRange(FIND_STRUCTURES, {
-                filter: (item) => item.structureType == STRUCTURE_EXTRACTOR
+            targets = creep.pos.findClosestByRange(FIND_MINERALS, {
+                filter: (item) => item.pos.lookFor(LOOK_STRUCTURES).length > 0
             })
             var harv = creep.harvest(targets);
             if (harv == ERR_NOT_IN_RANGE) {
