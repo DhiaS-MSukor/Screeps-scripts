@@ -77,8 +77,7 @@ var doTask = function (creep) {
 				targets = transferStructureTarget(creep, STRUCTURE_CONTAINER, res[0]);
 			}
 
-			doTransfer(targets, creep, res[0])
-			return;
+			doTransfer(targets, creep, res[0]) 
 		}
 
 		if (creep.store[RESOURCE_ENERGY] != 0) {
