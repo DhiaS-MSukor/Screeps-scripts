@@ -14,9 +14,10 @@ function doRole(terminal) {
                         var amount = terminal.store.getUsedCapacity(element) > order.amount
                             ? order.amount
                             : terminal.store.getUsedCapacity(element);
+
                         var cost = Game.market.calcTransactionCost(amount, terminal.room.name, order.roomName);
                         if (cost < terminal.store.getUsedCapacity(RESOURCE_ENERGY)) {
-                            Game.market.deal(order.id, order.amount, terminal.room.name);
+                            Game.market.deal(order.id, amount, terminal.room.name);
                         }
                     }
                 }
