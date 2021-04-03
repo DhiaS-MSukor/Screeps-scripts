@@ -32,9 +32,9 @@ function trade_pixel() {
 module.exports = {
     run: function () {
         gen_pixel();
+        trade_pixel();
         try {
             clean_mem();
-            trade_pixel();
         } catch (e) { }
     }
 }
