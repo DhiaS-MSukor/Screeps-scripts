@@ -1,7 +1,7 @@
 function doRole(creep) {
 	var targets;
 
-	if (creep.memory.contract == true) {
+	if (creep.memory.mode == 1 && creep.room.name != Memory.roomTarget) {
 		creep.moveTo(Game.rooms[Memory.roomTarget].controller
 			, { visualizePathStyle: { stroke: '#ff0000' }, maxOps: 100 });
 	}
