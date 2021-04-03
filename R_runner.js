@@ -6,7 +6,7 @@ var doTransfer = function (targets, creep, res = RESOURCE_ENERGY) {
 			creep.moveTo(targets, {
 				visualizePathStyle: { stroke: '#ff00ff' }
 				, reusePath: 1
-				, maxOps: 100
+				, maxOps: 1000
 				, ignoreCreeps: true
 			});
 			return true;
