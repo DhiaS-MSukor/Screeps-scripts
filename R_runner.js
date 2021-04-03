@@ -65,10 +65,7 @@ var doTask = function (creep) {
 
 	if (creep.memory.building) {
 		res = _.filter(Object.keys(creep.store), (res) => (res != RESOURCE_ENERGY && creep.store[res] != 0));
-		res.concat(_.filter(Object.keys(creep.store), (res) => (res != RESOURCE_ENERGY && creep.store[res] != 0)));
-
 		if (res.length) {
-			mem = Memory.spawns[creep.memory.spawn];
 			if (!targets) {
 				targets = creep.pos.findClosestByRange(STRUCTURE_TERMINAL, {
 					filter: (targets) => targets.store && (targets.store.getFreeCapacity() > 0)
@@ -118,10 +115,9 @@ var doTask = function (creep) {
 
 		if (creep.memory.task % 2 == 1) {
 			targets = creep.pos.findClosestByRange(FIND_STRUCTURES, {
-				filter: (targets) => {
-					return targets.structureType != STRUCTURE_TERMINAL && targets.store
-						&& targets.store.getUsedCapacity() > targets.store.getUsedCapacity(RESOURCE_ENERGY)
-				}
+				filter: (targets) => targets.structureType != STRUCTURE_TERMINAL && targets.store
+					&& (targets.store.getUsedCapacity() > targets.store.getUsedCapacity(RESOURCE_ENERGY)
+						|| (targets.store.getUsedCapacity(RESOURCE_ENERGY) == null && targets.store.getUsedCapacity() > 0))
 			});
 			if (targets) {
 				res = _.filter(Object.keys(targets.store), (res) => (res != RESOURCE_ENERGY && targets.store[res] != 0));
