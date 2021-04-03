@@ -66,17 +66,17 @@ var doTask = function (creep) {
 	if (creep.memory.building) {
 		res = _.filter(Object.keys(creep.store), (res) => (res != RESOURCE_ENERGY && creep.store[res] != 0));
 		if (res.length) {
-			var tar = creep.pos.findClosestByRange(STRUCTURE_TERMINAL, {
-				filter: (targets) => targets.store && (targets.store.getFreeCapacity() > 0)
+			targets = creep.pos.findClosestByRange(STRUCTURE_TERMINAL, {
+				filter: (t) => t.store && (t.store.getFreeCapacity() > 0)
 			});
-			if (tar == null) {
-				tar = creep.pos.findClosestByRange(STRUCTURE_CONTAINER, {
-					filter: (targets) => targets.store.getFreeCapacity() > 0
+			if (!targets) {
+				targets = creep.pos.findClosestByRange(STRUCTURE_CONTAINER, {
+					filter: (t) => t.store.getFreeCapacity() > 0
 				});
 			}
-			creep.say(tar);
-
-			doTransfer(tar, creep, res[0])
+			creep.say(targets);
+			
+			doTransfer(targets, creep, res[0])
 			return;
 		}
 
