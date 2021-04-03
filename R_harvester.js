@@ -97,6 +97,8 @@ var doTask = function (creep) {
             }
         });
         if (doTransfer(targets, creep)) { return; }
+        creep.memory.harvest = true;
+        creep.say('harvest');
     }
 }
 
