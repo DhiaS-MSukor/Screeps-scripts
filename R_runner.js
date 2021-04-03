@@ -8,7 +8,7 @@ var doTransfer = function (targets, creep, res = RESOURCE_ENERGY) {
 				, reusePath: 1
 				, maxOps: 100
 				, ignoreCreeps: true
-				, ignoreRoads:true
+				, ignoreRoads: true
 			});
 			return true;
 		}
@@ -65,7 +65,7 @@ var doTask = function (creep) {
 	}
 	if (!creep.memory.building && creep.store.getUsedCapacity() > 49) {
 		creep.memory.building = true;
-		creep.memory.task = (creep.memory.task + 1) % 2;
+		creep.memory.task = (creep.memory.task + 1) % 3;
 		creep.say('pass');
 	}
 
@@ -87,7 +87,18 @@ var doTask = function (creep) {
 				if (doTransfer(transferStructureTarget(creep, STRUCTURE_EXTENSION), creep)) { return; }
 				if (doTransfer(transferStructureTarget(creep, STRUCTURE_TERMINAL), creep)) { return; }
 				if (doTransfer(transferStructureTarget(creep, STRUCTURE_TOWER), creep)) { return; }
-				
+
+				targets = transferCreepTarget(creep, 'builder');
+				if (targets) {
+					if (doTransfer(targets, creep)) { return; }
+				}
+			}
+			else if (creep.memory.task == 2) {
+				if (doTransfer(transferStructureTarget(creep, STRUCTURE_SPAWN), creep)) { return; }
+				if (doTransfer(transferStructureTarget(creep, STRUCTURE_TERMINAL), creep)) { return; }
+				if (doTransfer(transferStructureTarget(creep, STRUCTURE_TOWER), creep)) { return; }
+				if (doTransfer(transferStructureTarget(creep, STRUCTURE_EXTENSION), creep)) { return; }
+
 				targets = transferCreepTarget(creep, 'builder');
 				if (targets) {
 					if (doTransfer(targets, creep)) { return; }
