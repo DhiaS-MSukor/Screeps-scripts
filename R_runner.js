@@ -65,7 +65,7 @@ var doTask = function (creep) {
 	}
 	if (!creep.memory.building
 		&& (creep.store.getUsedCapacity(RESOURCE_ENERGY) > 49
-			|| creep.store.getFreeCapacity() < 49)) {
+			|| creep.store.getFreeCapacity() == 0)) {
 		creep.memory.building = true;
 		creep.memory.task = (creep.memory.task + 1) % 3;
 		creep.say('pass');
