@@ -58,7 +58,7 @@ function doRole(creep) {
 
 		var sources = creep.pos.findClosestByRange(FIND_SOURCES);
 		if (creep.harvest(sources) != OK) {
-			creep.moveTo(sources, { visualizePathStyle: { stroke: '#0000ff' }, maxOps: 200 });
+			creep.moveTo(sources, { visualizePathStyle: { stroke: '#0000ff' } });
 		}
 	}
 }
