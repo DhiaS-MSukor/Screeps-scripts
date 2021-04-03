@@ -8,6 +8,7 @@ var doTransfer = function (targets, creep, res = RESOURCE_ENERGY) {
 				, reusePath: 1
 				, maxOps: 100
 				, ignoreCreeps: true
+				, ignoreRoads:true
 			});
 			return true;
 		}

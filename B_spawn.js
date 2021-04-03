@@ -252,7 +252,8 @@ var auto_respawn = function (spawn) {
 
     // spawn to num
     // essentials
-    else if (spawn_check(spawn, 'harvester', 0, Memory.spawns[spawn].harvester)) { return; }
+    else if (spawn_check(spawn, 'harvester', 0, Game.spawns[spawn].room.find(FIND_SOURCES).length)) { return; }
+    else if (spawn_check(spawn, 'harvester', 1, Game.spawns[spawn].room.find(FIND_MINERALS).length)) { return; }
     else if (spawn_check(spawn, 'builder', 0, Memory.spawns[spawn].builder)) { return; }
     else if (spawn_check(spawn, 'runner', 0, Memory.spawns[spawn].runner)) { return; }
     //else if (spawn_check(spawn, 'repairer', 0, 1)) {return;}
@@ -264,13 +265,13 @@ var auto_respawn = function (spawn) {
     // else if (spawn_check(spawn, 'harvester', 1, 1)) {return;} 
     // else if (spawn_check(spawn, 'defender', 1, 1)) {return;} 
 
-    // raiders
-    else if (Memory.raidTarget != 'false' && spawn_check(spawn, 'defender', 2, 1)) { return; }
-
     // claimer
     else if (Memory.roomTarget != 'false' && spawn_check(spawn, 'claimer', 0, 1)) { return; }
     else if (Memory.roomTarget != 'false' && spawn_check(spawn, 'ranger', 1, 1)) { return; }
     else if (Memory.roomTarget != 'false' && spawn_check(spawn, 'builder', 1, 1)) { return; }
+    
+    // raiders
+    else if (Memory.raidTarget != 'false' && spawn_check(spawn, 'defender', 2, 1)) { return; }
 }
 
 var renewCreep = function (spawn) {
