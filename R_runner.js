@@ -6,6 +6,7 @@ var doTransfer = function (targets, creep, res = RESOURCE_ENERGY) {
 			creep.moveTo(targets, { visualizePathStyle: { stroke: '#ff00ff' } });
 			return true;
 		}
+		creep.say(result);
 		return result == OK;
 	}
 	return false;
