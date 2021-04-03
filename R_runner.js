@@ -58,7 +58,7 @@ var doTask = function (creep) {
 	var targets;
 	var res;
 
-	if (creep.memory.building && creep.store[RESOURCE_ENERGY] == 0) {
+	if (creep.memory.building && creep.store.getUsedCapacity() == 0) {
 		creep.memory.building = false;
 		creep.say('harvest');
 	}
