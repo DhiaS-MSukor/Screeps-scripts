@@ -63,7 +63,9 @@ var doTask = function (creep) {
 		creep.memory.building = false;
 		creep.say('harvest');
 	}
-	if (!creep.memory.building && creep.store.getUsedCapacity() > 49) {
+	if (!creep.memory.building
+		&& (creep.store.getUsedCapacity(RESOURCE_ENERGY) > 49
+			|| creep.store.getFreeCapacity() < 49)) {
 		creep.memory.building = true;
 		creep.memory.task = (creep.memory.task + 1) % 3;
 		creep.say('pass');
@@ -77,7 +79,7 @@ var doTask = function (creep) {
 				targets = transferStructureTarget(creep, STRUCTURE_CONTAINER, res[0]);
 			}
 
-			doTransfer(targets, creep, res[0]) 
+			doTransfer(targets, creep, res[0])
 		}
 
 		if (creep.store[RESOURCE_ENERGY] != 0) {
