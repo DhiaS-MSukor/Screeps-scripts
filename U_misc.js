@@ -22,7 +22,8 @@ function trade_pixel() {
     for (const key in orders) {
         if (Object.hasOwnProperty.call(orders, key)) {
             const order = orders[key];
-            const amount = Math.floor(Game.market.credits / order.price);
+            var amount = Math.floor(Game.market.credits / order.price);
+            amount = amount > order.amount ? order.amount : amount;
             const deal = Game.market.deal(order.id, amount);
             if (deal == OK || deal == ERR_TIRED || deal == ERR_FULL) { return; }
         }
