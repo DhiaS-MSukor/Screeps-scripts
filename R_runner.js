@@ -76,7 +76,6 @@ var doTask = function (creep) {
 				});
 			}
 
-			creep.say(res[0]);
 			doTransfer(targets, creep, res[0])
 			return;
 		}
