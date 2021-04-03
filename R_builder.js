@@ -2,9 +2,11 @@ function doRole(creep) {
 	var targets;
 
 	if (creep.memory.mode == 1 && creep.room.name != Memory.roomTarget) {
-		creep.moveTo(Game.rooms[Memory.roomTarget].controller
-			, { visualizePathStyle: { stroke: '#ff0000' }, maxOps: 100 });
-		return;
+		if (Game.rooms[Memory.roomTarget]) { 
+			creep.moveTo(Game.rooms[Memory.roomTarget].controller
+				, { visualizePathStyle: { stroke: '#ff0000' }, maxOps: 100 });
+			return;
+		}
 	}
 
 	if (creep.memory.building && creep.store[RESOURCE_ENERGY] == 0) {
