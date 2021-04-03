@@ -178,6 +178,10 @@ var doTask = function (creep) {
 				if (doWithdraw(creep, targets, res[0])) { return; }
 			}
 		}
+
+		creep.memory.building = true;
+		creep.memory.task = (creep.memory.task + 1) % 3;
+		creep.say('pass');
 	}
 }
 
