@@ -164,15 +164,18 @@ var doTask = function (creep) {
 
 		}
 		if (doWithdraw(creep, targets)) { return; }
+		
+		if (creep.room.terminal) {
 
-		targets = creep.pos.findClosestByRange(FIND_STRUCTURES, {
-			filter: (targets) => targets.structureType != STRUCTURE_TERMINAL && targets.store
-				&& (targets.store.getUsedCapacity() > targets.store.getUsedCapacity(RESOURCE_ENERGY)
-					|| (targets.store.getUsedCapacity(RESOURCE_ENERGY) == null && targets.store.getUsedCapacity() > 0))
-		});
-		if (targets) {
-			res = _.filter(Object.keys(targets.store), (res) => (res != RESOURCE_ENERGY && targets.store[res] != 0));
-			if (doWithdraw(creep, targets, res[0])) { return; }
+			targets = creep.pos.findClosestByRange(FIND_STRUCTURES, {
+				filter: (targets) => targets.structureType != STRUCTURE_TERMINAL && targets.store
+					&& (targets.store.getUsedCapacity() > targets.store.getUsedCapacity(RESOURCE_ENERGY)
+						|| (targets.store.getUsedCapacity(RESOURCE_ENERGY) == null && targets.store.getUsedCapacity() > 0))
+			});
+			if (targets) {
+				res = _.filter(Object.keys(targets.store), (res) => (res != RESOURCE_ENERGY && targets.store[res] != 0));
+				if (doWithdraw(creep, targets, res[0])) { return; }
+			}
 		}
 	}
 }
