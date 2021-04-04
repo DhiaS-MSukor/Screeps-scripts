@@ -59,7 +59,7 @@ function doRole(creep) {
 			}
 		}
 
-		var sources = creep.pos.findClosestByRange(FIND_SOURCES);
+		var sources = creep.pos.findClosestByRange(FIND_SOURCES_ACTIVE);
 		if (creep.harvest(sources) != OK) {
 			creep.moveTo(sources, { visualizePathStyle: { stroke: '#0000ff' } });
 		}
