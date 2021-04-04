@@ -1,5 +1,5 @@
 function doRole(terminal) {
-    if (terminal.store.getFreeCapacity(RESOURCE_ENERGY) < 1000) {
+    if (terminal.store.getUsedCapacity(RESOURCE_ENERGY) > 10000) {
         var orders = Game.market.getAllOrders(
             {
                 type: ORDER_BUY, resourceType: RESOURCE_ENERGY
