@@ -236,20 +236,6 @@ var auto_respawn = function (spawn) {
     else if (spawn_check(spawn, 'runner', 0, 1)) { return; }
     else if (spawn_check(spawn, 'repairer', 0, 1)) { return; }
 
-    // local ranger
-    //else if (spawn_check(spawn, 'ranger', 0, 1)) { return; }
-
-    // looters
-    //else if (spawn_check(spawn, 'harvester', 1, 1)) { return; }
-
-    // local healer and defender
-    //else if (spawn_check(spawn, 'healer', 0, 1)) {return;}  
-    // else if (spawn_check(spawn, 'defender', 0, 1)) {return;}  
-
-    // raiders
-    // else if (Memory.spawnTroll && spawn_check(spawn, 'troll', 2, 1)) {return;} 
-    // else if (spawn_check(spawn, 'defender', 2, 1)) {return;} 
-
     // spawn to num
     // essentials
     else if (spawn_check(spawn, 'harvester', 0, Game.spawns[spawn].room.find(FIND_SOURCES).length)) { return; }
@@ -258,31 +244,25 @@ var auto_respawn = function (spawn) {
     else if (spawn_check(spawn, 'runner', 0, Memory.spawns[spawn].runner)) { return; }
     //else if (spawn_check(spawn, 'repairer', 0, 1)) {return;}
 
-    // local defender
-    //else if (spawn_check(spawn, 'defender', 0, 3)) {return;}  
+    // local healer and defender
+    else if (spawn_check(spawn, 'ranger', 0, 1)) { return; }
+    //else if (spawn_check(spawn, 'healer', 0, 1)) {return;}  
+    // else if (spawn_check(spawn, 'defender', 0, 1)) {return;}    
 
-    // looters
-    // else if (spawn_check(spawn, 'harvester', 1, 1)) {return;} 
+    // looters 
+    //else if (spawn_check(spawn, 'harvester', 1, 1)) { return; }
     // else if (spawn_check(spawn, 'defender', 1, 1)) {return;} 
 
     // claimer
-    else if (Memory.roomTarget != 'false' && spawn_check(spawn, 'claimer', 0, 1)) { return; }
+    else if (Memory.roomTarget != 'false'
+        && !Game.rooms[Memory.roomTarget].controller.my
+        && spawn_check(spawn, 'claimer', 0, 1)) { return; }
     else if (Memory.roomTarget != 'false' && spawn_check(spawn, 'ranger', 1, 1)) { return; }
     else if (Memory.roomTarget != 'false' && spawn_check(spawn, 'builder', 1, 1)) { return; }
-    
+
     // raiders
     else if (Memory.raidTarget != 'false' && spawn_check(spawn, 'defender', 2, 1)) { return; }
-}
-
-var renewCreep = function (spawn) {
-    var creep = spawn.pos.findInRange(FIND_MY_CREEPS, 1, {
-        filter: (creep) => {
-            return creep.ticksToLive < CREEP_LIFE_TIME - floor(600 / creep.body.length)
-        }
-    }).sort((a, b) => a.ticksToLive - b.ticksToLive);
-    if (creep && creep.length) {
-        spawn.renewCreep(creep[0]);
-    }
+    else if (Memory.raidTarget != 'false' && spawn_check(spawn, 'troll', 2, 1)) { return; }
 }
 
 module.exports = {
