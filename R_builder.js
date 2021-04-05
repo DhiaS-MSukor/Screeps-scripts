@@ -9,7 +9,7 @@ function doRole(creep) {
 		}
 	}
 
-	if (creep.memory.building && creep.store[RESOURCE_ENERGY] > 0) {
+	if (creep.memory.building && creep.store[RESOURCE_ENERGY] == 0) {
 		creep.memory.building = false;
 		creep.say('harvest');
 	}
@@ -18,7 +18,7 @@ function doRole(creep) {
 		creep.say('build');
 	}
 
-	if (creep.memory.building && creep.store[RESOURCE_ENERGY] == 0) {
+	if (creep.memory.building && creep.store[RESOURCE_ENERGY] > 0) {
 		targets = creep.room.find(FIND_CONSTRUCTION_SITES);
 		if (targets.length) {
 			creep.memory.buildTarget = targets[0].id;
