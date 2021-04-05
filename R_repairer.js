@@ -25,8 +25,8 @@ var doTask = function (creep) {
 		creep.say('repair');
 	}
 
-	if (creep.memory.building) {
-		if (creep.store[RESOURCE_ENERGY] == 0) { return; }
+	if (creep.memory.building && creep.store[RESOURCE_ENERGY] > 0 ) {
+		 
 
 		if (creep.memory.task == 0) {
 			targets = creep.room.find(FIND_MY_STRUCTURES, { filter: (structure) => { return (structure.hits < structure.hitsMax) } });
