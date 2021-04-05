@@ -6,7 +6,7 @@ var doTransfer = function (targets, creep, res = RESOURCE_ENERGY) {
 			creep.moveTo(targets, {
 				visualizePathStyle: { stroke: '#ff00ff' }
 				, reusePath: 3
-				, maxOps: 100 
+				, maxOps: 100
 			});
 			return true;
 		}
@@ -115,77 +115,76 @@ var doTask = function (creep) {
 				}
 			}
 		}
-		return;
 	}
-	else {
-		targets = creep.pos.findClosestByRange(FIND_DROPPED_RESOURCES);
+	
+	targets = creep.pos.findClosestByRange(FIND_DROPPED_RESOURCES);
+	if (targets) {
+		if (creep.pickup(targets) == ERR_NOT_IN_RANGE) {
+			creep.moveTo(targets, { visualizePathStyle: { stroke: '#ff00ff' }, maxOps: 100 });
+			return;
+		}
+	}
+
+	res = _.filter(Object.keys(creep.store), (res) => (res != RESOURCE_ENERGY && creep.store[res] != 0));
+	if (creep.memory.task == 1 && !res.length > 0) {
+		targets = creep.pos.findClosestByRange(FIND_STRUCTURES, {
+			filter: (targets) => targets.structureType != STRUCTURE_TERMINAL && targets.store
+				&& (targets.store.getUsedCapacity() > targets.store.getUsedCapacity(RESOURCE_ENERGY)
+					|| (targets.store.getUsedCapacity(RESOURCE_ENERGY) == null && targets.store.getUsedCapacity() > 0))
+		});
 		if (targets) {
-			if (creep.pickup(targets) == ERR_NOT_IN_RANGE) {
-				creep.moveTo(targets, { visualizePathStyle: { stroke: '#ff00ff' }, maxOps: 100 });
-				return;
-			}
+			res = _.filter(Object.keys(targets.store), (res) => (res != RESOURCE_ENERGY && targets.store[res] != 0));
+			if (doWithdraw(creep, targets, res[0])) { return; }
 		}
+	} else if (res.length > 0 && creep.store.getFreeCapacity() == 0) {
+		creep.drop(res[0]);
+	}
+	else if (creep.memory.task == 0) {
+		targets = creep.pos.findClosestByRange(FIND_TOMBSTONES, { filter: (targets) => { return (targets.store.getUsedCapacity() != 0) } });
+		if (withdrawAll(creep, targets)) { return; }
 
-		res = _.filter(Object.keys(creep.store), (res) => (res != RESOURCE_ENERGY && creep.store[res] != 0));
-		if (creep.memory.task == 1 && !res.length > 0) {
-			targets = creep.pos.findClosestByRange(FIND_STRUCTURES, {
-				filter: (targets) => targets.structureType != STRUCTURE_TERMINAL && targets.store
-					&& (targets.store.getUsedCapacity() > targets.store.getUsedCapacity(RESOURCE_ENERGY)
-						|| (targets.store.getUsedCapacity(RESOURCE_ENERGY) == null && targets.store.getUsedCapacity() > 0))
-			});
-			if (targets) {
-				res = _.filter(Object.keys(targets.store), (res) => (res != RESOURCE_ENERGY && targets.store[res] != 0));
-				if (doWithdraw(creep, targets, res[0])) { return; }
-			}
-		} else if (res.length > 0 && creep.store.getFreeCapacity() == 0) {
-			creep.drop(res[0]);
+		targets = creep.pos.findClosestByRange(FIND_RUINS, { filter: (targets) => { return (targets.store.getUsedCapacity() != 0) } });
+		if (withdrawAll(creep, targets)) { return; }
+	}
+
+
+	targets = creep.pos.findClosestByRange(FIND_STRUCTURES, {
+		filter: (targets) => {
+			return (targets.structureType == STRUCTURE_CONTAINER &&
+				targets.store[RESOURCE_ENERGY] > 50)
 		}
-		else if (creep.memory.task == 0) {
-			targets = creep.pos.findClosestByRange(FIND_TOMBSTONES, { filter: (targets) => { return (targets.store.getUsedCapacity() != 0) } });
-			if (withdrawAll(creep, targets)) { return; }
-
-			targets = creep.pos.findClosestByRange(FIND_RUINS, { filter: (targets) => { return (targets.store.getUsedCapacity() != 0) } });
-			if (withdrawAll(creep, targets)) { return; }
-		}
-
-
+	});
+	if (!targets) {
 		targets = creep.pos.findClosestByRange(FIND_STRUCTURES, {
 			filter: (targets) => {
 				return (targets.structureType == STRUCTURE_CONTAINER &&
-					targets.store[RESOURCE_ENERGY] > 50)
+					targets.store[RESOURCE_ENERGY] != 0)
 			}
 		});
-		if (!targets) {
-			targets = creep.pos.findClosestByRange(FIND_STRUCTURES, {
-				filter: (targets) => {
-					return (targets.structureType == STRUCTURE_CONTAINER &&
-						targets.store[RESOURCE_ENERGY] != 0)
-				}
-			});
 
-		}
-		if (doWithdraw(creep, targets)) { return; }
+	}
+	if (doWithdraw(creep, targets)) { return; }
 
-		if (creep.room.terminal) {
+	if (creep.room.terminal) {
 
-			targets = creep.pos.findClosestByRange(FIND_STRUCTURES, {
-				filter: (targets) => targets.structureType != STRUCTURE_TERMINAL && targets.store
-					&& (targets.store.getUsedCapacity() > targets.store.getUsedCapacity(RESOURCE_ENERGY)
-						|| (targets.store.getUsedCapacity(RESOURCE_ENERGY) == null && targets.store.getUsedCapacity() > 0))
-			});
-			if (targets) {
-				res = _.filter(Object.keys(targets.store), (res) => (res != RESOURCE_ENERGY && targets.store[res] != 0));
-				if (doWithdraw(creep, targets, res[0])) { return; }
-			}
-		}
-		if ((creep.memory.task + 1) % 3 != 1 && creep.store.getUsedCapacity() > 0) {
-
-			creep.memory.building = true;
-			creep.memory.task = (creep.memory.task + 1) % 3;
-			creep.say('pass');
+		targets = creep.pos.findClosestByRange(FIND_STRUCTURES, {
+			filter: (targets) => targets.structureType != STRUCTURE_TERMINAL && targets.store
+				&& (targets.store.getUsedCapacity() > targets.store.getUsedCapacity(RESOURCE_ENERGY)
+					|| (targets.store.getUsedCapacity(RESOURCE_ENERGY) == null && targets.store.getUsedCapacity() > 0))
+		});
+		if (targets) {
+			res = _.filter(Object.keys(targets.store), (res) => (res != RESOURCE_ENERGY && targets.store[res] != 0));
+			if (doWithdraw(creep, targets, res[0])) { return; }
 		}
 	}
+	if ((creep.memory.task + 1) % 3 != 1 && creep.store.getUsedCapacity() > 0) {
+
+		creep.memory.building = true;
+		creep.memory.task = (creep.memory.task + 1) % 3;
+		creep.say('pass');
+	}
 }
+
 
 module.exports = {
 	/** @param {Creep} creep **/
