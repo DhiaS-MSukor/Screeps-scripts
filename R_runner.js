@@ -95,8 +95,8 @@ var doTask = function (creep) {
 			else if (creep.memory.task == 2) {
 				if (doTransfer(transferStructureTarget(creep, STRUCTURE_SPAWN), creep)) { return; }
 				if (doTransfer(transferStructureTarget(creep, STRUCTURE_TERMINAL), creep)) { return; }
-				if (doTransfer(transferStructureTarget(creep, STRUCTURE_TOWER), creep)) { return; }
 				if (doTransfer(transferStructureTarget(creep, STRUCTURE_EXTENSION), creep)) { return; }
+				if (doTransfer(transferStructureTarget(creep, STRUCTURE_TOWER), creep)) { return; }
 
 				targets = transferCreepTarget(creep, 'builder');
 				if (targets) {
@@ -106,8 +106,8 @@ var doTask = function (creep) {
 			else {
 				if (doTransfer(transferStructureTarget(creep, STRUCTURE_SPAWN), creep)) { return; }
 				if (doTransfer(transferStructureTarget(creep, STRUCTURE_TOWER), creep)) { return; }
-				if (doTransfer(transferStructureTarget(creep, STRUCTURE_TERMINAL), creep)) { return; }
 				if (doTransfer(transferStructureTarget(creep, STRUCTURE_EXTENSION), creep)) { return; }
+				if (doTransfer(transferStructureTarget(creep, STRUCTURE_TERMINAL), creep)) { return; }
 
 				targets = transferCreepTarget(creep, 'builder');
 				if (targets) {
