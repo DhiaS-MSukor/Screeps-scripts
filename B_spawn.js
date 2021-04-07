@@ -1,6 +1,6 @@
 
 var do_spawn = function (spawn, theRole, varience, mode) {
-    var name = theRole + varience + Game.time;
+    var name = theRole + varience + spawn + mode + ((Game.time / 7) % 97);
     var mem = { memory: { role: theRole, v: varience, spawn: spawn, mode: mode, task: 0 } };
     var res = -2;
 
