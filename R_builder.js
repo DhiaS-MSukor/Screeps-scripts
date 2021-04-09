@@ -57,9 +57,12 @@ function doRole(creep) {
 		}
 	}
 
-	var sources = creep.pos.findClosestByRange(FIND_SOURCES_ACTIVE);
-	if (creep.harvest(sources) != OK) {
-		creep.moveTo(sources, { visualizePathStyle: { stroke: '#0000ff' } });
+	var sources = creep.room.find(FIND_SOURCES_ACTIVE);
+	if (sources.length) {
+		var target = sources[sources.length - 1];
+		if (creep.harvest(target) != OK) {
+			creep.moveTo(target, { visualizePathStyle: { stroke: '#0000ff' } });
+		}
 	}
 
 }
