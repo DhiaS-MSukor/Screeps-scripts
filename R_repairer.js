@@ -75,9 +75,12 @@ var doTask = function (creep) {
 			}
 		}
 
-		targets = creep.pos.findClosestByRange(FIND_SOURCES_ACTIVE);
-		if (creep.harvest(targets) != OK) {
-			creep.moveTo(targets, { visualizePathStyle: { stroke: '#ffff00' }, maxOps: 100 });
+		var t = creep.room.find(FIND_SOURCES_ACTIVE);
+		if (t.length){
+			targets = t[t.length-1]; 
+			if (creep.harvest(targets) != OK) {
+				creep.moveTo(targets, { visualizePathStyle: { stroke: '#ffff00' }, maxOps: 100 });
+			}
 		}
 	}
 }
