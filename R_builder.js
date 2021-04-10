@@ -47,7 +47,7 @@ function doRole(creep) {
 	var sources = creep.pos.findClosestByRange(FIND_STRUCTURES, {
 		filter: (structure) => {
 			return (structure.structureType == STRUCTURE_CONTAINER &&
-				structure.store[RESOURCE_ENERGY] > creep.store.getFreeCapacity());
+				structure.store[RESOURCE_ENERGY] > creep.store.getCapacity());
 		}
 	});
 	if (sources) {

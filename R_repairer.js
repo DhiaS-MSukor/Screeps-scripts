@@ -25,8 +25,8 @@ var doTask = function (creep) {
 		creep.say('repair');
 	}
 
-	if (creep.memory.building && creep.store[RESOURCE_ENERGY] > 0 ) {
-		 
+	if (creep.memory.building && creep.store[RESOURCE_ENERGY] > 0) {
+
 
 		if (creep.memory.task == 0) {
 			targets = creep.room.find(FIND_MY_STRUCTURES, { filter: (structure) => { return (structure.hits < structure.hitsMax) } });
@@ -65,7 +65,7 @@ var doTask = function (creep) {
 		targets = creep.pos.findClosestByRange(FIND_STRUCTURES, {
 			filter: (structure) => {
 				return (structure.structureType == STRUCTURE_CONTAINER &&
-					structure.store[RESOURCE_ENERGY] > creep.store.getFreeCapacity())
+					structure.store[RESOURCE_ENERGY] > creep.store.getCapacity())
 			}
 		});
 		if (targets) {
@@ -76,8 +76,8 @@ var doTask = function (creep) {
 		}
 
 		var t = creep.room.find(FIND_SOURCES_ACTIVE);
-		if (t.length){
-			targets = t[t.length-1]; 
+		if (t.length) {
+			targets = t[t.length - 1];
 			if (creep.harvest(targets) != OK) {
 				creep.moveTo(targets, { visualizePathStyle: { stroke: '#ffff00' }, maxOps: 100 });
 			}
