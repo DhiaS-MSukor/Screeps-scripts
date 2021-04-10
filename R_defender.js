@@ -9,8 +9,8 @@ function goToRoom(creep, target) {
 function doTask1(creep, target) {
     if (creep.memory.role == 'ranger') {
         const res = creep.rangedAttack(target);
-        if (res != OK) {
-            return creep.moveTo(Game.rooms[target].controller, { visualizePathStyle: { stroke: '#ff0000' }, range: 3 });
+        if (res == ERR_NOT_IN_RANGE) {
+            return creep.moveTo(target, { visualizePathStyle: { stroke: '#ff0000' }, range: 3 });
         }
         return res;
     }
