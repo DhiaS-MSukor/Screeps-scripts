@@ -27,7 +27,7 @@ function doTask1(creep, target) {
 
 function doRole(creep, target) {
     if (doTask1(creep, target) == ERR_NOT_IN_RANGE) {
-        creep.moveTo(target, { visualizePathStyle: { stroke: '#ff0000' }, maxOps: 100 });
+        creep.moveTo(target, { visualizePathStyle: { stroke: '#ff0000' } });
         return;
     }
 }
