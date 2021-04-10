@@ -1,6 +1,6 @@
 // JavaScript source code
 function goToRoom(creep, target) {
-    if (Game.rooms[target]) { 
+    if (Game.rooms[target]) {
         creep.moveTo(Game.rooms[target].controller, { visualizePathStyle: { stroke: '#ff0000' }, maxOps: 100 });
     }
     return;
@@ -65,7 +65,7 @@ function doTask(creep) {
         return;
     }
 
-    target = creep.room.find(FIND_STRUCTURES, { filter: (structure) => { return structure.structureType == STRUCTURE_KEEPER_LAIR; } });
+    target = creep.room.find(FIND_STRUCTURES, { filter: { structureType: STRUCTURE_KEEPER_LAIR } });
     target = target.sort((a, b) => a.ticksToSpawn - b.ticksToSpawn);
     if (target.length > 0) {
         creep.moveTo(target[0], { visualizePathStyle: { stroke: '#ff0000' }, maxOps: 100 });

@@ -46,7 +46,7 @@ var doTask = function (creep) {
             return;
         }
 
-        targets = creep.room.find(FIND_SOURCES); 
+        targets = creep.room.find(FIND_SOURCES);
         var harv = creep.harvest(targets[0]);
         if (harv == ERR_NOT_IN_RANGE) {
             creep.moveTo(targets[0], { visualizePathStyle: { stroke: '#00ff00' }, maxOps: 100 });
@@ -109,7 +109,7 @@ var doTask = function (creep) {
         }
 
         targets = creep.room.find(FIND_STRUCTURES, {
-            filter: (structure) => (structure.structureType == STRUCTURE_SPAWN)
+            filter: { structureType: STRUCTURE_SPAWN }
         });
         if (doTransfer(targets, creep)) { return; }
     }
