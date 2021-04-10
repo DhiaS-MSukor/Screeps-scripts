@@ -18,7 +18,7 @@ var doTransfer = function (targets, creep, res = RESOURCE_ENERGY) {
 var doWithdraw = function (creep, targets, res = RESOURCE_ENERGY) {
 	if (targets) {
 		if (creep.withdraw(targets, res) == ERR_NOT_IN_RANGE) {
-			creep.moveTo(targets, { visualizePathStyle: { stroke: '#ff00ff' }, maxOps: 100 });
+			creep.moveTo(targets, { visualizePathStyle: { stroke: '#ff00ff' }});
 			return true;
 		}
 	}
@@ -116,11 +116,11 @@ var doTask = function (creep) {
 			}
 		}
 	}
-	
+
 	targets = creep.pos.findClosestByRange(FIND_DROPPED_RESOURCES);
 	if (targets) {
 		if (creep.pickup(targets) == ERR_NOT_IN_RANGE) {
-			creep.moveTo(targets, { visualizePathStyle: { stroke: '#ff00ff' }, maxOps: 100 });
+			creep.moveTo(targets, { visualizePathStyle: { stroke: '#ff00ff' } });
 			return;
 		}
 	}
@@ -140,10 +140,10 @@ var doTask = function (creep) {
 		creep.drop(res[0]);
 	}
 	else if (creep.memory.task == 0) {
-		targets = creep.pos.findClosestByRange(FIND_TOMBSTONES, { filter: (targets) => { return (targets.store.getUsedCapacity() != 0) } });
+		targets = creep.pos.findClosestByRange(FIND_TOMBSTONES, { filter: (targets) => targets.store.getUsedCapacity() != 0 });
 		if (withdrawAll(creep, targets)) { return; }
 
-		targets = creep.pos.findClosestByRange(FIND_RUINS, { filter: (targets) => { return (targets.store.getUsedCapacity() != 0) } });
+		targets = creep.pos.findClosestByRange(FIND_RUINS, { filter: (targets) => targets.store.getUsedCapacity() != 0 });
 		if (withdrawAll(creep, targets)) { return; }
 	}
 
