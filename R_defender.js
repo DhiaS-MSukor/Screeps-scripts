@@ -36,17 +36,17 @@ function doTask(creep) {
     var target;
 
     if (creep.memory.role == 'healer') {
-        target = creep.pos.findClosestByRange(FIND_MY_CREEPS, { filter: (targets) => { return (targets.hits < targets.hitsMax); } });
+        target = creep.pos.findClosestByRange(FIND_MY_CREEPS, { filter: (targets) => targets.hits < targets.hitsMax });
         if (target) { doRole(creep, target); return; }
     }
     else {
         target = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
         if (target) { doRole(creep, target); return; }
 
-        target = creep.pos.findClosestByRange(FIND_HOSTILE_SPAWNS, { filter: (targets) => { return (targets.hits > 0); } });
+        target = creep.pos.findClosestByRange(FIND_HOSTILE_SPAWNS, { filter: (targets) => targets.hits > 0 });
         if (target) { doRole(creep, target); return; }
 
-        target = creep.pos.findClosestByRange(FIND_HOSTILE_STRUCTURES, { filter: (targets) => { return (targets.hits > 0); } });
+        target = creep.pos.findClosestByRange(FIND_HOSTILE_STRUCTURES, { filter: (targets) => targets.hits > 0 });
         if (target) { doRole(creep, target); return; }
     }
 
