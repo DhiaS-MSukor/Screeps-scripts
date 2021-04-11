@@ -27,7 +27,7 @@ var doRole = function (tower) {
             return;
         }
 
-        if (tower.store.getUsedCapacity() > 500) {
+        if (tower.store.getUsedCapacity() > 509) {
             target = tower.room.find(FIND_STRUCTURES, {
                 filter: (structure) => structure.hits < structure.hitsMax
             }).sort((a, b) => a.hits - b.hits);
