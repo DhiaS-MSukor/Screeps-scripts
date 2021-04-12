@@ -13,14 +13,17 @@ function doRole(terminal) {
         for (const key1 in orders) {
             if (Object.hasOwnProperty.call(orders, key1)) {
                 const order = orders[key1];
-                var amount = Math.min(order.amount
+                var amount = Math.min(order.remainingAmount
                     , getMaxAmount(terminal, order.roomName)
                 )
 
                 var cost = Game.market.calcTransactionCost(amount, terminal.room.name, order.roomName);
                 if (cost < terminal.store.getUsedCapacity(RESOURCE_ENERGY)) {
                     var deal = Game.market.deal(order.id, amount, terminal.room.name);
-                    if (deal == OK || deal == ERR_TIRED || deal == ERR_FULL) { return; }
+                    if (deal == OK || deal == ERR_TIRED || deal == ERR_FULL) {
+                        Game.notify(`deal ${order.resourceType}: ${order.amount} -> ${roomName}`);
+                        return;
+                    }
                 }
             }
         }
@@ -40,14 +43,17 @@ function doRole(terminal) {
                 for (const key1 in orders) {
                     if (Object.hasOwnProperty.call(orders, key1)) {
                         const order = orders[key1];
-                        var amount = Math.min(order.amount
+                        var amount = Math.min(order.remainingAmount
                             , getMaxAmount(terminal, order.roomName)
                         )
 
                         var cost = Game.market.calcTransactionCost(amount, terminal.room.name, order.roomName);
                         if (cost < terminal.store.getUsedCapacity(RESOURCE_ENERGY)) {
                             var deal = Game.market.deal(order.id, amount, terminal.room.name);
-                            if (deal == OK || deal == ERR_TIRED || deal == ERR_FULL) { return; }
+                            if (deal == OK || deal == ERR_TIRED || deal == ERR_FULL) {
+                                Game.notify(`deal ${order.resourceType}: ${order.amount} -> ${roomName}`);
+                                return;
+                            }
                         }
                     }
                 }
