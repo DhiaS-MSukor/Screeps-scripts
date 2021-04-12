@@ -17,6 +17,7 @@ function tryDeal(terminal, order) {
             return true;
         }
     }
+    terminal.room.visual.text(`!#${order.resourceType}: ${amount} -> ${order.roomName}`)
     return false;
 }
 
