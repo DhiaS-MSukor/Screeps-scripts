@@ -7,6 +7,7 @@ function getMaxAmount(terminal, room) {
 function tryDeal(terminal, order) {
     const amount = Math.min(order.remainingAmount
         , getMaxAmount(terminal, order.roomName)
+        , terminal.store.getUsedCapacity(order.resourceType)
     )
     if (amount > 0) {
 
