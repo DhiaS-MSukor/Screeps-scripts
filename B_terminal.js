@@ -13,6 +13,7 @@ function tryDeal(terminal, order) {
     if (cost < terminal.store.getUsedCapacity(RESOURCE_ENERGY)) {
         var deal = Game.market.deal(order.id, amount, terminal.room.name);
         if (deal == OK || deal == ERR_TIRED || deal == ERR_FULL) {
+            terminal.room.visual.text(`${order.resourceType}: ${amount} -> ${order.roomName}`)
             return true;
         }
     }
