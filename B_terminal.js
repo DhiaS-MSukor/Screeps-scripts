@@ -1,7 +1,7 @@
 function getMaxAmount(terminal, room) {
     const amount = terminal.store.getUsedCapacity(RESOURCE_ENERGY);
     const distance = Game.map.getRoomLinearDistance(room, terminal.room.name, true);
-    return Math.floor(amount / (1 - Math.exp(-distance / 30)));
+    return Math.floor(amount / (1 - Math.exp(-distance / 30))) - 1;
 }
 
 function tryDeal(terminal, order) {
