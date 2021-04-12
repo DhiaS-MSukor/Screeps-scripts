@@ -5,15 +5,17 @@ function getMaxAmount(terminal, room) {
 }
 
 function tryDeal(terminal, order) {
-    var amount = Math.min(order.remainingAmount
+    const amount = Math.min(order.remainingAmount
         , getMaxAmount(terminal, order.roomName)
     )
+    if (amount > 0) {
 
-    var cost = Game.market.calcTransactionCost(amount, terminal.room.name, order.roomName);
-    if (cost < terminal.store.getUsedCapacity(RESOURCE_ENERGY)) {
-        var deal = Game.market.deal(order.id, amount, terminal.room.name);
-        if (deal == OK || deal == ERR_TIRED || deal == ERR_FULL) {
-            return true;
+        const cost = Game.market.calcTransactionCost(amount, terminal.room.name, order.roomName);
+        if (cost < terminal.store.getUsedCapacity(RESOURCE_ENERGY)) {
+            var deal = Game.market.deal(order.id, amount, terminal.room.name);
+            if (deal == OK || deal == ERR_TIRED || deal == ERR_FULL) {
+                return true;
+            }
         }
     }
     return false;
