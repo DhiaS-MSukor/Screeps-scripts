@@ -4,6 +4,21 @@ function getMaxAmount(terminal, room) {
     return Math.floor(amount / (1 - Math.exp(-distance / 30)));
 }
 
+function tryDeal(terminal, order) {
+    var amount = Math.min(order.remainingAmount
+        , getMaxAmount(terminal, order.roomName)
+    )
+
+    var cost = Game.market.calcTransactionCost(amount, terminal.room.name, order.roomName);
+    if (cost < terminal.store.getUsedCapacity(RESOURCE_ENERGY)) {
+        var deal = Game.market.deal(order.id, amount, terminal.room.name);
+        if (deal == OK || deal == ERR_TIRED || deal == ERR_FULL) {
+            return true;
+        }
+    }
+    return false;
+}
+
 function doRole(terminal) {
     if (terminal.store.getUsedCapacity(RESOURCE_ENERGY) > 1000) {
         var orders = Game.market.getAllOrders(
@@ -13,17 +28,7 @@ function doRole(terminal) {
         for (const key1 in orders) {
             if (Object.hasOwnProperty.call(orders, key1)) {
                 const order = orders[key1];
-                var amount = Math.min(order.remainingAmount
-                    , getMaxAmount(terminal, order.roomName)
-                )
-
-                var cost = Game.market.calcTransactionCost(amount, terminal.room.name, order.roomName);
-                if (cost < terminal.store.getUsedCapacity(RESOURCE_ENERGY)) {
-                    var deal = Game.market.deal(order.id, amount, terminal.room.name);
-                    if (deal == OK || deal == ERR_TIRED || deal == ERR_FULL) { 
-                        return;
-                    }
-                }
+                if (tryDeal(terminal, order)) { return; }
             }
         }
     }
@@ -42,17 +47,7 @@ function doRole(terminal) {
                 for (const key1 in orders) {
                     if (Object.hasOwnProperty.call(orders, key1)) {
                         const order = orders[key1];
-                        var amount = Math.min(order.remainingAmount
-                            , getMaxAmount(terminal, order.roomName)
-                        )
-
-                        var cost = Game.market.calcTransactionCost(amount, terminal.room.name, order.roomName);
-                        if (cost < terminal.store.getUsedCapacity(RESOURCE_ENERGY)) {
-                            var deal = Game.market.deal(order.id, amount, terminal.room.name);
-                            if (deal == OK || deal == ERR_TIRED || deal == ERR_FULL) { 
-                                return;
-                            }
-                        }
+                        if (tryDeal(terminal, order)) { return; }
                     }
                 }
             }
