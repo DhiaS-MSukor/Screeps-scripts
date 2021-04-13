@@ -19,7 +19,7 @@ var doTransfer = function (targets, creep, res = RESOURCE_ENERGY) {
 var doTask = function (creep) {
     var targets;
 
-    if (creep.memory.harvest && creep.store.getFreeCapacity() < HARVEST_POWER * creep.getActiveBodyparts(WORK)) {
+    if (creep.memory.harvest && creep.store.getFreeCapacity() == 0) {
         creep.memory.harvest = false;
         creep.say('transfer');
     }
