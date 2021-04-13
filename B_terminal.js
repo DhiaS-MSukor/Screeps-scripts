@@ -22,19 +22,26 @@ function tryDeal(terminal, order) {
     return false;
 }
 
-function doRole(terminal) {
-    if (terminal.store.getUsedCapacity(RESOURCE_ENERGY) > 1000) {
-        var orders = Game.market.getAllOrders(
-            {
-                type: ORDER_BUY, resourceType: RESOURCE_ENERGY
-            }).sort((a, b) => b.price - a.price);
-        for (const key1 in orders) {
-            if (Object.hasOwnProperty.call(orders, key1)) {
-                const order = orders[key1];
-                if (tryDeal(terminal, order)) { return; }
-            }
+function sellResource(terminal, resource) {
+    var orders = Game.market.getAllOrders(
+        {
+            type: ORDER_BUY, resourceType: resource
+        }).sort((a, b) => b.price - a.price);
+    for (const key1 in orders) {
+        if (Object.hasOwnProperty.call(orders, key1)) {
+            const order = orders[key1];
+            if (tryDeal(terminal, order)) { return true; }
         }
     }
+    return false;
+}
+
+function doRole(terminal) {
+    if (terminal.store.getUsedCapacity(RESOURCE_ENERGY) > 1000
+        && sellResource(terminal, RESOURCE_ENERGY)) {
+        return;
+    }
+
 
     res = _.filter(Object.keys(terminal.store)
         , (res) => (res != RESOURCE_ENERGY && terminal.store[res] != 0)
@@ -43,16 +50,7 @@ function doRole(terminal) {
         for (const key in res) {
             if (Object.hasOwnProperty.call(res, key)) {
                 const element = res[key];
-                var orders = Game.market.getAllOrders(
-                    {
-                        type: ORDER_BUY, resourceType: element
-                    }).sort((a, b) => b.price - a.price);
-                for (const key1 in orders) {
-                    if (Object.hasOwnProperty.call(orders, key1)) {
-                        const order = orders[key1];
-                        if (tryDeal(terminal, order)) { return; }
-                    }
-                }
+                if (sellResource(terminal, element)) { return; }
             }
         }
     }
