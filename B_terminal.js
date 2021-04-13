@@ -1,16 +1,18 @@
-function getMaxAmount(terminal, room) {
+function getMaxAmount(terminal, order) {
     const amount = terminal.store.getUsedCapacity(RESOURCE_ENERGY);
-    const distance = Game.map.getRoomLinearDistance(room, terminal.room.name, true);
-    return Math.floor(amount / (1 - Math.exp(-distance / 30))) - 1;
+    const distance = Game.map.getRoomLinearDistance(order.roomName, terminal.room.name, true);
+    return order.resourceType == RESOURCE_ENERGY
+        ? Math.floor(amount / Math.exp(-distance / 30)) - 1
+        : Math.floor(amount / (1 - Math.exp(-distance / 30))) - 1;
 }
 
 function tryDeal(terminal, order) {
     const amount = Math.min(order.remainingAmount
-        , getMaxAmount(terminal, order.roomName)
+        , getMaxAmount(terminal, order)
         , terminal.store.getUsedCapacity(order.resourceType)
     )
-    if (amount > 0) {
 
+    if (amount > 0) {
         const cost = Game.market.calcTransactionCost(amount, terminal.room.name, order.roomName);
         if (cost < terminal.store.getUsedCapacity(RESOURCE_ENERGY)) {
             var deal = Game.market.deal(order.id, amount, terminal.room.name);
