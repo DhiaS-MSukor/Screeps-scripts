@@ -103,7 +103,7 @@ var doTask = function (creep) {
         });
         if (doTransfer(targets, creep)) { return; }
 
-        if (creep.store.getFreeCapacity() > HARVEST_POWER * creep.getActiveBodyparts(WORK)) {
+        if (creep.store.getFreeCapacity() > 0) {
             creep.memory.harvest = true;
             creep.say('harvest');
         }
