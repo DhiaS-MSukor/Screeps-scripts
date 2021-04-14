@@ -4,7 +4,7 @@ function doRole(creep) {
 	if (creep.memory.mode == 1 && creep.room.name != Memory.roomTarget) {
 		if (Game.rooms[Memory.roomTarget]) {
 			creep.moveTo(Game.rooms[Memory.roomTarget].controller
-				, { visualizePathStyle: { stroke: '#ff0000' }, maxOps: 100 });
+				, { visualizePathStyle: { stroke: '#ff0000' }, maxOps: 100, range: 1 });
 			return;
 		}
 	}
@@ -52,7 +52,7 @@ function doRole(creep) {
 	});
 	if (sources) {
 		if (creep.withdraw(sources, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-			creep.moveTo(sources, { visualizePathStyle: { stroke: '#0000ff' }, maxOps: 100 });
+			creep.moveTo(sources, { visualizePathStyle: { stroke: '#0000ff' }, maxOps: 100, range: 1 });
 			return;
 		}
 	}
@@ -61,7 +61,7 @@ function doRole(creep) {
 	if (sources.length) {
 		var target = sources[sources.length - 1];
 		if (creep.harvest(target) != OK) {
-			creep.moveTo(target, { visualizePathStyle: { stroke: '#0000ff' } });
+			creep.moveTo(target, { visualizePathStyle: { stroke: '#0000ff' }, range: 1 });
 		}
 	}
 

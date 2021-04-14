@@ -7,6 +7,7 @@ var doTransfer = function (targets, creep, res = RESOURCE_ENERGY) {
 				visualizePathStyle: { stroke: '#ff00ff' }
 				, reusePath: 3
 				, maxOps: 100
+				, range: 1
 				, ignoreRoads: true
 			});
 			return true;
@@ -19,7 +20,11 @@ var doTransfer = function (targets, creep, res = RESOURCE_ENERGY) {
 var doWithdraw = function (creep, targets, res = RESOURCE_ENERGY) {
 	if (targets) {
 		if (creep.withdraw(targets, res) == ERR_NOT_IN_RANGE) {
-			creep.moveTo(targets, { visualizePathStyle: { stroke: '#ff00ff' }, ignoreRoads: true });
+			creep.moveTo(targets, {
+				visualizePathStyle: { stroke: '#ff00ff' }
+				, ignoreRoads: true
+				, range: 1
+			});
 			return true;
 		}
 	}

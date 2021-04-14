@@ -4,9 +4,10 @@ var doTransfer = function (targets, creep, res = RESOURCE_ENERGY) {
         if (result == ERR_NOT_IN_RANGE) {
             creep.moveTo(targets[0],
                 {
-                    visualizePathStyle: { stroke: '#00ff00' },
-                    maxOps: 100,
-                    reusePath: 4
+                    visualizePathStyle: { stroke: '#00ff00' }
+                    , maxOps: 100
+                    , reusePath: 4
+                    , range: 1
                 });
             return true;
         }
@@ -33,7 +34,7 @@ var doTask = function (creep) {
             targets = creep.pos.findClosestByRange(FIND_MINERALS);
             var harv = creep.harvest(targets);
             if (harv != OK) {
-                creep.moveTo(targets, { visualizePathStyle: { stroke: '#00ff00' }, maxOps: 500 });
+                creep.moveTo(targets, { visualizePathStyle: { stroke: '#00ff00' }, maxOps: 500, range: 1 });
             }
             else {
                 targets = creep.pos.findInRange(FIND_STRUCTURES, 1, {
@@ -49,7 +50,7 @@ var doTask = function (creep) {
         targets = creep.room.find(FIND_SOURCES);
         var harv = creep.harvest(targets[0]);
         if (harv == ERR_NOT_IN_RANGE) {
-            creep.moveTo(targets[0], { visualizePathStyle: { stroke: '#00ff00' }, maxOps: 100 });
+            creep.moveTo(targets[0], { visualizePathStyle: { stroke: '#00ff00' }, maxOps: 100, range: 1 });
         }
         else if (harv == ERR_NOT_ENOUGH_RESOURCES) {
             creep.memory.harvest = false;
@@ -118,8 +119,6 @@ var doTask = function (creep) {
 module.exports = {
     /** @param {Creep} creep **/
     run: function (creep) {
-        try {
-            doTask(creep);
-        } catch (e) { }
+        doTask(creep);
     }
 };

@@ -56,7 +56,7 @@ var doTask = function (creep) {
 
 		if (creep.room.controller) {
 			if (creep.upgradeController(creep.room.controller) == ERR_NOT_IN_RANGE) {
-				creep.moveTo(creep.room.controller, { maxOps: 100 });
+				creep.moveTo(creep.room.controller, { maxOps: 100, range: 3 });
 			}
 		}
 	}
@@ -70,7 +70,7 @@ var doTask = function (creep) {
 		});
 		if (targets) {
 			if (creep.withdraw(targets, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-				creep.moveTo(targets, { visualizePathStyle: { stroke: '#ffff00' }, maxOps: 100 });
+				creep.moveTo(targets, { visualizePathStyle: { stroke: '#ffff00' }, maxOps: 100, range: 1 });
 				return;
 			}
 		}
@@ -79,7 +79,7 @@ var doTask = function (creep) {
 		if (t.length) {
 			targets = t[t.length - 1];
 			if (creep.harvest(targets) != OK) {
-				creep.moveTo(targets, { visualizePathStyle: { stroke: '#ffff00' }, maxOps: 100 });
+				creep.moveTo(targets, { visualizePathStyle: { stroke: '#ffff00' }, maxOps: 100, range: 1 });
 			}
 		}
 	}

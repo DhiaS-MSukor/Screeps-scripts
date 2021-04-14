@@ -1,7 +1,11 @@
 // JavaScript source code
 function goToRoom(creep, target) {
     if (Game.rooms[target]) {
-        creep.moveTo(Game.rooms[target].controller, { visualizePathStyle: { stroke: '#ff0000' }, maxOps: 100 });
+        creep.moveTo(Game.rooms[target].controller, {
+            visualizePathStyle: { stroke: '#ff0000' }
+            , maxOps: 100
+            , range: 1
+        });
     }
     return;
 }
@@ -31,7 +35,7 @@ function doTask1(creep, target) {
 
 function doRole(creep, target) {
     if (doTask1(creep, target) == ERR_NOT_IN_RANGE) {
-        creep.moveTo(target, { visualizePathStyle: { stroke: '#ff0000' } });
+        creep.moveTo(target, { visualizePathStyle: { stroke: '#ff0000' }, range: 1 });
         return;
     }
 }
@@ -65,14 +69,14 @@ function doTask(creep) {
 
     target = creep.room.controller;
     if (target) {
-        creep.moveTo(target, { visualizePathStyle: { stroke: '#ff0000' }, maxOps: 100 });
+        creep.moveTo(target, { visualizePathStyle: { stroke: '#ff0000' }, maxOps: 100, range: 1 });
         return;
     }
 
     target = creep.room.find(FIND_STRUCTURES, { filter: { structureType: STRUCTURE_KEEPER_LAIR } });
     target = target.sort((a, b) => a.ticksToSpawn - b.ticksToSpawn);
     if (target.length > 0) {
-        creep.moveTo(target[0], { visualizePathStyle: { stroke: '#ff0000' }, maxOps: 100 });
+        creep.moveTo(target[0], { visualizePathStyle: { stroke: '#ff0000' }, maxOps: 100, range: 1 });
         return;
     }
 }
