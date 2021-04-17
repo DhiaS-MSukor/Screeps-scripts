@@ -54,15 +54,13 @@ var doTask = function (creep) {
             creep.memory.harvest = false;
             creep.say('!_!');
         }
-        else {
-            targets = creep.pos.findInRange(FIND_STRUCTURES, 1, {
-                filter: (structure) => {
-                    return (structure.structureType == STRUCTURE_CONTAINER) &&
-                        structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
-                }
-            });
-            doTransfer(targets, creep);
-        }
+        targets = creep.pos.findInRange(FIND_STRUCTURES, 1, {
+            filter: (structure) => {
+                return (structure.structureType == STRUCTURE_CONTAINER) &&
+                    structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
+            }
+        });
+        doTransfer(targets, creep);
     }
 
     else {
