@@ -1,10 +1,28 @@
-function doRole(creep) {
-	var targets;
+function move(creep, target, range = 3) {
+	if (target) {
+		return creep.moveTo(target, {
+			visualizePathStyle: { stroke: '#0000ff' },
+			range: range,
+			maxOps: 100
+		});
+	}
+}
 
+function build(creep, target) {
+	if (target) {
+		let res = creep.build(target);
+		if (res == ERR_NOT_IN_RANGE) {
+			move(creep, target, 3)
+		}
+		return true
+	}
+	return false
+}
+
+function doRole(creep) {
 	if (creep.memory.mode == 1 && creep.room.name != Memory.roomTarget) {
 		if (Game.rooms[Memory.roomTarget]) {
-			creep.moveTo(Game.rooms[Memory.roomTarget].controller
-				, { visualizePathStyle: { stroke: '#ff0000' }, maxOps: 100, range: 1 });
+			move(creep, Game.rooms[Memory.roomTarget].controller, 1)
 			return;
 		}
 	}
@@ -19,40 +37,49 @@ function doRole(creep) {
 	}
 
 	if (creep.memory.building && creep.store[RESOURCE_ENERGY] > 0) {
-		targets = creep.room.find(FIND_CONSTRUCTION_SITES);
-		if (targets.length) {
-			creep.memory.buildTarget = targets[0].id;
-			if (creep.build(targets[0]) == ERR_NOT_IN_RANGE) {
-				creep.moveTo(targets[0], {
-					visualizePathStyle: { stroke: '#0000ff' },
-					reusePath: 2,
-					range: 3,
-					maxOps: 100
-				});
-			}
-			return;
+		if (build(creep, creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES, {
+			filter: { structureType: STRUCTURE_SPAWN }
+		}))) {
+			return
 		}
 
-		else if (creep.room.controller) {
+		if (build(creep, creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES, {
+			filter: { structureType: STRUCTURE_TOWER }
+		}))) {
+			return
+		}
+
+		if (build(creep, creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES, {
+			filter: { structureType: STRUCTURE_WALL }
+		}))) {
+			return
+		}
+
+		if (build(creep, creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES, {
+			filter: { structureType: STRUCTURE_RAMPART }
+		}))) {
+			return
+		}
+
+		if (build(creep, creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES))) {
+			return
+		}
+
+		if (creep.room.controller) {
 			if (creep.upgradeController(creep.room.controller) == ERR_NOT_IN_RANGE) {
-				creep.moveTo(creep.room.controller, {
-					visualizePathStyle: { stroke: '#0000ff' },
-					range: 3,
-					maxOps: 100
-				});
+				move(creep, creep.room.controller, 1)
 			}
 			return;
 		}
 	}
-	var sources = creep.pos.findClosestByRange(FIND_STRUCTURES, {
-		filter: (structure) => {
-			return (structure.structureType == STRUCTURE_CONTAINER &&
-				structure.store[RESOURCE_ENERGY] > creep.store.getCapacity());
-		}
+
+	let sources = creep.pos.findClosestByRange(FIND_STRUCTURES, {
+		filter: (structure) => (structure.structureType == STRUCTURE_CONTAINER &&
+			structure.store[RESOURCE_ENERGY] > creep.store.getCapacity())
 	});
 	if (sources) {
 		if (creep.withdraw(sources, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-			creep.moveTo(sources, { visualizePathStyle: { stroke: '#0000ff' }, maxOps: 100, range: 1 });
+			move(creep, sources, 1)
 			return;
 		}
 	}
@@ -61,7 +88,7 @@ function doRole(creep) {
 	if (sources.length) {
 		var target = sources[sources.length - 1];
 		if (creep.harvest(target) != OK) {
-			creep.moveTo(target, { visualizePathStyle: { stroke: '#0000ff' }, range: 1 });
+			move(creep, target, 1)
 		}
 	}
 
