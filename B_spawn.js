@@ -262,7 +262,7 @@ var auto_respawn = function (spawn) {
         && !Game.rooms[Memory.roomTarget].controller.my
         && spawn_check(spawn, 'claimer', 0, 1)) { return; }
     else if (Memory.roomTarget != 'false' && spawn_check(spawn, 'ranger', 1, 1)) { return; }
-    else if (Memory.roomTarget != 'false' && spawn_check(spawn, 'builder', 1, 1)) { return; }
+    else if (Memory.roomTarget != 'false' && spawn_check(spawn, 'builder', 1, 3)) { return; }
 
     // raiders
     else if (Memory.raidTarget != 'false' && spawn_check(spawn, 'defender', 2, 1)) { return; }
