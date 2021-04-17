@@ -58,6 +58,11 @@ var transferCreepTarget = function (creep, role) {
 }
 
 var doTask = function (creep) {
+	if (creep.getActiveBodyparts(CARRY) == 0) {
+		creep.suicide()
+		return
+	}
+
 	var targets;
 	var res;
 

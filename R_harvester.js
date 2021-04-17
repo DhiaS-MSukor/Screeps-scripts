@@ -18,6 +18,11 @@ var doTransfer = function (targets, creep, res = RESOURCE_ENERGY) {
 }
 
 var doTask = function (creep) {
+    if (creep.getActiveBodyparts(WORK) == 0) {
+        creep.suicide()
+        return
+    }
+
     var targets;
 
     if (creep.memory.harvest && creep.store.getFreeCapacity() == 0) {

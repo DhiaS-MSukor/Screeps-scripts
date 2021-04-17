@@ -20,6 +20,11 @@ function build(creep, target) {
 }
 
 function doRole(creep) {
+	if (creep.getActiveBodyparts(WORK) == 0) {
+		creep.suicide()
+		return
+	}
+
 	if (creep.memory.mode == 1 && creep.room.name != Memory.roomTarget) {
 		if (Game.rooms[Memory.roomTarget]) {
 			move(creep, Game.rooms[Memory.roomTarget].controller, 1)
@@ -39,27 +44,19 @@ function doRole(creep) {
 	if (creep.memory.building && creep.store[RESOURCE_ENERGY] > 0) {
 		if (build(creep, creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES, {
 			filter: { structureType: STRUCTURE_SPAWN }
-		}))) {
-			return
-		}
+		}))) { return }
 
 		if (build(creep, creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES, {
 			filter: { structureType: STRUCTURE_TOWER }
-		}))) {
-			return
-		}
+		}))) { return }
 
 		if (build(creep, creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES, {
 			filter: { structureType: STRUCTURE_WALL }
-		}))) {
-			return
-		}
+		}))) { return }
 
 		if (build(creep, creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES, {
 			filter: { structureType: STRUCTURE_RAMPART }
-		}))) {
-			return
-		}
+		}))) { return }
 
 		if (build(creep, creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES))) {
 			return

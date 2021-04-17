@@ -13,6 +13,11 @@ var doRepair = function (creep, targets) {
 }
 
 var doTask = function (creep) {
+	if (creep.getActiveBodyparts(WORK) == 0) {
+		creep.suicide()
+		return
+	}
+
 	var targets;
 
 	if (creep.memory.building && creep.store[RESOURCE_ENERGY] == 0) {
