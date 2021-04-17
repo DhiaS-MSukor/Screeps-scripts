@@ -84,7 +84,7 @@ function doRole(creep) {
 		}
 	}
 
-	var sources = creep.room.find(FIND_SOURCES_ACTIVE);
+	sources = creep.room.find(FIND_SOURCES_ACTIVE);
 	if (sources.length) {
 		var target = sources[sources.length - 1];
 		if (creep.harvest(target) != OK) {
