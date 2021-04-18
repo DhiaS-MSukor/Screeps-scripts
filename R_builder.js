@@ -71,7 +71,7 @@ function doRole(creep) {
 	}
 
 	let sources = creep.room.find(FIND_SOURCES_ACTIVE);
-	if (sources.length > 1) {
+	if (sources.length > 0) {
 		var target = sources[sources.length - 1];
 		if (creep.harvest(target) != OK) {
 			move(creep, target, 1)
