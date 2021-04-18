@@ -58,7 +58,7 @@ var doTask = function (creep) {
             creep.memory.harvest = false;
             creep.say('!_!');
         }
-        if (creep.st.getUsedCapacity(RESOURCE_ENERGY) > 0) {
+        if (creep.store.getUsedCapacity(RESOURCE_ENERGY) > 0) {
             targets = creep.pos.findInRange(FIND_STRUCTURES, 1, {
                 filter: { structureType: STRUCTURE_CONTAINER }
             }).sort((a, b) => b.store.getFreeCapacity() - a.store.getFreeCapacity());
