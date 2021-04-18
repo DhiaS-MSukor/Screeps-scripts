@@ -67,24 +67,24 @@ var doTask = function (creep) {
 	}
 
 	else {
+		targets = creep.pos.findClosestByRange(FIND_STRUCTURES, {
+			filter: (structure) => {
+				return (structure.structureType == STRUCTURE_CONTAINER &&
+					structure.store[RESOURCE_ENERGY] > 1000)
+			}
+		});
+		if (targets) {
+			if (creep.withdraw(targets, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+				creep.moveTo(targets, { visualizePathStyle: { stroke: '#ffff00' }, maxOps: 100, range: 1 });
+				return;
+			}
+		}
+
 		var t = creep.room.find(FIND_SOURCES_ACTIVE);
-		if (t.length > 0) {
+		if (t.length) {
 			targets = t[t.length - 1];
 			if (creep.harvest(targets) != OK) {
 				creep.moveTo(targets, { visualizePathStyle: { stroke: '#ffff00' }, maxOps: 100, range: 1 });
-			}
-		} else {
-			targets = creep.pos.findClosestByRange(FIND_STRUCTURES, {
-				filter: (structure) => {
-					return (structure.structureType == STRUCTURE_CONTAINER &&
-						structure.store[RESOURCE_ENERGY] > creep.store.getCapacity())
-				}
-			});
-			if (targets) {
-				if (creep.withdraw(targets, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-					creep.moveTo(targets, { visualizePathStyle: { stroke: '#ffff00' }, maxOps: 100, range: 1 });
-					return;
-				}
 			}
 		}
 	}
