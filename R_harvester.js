@@ -60,11 +60,8 @@ var doTask = function (creep) {
             creep.say('!_!');
         }
         targets = creep.pos.findInRange(FIND_STRUCTURES, 1, {
-            filter: (structure) => {
-                return (structure.structureType == STRUCTURE_CONTAINER) &&
-                    structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
-            }
-        });
+            filter: { structureType: STRUCTURE_CONTAINER }
+        }).sort((a, b) => b.store.getFreeCapacity() - a.store.getFreeCapacity());
         doTransfer(targets, creep);
     }
 
