@@ -42,8 +42,7 @@ var doTask = function (creep) {
                 creep.moveTo(targets, { visualizePathStyle: { stroke: '#00ff00' }, maxOps: 500, range: 1 });
             }
             targets = creep.pos.findInRange(FIND_STRUCTURES, 1, {
-                filter: (structure) => (structure.structureType == STRUCTURE_TERMINAL) &&
-                    structure.store.getFreeCapacity() > 0
+                filter: { structureType: STRUCTURE_TERMINAL }
             });
             res = _.filter(Object.keys(creep.store), (res) => (res != RESOURCE_ENERGY && creep.store[res] != 0));
             doTransfer(targets, creep, res[0]);
