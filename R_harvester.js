@@ -90,11 +90,8 @@ var doTask = function (creep) {
         }
 
         targets = creep.pos.findClosestByRange(FIND_STRUCTURES, {
-            filter: (structure) => {
-                return (structure.structureType == STRUCTURE_CONTAINER) &&
-                    structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
-            }
-        });
+            filter: { structureType: STRUCTURE_CONTAINER }
+        }).sort((a, b) => a.store.getFreeCapacity() - b.store.getFreeCapacity());
         if (doTransfer([targets], creep)) { return; }
 
         targets = creep.room.find(FIND_STRUCTURES, {
