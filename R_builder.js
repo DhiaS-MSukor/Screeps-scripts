@@ -4,7 +4,7 @@ function move(creep, target, range = 3) {
 			visualizePathStyle: { stroke: '#0000ff' },
 			range: range,
 			maxOps: 100,
-			reusePath: Math.floor(Math.random()*5)+5
+			reusePath: Math.floor(Math.random()*9)+1
 		});
 	}
 }
