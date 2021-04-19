@@ -10,6 +10,12 @@ var do_spawn = function (spawn, theRole, varience, mode) {
         const body = new Array(mul * 2).fill(CARRY, 0, mul).fill(MOVE, mul);
         res = Game.spawns[spawn].spawnCreep(body, name, mem);
     }
+    else if (theRole == 'builder') {
+        const base = BODYPART_COST[MOVE] * 2 + BODYPART_COST[CARRY] + BODYPART_COST[WORK]
+        const mul = Math.floor(Game.spawns[spawn].store.getUsedCapacity(RESOURCE_ENERGY) / base)
+        const body = new Array(mul * 2).fill(CARRY, 0, mul).fill(WORK, mul, mul * 2).fill(MOVE, mul * 2);
+        res = Game.spawns[spawn].spawnCreep(body, name, mem);
+    }
     if (res == OK) {
         return true
     }
