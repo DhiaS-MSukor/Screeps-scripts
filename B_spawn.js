@@ -4,7 +4,10 @@ var do_spawn = function (spawn, theRole, varience, mode) {
     const mem = { memory: { role: theRole, v: varience, spawn: spawn, mode: mode, task: 0 } };
     var res = -2;
 
-    if (theRole == 'runner') {
+    if (theRole == 'repairer') {
+        res = Game.spawns[spawn].spawnCreep([WORK, MOVE, CARRY, MOVE], name, mem);
+    }
+    else if (theRole == 'runner') {
         const base = BODYPART_COST[MOVE] + BODYPART_COST[CARRY]
         const mul = Math.floor(Game.spawns[spawn].store.getUsedCapacity(RESOURCE_ENERGY) / base)
         const body = new Array(mul * 2).fill(CARRY, 0, mul).fill(MOVE, mul);
@@ -13,11 +16,8 @@ var do_spawn = function (spawn, theRole, varience, mode) {
     else if (theRole == 'builder') {
         const base = BODYPART_COST[MOVE] * 2 + BODYPART_COST[CARRY] + BODYPART_COST[WORK]
         const mul = Math.floor(Game.spawns[spawn].store.getUsedCapacity(RESOURCE_ENERGY) / base)
-        const body = new Array(mul * 2).fill(CARRY, 0, mul).fill(WORK, mul, mul * 2).fill(MOVE, mul * 2);
+        const body = new Array(mul * 4).fill(CARRY, 0, mul).fill(WORK, mul, mul * 2).fill(MOVE, mul * 2);
         res = Game.spawns[spawn].spawnCreep(body, name, mem);
-    }
-    else if (theRole == 'repairer') {
-        res = Game.spawns[spawn].spawnCreep([WORK, MOVE, CARRY, MOVE], name, mem);
     }
     else if (theRole == 'defender') {
         const base = BODYPART_COST[MOVE] + BODYPART_COST[ATTACK]
