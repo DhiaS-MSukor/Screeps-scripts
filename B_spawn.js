@@ -16,6 +16,33 @@ var do_spawn = function (spawn, theRole, varience, mode) {
         const body = new Array(mul * 2).fill(CARRY, 0, mul).fill(WORK, mul, mul * 2).fill(MOVE, mul * 2);
         res = Game.spawns[spawn].spawnCreep(body, name, mem);
     }
+    else if (theRole == 'repairer') {
+        res = Game.spawns[spawn].spawnCreep([WORK, MOVE, CARRY, MOVE], name, mem);
+    }
+    else if (theRole == 'defender') {
+        const base = BODYPART_COST[MOVE] + BODYPART_COST[ATTACK]
+        const mul = Math.floor(Game.spawns[spawn].store.getUsedCapacity(RESOURCE_ENERGY) / base)
+        const body = new Array(mul * 2).fill(MOVE, 0, mul).fill(ATTACK, mul);
+        res = Game.spawns[spawn].spawnCreep(body, name, mem);
+    }
+    else if (theRole == 'healer') {
+        const base = BODYPART_COST[MOVE] + BODYPART_COST[HEAL]
+        const mul = Math.floor(Game.spawns[spawn].store.getUsedCapacity(RESOURCE_ENERGY) / base)
+        const body = new Array(mul * 2).fill(MOVE, 0, mul).fill(HEAL, mul);
+        res = Game.spawns[spawn].spawnCreep(body, name, mem);
+    }
+    else if (theRole == 'ranger') {
+        const base = BODYPART_COST[MOVE] + BODYPART_COST[RANGED_ATTACK]
+        const mul = Math.floor(Game.spawns[spawn].store.getUsedCapacity(RESOURCE_ENERGY) / base)
+        const body = new Array(mul * 2).fill(MOVE, 0, mul).fill(RANGED_ATTACK, mul);
+        res = Game.spawns[spawn].spawnCreep(body, name, mem);
+    }
+    else if (theRole == 'claimer') {
+        const base = BODYPART_COST[MOVE] + BODYPART_COST[CLAIM]
+        const mul = Math.floor(Game.spawns[spawn].store.getUsedCapacity(RESOURCE_ENERGY) / base)
+        const body = new Array(mul * 2).fill(MOVE, 0, mul).fill(CLAIM, mul);
+        res = Game.spawns[spawn].spawnCreep(body, name, mem);
+    }
     if (res == OK) {
         return true
     }
@@ -26,9 +53,6 @@ var do_spawn = function (spawn, theRole, varience, mode) {
         }
         else if (theRole == 'builder') {
             res = Game.spawns[spawn].spawnCreep([CARRY, MOVE, WORK, CARRY, MOVE], name, mem);
-        }
-        else if (theRole == 'repairer') {
-            res = Game.spawns[spawn].spawnCreep([WORK, MOVE, CARRY, MOVE], name, mem);
         }
         else if (theRole == 'runner') {
             res = Game.spawns[spawn].spawnCreep([CARRY, CARRY, CARRY, MOVE, MOVE, MOVE], name, mem);
