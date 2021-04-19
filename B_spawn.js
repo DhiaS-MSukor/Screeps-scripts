@@ -1,8 +1,18 @@
 
 var do_spawn = function (spawn, theRole, varience, mode) {
-    var name = theRole + varience + (Math.floor(Game.time / 7) % 1000);
-    var mem = { memory: { role: theRole, v: varience, spawn: spawn, mode: mode, task: 0 } };
+    const name = theRole + (Math.floor(Game.time / 7) % 1000);
+    const mem = { memory: { role: theRole, v: varience, spawn: spawn, mode: mode, task: 0 } };
     var res = -2;
+
+    if (theRole == 'runner') {
+        const base = BODYPART_COST[MOVE] + BODYPART_COST[CARRY]
+        const mul = Math.floor(Game.spawns[spawn].store.getUsedCapacity(RESOURCE_ENERGY) / base)
+        const body = new Array(mul * 2).fill(CARRY, 0, mul).fill(MOVE, mul);
+        res = Game.spawns[spawn].spawnCreep(body, name, mem);
+    }
+    if (res == OK) {
+        return true
+    }
 
     if (varience == 'v0') { // 300 energy
         if (theRole == 'harvester') {
