@@ -134,14 +134,7 @@ function spawn_check(spawn, theRole, mode, n) {
     return false;
 }
 
-var spawnBusy = function (spawn) {
-    if (!Game.spawns[spawn]) { return true };
-    if (Game.spawns[spawn].spawning) { return true; }
-    return (Game.spawns[spawn].room.energyAvailable < 300);
-}
-
 var auto_respawn = function (spawn) {
-    if (spawnBusy(spawn)) { return; }
 
     // first spawn
     // essentials
