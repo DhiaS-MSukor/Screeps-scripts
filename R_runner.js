@@ -1,13 +1,18 @@
 // JavaScript source code
+function move(creep, target, range = 1) {
+	return creep.moveTo(target, {
+		visualizePathStyle: { stroke: '#ff00ff' }
+		, range: range
+		, ignoreRoads: true
+		, reusePath: Math.floor(Math.random() * 10) + 1
+	});
+}
+
 var doTransfer = function (targets, creep, res = RESOURCE_ENERGY) {
 	if (targets) {
 		var result = creep.transfer(targets, res);
 		if (result == ERR_NOT_IN_RANGE) {
-			creep.moveTo(targets, {
-				visualizePathStyle: { stroke: '#ff00ff' }
-				, range: 1
-				, ignoreRoads: true
-			});
+			move(creep, targets)
 			return true;
 		}
 		return result == OK;
@@ -18,11 +23,7 @@ var doTransfer = function (targets, creep, res = RESOURCE_ENERGY) {
 var doWithdraw = function (creep, targets, res = RESOURCE_ENERGY) {
 	if (targets) {
 		if (creep.withdraw(targets, res) == ERR_NOT_IN_RANGE) {
-			creep.moveTo(targets, {
-				visualizePathStyle: { stroke: '#ff00ff' }
-				, ignoreRoads: true
-				, range: 1
-			});
+			move(creep, targets)
 			return true;
 		}
 	}
@@ -129,7 +130,7 @@ var doTask = function (creep) {
 	targets = creep.pos.findClosestByRange(FIND_DROPPED_RESOURCES);
 	if (targets) {
 		if (creep.pickup(targets) == ERR_NOT_IN_RANGE) {
-			creep.moveTo(targets, { visualizePathStyle: { stroke: '#ff00ff' } });
+			move(creep, targets, 0)
 			return;
 		}
 	}
