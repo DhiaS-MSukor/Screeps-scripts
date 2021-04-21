@@ -1,3 +1,7 @@
+function getMul(spawn, baseCost, baseCount) {
+    const i = Math.floor(Game.spawns[spawn].room.energyAvailable / baseCost)
+    return Math.min(math.floor(50 / baseCount), i)
+}
 
 var do_spawn = function (spawn, theRole, varience, mode) {
     const name = theRole + (Math.floor(Game.time / 7) % 1000);
@@ -9,37 +13,37 @@ var do_spawn = function (spawn, theRole, varience, mode) {
     }
     else if (theRole == 'runner') {
         const base = BODYPART_COST[MOVE] + BODYPART_COST[CARRY]
-        const mul = Math.floor(Game.spawns[spawn].room.energyAvailable / base)
+        const mul = getMul(spawn, base, 2)
         const body = new Array(mul * 2).fill(CARRY, 0, mul).fill(MOVE, mul);
         res = Game.spawns[spawn].spawnCreep(body, name, mem);
     }
     else if (theRole == 'builder') {
         const base = BODYPART_COST[MOVE] * 2 + BODYPART_COST[CARRY] + BODYPART_COST[WORK]
-        const mul = Math.floor(Game.spawns[spawn].room.energyAvailable / base)
+        const mul = getMul(spawn, base, 4)
         const body = new Array(mul * 4).fill(CARRY, 0, mul).fill(WORK, mul, mul * 2).fill(MOVE, mul * 2);
         res = Game.spawns[spawn].spawnCreep(body, name, mem);
     }
     else if (theRole == 'defender') {
         const base = BODYPART_COST[MOVE] + BODYPART_COST[ATTACK]
-        const mul = Math.floor(Game.spawns[spawn].room.energyAvailable / base)
+        const mul = getMul(spawn, base, 2)
         const body = new Array(mul * 2).fill(MOVE, 0, mul).fill(ATTACK, mul);
         res = Game.spawns[spawn].spawnCreep(body, name, mem);
     }
     else if (theRole == 'healer') {
         const base = BODYPART_COST[MOVE] + BODYPART_COST[HEAL]
-        const mul = Math.floor(Game.spawns[spawn].room.energyAvailable / base)
+        const mul = getMul(spawn, base, 2)
         const body = new Array(mul * 2).fill(MOVE, 0, mul).fill(HEAL, mul);
         res = Game.spawns[spawn].spawnCreep(body, name, mem);
     }
     else if (theRole == 'ranger') {
         const base = BODYPART_COST[MOVE] + BODYPART_COST[RANGED_ATTACK]
-        const mul = Math.floor(Game.spawns[spawn].room.energyAvailable / base)
+        const mul = getMul(spawn, base, 2)
         const body = new Array(mul * 2).fill(MOVE, 0, mul).fill(RANGED_ATTACK, mul);
         res = Game.spawns[spawn].spawnCreep(body, name, mem);
     }
     else if (theRole == 'claimer') {
         const base = BODYPART_COST[MOVE] + BODYPART_COST[CLAIM]
-        const mul = Math.floor(Game.spawns[spawn].room.energyAvailable / base)
+        const mul = getMul(spawn, base, 2)
         const body = new Array(mul * 2).fill(MOVE, 0, mul).fill(CLAIM, mul);
         res = Game.spawns[spawn].spawnCreep(body, name, mem);
     }
