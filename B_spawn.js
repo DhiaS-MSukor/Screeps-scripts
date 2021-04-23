@@ -139,7 +139,7 @@ function spawn_check(spawn, theRole, mode, n) {
 }
 
 var auto_respawn = function (spawn) {
-
+    if (Game.spawns[spawn].room.energyAvailable < 100) { return; }
     // first spawn
     // essentials
     if (spawn_check(spawn, 'harvester', 0, 1)) { return; }
