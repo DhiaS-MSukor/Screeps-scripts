@@ -2,7 +2,7 @@
 
 var doRole = function (tower) {
     if (tower) {
-        if (tower.store[RESOURCE_ENERGY] == 0) { return; }
+        if (tower.store[RESOURCE_ENERGY] < 10) { return; }
 
         var target = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS,
             {
