@@ -48,7 +48,7 @@ var do_spawn = function (spawn, theRole, mode) {
         res = Game.spawns[spawn].spawnCreep(body, name, mem);
     }
     else if (theRole == 'harvester') {
-        const w = getMul(spawn, 50, 1)
+        const w = getMul(spawn, BODYPART_COST[WORK], 1)
         const c = Math.ceil(w * HARVEST_POWER / CARRY_CAPACITY)
         const body = new Array(w).fill(WORK, 0, w - c).fill(CARRY, w - c, c).concat([MOVE]);
         res = Game.spawns[spawn].spawnCreep(body, name, mem);
