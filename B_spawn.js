@@ -3,9 +3,9 @@ function getMul(spawn, baseCost, baseCount) {
     return Math.min(Math.floor(50 / baseCount), i)
 }
 
-var do_spawn = function (spawn, theRole, varience, mode) {
+var do_spawn = function (spawn, theRole, mode) {
     const name = theRole + (Math.floor(Game.time / 7) % 1000);
-    const mem = { memory: { role: theRole, v: varience, spawn: spawn, mode: mode, task: 0 } };
+    const mem = { memory: { role: theRole, spawn: spawn, mode: mode, task: 0 } };
     var res = -2;
 
     if (theRole == 'repairer') {
@@ -47,95 +47,28 @@ var do_spawn = function (spawn, theRole, varience, mode) {
         const body = new Array(mul * 2).fill(MOVE, 0, mul).fill(CLAIM, mul);
         res = Game.spawns[spawn].spawnCreep(body, name, mem);
     }
-
-    if (varience == 'v0') { // 300 energy
-        if (theRole == 'harvester') {
-            res = Game.spawns[spawn].spawnCreep([WORK, WORK, CARRY, MOVE], name, mem);
-        }
+    else if (theRole == 'harvester') {
+        const w = getMul(spawn, 50, 1)
+        const c = Math.ceil(w * HARVEST_POWER / CARRY_CAPACITY)
+        const body = new Array(w).fill(WORK, 0, w - c).fill(CARRY, w - c, c).concat([MOVE]);
+        res = Game.spawns[spawn].spawnCreep(body, name, mem);
     }
-    else if (varience == 'v1') { // 550 energy
-        if (theRole == 'harvester') {
-            res = Game.spawns[spawn].spawnCreep([WORK, WORK, WORK, WORK, CARRY, CARRY, MOVE], name, mem);
-        }
-        else if (theRole == 'troll') {
-            res = Game.spawns[spawn].spawnCreep([TOUGH, TOUGH, MOVE, MOVE, MOVE, MOVE, ATTACK, HEAL], name, mem);
-        }
-    }
-    else if (varience == 'v2') { // 800 energy 
-        if (theRole == 'harvester') {
-            res = Game.spawns[spawn].spawnCreep(new Array(7).fill(WORK).concat([CARRY, MOVE]), name, mem);
-        }
-        else if (theRole == 'troll') {
-            res = Game.spawns[spawn].spawnCreep([TOUGH, MOVE, MOVE, MOVE, MOVE, ATTACK, HEAL, HEAL], name, mem);
-        }
-    }
-    else if (varience == 'v3') { // 1300 energy
-        if (theRole == 'harvester') {
-            res = Game.spawns[spawn].spawnCreep(new Array(12).fill(WORK).concat([CARRY, MOVE]), name, mem);
-        }
-        else if (theRole == 'troll') {
-            res = Game.spawns[spawn].spawnCreep(
-                [TOUGH, TOUGH, TOUGH, TOUGH, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, ATTACK, HEAL, HEAL, HEAL]
-                , name, mem);
-        }
-    }
-    else if (varience == 'v4') { // 1800 energy
-        if (theRole == 'harvester') {
-            res = Game.spawns[spawn].spawnCreep(new Array(17).fill(WORK).concat([CARRY, MOVE]), name, mem);
-        }
-        else if (theRole == 'troll') {
-            res = Game.spawns[spawn].spawnCreep(
-                [TOUGH, TOUGH, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, ATTACK, HEAL, HEAL, HEAL, HEAL, HEAL]
-                , name, mem);
-        }
-    }
-    else if (varience == 'v5') { // 2300 energy
-        if (theRole == 'harvester') {
-            res = Game.spawns[spawn].spawnCreep(new Array(22).fill(WORK).concat([CARRY, MOVE]), name, mem);
-        }
-        else if (theRole == 'troll') {
-            res = Game.spawns[spawn].spawnCreep(
-                [TOUGH, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, ATTACK, HEAL, HEAL, HEAL, HEAL, HEAL, HEAL, HEAL]
-                , name, mem);
-        }
-    }
-    else if (varience == 'v6') { // 5300 energy
-        if (theRole == 'harvester') {
-            res = Game.spawns[spawn].spawnCreep(new Array(47).fill(WORK).concat([CARRY, CARRY, MOVE]), name, mem);
-        }
-        else if (theRole == 'troll') {
-            res = Game.spawns[spawn].spawnCreep(
-                [TOUGH, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE,
-                    ATTACK, HEAL, HEAL, HEAL, HEAL, HEAL, HEAL, HEAL, HEAL, HEAL, HEAL, HEAL, HEAL, HEAL, HEAL, HEAL, HEAL, HEAL, HEAL]
-                , name, mem);
-        }
-    }
-    else if (varience == 'v7') { // 12300 energy 
-        if (theRole == 'troll') {
-            res = Game.spawns[spawn].spawnCreep(
-                [MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE,
-                    MOVE, MOVE, MOVE, MOVE, ATTACK, HEAL, HEAL, HEAL, HEAL, HEAL, HEAL, HEAL, HEAL, HEAL, HEAL, HEAL, HEAL, HEAL, HEAL, HEAL, HEAL, HEAL, HEAL, HEAL, HEAL, HEAL, HEAL, HEAL, HEAL]
-                , name, mem);
-        }
+    else if (theRole == 'troll') {
+        const base = BODYPART_COST[MOVE] + BODYPART_COST[HEAL] + BODYPART_COST[ATTACK]
+        const mul = getMul(spawn, base, 2)
+        const body = new Array(mul * 3).fill(MOVE, 0, mul).fill(ATTACK, mul, mul + mul).fill(HEAL, mul + mul);
+        res = Game.spawns[spawn].spawnCreep(body, name, mem);
     }
 
     return res == OK;
 }
 
 function spawn_check(spawn, theRole, mode, n) {
-    var creeps = _.filter(Game.creeps, (creep) => creep.memory.role == theRole && creep.memory.mode == mode && creep.memory.spawn == spawn);
+    var creeps = _.filter(Game.creeps, (creep) => {
+        return creep.memory.role == theRole && creep.memory.mode == mode && creep.memory.spawn == spawn;
+    });
 
-    if (creeps.length < n) {
-        if (do_spawn(spawn, theRole, 'v7', mode)) { return true; }
-        else if (do_spawn(spawn, theRole, 'v6', mode)) { return true; }
-        else if (do_spawn(spawn, theRole, 'v5', mode)) { return true; }
-        else if (do_spawn(spawn, theRole, 'v4', mode)) { return true; }
-        else if (do_spawn(spawn, theRole, 'v3', mode)) { return true; }
-        else if (do_spawn(spawn, theRole, 'v2', mode)) { return true; }
-        else if (do_spawn(spawn, theRole, 'v1', mode)) { return true; }
-        else if (do_spawn(spawn, theRole, 'v0', mode)) { return true; }
-    }
-    return false;
+    return creeps.length < n && do_spawn(spawn, theRole, mode);
 }
 
 var auto_respawn = function (spawn) {
