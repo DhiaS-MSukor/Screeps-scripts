@@ -174,7 +174,6 @@ var doTask = function (creep) {
 	if (doWithdraw(creep, targets)) { return; }
 
 	if (creep.room.terminal) {
-
 		targets = creep.pos.findClosestByRange(FIND_STRUCTURES, {
 			filter: (targets) => targets.structureType != STRUCTURE_TERMINAL && targets.store
 				&& (targets.store.getUsedCapacity() > targets.store.getUsedCapacity(RESOURCE_ENERGY)
@@ -185,6 +184,7 @@ var doTask = function (creep) {
 			if (doWithdraw(creep, targets, res[0])) { return; }
 		}
 	}
+	// if ((creep.memory.task + 1) % 3 != 1 && creep.store.getUsedCapacity() > 0) {
 	if ((creep.memory.task + 1) % 3 != 1 && creep.store.getUsedCapacity() > 0) {
 
 		creep.memory.building = true;
