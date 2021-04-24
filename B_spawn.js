@@ -1,5 +1,6 @@
-function getMul(spawn, baseCost, baseCount) {
-    const i = Math.floor(Game.spawns[spawn].room.energyAvailable / baseCost)
+function getMul(spawn, baseCost, baseCount, penalty = 0) {
+    const e = Game.spawns[spawn].room.energyAvailable - penalty
+    const i = Math.floor(e / baseCost)
     const m = Math.min(Math.floor(50 / baseCount), i)
     return Math.max(1, m)
 }
@@ -49,7 +50,9 @@ var do_spawn = function (spawn, theRole, mode) {
         res = Game.spawns[spawn].spawnCreep(body, name, mem);
     }
     else if (theRole == 'harvester') {
-        const w = getMul(spawn, BODYPART_COST[WORK], 1)
+        const base = BODYPART_COST[WORK]
+        const p = BODYPART_COST[MOVE] + BODYPART_COST[CARRY]
+        const w = getMul(spawn, base, 2, BODYPART_COST[MOVE])
         const c = Math.ceil(w * HARVEST_POWER / CARRY_CAPACITY)
         const body = new Array(w).fill(WORK, 0, w - c).fill(CARRY, w - c, c).concat([MOVE]);
         res = Game.spawns[spawn].spawnCreep(body, name, mem);
