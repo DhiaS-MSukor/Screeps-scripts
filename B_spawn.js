@@ -1,6 +1,7 @@
 function getMul(spawn, baseCost, baseCount) {
     const i = Math.floor(Game.spawns[spawn].room.energyAvailable / baseCost)
-    return Math.min(Math.floor(50 / baseCount), i)
+    const m = Math.min(Math.floor(50 / baseCount), i)
+    return Math.max(1, m)
 }
 
 var do_spawn = function (spawn, theRole, mode) {
