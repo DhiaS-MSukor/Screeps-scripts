@@ -32,7 +32,7 @@ var doWithdraw = function (creep, targets, res = RESOURCE_ENERGY) {
 
 var withdrawAll = function (creep, targets) {
 	if (targets && targets.store) {
-		res = Object.keys(creep.store).filter((x) => x != RESOURCE_ENERGY && (targets.store[x] != 0));
+		res = Object.keys(targets.store).filter((x) => x != RESOURCE_ENERGY && (targets.store[x] != 0));
 		if (res.length) {
 			return doWithdraw(creep, targets, res[0]);
 		}
