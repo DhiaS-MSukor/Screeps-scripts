@@ -59,7 +59,9 @@ var transferCreepTarget = function (creep, role) {
 }
 
 var doTask = function (creep) {
-	if (creep.getActiveBodyparts(CARRY) == 0) {
+	if (creep.getActiveBodyparts(CARRY) == 0
+		|| (creep.body.filter(i => i.type == CARRY).length < 4
+			&& creep.room.energyAvailable > 400)) {
 		creep.suicide()
 		return
 	}
