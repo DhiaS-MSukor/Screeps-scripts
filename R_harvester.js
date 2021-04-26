@@ -19,8 +19,8 @@ var doTransfer = function (targets, creep, res = RESOURCE_ENERGY) {
 
 var doTask = function (creep) {
     if (creep.getActiveBodyparts(WORK) == 0
-        || (creep.body.filter(i => i.type == WORK).length < 4
-            && creep.room.energyAvailable > 500)) {
+        || (creep.body.filter(i => i.type == WORK).length < 5
+            && creep.room.energyAvailable > 600)) {
         creep.suicide()
         return
     }
