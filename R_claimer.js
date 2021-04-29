@@ -7,7 +7,9 @@ function doClaim(creep, targets) {
 
     if (creep.claimController(targets) != OK) {
         if (creep.reserveController(targets) != OK) {
-            creep.moveTo(targets, { visualizePathStyle: { stroke: '#ff0000' }, maxOps: 100, range: 1 });
+            if (creep.attackController(targets) != OK) {
+                creep.moveTo(targets, { visualizePathStyle: { stroke: '#ff0000' }, maxOps: 100, range: 1 });
+            }
         }
     }
 }
