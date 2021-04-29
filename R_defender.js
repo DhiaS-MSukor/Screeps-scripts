@@ -59,17 +59,17 @@ function doTask(creep) {
         target = creep.pos.findClosestByRange(all);
         if (target) { doRole(creep, target); return; }
 
-        target = creep.pos.findClosestByRange(FIND_STRUCTURES, { filter: { structureType: STRUCTURE_INVADER_CORE } });
-        if (target) { doRole(creep, target); return; }
+        // target = creep.pos.findClosestByRange(FIND_STRUCTURES, { filter: { structureType: STRUCTURE_INVADER_CORE } });
+        // if (target) { doRole(creep, target); return; }
 
-        target = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
-        if (target) { doRole(creep, target); return; }
+        // target = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
+        // if (target) { doRole(creep, target); return; }
 
-        target = creep.pos.findClosestByRange(FIND_HOSTILE_SPAWNS, { filter: (targets) => targets.hits > 0 });
-        if (target) { doRole(creep, target); return; }
+        // target = creep.pos.findClosestByRange(FIND_HOSTILE_SPAWNS, { filter: (targets) => targets.hits > 0 });
+        // if (target) { doRole(creep, target); return; }
 
-        target = creep.pos.findClosestByRange(FIND_HOSTILE_STRUCTURES, { filter: (targets) => targets.hits > 0 });
-        if (target) { doRole(creep, target); return; }
+        // target = creep.pos.findClosestByRange(FIND_HOSTILE_STRUCTURES, { filter: (targets) => targets.hits > 0 });
+        // if (target) { doRole(creep, target); return; }
     }
 
     if (creep.memory.mode == 1 && creep.room.name != Memory.roomTarget) {
