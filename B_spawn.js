@@ -113,8 +113,8 @@ var auto_respawn = function (spawn) {
     else if (Memory.roomTarget != 'false' && spawn_check(spawn, 'builder', 1, 3)) { return; }
 
     // raiders
-    else if (Memory.raidTarget != 'false' && spawn_check(spawn, 'ranger', 2, 1)) { return; }
-    else if (Memory.raidTarget != 'false' && spawn_check(spawn, 'defender', 2, 1)) { return; }
+    else if (Memory.raidTarget != 'false' && spawn_check(spawn, 'ranger', 2, 3)) { return; }
+    else if (Memory.raidTarget != 'false' && spawn_check(spawn, 'defender', 2, 3)) { return; }
 }
 
 module.exports = {
