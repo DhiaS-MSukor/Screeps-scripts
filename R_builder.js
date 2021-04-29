@@ -43,23 +43,23 @@ function doRole(creep) {
 	}
 
 	if (creep.memory.building && creep.store[RESOURCE_ENERGY] > 0) {
-		if (build(creep, creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES, {
+		if (build(creep, creep.pos.findClosestByRange(FIND_MY_CONSTRUCTION_SITES, {
 			filter: { structureType: STRUCTURE_SPAWN }
 		}))) { return }
 
-		if (build(creep, creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES, {
+		if (build(creep, creep.pos.findClosestByRange(FIND_MY_CONSTRUCTION_SITES, {
 			filter: { structureType: STRUCTURE_TOWER }
 		}))) { return }
 
-		if (build(creep, creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES, {
+		if (build(creep, creep.pos.findClosestByRange(FIND_MY_CONSTRUCTION_SITES, {
 			filter: { structureType: STRUCTURE_WALL }
 		}))) { return }
 
-		if (build(creep, creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES, {
+		if (build(creep, creep.pos.findClosestByRange(FIND_MY_CONSTRUCTION_SITES, {
 			filter: { structureType: STRUCTURE_RAMPART }
 		}))) { return }
 
-		if (build(creep, creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES))) {
+		if (build(creep, creep.pos.findClosestByRange(FIND_MY_CONSTRUCTION_SITES))) {
 			return
 		}
 
