@@ -55,7 +55,7 @@ function doTask(creep) {
         if (target) { doRole(creep, target); return; }
     }
     else {
-        target = creep.pos.findClosestByRange(FIND_STRUCTURES, { filter: { structureType: STRUCTURE_INVADER_CORE });
+        target = creep.pos.findClosestByRange(FIND_STRUCTURES, { filter: { structureType: STRUCTURE_INVADER_CORE }});
         if (target) { doRole(creep, target); return; }
 
         target = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
