@@ -7,12 +7,6 @@ function goToRoom(creep, target) {
             , range: 1
             , reusePath: Math.floor(Math.random() * 20) + 5
         });
-    } else {
-        creep.moveTo(new RoomPosition(25, 25, target), {
-            visualizePathStyle: { stroke: '#ff0000' }
-            , range: 1
-            , reusePath: Math.floor(Math.random() * 20) + 5
-        });
     }
     return;
 }
