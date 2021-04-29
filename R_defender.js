@@ -9,7 +9,6 @@ function goToRoom(creep, target) {
     }else{ 
         creep.moveTo(new RoomPosition(25, 25, target), {
             visualizePathStyle: { stroke: '#ff0000' }
-            , maxOps: 100
             , range: 1
         });
     }
