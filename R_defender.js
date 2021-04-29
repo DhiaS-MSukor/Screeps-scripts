@@ -2,8 +2,7 @@
 function goToRoom(creep, target) {
     if (Game.rooms[target]) {
         creep.moveTo(Game.rooms[target].controller, {
-            visualizePathStyle: { stroke: '#ff0000' }
-            , maxOps: 100
+            visualizePathStyle: { stroke: '#ff0000' } 
             , range: 1
             , reusePath: Math.floor(Math.random() * 20) + 5
         });
