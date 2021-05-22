@@ -88,6 +88,16 @@ function doRole(creep) {
 			move(creep, target, 1)
 		}
 	}
+	let sources = creep.pos.findClosestByRange(FIND_STRUCTURES, {
+		filter: (structure) => (structure.structureType == STRUCTURE_CONTAINER &&
+			structure.store[RESOURCE_ENERGY] > 0)
+	});
+	if (sources) {
+		if (creep.withdraw(sources, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+			move(creep, sources, 1)
+			return;
+		}
+	}
 
 }
 
