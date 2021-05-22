@@ -87,8 +87,9 @@ function doRole(creep) {
 		if (creep.harvest(target) != OK) {
 			move(creep, target, 1)
 		}
+		return;
 	}
-	  sources = creep.pos.findClosestByRange(FIND_STRUCTURES, {
+	sources = creep.pos.findClosestByRange(FIND_STRUCTURES, {
 		filter: (structure) => (structure.structureType == STRUCTURE_CONTAINER &&
 			structure.store[RESOURCE_ENERGY] > 0)
 	});
