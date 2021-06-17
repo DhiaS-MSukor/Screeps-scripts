@@ -39,7 +39,7 @@ function sellResource(terminal, resource) {
 }
 
 function doRole(terminal) {
-    if (terminal.store.getUsedCapacity(RESOURCE_ENERGY) > 1000
+    if (terminal.store.getUsedCapacity(RESOURCE_ENERGY) > 100
         && sellResource(terminal, RESOURCE_ENERGY)) {
         return;
     }
