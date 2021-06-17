@@ -39,14 +39,8 @@ function sellResource(terminal, resource) {
 }
 
 function doRole(terminal) {
-    if (terminal.store.getUsedCapacity(RESOURCE_ENERGY) > 100
-        && sellResource(terminal, RESOURCE_ENERGY)) {
-        return;
-    }
-
-
     res = _.filter(Object.keys(terminal.store)
-        , (res) => (res != RESOURCE_ENERGY && terminal.store[res] != 0)
+    , (res) => (res != RESOURCE_ENERGY && terminal.store[res] != 0)
     ).sort((a, b) => terminal.store[a] - terminal.store[b]);
     if (res.length) {
         for (const key in res) {
@@ -56,8 +50,13 @@ function doRole(terminal) {
             }
         }
     }
+    
+    if (terminal.store.getUsedCapacity(RESOURCE_ENERGY) > 100
+        && sellResource(terminal, RESOURCE_ENERGY)) {
+        return;
+    }
 }
-
+    
 module.exports = {
     fx: function (terminal) {
         doRole(terminal);
