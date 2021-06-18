@@ -51,10 +51,11 @@ function doRole(terminal) {
         }
     }
     
-    if (terminal.store.getUsedCapacity(RESOURCE_ENERGY) > 100
-        && sellResource(terminal, RESOURCE_ENERGY)) {
-        return;
-    }
+    sellResource(terminal, RESOURCE_ENERGY)
+    // if (terminal.store.getUsedCapacity(RESOURCE_ENERGY) > 100
+    //     && sellResource(terminal, RESOURCE_ENERGY)) {
+    //     return;
+    // }
 }
     
 module.exports = {
