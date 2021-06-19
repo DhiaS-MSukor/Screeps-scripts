@@ -54,12 +54,12 @@ function transferStructureTarget(creep, type, res = RESOURCE_ENERGY, minCap = 0)
 }
 
 var transferCreepTarget = function (creep, role) {
-	return creep.room.find(FIND_MY_CREEPS, {
+	return creep.pos.findClosestByRange(FIND_MY_CREEPS, {
 		filter: (targets) => {
 			return (targets.memory.role == role &&
 				targets.store.getFreeCapacity(RESOURCE_ENERGY) > 0)
 		}
-	}).sort((a, b) => a.store[RESOURCE_ENERGY] - b.store[RESOURCE_ENERGY])[0];
+	});
 }
 
 var doTask = function (creep) {
