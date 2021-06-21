@@ -25,11 +25,22 @@ function doRole(creep) {
     return;
   }
   if (creep.store.getFreeCapacity() > 0) {
-    let targets = creep.pos.findInRange(FIND_DROPPED_RESOURCES, 2);
+    let targets = creep.pos.findInRange(FIND_DROPPED_RESOURCES, 2, {
+      filter: {resourceType = RESOURCE_ENERGY},
+    });
     if (targets.length > 0) {
       if (creep.pickup(targets[0]) == ERR_NOT_IN_RANGE) {
         move(creep, targets[0], 0);
         return;
+      }
+    }
+    targets = creep.pos.findInRange(FIND_TOMBSTONES, 2, {
+      filter: (targets) => targets.store.getUsedCapacity(RESOURCE_ENERGY) > 0,
+    });
+    if (targets.length > 0) {
+      if (creep.withdraw(targets[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+        move(creep, targets[0]);
+        return true;
       }
     }
   }
