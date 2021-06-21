@@ -26,7 +26,7 @@ function doRole(creep) {
   }
   if (creep.store.getFreeCapacity() > 0) {
     let targets = creep.pos.findInRange(FIND_DROPPED_RESOURCES, 2, {
-      filter: {resourceType = RESOURCE_ENERGY},
+      filter: {resourceType = RESOURCE_ENERGY}
     });
     if (targets.length > 0) {
       if (creep.pickup(targets[0]) == ERR_NOT_IN_RANGE) {
