@@ -30,7 +30,7 @@ function doRole(creep) {
     });
     if (targets.length > 0) {
       if (creep.pickup(targets[0]) == ERR_NOT_IN_RANGE) {
-        move(creep, targets[0], 0);
+        move(creep, targets[0], 1);
         return;
       }
     }
@@ -39,7 +39,7 @@ function doRole(creep) {
     });
     if (targets.length > 0) {
       if (creep.withdraw(targets[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-        move(creep, targets[0]);
+        move(creep, targets[0], 1);
         return;
       }
     }
