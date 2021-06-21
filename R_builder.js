@@ -62,47 +62,19 @@ function doRole(creep) {
 	}
 
 	if (creep.memory.building && creep.store[RESOURCE_ENERGY] > 0) {
-		if (
-			build(
-				creep,
-				creep.pos.findClosestByRange(FIND_MY_CONSTRUCTION_SITES, {
-					filter: { structureType: STRUCTURE_SPAWN },
-				})
-			)
-		) {
+		if (build(creep, creep.pos.findClosestByRange(FIND_MY_CONSTRUCTION_SITES, { filter: { structureType: STRUCTURE_SPAWN } }))) {
 			return;
 		}
 
-		if (
-			build(
-				creep,
-				creep.pos.findClosestByRange(FIND_MY_CONSTRUCTION_SITES, {
-					filter: { structureType: STRUCTURE_TOWER },
-				})
-			)
-		) {
+		if (build(creep, creep.pos.findClosestByRange(FIND_MY_CONSTRUCTION_SITES, { filter: { structureType: STRUCTURE_TOWER } }))) {
 			return;
 		}
 
-		if (
-			build(
-				creep,
-				creep.pos.findClosestByRange(FIND_MY_CONSTRUCTION_SITES, {
-					filter: { structureType: STRUCTURE_WALL },
-				})
-			)
-		) {
+		if (build(creep, creep.pos.findClosestByRange(FIND_MY_CONSTRUCTION_SITES, { filter: { structureType: STRUCTURE_WALL } }))) {
 			return;
 		}
 
-		if (
-			build(
-				creep,
-				creep.pos.findClosestByRange(FIND_MY_CONSTRUCTION_SITES, {
-					filter: { structureType: STRUCTURE_RAMPART },
-				})
-			)
-		) {
+		if (build(creep, creep.pos.findClosestByRange(FIND_MY_CONSTRUCTION_SITES, { filter: { structureType: STRUCTURE_RAMPART } }))) {
 			return;
 		}
 
@@ -112,7 +84,7 @@ function doRole(creep) {
 
 		if (creep.room.controller) {
 			if (creep.upgradeController(creep.room.controller) == ERR_NOT_IN_RANGE) {
-				move(creep, creep.room.controller, 1);
+				move(creep, creep.room.controller);
 			}
 			return;
 		}
