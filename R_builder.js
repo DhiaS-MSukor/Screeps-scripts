@@ -40,7 +40,7 @@ function doRole(creep) {
     if (targets.length > 0) {
       if (creep.withdraw(targets[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
         move(creep, targets[0]);
-        return true;
+        return;
       }
     }
   }
