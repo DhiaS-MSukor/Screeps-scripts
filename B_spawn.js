@@ -6,7 +6,7 @@ function getMul(spawn, baseCost, baseCount, penalty = 0) {
 }
 
 var do_spawn = function (spawn, theRole, mode) {
-	const name = theRole + (Math.floor(Game.time / 7) % 1000) + Math.floor(Math.random() * 10);
+	const name = theRole + (Game.time % 1000) + "_" + Math.floor(Math.random() * 10);
 	const mem = { memory: { role: theRole, spawn: spawn, mode: mode, task: 0 } };
 	var res = -2;
 
