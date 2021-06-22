@@ -4,13 +4,13 @@ function goToRoom(creep, target) {
 		creep.moveTo(Game.rooms[target].controller, {
 			visualizePathStyle: { stroke: "#ff0000" },
 			range: 1,
-			reusePath: Math.floor(Math.random() * 20) + 5,
+			reusePath: Math.floor(Math.random() * 90) + 10,
 		});
 	} else if (target != "false") {
 		creep.moveTo(new RoomPosition(25, 25, target), {
 			visualizePathStyle: { stroke: "#ff0000" },
 			range: 1,
-			reusePath: Math.floor(Math.random() * 20) + 5,
+			reusePath: Math.floor(Math.random() * 90) + 10,
 		});
 	}
 	return;
@@ -106,9 +106,9 @@ function doTask(creep) {
 	target = target.sort((a, b) => a.ticksToSpawn - b.ticksToSpawn);
 	if (target.length > 0) {
 		creep.moveTo(target[0], {
-			visualizePathStyle: { stroke: "#ff0000" },
-			maxOps: 100,
+			visualizePathStyle: { stroke: "#ff0000" }, 
 			range: 1,
+			reusePath: Math.floor(Math.random() * 90) + 10,
 		});
 		return;
 	}
