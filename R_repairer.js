@@ -1,81 +1,94 @@
+function move(creep, target, range = 3) {
+	if (target) {
+		return creep.moveTo(target, {
+			visualizePathStyle: { stroke: "#ffff00" },
+			range: range,
+			reusePath: Math.floor(Math.random() * 90) + 10,
+		});
+	}
+}
+
 var doRepair = function (creep, targets) {
 	if (targets.length) {
 		if (creep.repair(targets[0]) == ERR_NOT_IN_RANGE) {
-			creep.moveTo(targets[0], {
-				visualizePathStyle: { stroke: '#ffff00' },
-				range: 3,
-				maxOps: 100
-			});
+			move(creep, targets[0]);
 		}
 		return true;
 	}
 	return false;
-}
+};
 
 var doTask = function (creep) {
 	if (creep.getActiveBodyparts(WORK) == 0) {
-		creep.suicide()
-		return
+		creep.suicide();
+		return;
 	}
 
 	var targets;
 
 	if (creep.memory.building && creep.store[RESOURCE_ENERGY] == 0) {
 		creep.memory.building = false;
-		creep.say('harvest');
+		creep.say("harvest");
 	}
 	if (!creep.memory.building && creep.store.getFreeCapacity() < HARVEST_POWER * creep.getActiveBodyparts(WORK)) {
 		creep.memory.building = true;
 		creep.memory.task = (creep.memory.task + 1) % 3;
-		creep.say('repair');
+		creep.say("repair");
 	}
 
 	if (creep.memory.building && creep.store[RESOURCE_ENERGY] > 0) {
-
-
 		if (creep.memory.task == 0) {
-			targets = creep.room.find(FIND_MY_STRUCTURES, { filter: (structure) => { return (structure.hits < structure.hitsMax) } });
-			if (doRepair(creep, targets)) { return; }
-		}
-		else if (creep.memory.task == 1) {
+			targets = creep.room.find(FIND_MY_STRUCTURES, {
+				filter: (structure) => {
+					return structure.hits < structure.hitsMax;
+				},
+			});
+			if (doRepair(creep, targets)) {
+				return;
+			}
+		} else if (creep.memory.task == 1) {
 			targets = creep.room.find(FIND_STRUCTURES, {
 				filter: (structure) => {
-					return (structure.hits < structure.hitsMax &&
-						structure.structureType == STRUCTURE_CONTAINER)
-				}
+					return structure.hits < structure.hitsMax && structure.structureType == STRUCTURE_CONTAINER;
+				},
 			});
-			if (doRepair(creep, targets)) { return; }
-		}
-		else if (creep.memory.task == 2) {
+			if (doRepair(creep, targets)) {
+				return;
+			}
+		} else if (creep.memory.task == 2) {
 			targets = creep.room.find(FIND_STRUCTURES, {
 				filter: (structure) => {
-					return (structure.hits < structure.hitsMax &&
-						structure.structureType == STRUCTURE_ROAD)
-				}
+					return structure.hits < structure.hitsMax && structure.structureType == STRUCTURE_ROAD;
+				},
 			});
-			if (doRepair(creep, targets)) { return; }
+			if (doRepair(creep, targets)) {
+				return;
+			}
 		}
 
-		targets = creep.pos.findClosestByRange(FIND_STRUCTURES, { filter: (structure) => { return (structure.hits < structure.hitsMax) } });
-		if (targets && doRepair(creep, [targets])) { return; }
+		targets = creep.pos.findClosestByRange(FIND_STRUCTURES, {
+			filter: (structure) => {
+				return structure.hits < structure.hitsMax;
+			},
+		});
+		if (targets && doRepair(creep, [targets])) {
+			return;
+		}
 
 		if (creep.room.controller) {
 			if (creep.upgradeController(creep.room.controller) == ERR_NOT_IN_RANGE) {
-				creep.moveTo(creep.room.controller, { maxOps: 100, range: 3 });
+				move(creep, creep.room.controller);
 			}
 		}
-	}
-
-	else {
+	} else {
 		targets = creep.pos.findClosestByRange(FIND_STRUCTURES, {
 			filter: (structure) => {
-				return (structure.structureType == STRUCTURE_CONTAINER &&
-					structure.store[RESOURCE_ENERGY] > 1000)
-			}
+				return structure.structureType == STRUCTURE_CONTAINER && structure.store[RESOURCE_ENERGY] > 1000;
+			},
 		});
 		if (targets) {
 			if (creep.withdraw(targets, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-				creep.moveTo(targets, { visualizePathStyle: { stroke: '#ffff00' }, maxOps: 100, range: 1 });
+				move(creep, targets, 1);
 				return;
 			}
 		}
@@ -84,19 +97,17 @@ var doTask = function (creep) {
 		if (t.length) {
 			targets = t[t.length - 1];
 			if (creep.harvest(targets) != OK) {
-				creep.moveTo(targets, { visualizePathStyle: { stroke: '#ffff00' }, maxOps: 100, range: 1 });
+				move(creep, targets, 1);
 			}
 		}
 	}
-}
+};
 
 module.exports = {
-
 	/** @param {Creep} creep **/
 	run: function (creep) {
 		try {
 			doTask(creep);
-		} catch (e) { }
-	}
-
+		} catch (e) {}
+	},
 };
