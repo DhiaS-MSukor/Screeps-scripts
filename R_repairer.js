@@ -9,11 +9,18 @@ function move(creep, target, range = 3) {
 }
 
 var doRepair = function (creep, targets) {
-	if (targets.length) {
-		if (creep.repair(targets[0]) == ERR_NOT_IN_RANGE) {
-			move(creep, targets[0]);
+	if (targets) {
+		if (targets.length) {
+			if (creep.repair(targets[0]) == ERR_NOT_IN_RANGE) {
+				move(creep, targets[0]);
+			}
+			return true;
+		} else {
+			if (creep.repair(targets) == ERR_NOT_IN_RANGE) {
+				move(creep, targets);
+			}
+			return true;
 		}
-		return true;
 	}
 	return false;
 };
@@ -38,7 +45,7 @@ var doTask = function (creep) {
 
 	if (creep.memory.building && creep.store[RESOURCE_ENERGY] > 0) {
 		if (creep.memory.task == 0) {
-			targets = creep.room.find(FIND_MY_STRUCTURES, {
+			targets = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {
 				filter: (structure) => {
 					return structure.hits < structure.hitsMax;
 				},
@@ -47,7 +54,7 @@ var doTask = function (creep) {
 				return;
 			}
 		} else if (creep.memory.task == 1) {
-			targets = creep.room.find(FIND_STRUCTURES, {
+			targets = creep.pos.findClosestByRange(FIND_STRUCTURES, {
 				filter: (structure) => {
 					return structure.hits < structure.hitsMax && structure.structureType == STRUCTURE_CONTAINER;
 				},
@@ -56,7 +63,7 @@ var doTask = function (creep) {
 				return;
 			}
 		} else if (creep.memory.task == 2) {
-			targets = creep.room.find(FIND_STRUCTURES, {
+			targets = creep.pos.findClosestByRange(FIND_STRUCTURES, {
 				filter: (structure) => {
 					return structure.hits < structure.hitsMax && structure.structureType == STRUCTURE_ROAD;
 				},
@@ -71,7 +78,7 @@ var doTask = function (creep) {
 				return structure.hits < structure.hitsMax;
 			},
 		});
-		if (targets && doRepair(creep, [targets])) {
+		if (targets && doRepair(creep, targets)) {
 			return;
 		}
 
