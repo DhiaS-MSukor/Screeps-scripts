@@ -1,10 +1,12 @@
 // JavaScript source code
 
 var clean_mem = function () {
-	for (var name in Memory.creeps) {
-		if (!Game.creeps[name]) {
-			delete Memory.creeps[name];
-			return;
+	if (Math.random() * 100.0 < 2.0) {
+		for (var name in Memory.creeps) {
+			if (!Game.creeps[name]) {
+				delete Memory.creeps[name];
+				return;
+			}
 		}
 	}
 };
