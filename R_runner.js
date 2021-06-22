@@ -80,9 +80,9 @@ var doTask = function (creep) {
 	if (creep.memory.building) {
 		res = _.filter(Object.keys(creep.store), (res) => res != RESOURCE_ENERGY && creep.store[res] != 0);
 		if (res.length) {
-			targets = transferStructureTarget(creep, STRUCTURE_TERMINAL, res[0]);
+			targets = transferStructureTarget(creep, STRUCTURE_TERMINAL, 0, res[0]);
 			if (!targets) {
-				targets = transferStructureTarget(creep, STRUCTURE_CONTAINER, res[0]);
+				targets = transferStructureTarget(creep, STRUCTURE_CONTAINER, 0, res[0]);
 			}
 
 			if (doTransfer(targets, creep, res[0])) {
