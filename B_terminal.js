@@ -22,6 +22,8 @@ function tryDeal(terminal, order) {
 }
 
 function sellResource(terminal, resource) {
+	var history = Game.market.getHistory(resource);
+	var avg = history[history.length - 2].avgPrice;
 	var orders = Game.market
 		.getAllOrders({
 			type: ORDER_BUY,
@@ -31,7 +33,7 @@ function sellResource(terminal, resource) {
 	for (const key1 in orders) {
 		if (Object.hasOwnProperty.call(orders, key1)) {
 			const order = orders[key1];
-			if (tryDeal(terminal, order)) {
+			if (order.price > avg && tryDeal(terminal, order)) {
 				return true;
 			}
 		}
