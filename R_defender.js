@@ -93,9 +93,9 @@ function doTask(creep) {
 	target = creep.room.controller;
 	if (target) {
 		creep.moveTo(target, {
-			visualizePathStyle: { stroke: "#ff0000" },
-			maxOps: 100,
-			range: 1,
+			visualizePathStyle: { stroke: "#ff0000" }, 
+			range: 1, 
+			reusePath: Math.floor(Math.random() * 90) + 10,
 		});
 		return;
 	}
