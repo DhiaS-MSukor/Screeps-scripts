@@ -10,7 +10,7 @@ var clean_mem = function () {
 };
 
 var gen_pixel = function () {
-	if (Game.cpu.bucket > 9900 && Game.cpu.bucket > PIXEL_CPU_COST) {
+	if (Game.cpu.bucket >= PIXEL_CPU_COST) {
 		Game.cpu.generatePixel();
 	}
 };
