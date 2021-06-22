@@ -42,7 +42,7 @@ var withdrawAll = function (creep, targets) {
 	return false;
 };
 
-function transferStructureTarget(creep, type, res = RESOURCE_ENERGY, minCap = 0) {
+function transferStructureTarget(creep, type, minCap = 0, res = RESOURCE_ENERGY) {
 	return creep.pos.findClosestByRange(FIND_STRUCTURES, {
 		filter: (targets) => {
 			return targets.structureType == type && targets.store.getFreeCapacity(res) > minCap;
@@ -98,7 +98,7 @@ var doTask = function (creep) {
 				if (doTransfer(transferStructureTarget(creep, STRUCTURE_EXTENSION), creep)) {
 					return;
 				}
-				if (doTransfer(transferStructureTarget(creep, STRUCTURE_TOWER, { minCap: 10 }), creep)) {
+				if (doTransfer(transferStructureTarget(creep, STRUCTURE_TOWER, 10), creep)) {
 					return;
 				}
 				if (doTransfer(transferStructureTarget(creep, STRUCTURE_TERMINAL), creep)) {
@@ -121,7 +121,7 @@ var doTask = function (creep) {
 				if (doTransfer(transferStructureTarget(creep, STRUCTURE_EXTENSION), creep)) {
 					return;
 				}
-				if (doTransfer(transferStructureTarget(creep, STRUCTURE_TOWER, { minCap: 10 }), creep)) {
+				if (doTransfer(transferStructureTarget(creep, STRUCTURE_TOWER, 10), creep)) {
 					return;
 				}
 
@@ -135,7 +135,7 @@ var doTask = function (creep) {
 				if (doTransfer(transferStructureTarget(creep, STRUCTURE_SPAWN), creep)) {
 					return;
 				}
-				if (doTransfer(transferStructureTarget(creep, STRUCTURE_TOWER, { minCap: 10 }), creep)) {
+				if (doTransfer(transferStructureTarget(creep, STRUCTURE_TOWER, 10), creep)) {
 					return;
 				}
 				if (doTransfer(transferStructureTarget(creep, STRUCTURE_EXTENSION), creep)) {
