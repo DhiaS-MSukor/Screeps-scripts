@@ -1,12 +1,10 @@
 // JavaScript source code
 
 var clean_mem = function () {
-	if (Game.time % 1000 == 0) {
-		for (var name in Memory.creeps) {
-			if (!Game.creeps[name]) {
-				delete Memory.creeps[name];
-				return;
-			}
+	for (var name in Memory.creeps) {
+		if (!Game.creeps[name]) {
+			delete Memory.creeps[name];
+			return;
 		}
 	}
 };
@@ -20,7 +18,7 @@ function trade_pixel() {
 	var orders = Game.market
 		.getAllOrders({
 			type: ORDER_SELL,
-			resourceType: PIXEL,
+			resourceType: CPU_UNLOCK,
 		})
 		.sort((a, b) => a.price - b.price);
 	for (const key in orders) {
@@ -39,9 +37,10 @@ function trade_pixel() {
 module.exports = {
 	run: function () {
 		gen_pixel();
-		trade_pixel();
-		try {
+
+		if (Game.time % 10000 == 0) {
+			trade_pixel();
 			clean_mem();
-		} catch (e) {}
+		}
 	},
 };
