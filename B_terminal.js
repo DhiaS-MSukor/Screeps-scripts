@@ -23,7 +23,8 @@ function tryDeal(terminal, order) {
 
 function sellResource(terminal, resource) {
 	var history = Game.market.getHistory(resource);
-	var avg = history[history.length - 2].avgPrice;
+	var target = history[history.length - 2];
+	var avg = target.avgPrice + 2 * target.stddevPrice;
 	var orders = Game.market
 		.getAllOrders({
 			type: ORDER_BUY,
