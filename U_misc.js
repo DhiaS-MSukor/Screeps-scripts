@@ -38,7 +38,7 @@ module.exports = {
 	run: function () {
 		gen_pixel();
 
-		if (Game.time % 10000 == 0) {
+		if (Game.time % 10 == 0) {
 			trade_pixel();
 			clean_mem();
 		}
