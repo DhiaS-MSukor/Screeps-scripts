@@ -73,18 +73,18 @@ var doTask = function (creep) {
 			return;
 		}
 
-		targets = creep.pos.findClosestByRange(FIND_STRUCTURES, {
+		targets = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {
 			filter: (structure) => {
-				return structure.hits < structure.hitsMax && structure.structureType == STRUCTURE_RAMPART;
+				return structure.hits < structure.hitsMax;
 			},
 		});
 		if (doRepair(creep, targets)) {
 			return;
 		}
 
-		targets = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {
+		targets = creep.pos.findClosestByRange(FIND_STRUCTURES, {
 			filter: (structure) => {
-				return structure.hits < structure.hitsMax;
+				return structure.hits < structure.hitsMax && structure.structureType == STRUCTURE_RAMPART;
 			},
 		});
 		if (doRepair(creep, targets)) {
