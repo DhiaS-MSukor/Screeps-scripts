@@ -61,7 +61,9 @@ function doRole(terminal) {
 		}
 	}
 
-	sellResource(terminal, RESOURCE_ENERGY);
+	if (terminal.store.getFreeCapacity() < 10000) {
+		sellResource(terminal, RESOURCE_ENERGY);
+	}
 }
 
 module.exports = {
