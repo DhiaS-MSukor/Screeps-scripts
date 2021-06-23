@@ -44,33 +44,51 @@ var doTask = function (creep) {
 	}
 
 	if (creep.memory.building && creep.store[RESOURCE_ENERGY] > 0) {
-		if (creep.memory.task == 0) {
-			targets = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {
-				filter: (structure) => {
-					return structure.hits < structure.hitsMax;
-				},
-			});
-			if (doRepair(creep, targets)) {
-				return;
-			}
-		} else if (creep.memory.task == 1) {
-			targets = creep.pos.findClosestByRange(FIND_STRUCTURES, {
-				filter: (structure) => {
-					return structure.hits < structure.hitsMax && structure.structureType == STRUCTURE_CONTAINER;
-				},
-			});
-			if (doRepair(creep, targets)) {
-				return;
-			}
-		} else if (creep.memory.task == 2) {
-			targets = creep.pos.findClosestByRange(FIND_STRUCTURES, {
-				filter: (structure) => {
-					return structure.hits < structure.hitsMax && structure.structureType == STRUCTURE_ROAD;
-				},
-			});
-			if (doRepair(creep, targets)) {
-				return;
-			}
+		// if (creep.memory.task == 0) {
+		// 	targets = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {
+		// 		filter: (structure) => {
+		// 			return structure.hits < structure.hitsMax;
+		// 		},
+		// 	});
+		// 	if (doRepair(creep, targets)) {
+		// 		return;
+		// 	}
+		// } else if (creep.memory.task == 1) {
+		// } else if (creep.memory.task == 2) {
+		// 	targets = creep.pos.findClosestByRange(FIND_STRUCTURES, {
+		// 		filter: (structure) => {
+		// 			return structure.hits < structure.hitsMax && structure.structureType == STRUCTURE_ROAD;
+		// 		},
+		// 	});
+		// 	if (doRepair(creep, targets)) {
+		// 		return;
+		// 	}
+		// }
+		targets = creep.pos.findClosestByRange(FIND_STRUCTURES, {
+			filter: (structure) => {
+				return structure.hits < structure.hitsMax && (structure.structureType == STRUCTURE_CONTAINER || structure.structureType == STRUCTURE_ROAD);
+			},
+		});
+		if (doRepair(creep, targets)) {
+			return;
+		}
+
+		targets = creep.pos.findClosestByRange(FIND_STRUCTURES, {
+			filter: (structure) => {
+				return structure.hits < structure.hitsMax && structure.structureType == STRUCTURE_RAMPART;
+			},
+		});
+		if (doRepair(creep, targets)) {
+			return;
+		}
+
+		targets = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {
+			filter: (structure) => {
+				return structure.hits < structure.hitsMax;
+			},
+		});
+		if (doRepair(creep, targets)) {
+			return;
 		}
 
 		targets = creep.pos.findClosestByRange(FIND_STRUCTURES, {
