@@ -43,7 +43,7 @@ function sellResource(terminal, resource) {
 }
 
 function doRole(terminal) {
-	if (terminal.cooldown > 0 || Math.random() * TERMINAL_COOLDOWN > 2) {
+	if (terminal.cooldown > 0 || terminal.store.getUsedCapacity(RESOURCE_ENERGY) < 2 || Math.random() * TERMINAL_COOLDOWN > 2) {
 		return;
 	}
 
