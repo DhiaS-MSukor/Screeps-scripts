@@ -31,6 +31,7 @@ function doTask1(creep, target) {
 			return creep.moveTo(rampart[0], {
 				visualizePathStyle: { stroke: "#ff0000" },
 				ignoreCreeps: true,
+				maxOps: 100,
 			});
 		}
 		return res;
