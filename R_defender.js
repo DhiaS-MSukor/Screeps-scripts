@@ -22,7 +22,7 @@ function doTask1(creep, target) {
 		if (res == ERR_NOT_IN_RANGE) {
 			return creep.moveTo(target, {
 				visualizePathStyle: { stroke: "#ff0000" },
-				range: 3,
+				range: 2,
 			});
 		}
 		return res;
