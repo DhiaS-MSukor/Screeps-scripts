@@ -18,10 +18,12 @@ function goToRoom(creep, target) {
 
 function doTask1(creep, target) {
 	if (creep.memory.role == "ranger") {
-		creep.moveTo(target, {
-			visualizePathStyle: { stroke: "#ff0000" },
-			range: 2,
-		});
+		if (creep.pos.getRangeTo(target) > 3) {
+			creep.moveTo(target, {
+				visualizePathStyle: { stroke: "#ff0000" },
+				range: 2,
+			});
+		}
 		return creep.rangedAttack(target);
 	} else if (creep.memory.role == "healer") {
 		var res = creep.heal(target);
