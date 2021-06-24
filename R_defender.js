@@ -18,12 +18,22 @@ function goToRoom(creep, target) {
 
 function doTask1(creep, target) {
 	if (creep.memory.role == "ranger") {
-		creep.moveTo(target, {
-			visualizePathStyle: { stroke: "#ff0000" },
-			range: 2,
-			ignoreCreeps: true,
-		});
-		return creep.rangedAttack(target);
+		const res = creep.rangedAttack(target);
+		if (res == ERR_NOT_IN_RANGE) {
+			return creep.moveTo(target, {
+				visualizePathStyle: { stroke: "#ff0000" },
+				range: 3,
+				ignoreCreeps: true,
+			});
+		}
+		const rampart = creep.pos.findInRange(FIND_STRUCTURES, 1, { filter: { structureType: STRUCTURE_RAMPART } });
+		if (rampart.length > 0) {
+			return creep.moveTo(rampart[0], {
+				visualizePathStyle: { stroke: "#ff0000" },
+				ignoreCreeps: true,
+			});
+		}
+		return res;
 	} else if (creep.memory.role == "healer") {
 		var res = creep.heal(target);
 		if (res == ERR_NOT_IN_RANGE) {
