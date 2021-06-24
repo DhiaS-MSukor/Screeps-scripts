@@ -91,6 +91,13 @@ var doTask = function (creep) {
 		}
 
 		if (creep.store[RESOURCE_ENERGY] != 0) {
+			const enemy = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
+			if (enemy) {
+				if (doTransfer(transferStructureTarget(creep, STRUCTURE_TOWER, 10), creep)) {
+					return;
+				}
+			}
+			
 			if (creep.memory.task == 1) {
 				if (doTransfer(transferStructureTarget(creep, STRUCTURE_SPAWN), creep)) {
 					return;
