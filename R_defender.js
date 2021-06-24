@@ -18,14 +18,11 @@ function goToRoom(creep, target) {
 
 function doTask1(creep, target) {
 	if (creep.memory.role == "ranger") {
-		const res = creep.rangedAttack(target);
-		if (res == ERR_NOT_IN_RANGE) {
-			return creep.moveTo(target, {
-				visualizePathStyle: { stroke: "#ff0000" },
-				range: 2,
-			});
-		}
-		return res;
+		creep.moveTo(target, {
+			visualizePathStyle: { stroke: "#ff0000" },
+			range: 2,
+		});
+		return creep.rangedAttack(target);
 	} else if (creep.memory.role == "healer") {
 		var res = creep.heal(target);
 		if (res == ERR_NOT_IN_RANGE) {
@@ -93,8 +90,8 @@ function doTask(creep) {
 	target = creep.room.controller;
 	if (target) {
 		creep.moveTo(target, {
-			visualizePathStyle: { stroke: "#ff0000" }, 
-			range: 1, 
+			visualizePathStyle: { stroke: "#ff0000" },
+			range: 1,
 			reusePath: Math.floor(Math.random() * 90) + 10,
 		});
 		return;
@@ -106,7 +103,7 @@ function doTask(creep) {
 	target = target.sort((a, b) => a.ticksToSpawn - b.ticksToSpawn);
 	if (target.length > 0) {
 		creep.moveTo(target[0], {
-			visualizePathStyle: { stroke: "#ff0000" }, 
+			visualizePathStyle: { stroke: "#ff0000" },
 			range: 1,
 			reusePath: Math.floor(Math.random() * 90) + 10,
 		});
