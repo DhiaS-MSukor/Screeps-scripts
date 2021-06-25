@@ -42,7 +42,21 @@ var withdrawAll = function (creep, targets) {
 	return false;
 };
 
-function transferStructureTarget(creep, type, minCap = 0, res = RESOURCE_ENERGY) {
+function transferStructureTarget(creep, type, minCap = 0, res = RESOURCE_ENERGY, sortByRes = false) {
+	if (sortByRes) {
+		const items = creep.room
+			.find(FIND_STRUCTURES, {
+				filter: (targets) => {
+					return targets.structureType == type && targets.store.getFreeCapacity(res) > minCap;
+				},
+			})
+			.sort((a, b) => a.store.getUsedCapacity(res) > b.store.getUsedCapacity(res));
+		if (items.length > 0) {
+			return items[0];
+		} else {
+			return;
+		}
+	}
 	return creep.pos.findClosestByRange(FIND_STRUCTURES, {
 		filter: (targets) => {
 			return targets.structureType == type && targets.store.getFreeCapacity(res) > minCap;
@@ -96,7 +110,7 @@ var doTask = function (creep) {
 				if (doTransfer(transferStructureTarget(creep, STRUCTURE_SPAWN), creep)) {
 					return;
 				}
-				if (doTransfer(transferStructureTarget(creep, STRUCTURE_TOWER, 10), creep)) {
+				if (doTransfer(transferStructureTarget(creep, STRUCTURE_TOWER, 10, RESOURCE_ENERGY, true), creep)) {
 					return;
 				}
 			}
@@ -108,7 +122,7 @@ var doTask = function (creep) {
 				if (doTransfer(transferStructureTarget(creep, STRUCTURE_EXTENSION), creep)) {
 					return;
 				}
-				if (doTransfer(transferStructureTarget(creep, STRUCTURE_TOWER, 10), creep)) {
+				if (doTransfer(transferStructureTarget(creep, STRUCTURE_TOWER, 10, RESOURCE_ENERGY, true), creep)) {
 					return;
 				}
 				if (doTransfer(transferStructureTarget(creep, STRUCTURE_TERMINAL), creep)) {
@@ -131,7 +145,7 @@ var doTask = function (creep) {
 				if (doTransfer(transferStructureTarget(creep, STRUCTURE_EXTENSION), creep)) {
 					return;
 				}
-				if (doTransfer(transferStructureTarget(creep, STRUCTURE_TOWER, 10), creep)) {
+				if (doTransfer(transferStructureTarget(creep, STRUCTURE_TOWER, 10, RESOURCE_ENERGY, true), creep)) {
 					return;
 				}
 
@@ -145,7 +159,7 @@ var doTask = function (creep) {
 				if (doTransfer(transferStructureTarget(creep, STRUCTURE_SPAWN), creep)) {
 					return;
 				}
-				if (doTransfer(transferStructureTarget(creep, STRUCTURE_TOWER, 10), creep)) {
+				if (doTransfer(transferStructureTarget(creep, STRUCTURE_TOWER, 10, RESOURCE_ENERGY, true), creep)) {
 					return;
 				}
 				if (doTransfer(transferStructureTarget(creep, STRUCTURE_EXTENSION), creep)) {
