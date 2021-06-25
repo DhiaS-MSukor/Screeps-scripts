@@ -11,7 +11,16 @@ var do_spawn = function (spawn, theRole, mode) {
 	var res = -2;
 
 	if (theRole == "repairer") {
-		res = Game.spawns[spawn].spawnCreep([WORK, MOVE, CARRY, MOVE], name, mem);
+		const base = BODYPART_COST[MOVE] * 3 + BODYPART_COST[CARRY] * 2 + BODYPART_COST[WORK];
+		const mul = getMul(spawn, base, 6);
+		const body = new Array(mul * 6)
+			.fill(CARRY, 0, mul * 2)
+			.fill(WORK, mul * 2, mul * 3)
+			.fill(MOVE, mul * 3);
+		res = Game.spawns[spawn].spawnCreep(body, name, mem);
+		if (res != OK) {
+			res = Game.spawns[spawn].spawnCreep([WORK, MOVE, CARRY, MOVE], name, mem);
+		}
 	} else if (theRole == "runner") {
 		const base = BODYPART_COST[MOVE] + BODYPART_COST[CARRY];
 		const mul = getMul(spawn, base, 2);
