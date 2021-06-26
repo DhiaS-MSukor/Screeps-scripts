@@ -46,13 +46,6 @@ function doRole(creep) {
 		}
 	}
 
-	if (creep.memory.mode == 1 && creep.room.name != Memory.roomTarget) {
-		if (Game.rooms[Memory.roomTarget]) {
-			move(creep, Game.rooms[Memory.roomTarget].controller, 1);
-			return;
-		}
-	}
-
 	if (creep.memory.building && creep.store[RESOURCE_ENERGY] == 0) {
 		creep.memory.building = false;
 		creep.say("harvest");
@@ -63,6 +56,13 @@ function doRole(creep) {
 	}
 
 	if (creep.memory.building && creep.store[RESOURCE_ENERGY] > 0) {
+		if (creep.memory.mode == 1 && creep.room.name != Memory.roomTarget) {
+			if (Game.rooms[Memory.roomTarget]) {
+				move(creep, Game.rooms[Memory.roomTarget].controller, 1);
+				return;
+			}
+		}
+
 		if (build(creep, creep.pos.findClosestByRange(FIND_MY_CONSTRUCTION_SITES, { filter: { structureType: STRUCTURE_SPAWN } }))) {
 			return;
 		}
