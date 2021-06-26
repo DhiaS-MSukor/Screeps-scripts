@@ -1,10 +1,11 @@
 // JavaScript source code
 function move(creep, target, range = 1) {
+	const distance = creep.pos.getRangeTo(target);
 	return creep.moveTo(target, {
 		visualizePathStyle: { stroke: "#ff00ff" },
 		range: range,
 		ignoreRoads: true,
-		reusePath: Math.floor(Math.random() * 8) + 3,
+		reusePath: distance + 1,
 	});
 }
 
