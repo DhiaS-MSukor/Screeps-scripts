@@ -37,7 +37,7 @@ var doTask = function (creep) {
 		if (creep.memory.mode == 1) {
 			targets = creep.pos.findClosestByRange(FIND_MINERALS);
 			var harv = creep.harvest(targets);
-			if (harv != OK) {
+			if (harv == ERR_NOT_IN_RANGE) {
 				const distance = creep.pos.getRangeTo(targets);
 				creep.moveTo(targets, { visualizePathStyle: { stroke: "#00ff00" }, range: 1, reusePath: distance * 10 + 1 });
 				return;
