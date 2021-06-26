@@ -39,7 +39,7 @@ var doTask = function (creep) {
 			var harv = creep.harvest(targets);
 			if (harv != OK) {
 				const distance = creep.pos.getRangeTo(targets);
-				creep.moveTo(targets, { visualizePathStyle: { stroke: "#00ff00" }, range: 1, reusePath: distance * 2 });
+				creep.moveTo(targets, { visualizePathStyle: { stroke: "#00ff00" }, range: 1, reusePath: Math.floor(Math.random() * distance * 2) + distance });
 			}
 			targets = creep.pos.findInRange(FIND_STRUCTURES, 1, {
 				filter: { structureType: STRUCTURE_TERMINAL },
