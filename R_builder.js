@@ -1,9 +1,10 @@
 function move(creep, target, range = 3) {
 	if (target) {
+		const distance = creep.pos.getRangeTo(target);
 		return creep.moveTo(target, {
 			visualizePathStyle: { stroke: "#0000ff" },
 			range: range,
-			reusePath: Math.floor(Math.random() * 20) + 1,
+			reusePath: Math.floor(Math.random() * distance) + 1,
 		});
 	}
 }
