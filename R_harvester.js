@@ -41,7 +41,7 @@ var doTask = function (creep) {
 				if (creep.fatigue > 0) {
 					return;
 				}
-				creep.moveTo(targets, { visualizePathStyle: { stroke: "#00ff00" }, maxOps: 500, range: 1 });
+				creep.moveTo(targets, { visualizePathStyle: { stroke: "#00ff00" }, range: 1 });
 				return;
 			}
 			targets = creep.pos.findInRange(FIND_STRUCTURES, 1, {
