@@ -4,7 +4,7 @@ function move(creep, target, range = 3) {
 		return creep.moveTo(target, {
 			visualizePathStyle: { stroke: "#0000ff" },
 			range: range,
-			reusePath: Math.floor(Math.random() * distance) + 1,
+			reusePath: Math.floor(Math.random() * distance * 2) + distance,
 		});
 	}
 }
