@@ -61,11 +61,9 @@ function doRole(creep) {
 				move(creep, Game.rooms[Memory.roomTarget].controller, 1);
 				return;
 			}
-		} else if (creep.memory.mode != 1 && creep.room.name != creep.memory.spawn) {
-			if (Game.rooms[creep.memory.spawn]) {
-				move(creep, Game.rooms[creep.memory.spawn].controller, 1);
-				return;
-			}
+		} else if (creep.memory.mode != 1 && creep.room.name != Game.spawns[creep.memory.spawn].room.name) {
+			move(creep, Game.spawns[creep.memory.spawn], 1);
+			return;
 		}
 
 		if (build(creep, creep.pos.findClosestByRange(FIND_MY_CONSTRUCTION_SITES, { filter: { structureType: STRUCTURE_SPAWN } }))) {
