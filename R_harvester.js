@@ -38,7 +38,8 @@ var doTask = function (creep) {
 			targets = creep.pos.findClosestByRange(FIND_MINERALS);
 			var harv = creep.harvest(targets);
 			if (harv != OK) {
-				creep.moveTo(targets, { visualizePathStyle: { stroke: "#00ff00" }, maxOps: 500, range: 1 });
+				const distance = creep.pos.getRangeTo(targets);
+				creep.moveTo(targets, { visualizePathStyle: { stroke: "#00ff00" }, range: 1, reusePath: distance * 2 });
 			}
 			targets = creep.pos.findInRange(FIND_STRUCTURES, 1, {
 				filter: { structureType: STRUCTURE_TERMINAL },
