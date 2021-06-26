@@ -21,6 +21,9 @@ var doTask = function (creep) {
 		creep.suicide();
 		return;
 	}
+	if (creep.fatigue > 0) {
+		return;
+	}
 
 	var targets;
 
@@ -38,9 +41,6 @@ var doTask = function (creep) {
 			targets = creep.pos.findClosestByRange(FIND_MINERALS);
 			var harv = creep.harvest(targets);
 			if (harv != OK) {
-				if (creep.fatigue > 0) {
-					return;
-				}
 				creep.moveTo(targets, { visualizePathStyle: { stroke: "#00ff00" }, range: 1 });
 				return;
 			}
