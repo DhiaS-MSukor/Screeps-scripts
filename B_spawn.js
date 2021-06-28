@@ -151,9 +151,9 @@ var auto_respawn = function (spawn) {
 	}
 
 	// raiders
-	else if (Memory.raidTarget != "false" && spawn_check(spawn, "ranger", 2, 3)) {
+	else if (Memory.raidTarget != "false" && spawn_check(spawn, "ranger", 2, 1)) {
 		return;
-	} else if (Memory.raidTarget != "false" && spawn_check(spawn, "defender", 2, 3)) {
+	} else if (Memory.raidTarget != "false" && spawn_check(spawn, "defender", 2, 1)) {
 		return;
 	}
 };
