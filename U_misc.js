@@ -17,7 +17,7 @@ function trade_pixel() {
 	var orders = Game.market
 		.getAllOrders({
 			type: ORDER_SELL,
-			resourceType: CPU_UNLOCK,
+			resourceType: PIXEL,
 		})
 		.sort((a, b) => a.price - b.price);
 	for (const key in orders) {
