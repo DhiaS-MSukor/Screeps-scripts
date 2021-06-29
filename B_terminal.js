@@ -24,7 +24,7 @@ function tryDeal(terminal, order) {
 function sellResource(terminal, resource) {
 	const history = Game.market.getHistory(resource);
 	const target = history[history.length - 2];
-	const avg = target.avgPrice; // + target.stddevPrice / 2;
+	const avg = target.avgPrice + target.stddevPrice / 2;
 	const orders = Game.market
 		.getAllOrders({
 			type: ORDER_BUY,
@@ -42,12 +42,35 @@ function sellResource(terminal, resource) {
 	return false;
 }
 
+function buyResource(terminal, resource) {
+	const history = Game.market.getHistory(resource);
+	const target = history[history.length - 2];
+	if (target.transactions > 100) {
+		const avg = target.avgPrice - target.stddevPrice / 2;
+		const orders = Game.market
+			.getAllOrders({
+				type: ORDER_SELL,
+				resourceType: resource,
+			})
+			.sort((a, b) => a.price - b.price);
+		for (const key1 in orders) {
+			if (Object.hasOwnProperty.call(orders, key1)) {
+				const order = orders[key1];
+				if (order.price < avg && tryDeal(terminal, order)) {
+					return true;
+				}
+			}
+		}
+	}
+	return false;
+}
+
 function doRole(terminal) {
 	if (terminal.cooldown > 0 || terminal.store.getUsedCapacity(RESOURCE_ENERGY) < 2 || Math.random() * TERMINAL_COOLDOWN > 2) {
 		return;
 	}
 
-	res = _.filter(Object.keys(terminal.store), (res) => res != RESOURCE_ENERGY && terminal.store[res] != 0);
+	res = Object.keys(terminal.store).filter((res) => res != RESOURCE_ENERGY && terminal.store[res] != 0);
 	if (res.length) {
 		for (const key in res) {
 			if (Object.hasOwnProperty.call(res, key)) {
@@ -55,6 +78,15 @@ function doRole(terminal) {
 				if (sellResource(terminal, element)) {
 					return;
 				}
+			}
+		}
+	}
+
+	for (const key in RESOURCES_ALL) {
+		if (Object.hasOwnProperty.call(object, key)) {
+			const element = object[key];
+			if (buyResource(terminal, element)) {
+				return;
 			}
 		}
 	}
