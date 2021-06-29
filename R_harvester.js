@@ -17,7 +17,10 @@ var doTransfer = function (targets, creep, res = RESOURCE_ENERGY) {
 };
 
 var doTask = function (creep) {
-	if (creep.getActiveBodyparts(WORK) == 0 || (creep.memory.mode != 1 && creep.body.filter((i) => i.type == WORK).length < 5 && creep.room.energyAvailable > 600)) {
+	if (
+		creep.getActiveBodyparts(WORK) == 0 ||
+		(creep.memory.mode != 1 && creep.body.filter((i) => i.type == WORK).length < 5 && creep.room.energyAvailable > 600)
+	) {
 		creep.suicide();
 		return;
 	}
@@ -66,11 +69,9 @@ var doTask = function (creep) {
 			creep.say("!_!");
 		}
 		if (creep.store.getUsedCapacity(RESOURCE_ENERGY) > 0) {
-			targets = creep.pos
-				.findInRange(FIND_STRUCTURES, 1, {
-					filter: { structureType: STRUCTURE_CONTAINER },
-				})
-				.sort((a, b) => b.store.getFreeCapacity() - a.store.getFreeCapacity());
+			targets = creep.pos.findInRange(FIND_STRUCTURES, 1, {
+				filter: { structureType: STRUCTURE_CONTAINER },
+			});
 			doTransfer(targets, creep);
 		}
 	} else {
