@@ -109,7 +109,7 @@ var doTask = function (creep) {
 	} else {
 		targets = creep.pos.findClosestByRange(FIND_STRUCTURES, {
 			filter: (structure) => {
-				return structure.structureType == STRUCTURE_CONTAINER && structure.store[RESOURCE_ENERGY] > 1000;
+				return structure.structureType == STRUCTURE_CONTAINER && structure.store[RESOURCE_ENERGY] > creep.store.getFreeCapacity();
 			},
 		});
 		if (targets) {
