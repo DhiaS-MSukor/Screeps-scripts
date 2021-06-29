@@ -222,7 +222,7 @@ var doTask = function (creep) {
 
 	targets = creep.room
 		.find(FIND_STRUCTURES, { filter: { structureType: STRUCTURE_CONTAINER } })
-		.sort((a, b) => a.store.getUsedCapacity(RESOURCE_ENERGY) - b.store.getUsedCapacity(RESOURCE_ENERGY));
+		.sort((a, b) => b.store.getUsedCapacity(RESOURCE_ENERGY) - a.store.getUsedCapacity(RESOURCE_ENERGY));
 
 	if (targets.length > 0 && doWithdraw(creep, targets[0])) {
 		return;
