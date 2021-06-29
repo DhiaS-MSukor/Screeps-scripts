@@ -188,8 +188,8 @@ var doTask = function (creep) {
 		}
 	}
 
-	res = _.filter(Object.keys(creep.store), (res) => res != RESOURCE_ENERGY && creep.store[res] != 0);
-	if (creep.memory.task == 1 && !res.length > 0) {
+	res = Object.keys(creep.store).filter((res) => res != RESOURCE_ENERGY && creep.store[res] != 0);
+	if (creep.memory.task == 1 && res.length == 0) {
 		targets = creep.pos.findClosestByRange(FIND_STRUCTURES, {
 			filter: (targets) =>
 				targets.structureType != STRUCTURE_TERMINAL &&
@@ -229,6 +229,10 @@ var doTask = function (creep) {
 	}
 
 	if (creep.room.terminal) {
+		if (creep.room.terminal.store.getUsedCapacity(RESOURCE_ENERGY) > creep.store.getFreeCapacity() && doWithdraw(creep, creep.room.terminal)) {
+			return;
+		}
+
 		targets = creep.pos.findClosestByRange(FIND_STRUCTURES, {
 			filter: (targets) =>
 				targets.structureType != STRUCTURE_TERMINAL &&
