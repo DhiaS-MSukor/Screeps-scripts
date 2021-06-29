@@ -10,6 +10,10 @@ function tryDeal(terminal, order, left = 0) {
 	let amount = Math.min(order.remainingAmount, getMaxAmount(terminal, order), terminal.store.getUsedCapacity(order.resourceType)) - left;
 	if (amount > 0) {
 		const cost = Game.market.calcTransactionCost(amount, terminal.room.name, order.roomName);
+		if (order.type == ORDER_SELL && order.resourceType == RESOURCE_ENERGY && cost > amount / 10) {
+			return false;
+		}
+
 		if (cost < terminal.store.getUsedCapacity(RESOURCE_ENERGY)) {
 			var deal = Game.market.deal(order.id, amount, terminal.room.name);
 			if (deal == OK || deal == ERR_TIRED || deal == ERR_FULL) {
