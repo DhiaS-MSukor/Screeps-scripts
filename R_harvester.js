@@ -70,7 +70,8 @@ var doTask = function (creep) {
 		}
 		if (creep.store.getUsedCapacity(RESOURCE_ENERGY) > 0) {
 			targets = creep.pos.findInRange(FIND_STRUCTURES, 1, {
-				filter: { structureType: STRUCTURE_CONTAINER },
+				filter: (structure) =>
+					structure.structureType == STRUCTURE_CONTAINER && structure.store.getFreeCapacity() >= creep.store.getUsedCapacity(RESOURCE_ENERGY),
 			});
 			doTransfer(targets, creep);
 		}
