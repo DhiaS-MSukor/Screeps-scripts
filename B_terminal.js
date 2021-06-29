@@ -82,7 +82,7 @@ function doRole(terminal) {
 		}
 	}
 
-	if (Math.random() * TERMINAL_COOLDOWN > 2) {
+	if (Math.random() * 2 > 1) {
 		for (const key in RESOURCES_ALL) {
 			if (Object.hasOwnProperty.call(RESOURCES_ALL, key)) {
 				const element = RESOURCES_ALL[key];
