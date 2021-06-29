@@ -107,10 +107,13 @@ function doRole(creep) {
 	sources = creep.room.find(FIND_SOURCES_ACTIVE);
 	if (sources.length) {
 		var target = sources[sources.length - 1];
-		if (creep.harvest(target) != OK) {
-			move(creep, target, 1);
+		if (creep.harvest(target) == ERR_NOT_IN_RANGE) {
+			if (move(creep, target, 1) != ERR_NO_PATH) {
+				return;
+			}
+		} else {
+			return;
 		}
-		return;
 	}
 	sources = creep.pos.findClosestByRange(FIND_STRUCTURES, {
 		filter: (structure) => structure.structureType == STRUCTURE_CONTAINER && structure.store[RESOURCE_ENERGY] > 0,
