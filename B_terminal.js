@@ -46,7 +46,7 @@ function buyResource(terminal, resource) {
 	const history = Game.market.getHistory(resource);
 	const target = history[history.length - 2];
 	if (target.transactions > 100) {
-		const avg = target.avgPrice - target.stddevPrice / 2;
+		const avg = target.avgPrice - target.stddevPrice;
 		const orders = Game.market
 			.getAllOrders({
 				type: ORDER_SELL,
@@ -81,7 +81,7 @@ function doRole(terminal) {
 			}
 		}
 	}
-	
+
 	if (Math.random() * TERMINAL_COOLDOWN > 2) {
 		for (const key in RESOURCES_ALL) {
 			if (Object.hasOwnProperty.call(RESOURCES_ALL, key)) {
