@@ -230,8 +230,7 @@ var doTask = function (creep) {
 	if (creep.room.terminal) {
 		targets = creep.pos.findClosestByRange(FIND_STRUCTURES, {
 			filter: (targets) =>
-				targets.structureType != STRUCTURE_TERMINAL &&
-				targets.store &&
+				targets.structureType != STRUCTURE_TERMINAL && 
 				(targets.store.getUsedCapacity() > targets.store.getUsedCapacity(RESOURCE_ENERGY) ||
 					(targets.store.getUsedCapacity(RESOURCE_ENERGY) == null && targets.store.getUsedCapacity() > 0)),
 		});
