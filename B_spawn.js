@@ -33,14 +33,17 @@ var do_spawn = function (spawn, theRole, mode) {
 			.fill(WORK, 0, mul * 2)
 			.fill(CARRY, mul * 2, mul * 3)
 			.fill(MOVE, mul * 3);
-		res = Game.spawns[spawn].spawnCreep(body, name, mem); 
+		res = Game.spawns[spawn].spawnCreep(body, name, mem);
 		if (res != OK) {
 			res = Game.spawns[spawn].spawnCreep([WORK, MOVE, CARRY, MOVE], name, mem);
 		}
 	} else if (theRole == "defender") {
-		const base = BODYPART_COST[MOVE] + BODYPART_COST[ATTACK];
-		const mul = getMul(spawn, base, 2);
-		const body = new Array(mul * 2).fill(MOVE, 0, mul).fill(ATTACK, mul);
+		const base = BODYPART_COST[MOVE] + BODYPART_COST[TOUGH] + BODYPART_COST[ATTACK];
+		const mul = getMul(spawn, base, 3);
+		const body = new Array(mul * 3)
+			.fill(TOUGH, 0, mul)
+			.fill(MOVE, mul, mul * 2)
+			.fill(ATTACK, mul * 2);
 		res = Game.spawns[spawn].spawnCreep(body, name, mem);
 	} else if (theRole == "healer") {
 		const base = BODYPART_COST[MOVE] + BODYPART_COST[HEAL];
