@@ -221,7 +221,7 @@ var doTask = function (creep) {
 	}
 
 	targets = creep.room
-		.find(FIND_STRUCTURES, { filter: { structureType: STRUCTURE_CONTAINER } })
+		.find(FIND_STRUCTURES, { filter: (target) => target.structureType == STRUCTURE_CONTAINER && target.store.getUsedCapacity(RESOURCE_ENERGY) > 0 })
 		.sort((a, b) => a.store.getUsedCapacity(RESOURCE_ENERGY) - b.store.getUsedCapacity(RESOURCE_ENERGY));
 	if (doWithdraw(creep, targets)) {
 		return;
@@ -230,7 +230,7 @@ var doTask = function (creep) {
 	if (creep.room.terminal) {
 		targets = creep.pos.findClosestByRange(FIND_STRUCTURES, {
 			filter: (targets) =>
-				targets.structureType != STRUCTURE_TERMINAL && 
+				targets.structureType != STRUCTURE_TERMINAL &&
 				(targets.store.getUsedCapacity() > targets.store.getUsedCapacity(RESOURCE_ENERGY) ||
 					(targets.store.getUsedCapacity(RESOURCE_ENERGY) == null && targets.store.getUsedCapacity() > 0)),
 		});
