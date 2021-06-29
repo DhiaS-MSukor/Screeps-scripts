@@ -6,9 +6,8 @@ function getMaxAmount(terminal, order) {
 		: Math.floor(amount / (1 - Math.exp(-distance / 30))) - 1;
 }
 
-function tryDeal(terminal, order) {
-	const amount = Math.min(order.remainingAmount, getMaxAmount(terminal, order), terminal.store.getUsedCapacity(order.resourceType));
-
+function tryDeal(terminal, order, left = 0) {
+	let amount = Math.min(order.remainingAmount, getMaxAmount(terminal, order), terminal.store.getUsedCapacity(order.resourceType)) - left;
 	if (amount > 0) {
 		const cost = Game.market.calcTransactionCost(amount, terminal.room.name, order.roomName);
 		if (cost < terminal.store.getUsedCapacity(RESOURCE_ENERGY)) {
@@ -21,7 +20,7 @@ function tryDeal(terminal, order) {
 	return false;
 }
 
-function sellResource(terminal, resource) {
+function sellResource(terminal, resource, left = 0) {
 	const history = Game.market.getHistory(resource);
 	const target = history[history.length - 2];
 	const avg = target.avgPrice + target.stddevPrice / 2;
@@ -34,7 +33,7 @@ function sellResource(terminal, resource) {
 	for (const key1 in orders) {
 		if (Object.hasOwnProperty.call(orders, key1)) {
 			const order = orders[key1];
-			if (order.price > avg && tryDeal(terminal, order)) {
+			if (order.price > avg && tryDeal(terminal, order, left)) {
 				return true;
 			}
 		}
@@ -94,7 +93,7 @@ function doRole(terminal) {
 	}
 
 	if (terminal.store.getUsedCapacity(RESOURCE_ENERGY) > 10000) {
-		sellResource(terminal, RESOURCE_ENERGY);
+		sellResource(terminal, RESOURCE_ENERGY, 1000);
 	}
 }
 
