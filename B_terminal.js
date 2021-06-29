@@ -81,12 +81,14 @@ function doRole(terminal) {
 			}
 		}
 	}
-
-	for (const key in RESOURCES_ALL) {
-		if (Object.hasOwnProperty.call(RESOURCES_ALL, key)) {
-			const element = RESOURCES_ALL[key];
-			if (buyResource(terminal, element)) {
-				return;
+	
+	if (Math.random() * TERMINAL_COOLDOWN > 2) {
+		for (const key in RESOURCES_ALL) {
+			if (Object.hasOwnProperty.call(RESOURCES_ALL, key)) {
+				const element = RESOURCES_ALL[key];
+				if (buyResource(terminal, element)) {
+					return;
+				}
 			}
 		}
 	}
