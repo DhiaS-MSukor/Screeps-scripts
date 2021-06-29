@@ -220,11 +220,16 @@ var doTask = function (creep) {
 		return;
 	}
 
+	targets = creep.room.find(FIND_STRUCTURES, {
+		filter: (target) => target.structureType == STRUCTURE_CONTAINER && target.store.getUsedCapacity(RESOURCE_ENERGY) > creep.store.getFreeCapacity(),
+	});
+
+	if (targets.length > 0 && doWithdraw(creep, targets[0])) {
+		return;
+	}
+
 	targets = creep.room
-		.find(FIND_STRUCTURES, {
-			filter: (target) =>
-				target.structureType == STRUCTURE_CONTAINER && target.store.getUsedCapacity(RESOURCE_ENERGY) > creep.store.getFreeCapacity(),
-		})
+		.find(FIND_STRUCTURES, { filter: (target) => target.structureType == STRUCTURE_CONTAINER && target.store.getUsedCapacity(RESOURCE_ENERGY) > 0 })
 		.sort((a, b) => b.store.getUsedCapacity(RESOURCE_ENERGY) - a.store.getUsedCapacity(RESOURCE_ENERGY));
 
 	if (targets.length > 0 && doWithdraw(creep, targets[0])) {
@@ -249,14 +254,6 @@ var doTask = function (creep) {
 				return;
 			}
 		}
-	}
-
-	targets = creep.room
-		.find(FIND_STRUCTURES, { filter: (target) => target.structureType == STRUCTURE_CONTAINER && target.store.getUsedCapacity(RESOURCE_ENERGY) > 0 })
-		.sort((a, b) => b.store.getUsedCapacity(RESOURCE_ENERGY) - a.store.getUsedCapacity(RESOURCE_ENERGY));
-
-	if (targets.length > 0 && doWithdraw(creep, targets[0])) {
-		return;
 	}
 
 	if ((creep.memory.task + 1) % 3 != 1 && creep.store.getUsedCapacity() > 0) {
