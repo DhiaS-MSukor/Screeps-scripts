@@ -21,6 +21,10 @@ function tryDeal(terminal, order, left = 0) {
 }
 
 function sellResource(terminal, resource, left = 0) {
+	if (terminal.store.getUsedCapacity(resource) <= left) {
+		return false;
+	}
+
 	const history = Game.market.getHistory(resource);
 	const target = history[history.length - 2];
 	const avg = target.avgPrice + target.stddevPrice / 2;
