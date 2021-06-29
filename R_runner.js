@@ -220,18 +220,9 @@ var doTask = function (creep) {
 		return;
 	}
 
-	targets = creep.pos.findClosestByRange(FIND_STRUCTURES, {
-		filter: (targets) => {
-			return targets.structureType == STRUCTURE_CONTAINER && targets.store[RESOURCE_ENERGY] > 50;
-		},
-	});
-	if (!targets) {
-		targets = creep.pos.findClosestByRange(FIND_STRUCTURES, {
-			filter: (targets) => {
-				return targets.structureType == STRUCTURE_CONTAINER && targets.store[RESOURCE_ENERGY] != 0;
-			},
-		});
-	}
+	targets = creep.room
+		.find(FIND_STRUCTURES, { filter: { structureType: STRUCTURE_CONTAINER } })
+		.sort((a, b) => a.store.getUsedCapacity(RESOURCE_ENERGY) > b.store.getUsedCapacity(RESOURCE_ENERGY));
 	if (doWithdraw(creep, targets)) {
 		return;
 	}
