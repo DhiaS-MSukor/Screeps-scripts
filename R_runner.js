@@ -237,9 +237,9 @@ var doTask = function (creep) {
 	}
 
 	if (creep.room.terminal) {
-		if (creep.room.terminal.store.getUsedCapacity(RESOURCE_ENERGY) > creep.store.getCapacity() * 2 && doWithdraw(creep, creep.room.terminal)) {
-			return;
-		}
+		// if (creep.room.terminal.store.getUsedCapacity(RESOURCE_ENERGY) > creep.store.getCapacity() * 2 && doWithdraw(creep, creep.room.terminal)) {
+		// 	return;
+		// }
 
 		targets = creep.pos.findClosestByRange(FIND_STRUCTURES, {
 			filter: (targets) =>
