@@ -160,7 +160,7 @@ var doTask = function (creep) {
 				if (doTransfer(transferStructureTarget(creep, STRUCTURE_SPAWN), creep)) {
 					return;
 				}
-				if (doTransfer(transferStructureTarget(creep, STRUCTURE_TOWER, 10, RESOURCE_ENERGY, true), creep)) {
+				if (doTransfer(transferStructureTarget(creep, STRUCTURE_TOWER, 0, RESOURCE_ENERGY, true), creep)) {
 					return;
 				}
 				if (doTransfer(transferStructureTarget(creep, STRUCTURE_EXTENSION), creep)) {
