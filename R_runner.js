@@ -237,7 +237,7 @@ var doTask = function (creep) {
 	}
 
 	if (creep.room.terminal) {
-		if (creep.room.terminal.store.getUsedCapacity(RESOURCE_ENERGY) > creep.store.getFreeCapacity() && doWithdraw(creep, creep.room.terminal)) {
+		if (creep.room.terminal.store.getUsedCapacity(RESOURCE_ENERGY) > creep.store.getFreeCapacity() * 2 && doWithdraw(creep, creep.room.terminal)) {
 			return;
 		}
 
