@@ -52,6 +52,10 @@ function sellResource(terminal, resource, left = 0) {
 }
 
 function buyResource(terminal, resource) {
+	if (resource == RESOURCE_ENERGY) {
+		return false;
+	}
+
 	const history = Game.market.getHistory(resource);
 	const target = history[history.length - 2];
 	if (target.transactions > 100) {
