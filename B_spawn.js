@@ -88,7 +88,7 @@ StructureSpawn.prototype.spawn_check = function (theRole, mode, n) {
 		return creep.memory.role == theRole && creep.memory.mode == mode && creep.memory.spawn == this.name;
 	});
 
-	return creeps.length < n && do_spawn(this, theRole, mode);
+	return creeps.length < n && this.do_spawn(theRole, mode);
 };
 
 StructureSpawn.prototype.auto_respawn = function () {
