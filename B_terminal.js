@@ -96,7 +96,7 @@ function buyResource(terminal, resource, left = 10000) {
 	const transactions = history.reduce((a, b) => a.transactions + b.transactions) / history.length;
 	if (transactions > 100) {
 		const avgPrice = history.reduce((a, b) => Math.min(a.avgPrice, b.avgPrice), history[0].avgPrice);
-		const stddev = history.reduce((a, b) => Math.max(a.stddevPrice, b.stddevPrice), history[0].stddevPrice);
+		const stddev = GetMedian(history.map((i) => i.stddevPrice));
 
 		const avg = avgPrice - stddev / 3;
 		const orders = Game.market
