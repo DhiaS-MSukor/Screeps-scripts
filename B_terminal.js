@@ -6,12 +6,32 @@ function getMaxAmount(terminal, order) {
 		: Math.floor(amount / (1 - Math.exp(-distance / 30))) - 1;
 }
 
-function tryDeal(terminal, order, left = 0) {
-	let amount = Math.min(order.remainingAmount, getMaxAmount(terminal, order), terminal.store.getUsedCapacity(order.resourceType));
-	amount = terminal.store.getUsedCapacity(order.resourceType) - amount < left ? terminal.store.getUsedCapacity(order.resourceType) - left : amount;
+function trySell(terminal, order, left = 0) {
+	if (order.type == ORDER_SELL) {
+		return false;
+	}
+
+	const amount = Math.min(order.remainingAmount, getMaxAmount(terminal, order), terminal.store.getUsedCapacity(order.resourceType) - left);
 	if (amount > 0) {
 		const cost = Game.market.calcTransactionCost(amount, terminal.room.name, order.roomName);
-		if (order.type == ORDER_SELL && order.resourceType == RESOURCE_ENERGY && cost >= amount) {
+		if (cost < terminal.store.getUsedCapacity(RESOURCE_ENERGY)) {
+			var deal = Game.market.deal(order.id, amount, terminal.room.name);
+			if (deal == OK || deal == ERR_TIRED || deal == ERR_FULL) {
+				return true;
+			}
+		}
+	}
+	return false;
+}
+function tryBuy(terminal, order, left = 0) {
+	if (order.type == ORDER_BUY) {
+		return false;
+	}
+
+	let amount = Math.min(order.remainingAmount, Math.floor(Game.market.credits / order.price), Game.market.credits - left);
+	if (amount > 0) {
+		const cost = Game.market.calcTransactionCost(amount, terminal.room.name, order.roomName);
+		if (order.resourceType == RESOURCE_ENERGY && cost >= amount) {
 			return false;
 		}
 
@@ -42,7 +62,7 @@ function sellResource(terminal, resource, left = 0) {
 	for (const key1 in orders) {
 		if (Object.hasOwnProperty.call(orders, key1)) {
 			const order = orders[key1];
-			if (order.price > avg && tryDeal(terminal, order, left)) {
+			if (order.price > avg && trySell(terminal, order, left)) {
 				return true;
 			}
 		}
@@ -50,7 +70,7 @@ function sellResource(terminal, resource, left = 0) {
 	return false;
 }
 
-function buyResource(terminal, resource) {
+function buyResource(terminal, resource, left = 10000) {
 	if (resource == RESOURCE_ENERGY) {
 		return false;
 	}
@@ -68,7 +88,7 @@ function buyResource(terminal, resource) {
 		for (const key1 in orders) {
 			if (Object.hasOwnProperty.call(orders, key1)) {
 				const order = orders[key1];
-				if (order.price < avg && tryDeal(terminal, order)) {
+				if (order.price < avg && tryBuy(terminal, order, left)) {
 					return true;
 				}
 			}
