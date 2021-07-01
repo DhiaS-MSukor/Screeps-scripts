@@ -17,10 +17,7 @@ var doTransfer = function (targets, creep, res = RESOURCE_ENERGY) {
 };
 
 var doTask = function (creep) {
-	if (
-		creep.getActiveBodyparts(WORK) == 0 ||
-		(creep.memory.mode != 1 && creep.body.filter((i) => i.type == WORK).length < 5 && creep.room.energyAvailable > 600)
-	) {
+	if (creep.getActiveBodyparts(WORK) == 0 || (creep.body.filter((i) => i.type == WORK).length < 5 && creep.room.energyAvailable > 600)) {
 		creep.suicide();
 		return;
 	}
