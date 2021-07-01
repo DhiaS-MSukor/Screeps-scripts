@@ -1,4 +1,4 @@
-Creep.prototype.  doMove =function ( target, range = 3) {
+Creep.prototype.doMove = function (target, range = 3) {
 	if (target) {
 		const distance = this.pos.getRangeTo(target);
 		return this.moveTo(target, {
@@ -7,18 +7,18 @@ Creep.prototype.  doMove =function ( target, range = 3) {
 			reusePath: Math.floor(Math.random() * distance * 10) + distance,
 		});
 	}
-}
+};
 
-Creep.prototype. doRepair = function ( targets) {
+Creep.prototype.doRepair = function (targets) {
 	if (targets) {
 		if (targets.length) {
 			if (this.repair(targets[0]) == ERR_NOT_IN_RANGE) {
-				this.doMove( targets[0]);
+				this.doMove(targets[0]);
 			}
 			return true;
 		} else {
 			if (this.repair(targets) == ERR_NOT_IN_RANGE) {
-				this.doMove( targets);
+				this.doMove(targets);
 			}
 			return true;
 		}
@@ -44,13 +44,13 @@ Creep.prototype.doTask = function () {
 		this.say("repair");
 	}
 
-	if (this.memory.building && this.store[RESOURCE_ENERGY] > 0) { 
+	if (this.memory.building && this.store[RESOURCE_ENERGY] > 0) {
 		targets = this.pos.findClosestByRange(FIND_STRUCTURES, {
 			filter: (structure) => {
 				return structure.hits < structure.hitsMax && (structure.structureType == STRUCTURE_CONTAINER || structure.structureType == STRUCTURE_ROAD);
 			},
 		});
-		if (this.doRepair( targets)) {
+		if (this.doRepair(targets)) {
 			return;
 		}
 
@@ -59,7 +59,7 @@ Creep.prototype.doTask = function () {
 				return structure.hits < structure.hitsMax;
 			},
 		});
-		if (this.doRepair( targets)) {
+		if (this.doRepair(targets)) {
 			return;
 		}
 
@@ -68,7 +68,7 @@ Creep.prototype.doTask = function () {
 				return structure.hits < structure.hitsMax && structure.structureType == STRUCTURE_RAMPART;
 			},
 		});
-		if (this.doRepair( targets)) {
+		if (this.doRepair(targets)) {
 			return;
 		}
 
@@ -77,13 +77,13 @@ Creep.prototype.doTask = function () {
 				return structure.hits < structure.hitsMax;
 			},
 		});
-		if (targets && this.doRepair( targets)) {
+		if (targets && this.doRepair(targets)) {
 			return;
 		}
 
 		if (this.room.controller) {
 			if (this.upgradeController(this.room.controller) == ERR_NOT_IN_RANGE) {
-				this.doMove( this.room.controller);
+				this.doMove(this.room.controller);
 			}
 		}
 	} else {
@@ -94,7 +94,7 @@ Creep.prototype.doTask = function () {
 		});
 		if (targets) {
 			if (this.withdraw(targets, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-				this.doMove( targets, 1);
+				this.doMove(targets, 1);
 				return;
 			}
 		}
@@ -103,15 +103,15 @@ Creep.prototype.doTask = function () {
 		if (t.length) {
 			targets = t[t.length - 1];
 			if (this.harvest(targets) != OK) {
-				this.doMove( targets, 1);
+				this.doMove(targets, 1);
 			}
 		}
 	}
 };
 
 module.exports = {
-	/** @param {Creep} this **/
-	run: function (this) {
-		this.doTask();
+	/** @param {Creep} creep **/
+	run: function (creep) {
+		creep.doTask();
 	},
 };
