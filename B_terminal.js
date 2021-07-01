@@ -117,7 +117,7 @@ function doRole(terminal) {
 	for (const key in RESOURCES_ALL) {
 		if (Object.hasOwnProperty.call(RESOURCES_ALL, key)) {
 			const element = RESOURCES_ALL[key];
-			if (buyResource(terminal, element)) {
+			if (element != RESOURCE_ENERGY && buyResource(terminal, element)) {
 				return;
 			}
 		}
@@ -126,6 +126,8 @@ function doRole(terminal) {
 	if (terminal.store.getUsedCapacity(RESOURCE_ENERGY) > 20000) {
 		sellResource(terminal, RESOURCE_ENERGY, 10000);
 	}
+
+	buyResource(terminal, RESOURCE_ENERGY);
 }
 
 module.exports = {
