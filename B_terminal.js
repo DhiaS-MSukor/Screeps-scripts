@@ -117,8 +117,8 @@ function buyResource(terminal, resource, left = 2000) {
 	return false;
 }
 
-function doRole(terminal) {
-	if (terminal.cooldown > 0 || terminal.store.getUsedCapacity(RESOURCE_ENERGY) < 2 || Math.random() * TERMINAL_COOLDOWN > 2) {
+StructureTerminal.prototype.doRole() = function () {
+	if (this.cooldown > 0 || this.store.getUsedCapacity(RESOURCE_ENERGY) < 2 || Math.random() * TERMINAL_COOLDOWN > 2) {
 		return;
 	}
 
@@ -127,7 +127,7 @@ function doRole(terminal) {
 		for (const key in res) {
 			if (Object.hasOwnProperty.call(res, key)) {
 				const element = res[key];
-				if (sellResource(terminal, element)) {
+				if (sellResource(this, element)) {
 					return;
 				}
 			}
@@ -137,18 +137,19 @@ function doRole(terminal) {
 	for (const key in RESOURCES_ALL) {
 		if (Object.hasOwnProperty.call(RESOURCES_ALL, key)) {
 			const element = RESOURCES_ALL[key];
-			if (element != RESOURCE_ENERGY && buyResource(terminal, element)) {
+			if (element != RESOURCE_ENERGY && buyResource(this, element)) {
 				return;
 			}
 		}
 	}
 
-	if (sellResource(terminal, RESOURCE_ENERGY, 10000)) {
+	if (sellResource(this, RESOURCE_ENERGY, 10000)) {
 		return;
 	}
 
-	buyResource(terminal, RESOURCE_ENERGY);
+	buyResource(this, RESOURCE_ENERGY);
 }
+
 
 module.exports = {
 	fx: function (terminal) {
