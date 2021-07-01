@@ -117,7 +117,7 @@ function buyResource(terminal, resource, left = 2000) {
 	return false;
 }
 
-StructureTerminal.prototype.doRole() = function () {
+StructureTerminal.prototype.doRole = function () {
 	if (this.cooldown > 0 || this.store.getUsedCapacity(RESOURCE_ENERGY) < 2 || Math.random() * TERMINAL_COOLDOWN > 2) {
 		return;
 	}
