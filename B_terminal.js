@@ -152,6 +152,6 @@ StructureTerminal.prototype.doRole = function () {
 
 module.exports = {
 	fx: function (terminal) {
-		doRole(terminal);
+		terminal.doRole();
 	},
 };
