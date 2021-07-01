@@ -91,16 +91,14 @@ function doRole(terminal) {
 		}
 	}
 
-	if (Math.random() * 2 > 1) {
-		for (const key in RESOURCES_ALL) {
-			if (Math.random() * 2 > 1) {
-				break;
-			}
-			if (Object.hasOwnProperty.call(RESOURCES_ALL, key)) {
-				const element = RESOURCES_ALL[key];
-				if (buyResource(terminal, element)) {
-					return;
-				}
+	for (const key in RESOURCES_ALL) {
+		if (Math.random() * 2 > 1) {
+			break;
+		}
+		if (Object.hasOwnProperty.call(RESOURCES_ALL, key)) {
+			const element = RESOURCES_ALL[key];
+			if (buyResource(terminal, element)) {
+				return;
 			}
 		}
 	}
