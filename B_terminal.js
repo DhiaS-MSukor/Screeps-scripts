@@ -7,7 +7,9 @@ function getMaxAmount(terminal, order) {
 }
 
 function tryDeal(terminal, order, left = 0) {
-	let amount = Math.min(order.remainingAmount, getMaxAmount(terminal, order), terminal.store.getUsedCapacity(order.resourceType)) - left;
+	let amount = Math.min(order.remainingAmount, getMaxAmount(terminal, order), terminal.store.getUsedCapacity(order.resourceType));
+	amount =
+		terminal.store.getUsedCapacity(order.resourceType) - amount < left ? terminal.store.getUsedCapacity(order.resourceType) % (left + 1) : amount;
 	if (amount > 0) {
 		const cost = Game.market.calcTransactionCost(amount, terminal.room.name, order.roomName);
 		if (order.type == ORDER_SELL && order.resourceType == RESOURCE_ENERGY && cost >= amount) {
