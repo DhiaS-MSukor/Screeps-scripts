@@ -51,10 +51,10 @@ function sellResource(terminal, resource, left = 0) {
 	}
 
 	const history = Game.market.getHistory(resource);
-	const avgPrice = history.reduce((a, b) => Math.min(a.avgPrice, b.avgPrice), history[0].avgPrice);
-	const stddev = history.reduce((a, b) => Math.max(a.stddevPrice, b.stddevPrice), history[0].stddevPrice);
+	const avgPrice = history.reduce((a, b) => a.avgPrice + b.avgPrice) / history.length;
+	const stddev = history.reduce((a, b) => a.stddevPrice + b.stddevPrice) / history.length;
 
-	const avg = avgPrice + stddev;
+	const avg = avgPrice + stddev / 2;
 	const orders = Game.market
 		.getAllOrders({
 			type: ORDER_BUY,
@@ -78,7 +78,7 @@ function buyResource(terminal, resource, left = 10000) {
 	}
 
 	const history = Game.market.getHistory(resource);
-	const transactions = history.reduce((a, b) => Math.min(a.transactions, b.transactions), history[0].transactions);
+	const transactions = history.reduce((a, b) => a.transactions + b.transactions) / history.length;
 	if (transactions > 100) {
 		const avgPrice = history.reduce((a, b) => Math.min(a.avgPrice, b.avgPrice), history[0].avgPrice);
 		const stddev = history.reduce((a, b) => Math.max(a.stddevPrice, b.stddevPrice), history[0].stddevPrice);
