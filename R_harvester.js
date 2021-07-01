@@ -124,6 +124,6 @@ Creep.prototype.doTask = function () {
 module.exports = {
 	/** @param {Creep} creep **/
 	run: function (creep) {
-		doTask(creep);
+		creep.doTask();
 	},
 };
