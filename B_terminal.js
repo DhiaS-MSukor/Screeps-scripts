@@ -59,7 +59,7 @@ function buyResource(terminal, resource) {
 	const history = Game.market.getHistory(resource);
 	const target = history[history.length - 2];
 	if (target.transactions > 100) {
-		const avg = target.avgPrice - target.stddevPrice / 2;
+		const avg = target.avgPrice - target.stddevPrice / 3;
 		const orders = Game.market
 			.getAllOrders({
 				type: ORDER_SELL,
