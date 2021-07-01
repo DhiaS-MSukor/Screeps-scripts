@@ -16,7 +16,7 @@ Creep.prototype.doTransfer = function (targets, res = RESOURCE_ENERGY) {
 	return false;
 };
 
-Creep.prototype.doTask = function () {
+Creep.prototype.doHarvest = function () {
 	if (this.getActiveBodyparts(WORK) == 0 || (this.body.filter((i) => i.type == WORK).length < 5 && this.room.energyAvailable > 600)) {
 		this.suicide();
 		return;
@@ -124,6 +124,6 @@ Creep.prototype.doTask = function () {
 module.exports = {
 	/** @param {Creep} creep **/
 	run: function (creep) {
-		creep.doTask();
+		creep.doHarvest();
 	},
 };

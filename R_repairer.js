@@ -26,7 +26,7 @@ Creep.prototype.doRepair = function (targets) {
 	return false;
 };
 
-Creep.prototype.doTask = function () {
+Creep.prototype.doRepair = function () {
 	if (this.getActiveBodyparts(WORK) == 0) {
 		this.suicide();
 		return;
@@ -112,6 +112,6 @@ Creep.prototype.doTask = function () {
 module.exports = {
 	/** @param {Creep} creep **/
 	run: function (creep) {
-		creep.doTask();
+		creep.doRepair();
 	},
 };

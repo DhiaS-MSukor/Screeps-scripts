@@ -73,7 +73,7 @@ Creep.prototype.transferCreepTarget = function (role) {
 	});
 };
 
-Creep.prototype.doTask = function () {
+Creep.prototype.doRunner = function () {
 	if (this.getActiveBodyparts(CARRY) == 0 || (this.body.filter((i) => i.type == CARRY).length < 4 && this.room.energyAvailable > 400)) {
 		this.suicide();
 		return;
@@ -262,6 +262,6 @@ Creep.prototype.doTask = function () {
 module.exports = {
 	/** @param {Creep} creep **/
 	run: function (creep) {
-		creep.doTask();
+		creep.doRunner();
 	},
 };

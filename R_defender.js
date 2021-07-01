@@ -59,7 +59,7 @@ function doRole(creep, target) {
 	}
 }
 
-function doTask(creep) {
+function doDefend(creep) {
 	var target;
 
 	if (creep.memory.role == "healer") {
@@ -126,6 +126,6 @@ function doTask(creep) {
 module.exports = {
 	/** @param {Creep} creep **/
 	run: function (creep) {
-		doTask(creep);
+		doDefend(creep);
 	},
 };
