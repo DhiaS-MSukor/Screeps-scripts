@@ -148,8 +148,7 @@ StructureTerminal.prototype.doRole = function () {
 	}
 
 	buyResource(this, RESOURCE_ENERGY);
-}
-
+};
 
 module.exports = {
 	fx: function (terminal) {
