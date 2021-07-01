@@ -1,80 +1,80 @@
 // JavaScript source code
-function goToRoom(creep, target) {
+Creep.prototype.goToRoom = function (target) {
 	if (Game.rooms[target]) {
-		creep.moveTo(Game.rooms[target].controller, {
+		this.moveTo(Game.rooms[target].controller, {
 			visualizePathStyle: { stroke: "#ff0000" },
 			range: 1,
 			reusePath: Math.floor(Math.random() * 90) + 10,
 		});
 	} else if (target != "false") {
-		creep.moveTo(new RoomPosition(25, 25, target), {
+		this.moveTo(new RoomPosition(25, 25, target), {
 			visualizePathStyle: { stroke: "#ff0000" },
 			range: 1,
 			reusePath: Math.floor(Math.random() * 90) + 10,
 		});
 	}
 	return;
-}
+};
 
-function doTask1(creep, target) {
-	if (creep.memory.role == "ranger") {
-		const res = creep.rangedAttack(target);
+Creep.prototype.doAction = function (target) {
+	if (this.memory.role == "ranger") {
+		const res = this.rangedAttack(target);
 		if (res == ERR_NOT_IN_RANGE) {
-			return creep.moveTo(target, {
+			return this.moveTo(target, {
 				visualizePathStyle: { stroke: "#ff0000" },
 				range: 3,
 				ignoreCreeps: true,
 			});
 		}
-		const rampart = creep.pos.findInRange(FIND_STRUCTURES, 1, { filter: { structureType: STRUCTURE_RAMPART } });
+		const rampart = this.pos.findInRange(FIND_STRUCTURES, 1, { filter: { structureType: STRUCTURE_RAMPART } });
 		if (rampart.length > 0) {
-			return creep.moveTo(rampart[0], {
+			return this.moveTo(rampart[0], {
 				visualizePathStyle: { stroke: "#ff0000" },
 				ignoreCreeps: true,
 				maxOps: 100,
 			});
 		}
 		return res;
-	} else if (creep.memory.role == "healer") {
-		var res = creep.heal(target);
+	} else if (this.memory.role == "healer") {
+		var res = this.heal(target);
 		if (res == ERR_NOT_IN_RANGE) {
-			creep.rangedHeal(target);
+			this.rangedHeal(target);
 			return res;
 		}
 		return res;
-	} else if (creep.memory.role == "troll") {
-		creep.heal(creep);
+	} else if (this.memory.role == "troll") {
+		this.heal(this);
 		return ERR_NOT_IN_RANGE;
 	}
-	return creep.attack(target);
-}
+	return this.attack(target);
+};
 
-function doRole(creep, target) {
-	if (doTask1(creep, target) == ERR_NOT_IN_RANGE) {
-		creep.moveTo(target, {
+Creep.prototype.doRole = function (target) {
+	if (this.doAction(target) == ERR_NOT_IN_RANGE) {
+		this.moveTo(target, {
 			visualizePathStyle: { stroke: "#ff0000" },
 			range: 1,
 		});
 		return;
 	}
-}
+};
 
-function doTask(creep) {
+Creep.prototype.doTask = function () {
 	var target;
 
-	if (creep.memory.role == "healer") {
-		target = creep.pos.findClosestByRange(FIND_MY_CREEPS, {
+	if (this.memory.role == "healer") {
+		target = this.pos.findClosestByRange(FIND_MY_CREEPS, {
 			filter: (targets) => targets.hits < targets.hitsMax,
 		});
 		if (target) {
-			doRole(creep, target);
+			this.doRole(target);
 			return;
 		}
 	} else {
-		var all = creep.room.find(FIND_HOSTILE_CREEPS).concat(creep.room.find(FIND_HOSTILE_STRUCTURES));
-		target = creep.pos.findClosestByRange(all);
+		var all = this.room.find(FIND_HOSTILE_CREEPS).concat(this.room.find(FIND_HOSTILE_STRUCTURES));
+		target = this.pos.findClosestByRange(all);
 		if (target) {
-			doRole(creep, target);
+			this.doRole(target);
 			return;
 		}
 
@@ -91,17 +91,17 @@ function doTask(creep) {
 		// if (target) { doRole(creep, target); return; }
 	}
 
-	if (creep.memory.mode == 1 && Memory.roomTarget != "false" && creep.room.name != Memory.roomTarget) {
-		goToRoom(creep, Memory.roomTarget);
+	if (this.memory.mode == 1 && Memory.roomTarget != "false" && this.room.name != Memory.roomTarget) {
+		this.goToRoom(Memory.roomTarget);
 		return;
-	} else if (creep.memory.mode == 2 && Memory.raidTarget != "false" && creep.room.name != Memory.raidTarget) {
-		goToRoom(creep, Memory.raidTarget);
+	} else if (this.memory.mode == 2 && Memory.raidTarget != "false" && this.room.name != Memory.raidTarget) {
+		this.goToRoom(Memory.raidTarget);
 		return;
 	}
 
-	target = creep.room.controller;
+	target = this.room.controller;
 	if (target) {
-		creep.moveTo(target, {
+		this.moveTo(target, {
 			visualizePathStyle: { stroke: "#ff0000" },
 			range: 1,
 			reusePath: Math.floor(Math.random() * 90) + 10,
@@ -109,19 +109,19 @@ function doTask(creep) {
 		return;
 	}
 
-	target = creep.room.find(FIND_STRUCTURES, {
+	target = this.room.find(FIND_STRUCTURES, {
 		filter: { structureType: STRUCTURE_KEEPER_LAIR },
 	});
 	target = target.sort((a, b) => a.ticksToSpawn - b.ticksToSpawn);
 	if (target.length > 0) {
-		creep.moveTo(target[0], {
+		this.moveTo(target[0], {
 			visualizePathStyle: { stroke: "#ff0000" },
 			range: 1,
 			reusePath: Math.floor(Math.random() * 90) + 10,
 		});
 		return;
 	}
-}
+};
 
 module.exports = {
 	/** @param {Creep} creep **/

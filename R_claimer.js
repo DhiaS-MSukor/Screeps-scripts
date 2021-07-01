@@ -1,25 +1,24 @@
 // JavaScript source code
-function doClaim(creep, targets) {
-    if (creep.getActiveBodyparts(CLAIM) == 0) {
-        creep.suicide()
-        return
-    }
+Creep.prototype.doClaim = function (targets) {
+	if (this.getActiveBodyparts(CLAIM) == 0) {
+		this.suicide();
+		return;
+	}
 
-    if (creep.claimController(targets) != OK) {
-        if (creep.reserveController(targets) != OK) {
-            if (creep.attackController(targets) != OK) {
-                creep.moveTo(targets, { visualizePathStyle: { stroke: '#ff0000' }, maxOps: 100, range: 1 });
-            }
-        }
-    }
-}
+	if (this.claimController(targets) != OK) {
+		if (this.reserveController(targets) != OK) {
+			if (this.attackController(targets) != OK) {
+				this.moveTo(targets, { visualizePathStyle: { stroke: "#ff0000" }, maxOps: 100, range: 1 });
+			}
+		}
+	}
+};
 
 module.exports = {
-
-    /** @param {Creep} creep **/
-    run: function (creep) {
-        if (Game.rooms[Memory.roomTarget]) {
-            doClaim(creep, Game.rooms[Memory.roomTarget].controller);
-        }
-    }
+	/** @param {Creep} creep **/
+	run: function (creep) {
+		if (Game.rooms[Memory.roomTarget]) {
+			creep.doClaim(Game.rooms[Memory.roomTarget].controller);
+		}
+	},
 };
