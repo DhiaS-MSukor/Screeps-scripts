@@ -16,7 +16,7 @@ Creep.prototype.goToRoom = function (target) {
 	return;
 };
 
-Creep.prototype.doAction = function (target) {
+Creep.prototype.doKnightAction = function (target) {
 	if (this.memory.role == "ranger") {
 		const res = this.rangedAttack(target);
 		if (res == ERR_NOT_IN_RANGE) {
@@ -49,7 +49,7 @@ Creep.prototype.doAction = function (target) {
 	return this.attack(target);
 };
 
-Creep.prototype.doRole = function (target) {
+Creep.prototype.doKnightRole = function (target) {
 	if (this.doAction(target) == ERR_NOT_IN_RANGE) {
 		this.moveTo(target, {
 			visualizePathStyle: { stroke: "#ff0000" },
@@ -59,7 +59,7 @@ Creep.prototype.doRole = function (target) {
 	}
 };
 
-Creep.prototype.doDefend = function () {
+Creep.prototype.doKnight = function () {
 	var target;
 
 	if (this.memory.role == "healer") {
@@ -126,6 +126,6 @@ Creep.prototype.doDefend = function () {
 module.exports = {
 	/** @param {Creep} creep **/
 	run: function (creep) {
-		creep.doDefend();
+		creep.doKnight();
 	},
 };

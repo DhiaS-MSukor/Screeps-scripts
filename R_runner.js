@@ -1,5 +1,5 @@
 // JavaScript source code
-Creep.prototype.doMove = function (target, range = 1) {
+Creep.prototype.runnerMove = function (target, range = 1) {
 	const distance = this.pos.getRangeTo(target);
 	return this.moveTo(target, {
 		visualizePathStyle: { stroke: "#ff00ff" },
@@ -13,7 +13,7 @@ Creep.prototype.doTransfer = function (targets, res = RESOURCE_ENERGY) {
 	if (targets) {
 		var result = this.transfer(targets, res);
 		if (result == ERR_NOT_IN_RANGE) {
-			this.doMove(targets);
+			this.runnerMove(targets);
 			return true;
 		}
 		return result == OK;
@@ -24,7 +24,7 @@ Creep.prototype.doTransfer = function (targets, res = RESOURCE_ENERGY) {
 Creep.prototype.doWithdraw = function (targets, res = RESOURCE_ENERGY) {
 	if (targets) {
 		if (this.withdraw(targets, res) == ERR_NOT_IN_RANGE) {
-			this.doMove(targets);
+			this.runnerMove(targets);
 			return true;
 		}
 	}
@@ -183,7 +183,7 @@ Creep.prototype.doRunner = function () {
 	targets = this.pos.findInRange(FIND_DROPPED_RESOURCES, 2);
 	if (targets.length > 0) {
 		if (this.pickup(targets[0]) == ERR_NOT_IN_RANGE) {
-			this.doMove(targets[0], 0);
+			this.runnerMove(targets[0], 0);
 			return;
 		}
 	}
