@@ -122,7 +122,7 @@ function doRole(terminal) {
 		return;
 	}
 
-	res = Object.keys(terminal.store).filter((res) => res != RESOURCE_ENERGY && terminal.store[res] != 0);
+	res = Object.keys(terminal.store).filter((res) => res != RESOURCE_ENERGY);
 	if (res.length) {
 		for (const key in res) {
 			if (Object.hasOwnProperty.call(res, key)) {
