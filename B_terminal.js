@@ -76,9 +76,11 @@ function buyResource(terminal, resource, left = 10000) {
 	}
 
 	const history = Game.market.getHistory(resource);
-	const target = history[history.length - 2];
-	if (target.transactions > 100) {
-		const avg = target.avgPrice - target.stddevPrice / 3;
+	const transactions = history.reduce((a, b) => Math.min(a.transactions, b.transactions), history[0].transactions);
+	if (transactions > 100) {
+		const avgPrice = history.reduce((a, b) => Math.min(a.avgPrice, b.avgPrice), history[0].avgPrice);
+		const stddev = history.reduce((a, b) => Math.max(a.stddevPrice, b.stddevPrice), history[0].stddevPrice);
+		const avg = avgPrice - stddev / 3;
 		const orders = Game.market
 			.getAllOrders({
 				type: ORDER_SELL,
