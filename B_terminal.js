@@ -69,7 +69,7 @@ function sellResource(terminal, resource, left = 0) {
 	const avgPrice = GetMedian(history.map((i) => i.avgPrice));
 	const stddev = GetMedian(history.map((i) => i.stddevPrice));
 
-	const avg = avgPrice + stddev;
+	const avg = avgPrice + stddev / 2;
 	const orders = Game.market
 		.getAllOrders({
 			type: ORDER_BUY,
