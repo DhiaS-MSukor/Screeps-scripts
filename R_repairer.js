@@ -9,7 +9,7 @@ Creep.prototype.doMove = function (target, range = 3) {
 	}
 };
 
-Creep.prototype.doRepair = function (targets) {
+Creep.prototype.doAction = function (targets) {
 	if (targets) {
 		if (targets.length) {
 			if (this.repair(targets[0]) == ERR_NOT_IN_RANGE) {
@@ -50,7 +50,7 @@ Creep.prototype.doRepair = function () {
 				return structure.hits < structure.hitsMax && (structure.structureType == STRUCTURE_CONTAINER || structure.structureType == STRUCTURE_ROAD);
 			},
 		});
-		if (this.doRepair(targets)) {
+		if (this.doAction(targets)) {
 			return;
 		}
 
@@ -59,7 +59,7 @@ Creep.prototype.doRepair = function () {
 				return structure.hits < structure.hitsMax;
 			},
 		});
-		if (this.doRepair(targets)) {
+		if (this.doAction(targets)) {
 			return;
 		}
 
@@ -68,7 +68,7 @@ Creep.prototype.doRepair = function () {
 				return structure.hits < structure.hitsMax && structure.structureType == STRUCTURE_RAMPART;
 			},
 		});
-		if (this.doRepair(targets)) {
+		if (this.doAction(targets)) {
 			return;
 		}
 
@@ -77,7 +77,7 @@ Creep.prototype.doRepair = function () {
 				return structure.hits < structure.hitsMax;
 			},
 		});
-		if (targets && this.doRepair(targets)) {
+		if (targets && this.doAction(targets)) {
 			return;
 		}
 
