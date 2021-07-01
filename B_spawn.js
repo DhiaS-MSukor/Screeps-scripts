@@ -1,122 +1,121 @@
-function getMul(spawn, baseCost, baseCount, penalty = 0) {
-	const e = Game.spawns[spawn].room.energyAvailable - penalty;
+StructureSpawn.prototype.getMul = function (baseCost, baseCount, penalty = 0) {
+	const e = this.room.energyAvailable - penalty;
 	const i = Math.floor(e / baseCost);
 	const m = Math.min(Math.floor(50 / baseCount), i);
 	return Math.max(1, m);
-}
+};
 
-var do_spawn = function (spawn, theRole, mode) {
+StructureSpawn.prototype.do_spawn = function (theRole, mode) {
 	const name = theRole + (Game.time % 1000) + "" + Math.floor(Math.random() * 10);
-	const mem = { memory: { role: theRole, spawn: spawn, mode: mode, task: 0 } };
+	const mem = { memory: { role: theRole, spawn: this.name, mode: mode, task: 0 } };
 	var res = -2;
 
 	if (theRole == "repairer") {
 		const base = BODYPART_COST[MOVE] * 3 + BODYPART_COST[CARRY] * 2 + BODYPART_COST[WORK];
-		const mul = getMul(spawn, base, 6);
+		const mul = this.getMul(base, 6);
 		const body = new Array(mul * 6)
 			.fill(WORK, 0, mul)
 			.fill(CARRY, mul, mul * 3)
 			.fill(MOVE, mul * 3);
-		res = Game.spawns[spawn].spawnCreep(body, name, mem);
+		res = this.spawnCreep(body, name, mem);
 		if (res != OK) {
-			res = Game.spawns[spawn].spawnCreep([WORK, MOVE, CARRY, MOVE], name, mem);
+			res = this.spawnCreep([WORK, MOVE, CARRY, MOVE], name, mem);
 		}
 	} else if (theRole == "runner") {
 		const base = BODYPART_COST[MOVE] + BODYPART_COST[CARRY];
-		const mul = getMul(spawn, base, 2);
+		const mul = this.getMul(base, 2);
 		const body = new Array(mul * 2).fill(CARRY, 0, mul).fill(MOVE, mul);
-		res = Game.spawns[spawn].spawnCreep(body, name, mem);
+		res = this.spawnCreep(body, name, mem);
 	} else if (theRole == "builder") {
 		const base = BODYPART_COST[MOVE] * 3 + BODYPART_COST[CARRY] + BODYPART_COST[WORK] * 2;
-		const mul = getMul(spawn, base, 6);
+		const mul = this.getMul(base, 6);
 		const body = new Array(mul * 6)
 			.fill(WORK, 0, mul * 2)
 			.fill(CARRY, mul * 2, mul * 3)
 			.fill(MOVE, mul * 3);
-		res = Game.spawns[spawn].spawnCreep(body, name, mem);
+		res = this.spawnCreep(body, name, mem);
 		if (res != OK) {
-			res = Game.spawns[spawn].spawnCreep([WORK, MOVE, CARRY, MOVE], name, mem);
+			res = this.spawnCreep([WORK, MOVE, CARRY, MOVE], name, mem);
 		}
 	} else if (theRole == "defender") {
 		const base = BODYPART_COST[MOVE] + BODYPART_COST[TOUGH] + BODYPART_COST[ATTACK];
-		const mul = getMul(spawn, base, 3);
+		const mul = this.getMul(base, 3);
 		const body = new Array(mul * 3)
 			.fill(TOUGH, 0, mul)
 			.fill(MOVE, mul, mul * 2)
 			.fill(ATTACK, mul * 2);
-		res = Game.spawns[spawn].spawnCreep(body, name, mem);
+		res = this.spawnCreep(body, name, mem);
 	} else if (theRole == "healer") {
 		const base = BODYPART_COST[MOVE] + BODYPART_COST[HEAL];
-		const mul = getMul(spawn, base, 2);
+		const mul = this.getMul(base, 2);
 		const body = new Array(mul * 2).fill(MOVE, 0, mul).fill(HEAL, mul);
-		res = Game.spawns[spawn].spawnCreep(body, name, mem);
+		res = this.spawnCreep(body, name, mem);
 	} else if (theRole == "ranger") {
 		const base = BODYPART_COST[MOVE] + BODYPART_COST[RANGED_ATTACK];
-		const mul = getMul(spawn, base, 2);
+		const mul = this.getMul(base, 2);
 		const body = new Array(mul * 2).fill(MOVE, 0, mul).fill(RANGED_ATTACK, mul);
-		res = Game.spawns[spawn].spawnCreep(body, name, mem);
+		res = this.spawnCreep(body, name, mem);
 	} else if (theRole == "claimer") {
 		const base = BODYPART_COST[MOVE] + BODYPART_COST[CLAIM];
-		const mul = getMul(spawn, base, 2);
+		const mul = this.getMul(base, 2);
 		const body = new Array(mul * 2).fill(MOVE, 0, mul).fill(CLAIM, mul);
-		res = Game.spawns[spawn].spawnCreep(body, name, mem);
+		res = this.spawnCreep(body, name, mem);
 	} else if (theRole == "harvester") {
 		const base = BODYPART_COST[WORK];
 		const p = BODYPART_COST[MOVE] + BODYPART_COST[CARRY];
-		const w = getMul(spawn, base, 2, p);
+		const w = this.getMul(base, 2, p);
 		const c = Math.ceil((w * HARVEST_POWER) / CARRY_CAPACITY);
 		const body = new Array(w + c)
 			.fill(WORK, 0, w)
 			.fill(CARRY, w, w + c)
 			.concat([MOVE]);
-		res = Game.spawns[spawn].spawnCreep(body, name, mem);
+		res = this.spawnCreep(body, name, mem);
 	} else if (theRole == "troll") {
 		const base = BODYPART_COST[MOVE] + BODYPART_COST[HEAL] + BODYPART_COST[ATTACK];
-		const mul = getMul(spawn, base, 2);
+		const mul = this.getMul(base, 2);
 		const body = new Array(mul * 3)
 			.fill(MOVE, 0, mul)
 			.fill(ATTACK, mul, mul + mul)
 			.fill(HEAL, mul + mul);
-		res = Game.spawns[spawn].spawnCreep(body, name, mem);
+		res = this.spawnCreep(body, name, mem);
 	}
 
 	return res == OK;
 };
 
-function spawn_check(spawn, theRole, mode, n) {
+StructureSpawn.prototype.spawn_check = function (theRole, mode, n) {
 	var creeps = _.filter(Game.creeps, (creep) => {
-		return creep.memory.role == theRole && creep.memory.mode == mode && creep.memory.spawn == spawn;
+		return creep.memory.role == theRole && creep.memory.mode == mode && creep.memory.spawn == this.name;
 	});
 
-	return creeps.length < n && do_spawn(spawn, theRole, mode);
-}
+	return creeps.length < n && do_spawn(this, theRole, mode);
+};
 
-var auto_respawn = function (spawn) {
-	if (Game.spawns[spawn].room.energyAvailable < 100) {
+StructureSpawn.prototype.auto_respawn = function () {
+	if (this.room.energyAvailable < 100) {
 		return;
 	}
 	// first spawn
 	// essentials
-	if (spawn_check(spawn, "harvester", 0, 1)) {
+	if (this.spawn_check("harvester", 0, 1)) {
 		return;
-	} else if (spawn_check(spawn, "builder", 0, 1)) {
+	} else if (this.spawn_check("builder", 0, 1)) {
 		return;
-	} else if (spawn_check(spawn, "runner", 0, 1)) {
+	} else if (this.spawn_check("runner", 0, 1)) {
 		return;
-	} else if (spawn_check(spawn, "repairer", 0, 1)) {
+	} else if (this.spawn_check("repairer", 0, 1)) {
 		return;
 	}
 
 	// spawn to num
 	// essentials
-	else if (spawn_check(spawn, "harvester", 0, Game.spawns[spawn].room.find(FIND_SOURCES).length)) {
+	else if (this.spawn_check("harvester", 0, this.room.find(FIND_SOURCES).length)) {
 		return;
 	} else if (
-		spawn_check(
-			spawn,
+		this.spawn_check(
 			"harvester",
 			1,
-			Game.spawns[spawn].room.find(FIND_MY_STRUCTURES, {
+			this.room.find(FIND_MY_STRUCTURES, {
 				filter: {
 					structureType: STRUCTURE_EXTRACTOR,
 				},
@@ -130,7 +129,7 @@ var auto_respawn = function (spawn) {
 	//else if (spawn_check(spawn, 'repairer', 0, 1)) {return;}
 
 	// local healer and defender
-	else if (spawn_check(spawn, "ranger", 0, 1)) {
+	else if (this.spawn_check("ranger", 0, 1)) {
 		return;
 	}
 	//else if (spawn_check(spawn, 'healer', 0, 1)) {return;}
@@ -141,33 +140,28 @@ var auto_respawn = function (spawn) {
 	// else if (spawn_check(spawn, 'defender', 1, 1)) {return;}
 
 	// claimer
-	else if (Memory.roomTarget != "false" && spawn_check(spawn, "ranger", 1, 1)) {
+	else if (Memory.roomTarget != "false" && this.spawn_check("ranger", 1, 1)) {
 		return;
 	} else if (
 		Memory.roomTarget != "false" &&
 		!(Game.rooms[Memory.roomTarget] && Game.rooms[Memory.roomTarget].controller.my) &&
-		spawn_check(spawn, "claimer", 0, 1)
+		this.spawn_check("claimer", 0, 1)
 	) {
 		return;
-	} else if (Memory.roomTarget != "false" && spawn_check(spawn, "builder", 1, 3)) {
+	} else if (Memory.roomTarget != "false" && this.spawn_check("builder", 1, 3)) {
 		return;
 	}
 
 	// raiders
-	else if (Memory.raidTarget != "false" && spawn_check(spawn, "ranger", 2, 1)) {
+	else if (Memory.raidTarget != "false" && this.spawn_check("ranger", 2, 1)) {
 		return;
-	} else if (Memory.raidTarget != "false" && spawn_check(spawn, "defender", 2, 1)) {
+	} else if (Memory.raidTarget != "false" && this.spawn_check("defender", 2, 1)) {
 		return;
 	}
 };
 
 module.exports = {
-	run: function () {
-		for (var spawn in Memory.spawns) {
-			auto_respawn(spawn);
-		}
-	},
 	fx: function (spawn) {
-		auto_respawn(spawn);
+		spawn.auto_respawn();
 	},
 };
