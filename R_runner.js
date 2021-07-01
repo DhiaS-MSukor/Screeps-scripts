@@ -1,19 +1,19 @@
 // JavaScript source code
-function move(creep, target, range = 1) {
-	const distance = creep.pos.getRangeTo(target);
-	return creep.moveTo(target, {
+Creep.prototype.doMove = function (target, range = 1) {
+	const distance = this.pos.getRangeTo(target);
+	return this.moveTo(target, {
 		visualizePathStyle: { stroke: "#ff00ff" },
 		range: range,
 		ignoreRoads: true,
 		reusePath: distance + 1,
 	});
-}
+};
 
-var doTransfer = function (targets, creep, res = RESOURCE_ENERGY) {
+Creep.prototype.doTransfer = function (targets, res = RESOURCE_ENERGY) {
 	if (targets) {
-		var result = creep.transfer(targets, res);
+		var result = this.transfer(targets, res);
 		if (result == ERR_NOT_IN_RANGE) {
-			move(creep, targets);
+			this.doMove(targets);
 			return true;
 		}
 		return result == OK;
@@ -21,31 +21,31 @@ var doTransfer = function (targets, creep, res = RESOURCE_ENERGY) {
 	return false;
 };
 
-var doWithdraw = function (creep, targets, res = RESOURCE_ENERGY) {
+Creep.prototype.doWithdraw = function (targets, res = RESOURCE_ENERGY) {
 	if (targets) {
-		if (creep.withdraw(targets, res) == ERR_NOT_IN_RANGE) {
-			move(creep, targets);
+		if (this.withdraw(targets, res) == ERR_NOT_IN_RANGE) {
+			this.doMove(targets);
 			return true;
 		}
 	}
 	return false;
 };
 
-var withdrawAll = function (creep, targets) {
+Creep.prototype.withdrawAll = function (targets) {
 	if (targets && targets.store) {
 		res = Object.keys(targets.store).filter((x) => x != RESOURCE_ENERGY && targets.store[x] != 0);
 		if (res.length) {
-			return doWithdraw(creep, targets, res[0]);
+			return this.doWithdraw(targets, res[0]);
 		} else if (targets.store[RESOURCE_ENERGY] > 0) {
-			return doWithdraw(creep, targets, RESOURCE_ENERGY);
+			return this.doWithdraw(targets, RESOURCE_ENERGY);
 		}
 	}
 	return false;
 };
 
-function transferStructureTarget(creep, type, minCap = 0, res = RESOURCE_ENERGY, sortByRes = false) {
+Creep.prototype.transferStructureTarget = function (type, minCap = 0, res = RESOURCE_ENERGY, sortByRes = false) {
 	if (sortByRes) {
-		const items = creep.room
+		const items = this.room
 			.find(FIND_STRUCTURES, {
 				filter: (targets) => {
 					return targets.structureType == type && targets.store.getFreeCapacity(res) > minCap;
@@ -58,121 +58,121 @@ function transferStructureTarget(creep, type, minCap = 0, res = RESOURCE_ENERGY,
 			return;
 		}
 	}
-	return creep.pos.findClosestByRange(FIND_STRUCTURES, {
+	return this.pos.findClosestByRange(FIND_STRUCTURES, {
 		filter: (targets) => {
 			return targets.structureType == type && targets.store.getFreeCapacity(res) > minCap;
 		},
 	});
-}
+};
 
-var transferCreepTarget = function (creep, role) {
-	return creep.pos.findClosestByRange(FIND_MY_CREEPS, {
+Creep.prototype.transferCreepTarget = function (role) {
+	return this.pos.findClosestByRange(FIND_MY_CREEPS, {
 		filter: (targets) => {
 			return targets.memory.role == role && targets.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
 		},
 	});
 };
 
-var doTask = function (creep) {
-	if (creep.getActiveBodyparts(CARRY) == 0 || (creep.body.filter((i) => i.type == CARRY).length < 4 && creep.room.energyAvailable > 400)) {
-		creep.suicide();
+Creep.prototype.doTask = function () {
+	if (this.getActiveBodyparts(CARRY) == 0 || (this.body.filter((i) => i.type == CARRY).length < 4 && this.room.energyAvailable > 400)) {
+		this.suicide();
 		return;
 	}
 
 	var targets;
 	var res;
 
-	if (creep.memory.building && creep.store.getUsedCapacity() == 0) {
-		creep.memory.building = false;
-		creep.say("harvest");
+	if (this.memory.building && this.store.getUsedCapacity() == 0) {
+		this.memory.building = false;
+		this.say("harvest");
 	}
-	if (!creep.memory.building && (creep.store.getUsedCapacity(RESOURCE_ENERGY) > 49 || creep.store.getFreeCapacity() == 0)) {
-		creep.memory.building = true;
-		creep.memory.task = (creep.memory.task + 1) % 3;
-		creep.say("pass");
+	if (!this.memory.building && (this.store.getUsedCapacity(RESOURCE_ENERGY) > 49 || this.store.getFreeCapacity() == 0)) {
+		this.memory.building = true;
+		this.memory.task = (this.memory.task + 1) % 3;
+		this.say("pass");
 	}
 
-	if (creep.memory.building) {
-		res = _.filter(Object.keys(creep.store), (res) => res != RESOURCE_ENERGY && creep.store[res] != 0);
+	if (this.memory.building) {
+		res = _.filter(Object.keys(this.store), (res) => res != RESOURCE_ENERGY && this.store[res] != 0);
 		if (res.length) {
-			targets = transferStructureTarget(creep, STRUCTURE_TERMINAL, 0, res[0]);
+			targets = this.transferStructureTarget(STRUCTURE_TERMINAL, 0, res[0]);
 			if (!targets) {
-				targets = transferStructureTarget(creep, STRUCTURE_CONTAINER, 0, res[0]);
+				targets = this.transferStructureTarget(STRUCTURE_CONTAINER, 0, res[0]);
 			}
 
-			if (doTransfer(targets, creep, res[0])) {
+			if (doTransfer(targets, this, res[0])) {
 				return;
 			}
 		}
 
-		if (creep.store[RESOURCE_ENERGY] != 0) {
-			const enemy = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
+		if (this.store[RESOURCE_ENERGY] != 0) {
+			const enemy = this.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
 			if (enemy) {
-				if (doTransfer(transferStructureTarget(creep, STRUCTURE_SPAWN), creep)) {
+				if (this.doTransfer(this.transferStructureTarget(STRUCTURE_SPAWN))) {
 					return;
 				}
-				if (doTransfer(transferStructureTarget(creep, STRUCTURE_TOWER, 10, RESOURCE_ENERGY, true), creep)) {
+				if (this.doTransfer(this.transferStructureTarget(STRUCTURE_TOWER, 10, RESOURCE_ENERGY, true))) {
 					return;
 				}
 			}
 
-			if (creep.memory.task == 1) {
-				if (doTransfer(transferStructureTarget(creep, STRUCTURE_SPAWN), creep)) {
+			if (this.memory.task == 1) {
+				if (this.doTransfer(this.transferStructureTarget(STRUCTURE_SPAWN))) {
 					return;
 				}
-				if (doTransfer(transferStructureTarget(creep, STRUCTURE_EXTENSION), creep)) {
+				if (this.doTransfer(this.transferStructureTarget(STRUCTURE_EXTENSION))) {
 					return;
 				}
-				if (doTransfer(transferStructureTarget(creep, STRUCTURE_TOWER, 10, RESOURCE_ENERGY, true), creep)) {
+				if (this.doTransfer(this.transferStructureTarget(STRUCTURE_TOWER, 10, RESOURCE_ENERGY, true))) {
 					return;
 				}
-				if (doTransfer(transferStructureTarget(creep, STRUCTURE_TERMINAL), creep)) {
+				if (this.doTransfer(this.transferStructureTarget(STRUCTURE_TERMINAL))) {
 					return;
 				}
 
-				targets = transferCreepTarget(creep, "builder");
+				targets = this.transferCreepTarget("builder");
 				if (targets) {
-					if (doTransfer(targets, creep)) {
+					if (this.doTransfer(targets)) {
 						return;
 					}
 				}
-			} else if (creep.memory.task == 2) {
-				if (doTransfer(transferStructureTarget(creep, STRUCTURE_SPAWN), creep)) {
+			} else if (this.memory.task == 2) {
+				if (this.doTransfer(this.transferStructureTarget(STRUCTURE_SPAWN))) {
 					return;
 				}
-				if (doTransfer(transferStructureTarget(creep, STRUCTURE_TERMINAL), creep)) {
+				if (this.doTransfer(this.transferStructureTarget(STRUCTURE_TERMINAL))) {
 					return;
 				}
-				if (doTransfer(transferStructureTarget(creep, STRUCTURE_EXTENSION), creep)) {
+				if (this.doTransfer(this.transferStructureTarget(STRUCTURE_EXTENSION))) {
 					return;
 				}
-				if (doTransfer(transferStructureTarget(creep, STRUCTURE_TOWER, 10, RESOURCE_ENERGY, true), creep)) {
+				if (this.doTransfer(this.transferStructureTarget(STRUCTURE_TOWER, 10, RESOURCE_ENERGY, true))) {
 					return;
 				}
 
-				targets = transferCreepTarget(creep, "builder");
+				targets = transferCreepTarget(this, "builder");
 				if (targets) {
-					if (doTransfer(targets, creep)) {
+					if (this.doTransfer(targets)) {
 						return;
 					}
 				}
 			} else {
-				if (doTransfer(transferStructureTarget(creep, STRUCTURE_SPAWN), creep)) {
+				if (this.doTransfer(this.transferStructureTarget(STRUCTURE_SPAWN))) {
 					return;
 				}
-				if (doTransfer(transferStructureTarget(creep, STRUCTURE_TOWER, 0, RESOURCE_ENERGY, true), creep)) {
+				if (this.doTransfer(this.transferStructureTarget(STRUCTURE_TOWER, 0, RESOURCE_ENERGY, true))) {
 					return;
 				}
-				if (doTransfer(transferStructureTarget(creep, STRUCTURE_EXTENSION), creep)) {
+				if (this.doTransfer(this.transferStructureTarget(STRUCTURE_EXTENSION))) {
 					return;
 				}
-				if (doTransfer(transferStructureTarget(creep, STRUCTURE_TERMINAL), creep)) {
+				if (this.doTransfer(this.transferStructureTarget(STRUCTURE_TERMINAL))) {
 					return;
 				}
 
-				targets = transferCreepTarget(creep, "builder");
+				targets = tthis.ransferCreepTarget("builder");
 				if (targets) {
-					if (doTransfer(targets, creep)) {
+					if (this.doTransfer(targets)) {
 						return;
 					}
 				}
@@ -180,17 +180,17 @@ var doTask = function (creep) {
 		}
 	}
 
-	targets = creep.pos.findInRange(FIND_DROPPED_RESOURCES, 2);
+	targets = this.pos.findInRange(FIND_DROPPED_RESOURCES, 2);
 	if (targets.length > 0) {
-		if (creep.pickup(targets[0]) == ERR_NOT_IN_RANGE) {
-			move(creep, targets[0], 0);
+		if (this.pickup(targets[0]) == ERR_NOT_IN_RANGE) {
+			this.doMove(targets[0], 0);
 			return;
 		}
 	}
 
-	res = Object.keys(creep.store).filter((res) => res != RESOURCE_ENERGY && creep.store[res] != 0);
-	if (creep.memory.task == 1 && res.length == 0) {
-		targets = creep.pos.findClosestByRange(FIND_STRUCTURES, {
+	res = Object.keys(this.store).filter((res) => res != RESOURCE_ENERGY && this.store[res] != 0);
+	if (this.memory.task == 1 && res.length == 0) {
+		targets = this.pos.findClosestByRange(FIND_STRUCTURES, {
 			filter: (targets) =>
 				targets.structureType != STRUCTURE_TERMINAL &&
 				targets.store &&
@@ -199,49 +199,45 @@ var doTask = function (creep) {
 		});
 		if (targets) {
 			res = _.filter(Object.keys(targets.store), (res) => res != RESOURCE_ENERGY && targets.store[res] != 0);
-			if (doWithdraw(creep, targets, res[0])) {
+			if (this.doWithdraw(targets, res[0])) {
 				return;
 			}
 		}
-	} else if (res.length > 0 && creep.store.getFreeCapacity() == 0) {
-		creep.drop(res[0]);
+	} else if (res.length > 0 && this.store.getFreeCapacity() == 0) {
+		this.drop(res[0]);
 	}
-	targets = creep.pos.findClosestByRange(FIND_TOMBSTONES, {
+	targets = this.pos.findClosestByRange(FIND_TOMBSTONES, {
 		filter: (targets) => targets.store.getUsedCapacity() != 0,
 	});
-	if (withdrawAll(creep, targets)) {
+	if (this.withdrawAll(targets)) {
 		return;
 	}
 
-	targets = creep.pos.findClosestByRange(FIND_RUINS, {
+	targets = this.pos.findClosestByRange(FIND_RUINS, {
 		filter: (targets) => targets.store.getUsedCapacity() != 0,
 	});
-	if (withdrawAll(creep, targets)) {
+	if (this.withdrawAll(targets)) {
 		return;
 	}
 
-	targets = creep.room.find(FIND_STRUCTURES, {
-		filter: (target) => target.structureType == STRUCTURE_CONTAINER && target.store.getUsedCapacity(RESOURCE_ENERGY) > creep.store.getFreeCapacity(),
+	targets = this.room.find(FIND_STRUCTURES, {
+		filter: (target) => target.structureType == STRUCTURE_CONTAINER && target.store.getUsedCapacity(RESOURCE_ENERGY) > this.store.getFreeCapacity(),
 	});
 
-	if (targets.length > 0 && doWithdraw(creep, targets[0])) {
+	if (targets.length > 0 && this.doWithdraw(targets[0])) {
 		return;
 	}
 
-	targets = creep.room
+	targets = this.room
 		.find(FIND_STRUCTURES, { filter: (target) => target.structureType == STRUCTURE_CONTAINER && target.store.getUsedCapacity(RESOURCE_ENERGY) > 0 })
 		.sort((a, b) => b.store.getUsedCapacity(RESOURCE_ENERGY) - a.store.getUsedCapacity(RESOURCE_ENERGY));
 
-	if (targets.length > 0 && doWithdraw(creep, targets[0])) {
+	if (targets.length > 0 && this.doWithdraw(targets[0])) {
 		return;
 	}
 
-	if (creep.room.terminal) {
-		// if (creep.room.terminal.store.getUsedCapacity(RESOURCE_ENERGY) > creep.store.getCapacity() * 2 && doWithdraw(creep, creep.room.terminal)) {
-		// 	return;
-		// }
-
-		targets = creep.pos.findClosestByRange(FIND_STRUCTURES, {
+	if (this.room.terminal) {
+		targets = this.pos.findClosestByRange(FIND_STRUCTURES, {
 			filter: (targets) =>
 				targets.structureType != STRUCTURE_TERMINAL &&
 				targets.store &&
@@ -250,22 +246,22 @@ var doTask = function (creep) {
 		});
 		if (targets) {
 			res = _.filter(Object.keys(targets.store), (res) => res != RESOURCE_ENERGY && targets.store[res] != 0);
-			if (doWithdraw(creep, targets, res[0])) {
+			if (this.doWithdraw(targets, res[0])) {
 				return;
 			}
 		}
 	}
 
-	if ((creep.memory.task + 1) % 3 != 1 && creep.store.getUsedCapacity() > 0) {
-		creep.memory.building = true;
-		creep.memory.task = (creep.memory.task + 1) % 3;
-		creep.say("pass");
+	if ((this.memory.task + 1) % 3 != 1 && this.store.getUsedCapacity() > 0) {
+		this.memory.building = true;
+		this.memory.task = (this.memory.task + 1) % 3;
+		this.say("pass");
 	}
 };
 
 module.exports = {
 	/** @param {Creep} creep **/
 	run: function (creep) {
-		doTask(creep);
+		creep.doTask();
 	},
 };
