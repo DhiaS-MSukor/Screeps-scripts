@@ -1,4 +1,4 @@
-Creep.prototype.doTransfer = function (targets, res = RESOURCE_ENERGY) {
+Creep.prototype.harvesterTransfer = function (targets, res = RESOURCE_ENERGY) {
 	if (targets.length > 0) {
 		var result = this.transfer(targets[0], res);
 		if (result == ERR_NOT_IN_RANGE) {
@@ -53,7 +53,7 @@ Creep.prototype.doHarvest = function () {
 				});
 			}
 			res = _.filter(Object.keys(this.store), (res) => res != RESOURCE_ENERGY && this.store[res] != 0);
-			this.doTransfer(targets, res[0]);
+			this.harvesterTransfer(targets, res[0]);
 			return;
 		}
 
@@ -70,7 +70,7 @@ Creep.prototype.doHarvest = function () {
 				filter: (structure) =>
 					structure.structureType == STRUCTURE_CONTAINER && structure.store.getFreeCapacity() >= this.store.getUsedCapacity(RESOURCE_ENERGY),
 			});
-			this.doTransfer(targets);
+			this.harvesterTransfer(targets);
 		}
 	} else {
 		if (this.memory.mode == 1) {
@@ -87,14 +87,14 @@ Creep.prototype.doHarvest = function () {
 				});
 			}
 			res = _.filter(Object.keys(this.store), (res) => res != RESOURCE_ENERGY && this.store[res] != 0);
-			this.doTransfer([targets], res[0]);
+			this.harvesterTransfer([targets], res[0]);
 			return;
 		}
 
 		targets = this.pos.findClosestByRange(FIND_STRUCTURES, {
 			filter: { structureType: STRUCTURE_CONTAINER },
 		});
-		if (this.doTransfer([targets])) {
+		if (this.harvesterTransfer([targets])) {
 			return;
 		}
 
@@ -103,7 +103,7 @@ Creep.prototype.doHarvest = function () {
 				return structure.structureType == STRUCTURE_SPAWN && structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
 			},
 		});
-		if (this.doTransfer(targets)) {
+		if (this.harvesterTransfer(targets)) {
 			return;
 		}
 
@@ -115,7 +115,7 @@ Creep.prototype.doHarvest = function () {
 		targets = this.room.find(FIND_STRUCTURES, {
 			filter: { structureType: STRUCTURE_SPAWN },
 		});
-		if (this.doTransfer(targets)) {
+		if (this.harvesterTransfer(targets)) {
 			return;
 		}
 	}

@@ -9,7 +9,7 @@ Creep.prototype.runnerMove = function (target, range = 1) {
 	});
 };
 
-Creep.prototype.doTransfer = function (targets, res = RESOURCE_ENERGY) {
+Creep.prototype.runnerTransfer = function (targets, res = RESOURCE_ENERGY) {
 	if (targets) {
 		var result = this.transfer(targets, res);
 		if (result == ERR_NOT_IN_RANGE) {
@@ -100,7 +100,7 @@ Creep.prototype.doRunner = function () {
 				targets = this.transferStructureTarget(STRUCTURE_CONTAINER, 0, res[0]);
 			}
 
-			if (this.doTransfer(targets, res[0])) {
+			if (this.runnerTransfer(targets, res[0])) {
 				return;
 			}
 		}
@@ -108,71 +108,71 @@ Creep.prototype.doRunner = function () {
 		if (this.store[RESOURCE_ENERGY] != 0) {
 			const enemy = this.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
 			if (enemy) {
-				if (this.doTransfer(this.transferStructureTarget(STRUCTURE_SPAWN))) {
+				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_SPAWN))) {
 					return;
 				}
-				if (this.doTransfer(this.transferStructureTarget(STRUCTURE_TOWER, 10, RESOURCE_ENERGY, true))) {
+				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_TOWER, 10, RESOURCE_ENERGY, true))) {
 					return;
 				}
 			}
 
 			if (this.memory.task == 1) {
-				if (this.doTransfer(this.transferStructureTarget(STRUCTURE_SPAWN))) {
+				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_SPAWN))) {
 					return;
 				}
-				if (this.doTransfer(this.transferStructureTarget(STRUCTURE_EXTENSION))) {
+				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_EXTENSION))) {
 					return;
 				}
-				if (this.doTransfer(this.transferStructureTarget(STRUCTURE_TOWER, 10, RESOURCE_ENERGY, true))) {
+				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_TOWER, 10, RESOURCE_ENERGY, true))) {
 					return;
 				}
-				if (this.doTransfer(this.transferStructureTarget(STRUCTURE_TERMINAL))) {
+				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_TERMINAL))) {
 					return;
 				}
 
 				targets = this.transferCreepTarget("builder");
 				if (targets) {
-					if (this.doTransfer(targets)) {
+					if (this.runnerTransfer(targets)) {
 						return;
 					}
 				}
 			} else if (this.memory.task == 2) {
-				if (this.doTransfer(this.transferStructureTarget(STRUCTURE_SPAWN))) {
+				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_SPAWN))) {
 					return;
 				}
-				if (this.doTransfer(this.transferStructureTarget(STRUCTURE_TERMINAL))) {
+				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_TERMINAL))) {
 					return;
 				}
-				if (this.doTransfer(this.transferStructureTarget(STRUCTURE_EXTENSION))) {
+				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_EXTENSION))) {
 					return;
 				}
-				if (this.doTransfer(this.transferStructureTarget(STRUCTURE_TOWER, 10, RESOURCE_ENERGY, true))) {
+				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_TOWER, 10, RESOURCE_ENERGY, true))) {
 					return;
 				}
 
 				targets = transferCreepTarget(this, "builder");
 				if (targets) {
-					if (this.doTransfer(targets)) {
+					if (this.runnerTransfer(targets)) {
 						return;
 					}
 				}
 			} else {
-				if (this.doTransfer(this.transferStructureTarget(STRUCTURE_SPAWN))) {
+				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_SPAWN))) {
 					return;
 				}
-				if (this.doTransfer(this.transferStructureTarget(STRUCTURE_TOWER, 0, RESOURCE_ENERGY, true))) {
+				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_TOWER, 0, RESOURCE_ENERGY, true))) {
 					return;
 				}
-				if (this.doTransfer(this.transferStructureTarget(STRUCTURE_EXTENSION))) {
+				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_EXTENSION))) {
 					return;
 				}
-				if (this.doTransfer(this.transferStructureTarget(STRUCTURE_TERMINAL))) {
+				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_TERMINAL))) {
 					return;
 				}
 
 				targets = tthis.ransferCreepTarget("builder");
 				if (targets) {
-					if (this.doTransfer(targets)) {
+					if (this.runnerTransfer(targets)) {
 						return;
 					}
 				}
