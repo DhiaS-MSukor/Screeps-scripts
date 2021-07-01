@@ -45,16 +45,31 @@ function tryBuy(terminal, order, left = 0) {
 	return false;
 }
 
+function GetMedian(values) {
+	if (values.length === 0) return 0;
+
+	values.sort(function (a, b) {
+		return a - b;
+	});
+
+	var half = Math.floor(values.length / 2);
+
+	if (values.length % 2) return values[half];
+
+	return (values[half - 1] + values[half]) / 2.0;
+}
+
 function sellResource(terminal, resource, left = 0) {
 	if (terminal.store.getUsedCapacity(resource) <= left) {
 		return false;
 	}
 
 	const history = Game.market.getHistory(resource);
-	const avgPrice = history.reduce((a, b) => a.avgPrice + b.avgPrice) / history.length;
-	const stddev = history.reduce((a, b) => a.stddevPrice + b.stddevPrice) / history.length;
 
-	const avg = avgPrice + stddev / 2;
+	const avgPrice = GetMedian(history.map((i) => i.avgPrice));
+	const stddev = GetMedian(history.map((i) => i.stddevPrice));
+
+	const avg = avgPrice + stddev;
 	const orders = Game.market
 		.getAllOrders({
 			type: ORDER_BUY,
