@@ -100,7 +100,7 @@ Creep.prototype.doTask = function () {
 				targets = this.transferStructureTarget(STRUCTURE_CONTAINER, 0, res[0]);
 			}
 
-			if (doTransfer(targets, this, res[0])) {
+			if (this.doTransfer(targets, res[0])) {
 				return;
 			}
 		}
