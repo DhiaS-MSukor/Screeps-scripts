@@ -71,7 +71,7 @@ function sellResource(terminal, resource, left = 0) {
 }
 
 function buyResource(terminal, resource, left = 10000) {
-	if (resource == RESOURCE_ENERGY) {
+	if (Game.market.credits < left) {
 		return false;
 	}
 
