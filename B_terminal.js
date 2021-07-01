@@ -1,50 +1,3 @@
-function getMaxAmount(terminal, order) {
-	const amount = terminal.store.getUsedCapacity(RESOURCE_ENERGY);
-	const distance = Game.map.getRoomLinearDistance(order.roomName, terminal.room.name, true);
-	return order.resourceType == RESOURCE_ENERGY
-		? Math.floor(amount / (2 - Math.exp(-distance / 30))) - 1
-		: Math.floor(amount / (1 - Math.exp(-distance / 30))) - 1;
-}
-
-function trySell(terminal, order, left = 0) {
-	if (order.type == ORDER_SELL) {
-		return false;
-	}
-
-	const amount = Math.min(order.remainingAmount, getMaxAmount(terminal, order), terminal.store.getUsedCapacity(order.resourceType) - left);
-	if (amount > 0) {
-		const cost = Game.market.calcTransactionCost(amount, terminal.room.name, order.roomName);
-		if (cost < terminal.store.getUsedCapacity(RESOURCE_ENERGY)) {
-			var deal = Game.market.deal(order.id, amount, terminal.room.name);
-			if (deal == OK || deal == ERR_TIRED || deal == ERR_FULL) {
-				return true;
-			}
-		}
-	}
-	return false;
-}
-function tryBuy(terminal, order, left = 0) {
-	if (order.type == ORDER_BUY) {
-		return false;
-	}
-
-	let amount = Math.min(order.remainingAmount, Math.floor(Game.market.credits / order.price), Game.market.credits - left);
-	if (amount > 0) {
-		const cost = Game.market.calcTransactionCost(amount, terminal.room.name, order.roomName);
-		if (order.resourceType == RESOURCE_ENERGY && cost >= amount) {
-			return false;
-		}
-
-		if (cost < terminal.store.getUsedCapacity(RESOURCE_ENERGY)) {
-			var deal = Game.market.deal(order.id, amount, terminal.room.name);
-			if (deal == OK || deal == ERR_TIRED || deal == ERR_FULL) {
-				return true;
-			}
-		}
-	}
-	return false;
-}
-
 function GetMedian(values) {
 	if (values.length === 0) return 0;
 
@@ -59,8 +12,56 @@ function GetMedian(values) {
 	return (values[half - 1] + values[half]) / 2.0;
 }
 
-function sellResource(terminal, resource, left = 0) {
-	if (terminal.store.getUsedCapacity(resource) <= left) {
+StructureTerminal.prototype.getMaxAmount = function (order) {
+	const amount = this.store.getUsedCapacity(RESOURCE_ENERGY);
+	const distance = Game.map.getRoomLinearDistance(order.roomName, this.room.name, true);
+	return order.resourceType == RESOURCE_ENERGY
+		? Math.floor(amount / (2 - Math.exp(-distance / 30))) - 1
+		: Math.floor(amount / (1 - Math.exp(-distance / 30))) - 1;
+};
+
+StructureTerminal.prototype.trySell = function (order, left = 0) {
+	if (order.type == ORDER_SELL) {
+		return false;
+	}
+
+	const amount = Math.min(order.remainingAmount, this.getMaxAmount(order), this.store.getUsedCapacity(order.resourceType) - left);
+	if (amount > 0) {
+		const cost = Game.market.calcTransactionCost(amount, this.room.name, order.roomName);
+		if (cost < this.store.getUsedCapacity(RESOURCE_ENERGY)) {
+			var deal = Game.market.deal(order.id, amount, this.room.name);
+			if (deal == OK || deal == ERR_TIRED || deal == ERR_FULL) {
+				return true;
+			}
+		}
+	}
+	return false;
+};
+
+StructureTerminal.prototype.tryBuy = function (order, left = 0) {
+	if (order.type == ORDER_BUY) {
+		return false;
+	}
+
+	let amount = Math.min(order.remainingAmount, Math.floor(Game.market.credits / order.price), Game.market.credits - left);
+	if (amount > 0) {
+		const cost = Game.market.calcTransactionCost(amount, this.room.name, order.roomName);
+		if (order.resourceType == RESOURCE_ENERGY && cost >= amount) {
+			return false;
+		}
+
+		if (cost < this.store.getUsedCapacity(RESOURCE_ENERGY)) {
+			var deal = Game.market.deal(order.id, amount, this.room.name);
+			if (deal == OK || deal == ERR_TIRED || deal == ERR_FULL) {
+				return true;
+			}
+		}
+	}
+	return false;
+};
+
+StructureTerminal.prototype.sellResource = function (resource, left = 0) {
+	if (this.store.getUsedCapacity(resource) <= left) {
 		return false;
 	}
 
@@ -79,15 +80,15 @@ function sellResource(terminal, resource, left = 0) {
 	for (const key1 in orders) {
 		if (Object.hasOwnProperty.call(orders, key1)) {
 			const order = orders[key1];
-			if (order.price > avg && trySell(terminal, order, left)) {
+			if (order.price > avg && this.trySell(order, left)) {
 				return true;
 			}
 		}
 	}
 	return false;
-}
+};
 
-function buyResource(terminal, resource, left = 2000) {
+StructureTerminal.prototype.buyResource = function (resource, left = 2000) {
 	if (Game.market.credits < left) {
 		return false;
 	}
@@ -108,14 +109,14 @@ function buyResource(terminal, resource, left = 2000) {
 		for (const key1 in orders) {
 			if (Object.hasOwnProperty.call(orders, key1)) {
 				const order = orders[key1];
-				if (order.price < avg && tryBuy(terminal, order, left)) {
+				if (order.price < avg && this.tryBuy(order, left)) {
 					return true;
 				}
 			}
 		}
 	}
 	return false;
-}
+};
 
 StructureTerminal.prototype.doRole = function () {
 	if (this.cooldown > 0 || this.store.getUsedCapacity(RESOURCE_ENERGY) < 2 || Math.random() * TERMINAL_COOLDOWN > 2) {
@@ -127,7 +128,7 @@ StructureTerminal.prototype.doRole = function () {
 		for (const key in res) {
 			if (Object.hasOwnProperty.call(res, key)) {
 				const element = res[key];
-				if (sellResource(this, element)) {
+				if (this.sellResource(element)) {
 					return;
 				}
 			}
@@ -137,17 +138,17 @@ StructureTerminal.prototype.doRole = function () {
 	for (const key in RESOURCES_ALL) {
 		if (Object.hasOwnProperty.call(RESOURCES_ALL, key)) {
 			const element = RESOURCES_ALL[key];
-			if (element != RESOURCE_ENERGY && buyResource(this, element)) {
+			if (element != RESOURCE_ENERGY && this.buyResource(element)) {
 				return;
 			}
 		}
 	}
 
-	if (sellResource(this, RESOURCE_ENERGY, 10000)) {
+	if (this.sellResource(RESOURCE_ENERGY, 10000)) {
 		return;
 	}
 
-	buyResource(this, RESOURCE_ENERGY);
+	this.buyResource(RESOURCE_ENERGY);
 };
 
 module.exports = {
