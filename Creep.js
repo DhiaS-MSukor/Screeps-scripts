@@ -24,15 +24,12 @@ Object.defineProperty(Creep.prototype, "mode", {
 
 Object.defineProperty(Creep.prototype, "working", {
 	get: function () {
-		if (!_.isUndefined(this.memory.working)) {
+		if (_.isUndefined(this.memory.working)) {
 			this.memory.working = true;
 		}
 		return this.memory.working;
 	},
 	set: function (newValue) {
-		if (!_.isUndefined(this.memory.working)) {
-			this.memory.working = true;
-		}
 		this.memory.working = newValue;
 	},
 	enumerable: false,
@@ -41,7 +38,7 @@ Object.defineProperty(Creep.prototype, "working", {
 
 Object.defineProperty(Creep.prototype, "task", {
 	get: function () {
-		if (!_.isUndefined(this.memory.task)) {
+		if (_.isUndefined(this.memory.task)) {
 			this.memory.task = 0;
 		}
 		return this.memory.task;
