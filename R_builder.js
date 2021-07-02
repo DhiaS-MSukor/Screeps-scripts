@@ -32,7 +32,6 @@ Creep.prototype.doBuilder = function () {
 		if (targets.length > 0) {
 			if (this.pickup(targets[0]) == ERR_NOT_IN_RANGE) {
 				this.builderMove(targets[0], 1);
-				return;
 			}
 		}
 		targets = this.pos.findInRange(FIND_TOMBSTONES, 2, {
@@ -41,7 +40,6 @@ Creep.prototype.doBuilder = function () {
 		if (targets.length > 0) {
 			if (this.withdraw(targets[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
 				this.builderMove(targets[0], 1);
-				return;
 			}
 		}
 	}
