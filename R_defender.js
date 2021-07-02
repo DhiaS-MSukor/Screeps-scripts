@@ -79,10 +79,10 @@ Creep.prototype.doKnight = function () {
 		}
 	}
 
-	if (this.memory.mode == 1 && Memory.roomTarget != "false" && this.room.name != Memory.roomTarget) {
+	if (this.mode == 1 && Memory.roomTarget != "false" && this.room.name != Memory.roomTarget) {
 		this.goToRoom(Memory.roomTarget);
 		return;
-	} else if (this.memory.mode == 2 && Memory.raidTarget != "false" && this.room.name != Memory.raidTarget) {
+	} else if (this.mode == 2 && Memory.raidTarget != "false" && this.room.name != Memory.raidTarget) {
 		this.goToRoom(Memory.raidTarget);
 		return;
 	}

@@ -17,6 +17,17 @@ Object.defineProperty(Creep.prototype, "role", {
 	configurable: true,
 });
 
+Object.defineProperty(Creep.prototype, "mode", {
+	get: function () {
+		return this.memory.mode;
+	},
+	set: function (val) {
+		this.memory.mode = val;
+	},
+	enumerable: false,
+	configurable: true,
+});
+
 var run_role = function () {
 	var creep;
 	for (var name in Game.creeps) {
