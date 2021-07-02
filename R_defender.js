@@ -17,7 +17,7 @@ Creep.prototype.goToRoom = function (target) {
 };
 
 Creep.prototype.doKnightAction = function (target) {
-	if (this.memory.role == "ranger") {
+	if (this.role == "ranger") {
 		const res = this.rangedAttack(target);
 		if (res == ERR_NOT_IN_RANGE) {
 			return this.moveTo(target, {
@@ -35,14 +35,14 @@ Creep.prototype.doKnightAction = function (target) {
 			});
 		}
 		return res;
-	} else if (this.memory.role == "healer") {
+	} else if (this.role == "healer") {
 		var res = this.heal(target);
 		if (res == ERR_NOT_IN_RANGE) {
 			this.rangedHeal(target);
 			return res;
 		}
 		return res;
-	} else if (this.memory.role == "troll") {
+	} else if (this.role == "troll") {
 		this.heal(this);
 		return ERR_NOT_IN_RANGE;
 	}
@@ -62,7 +62,7 @@ Creep.prototype.doKnightRole = function (target) {
 Creep.prototype.doKnight = function () {
 	var target;
 
-	if (this.memory.role == "healer") {
+	if (this.role == "healer") {
 		target = this.pos.findClosestByRange(FIND_MY_CREEPS, {
 			filter: (targets) => targets.hits < targets.hitsMax,
 		});
