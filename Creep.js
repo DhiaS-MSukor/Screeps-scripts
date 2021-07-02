@@ -41,7 +41,7 @@ Object.defineProperty(Creep.prototype, "working", {
 
 Object.defineProperty(Creep.prototype, "task", {
 	get: function () {
-		if (!this.memory.task) {
+		if (!_.isUndefined(this.memory.task)) {
 			this.memory.task = 0;
 		}
 		return this.memory.task;
