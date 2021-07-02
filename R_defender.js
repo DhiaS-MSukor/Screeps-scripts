@@ -77,18 +77,6 @@ Creep.prototype.doKnight = function () {
 			this.doRole(target);
 			return;
 		}
-
-		// target = creep.pos.findClosestByRange(FIND_STRUCTURES, { filter: { structureType: STRUCTURE_INVADER_CORE } });
-		// if (target) { doRole(creep, target); return; }
-
-		// target = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
-		// if (target) { doRole(creep, target); return; }
-
-		// target = creep.pos.findClosestByRange(FIND_HOSTILE_SPAWNS, { filter: (targets) => targets.hits > 0 });
-		// if (target) { doRole(creep, target); return; }
-
-		// target = creep.pos.findClosestByRange(FIND_HOSTILE_STRUCTURES, { filter: (targets) => targets.hits > 0 });
-		// if (target) { doRole(creep, target); return; }
 	}
 
 	if (this.memory.mode == 1 && Memory.roomTarget != "false" && this.room.name != Memory.roomTarget) {
