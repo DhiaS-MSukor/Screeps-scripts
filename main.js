@@ -7,6 +7,7 @@ var r_defender = require("R_defender");
 var b_tower = require("B_tower");
 var b_spawn = require("B_spawn");
 var b_terminal = require("B_terminal");
+var creep = require("Creep");
 
 var clean_mem = function () {
 	for (var name in Memory.creeps) {
