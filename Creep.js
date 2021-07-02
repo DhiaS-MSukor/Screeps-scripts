@@ -21,3 +21,28 @@ Object.defineProperty(Creep.prototype, "mode", {
 	enumerable: false,
 	configurable: true,
 });
+
+Object.defineProperty(Creep.prototype, "working", {
+	get: function () {
+		if (!this.memory.working) {
+			this.memory.working = false;
+		}
+		return this.memory.working;
+	},
+	set: function (val) {
+		this.memory.working = val;
+	},
+	enumerable: false,
+	configurable: true,
+});
+
+Object.defineProperty(Creep.prototype, "task", {
+	get: function () {
+		return this.memory.task;
+	},
+	set: function (val) {
+		this.memory.task = val;
+	},
+	enumerable: false,
+	configurable: true,
+});

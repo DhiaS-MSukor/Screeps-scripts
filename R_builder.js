@@ -1,4 +1,4 @@
-Creep.prototype.doMove = function (target, range = 3) {
+Creep.prototype.builderMove = function (target, range = 3) {
 	if (target) {
 		const distance = this.pos.getRangeTo(target);
 		return this.moveTo(target, {
@@ -13,14 +13,14 @@ Creep.prototype.doBuild = function (target) {
 	if (target) {
 		let res = this.build(target);
 		if (res == ERR_NOT_IN_RANGE) {
-			this.doMove(target, 3);
+			this.builderMove(target, 3);
 		}
 		return true;
 	}
 	return false;
 };
 
-Creep.prototype.doRole = function () {
+Creep.prototype.doBuilder = function () {
 	if (this.getActiveBodyparts(WORK) == 0) {
 		this.suicide();
 		return;
@@ -31,7 +31,7 @@ Creep.prototype.doRole = function () {
 		});
 		if (targets.length > 0) {
 			if (this.pickup(targets[0]) == ERR_NOT_IN_RANGE) {
-				this.doMove(targets[0], 1);
+				this.builderMove(targets[0], 1);
 				return;
 			}
 		}
@@ -40,29 +40,29 @@ Creep.prototype.doRole = function () {
 		});
 		if (targets.length > 0) {
 			if (this.withdraw(targets[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-				this.doMove(targets[0], 1);
+				this.builderMove(targets[0], 1);
 				return;
 			}
 		}
 	}
 
-	if (this.memory.building && this.store[RESOURCE_ENERGY] == 0) {
-		this.memory.building = false;
+	if (this.working && this.store[RESOURCE_ENERGY] == 0) {
+		this.working = false;
 		this.say("harvest");
 	}
-	if (!this.memory.building && this.store.getFreeCapacity() < HARVEST_POWER * this.getActiveBodyparts(WORK)) {
-		this.memory.building = true;
+	if (!this.working && this.store.getFreeCapacity() < HARVEST_POWER * this.getActiveBodyparts(WORK)) {
+		this.working = true;
 		this.say("build");
 	}
 
-	if (this.memory.building && this.store[RESOURCE_ENERGY] > 0) {
-		if (this.memory.mode == 1 && this.room.name != Memory.roomTarget) {
+	if (this.working && this.store[RESOURCE_ENERGY] > 0) {
+		if (this.mode == 1 && this.room.name != Memory.roomTarget) {
 			if (Game.rooms[Memory.roomTarget]) {
-				this.doMove(Game.rooms[Memory.roomTarget].controller, 1);
+				this.builderMove(Game.rooms[Memory.roomTarget].controller, 1);
 				return;
 			}
-		} else if (this.memory.mode != 1 && this.room.name != Game.spawns[this.memory.spawn].room.name) {
-			this.doMove(Game.spawns[this.memory.spawn], 1);
+		} else if (this.mode != 1 && this.room.name != Game.spawns[this.memory.spawn].room.name) {
+			this.builderMove(Game.spawns[this.memory.spawn], 1);
 			return;
 		}
 
@@ -88,7 +88,7 @@ Creep.prototype.doRole = function () {
 
 		if (this.room.controller) {
 			if (this.upgradeController(this.room.controller) == ERR_NOT_IN_RANGE) {
-				this.doMove(this.room.controller);
+				this.builderMove(this.room.controller);
 			}
 			return;
 		}
@@ -108,7 +108,7 @@ Creep.prototype.doRole = function () {
 	if (sources.length) {
 		var target = sources[sources.length - 1];
 		if (this.harvest(target) == ERR_NOT_IN_RANGE) {
-			if (this.doMove(target, 1) != ERR_NO_PATH) {
+			if (this.builderMove(target, 1) != ERR_NO_PATH) {
 				return;
 			}
 		} else {
@@ -120,7 +120,7 @@ Creep.prototype.doRole = function () {
 	});
 	if (sources) {
 		if (this.withdraw(sources, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-			this.doMove(sources, 1);
+			this.builderMove(sources, 1);
 			return;
 		}
 	}
@@ -129,6 +129,6 @@ Creep.prototype.doRole = function () {
 module.exports = {
 	/** @param {Creep} creep **/
 	run: function (creep) {
-		creep.doRole();
+		creep.doBuilder();
 	},
 };

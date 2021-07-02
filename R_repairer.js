@@ -34,17 +34,16 @@ Creep.prototype.doRepairer = function () {
 
 	var targets;
 
-	if (this.memory.building && this.store[RESOURCE_ENERGY] == 0) {
-		this.memory.building = false;
+	if (this.working && this.store[RESOURCE_ENERGY] == 0) {
+		this.working = false;
 		this.say("harvest");
 	}
-	if (!this.memory.building && this.store.getFreeCapacity() < HARVEST_POWER * this.getActiveBodyparts(WORK)) {
-		this.memory.building = true;
-		this.memory.task = (this.memory.task + 1) % 3;
+	if (!this.working && this.store.getFreeCapacity() < HARVEST_POWER * this.getActiveBodyparts(WORK)) {
+		this.working = true; 
 		this.say("repair");
 	}
 
-	if (this.memory.building && this.store[RESOURCE_ENERGY] > 0) {
+	if (this.working && this.store[RESOURCE_ENERGY] > 0) {
 		targets = this.pos.findClosestByRange(FIND_STRUCTURES, {
 			filter: (structure) => {
 				return structure.hits < structure.hitsMax && (structure.structureType == STRUCTURE_CONTAINER || structure.structureType == STRUCTURE_ROAD);

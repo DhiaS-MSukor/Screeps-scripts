@@ -27,17 +27,17 @@ Creep.prototype.doHarvest = function () {
 
 	var targets;
 
-	if (this.memory.harvest && this.store.getFreeCapacity() == 0) {
-		this.memory.harvest = false;
+	if (this.working && this.store.getFreeCapacity() == 0) {
+		this.working = false;
 		this.say("transfer");
 	}
-	if (!this.memory.harvest && this.store.getUsedCapacity() == 0) {
-		this.memory.harvest = true;
-		this.say("harvest");
+	if (!this.working && this.store.getUsedCapacity() == 0) {
+		this.working = true;
+		this.say("working");
 	}
 
-	if (this.memory.harvest) {
-		if (this.memory.mode == 1) {
+	if (this.working) {
+		if (this.mode == 1) {
 			targets = this.pos.findClosestByRange(FIND_MINERALS);
 			var harv = this.harvest(targets);
 			if (harv != OK) {
@@ -62,7 +62,7 @@ Creep.prototype.doHarvest = function () {
 		if (harv == ERR_NOT_IN_RANGE) {
 			this.moveTo(targets[0], { visualizePathStyle: { stroke: "#00ff00" }, maxOps: 100, range: 1 });
 		} else if (harv == ERR_NOT_ENOUGH_RESOURCES) {
-			this.memory.harvest = false;
+			this.working = false;
 			this.say("!_!");
 		}
 		if (this.store.getUsedCapacity(RESOURCE_ENERGY) > 0) {
@@ -73,7 +73,7 @@ Creep.prototype.doHarvest = function () {
 			this.harvesterTransfer(targets);
 		}
 	} else {
-		if (this.memory.mode == 1) {
+		if (this.mode == 1) {
 			targets = this.pos.findClosestByRange(FIND_STRUCTURES, {
 				filter: (structure) => {
 					return structure.structureType == STRUCTURE_TERMINAL && structure.store.getFreeCapacity() > 0;
@@ -108,8 +108,8 @@ Creep.prototype.doHarvest = function () {
 		}
 
 		if (this.store.getFreeCapacity() > 0) {
-			this.memory.harvest = true;
-			this.say("harvest");
+			this.working = true;
+			this.say("working");
 		}
 
 		targets = this.room.find(FIND_STRUCTURES, {

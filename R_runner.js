@@ -82,17 +82,17 @@ Creep.prototype.doRunner = function () {
 	var targets;
 	var res;
 
-	if (this.memory.building && this.store.getUsedCapacity() == 0) {
-		this.memory.building = false;
+	if (this.working && this.store.getUsedCapacity() == 0) {
+		this.working = false;
 		this.say("harvest");
 	}
-	if (!this.memory.building && (this.store.getUsedCapacity(RESOURCE_ENERGY) > 49 || this.store.getFreeCapacity() == 0)) {
-		this.memory.building = true;
-		this.memory.task = (this.memory.task + 1) % 3;
+	if (!this.working && (this.store.getUsedCapacity(RESOURCE_ENERGY) > 49 || this.store.getFreeCapacity() == 0)) {
+		this.working = true;
+		this.task = (this.task + 1) % 3;
 		this.say("pass");
 	}
 
-	if (this.memory.building) {
+	if (this.working) {
 		res = _.filter(Object.keys(this.store), (res) => res != RESOURCE_ENERGY && this.store[res] != 0);
 		if (res.length) {
 			targets = this.transferStructureTarget(STRUCTURE_TERMINAL, 0, res[0]);
@@ -116,7 +116,7 @@ Creep.prototype.doRunner = function () {
 				}
 			}
 
-			if (this.memory.task == 1) {
+			if (this.task == 1) {
 				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_SPAWN))) {
 					return;
 				}
@@ -136,7 +136,7 @@ Creep.prototype.doRunner = function () {
 						return;
 					}
 				}
-			} else if (this.memory.task == 2) {
+			} else if (this.task == 2) {
 				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_SPAWN))) {
 					return;
 				}
@@ -189,7 +189,7 @@ Creep.prototype.doRunner = function () {
 	}
 
 	res = Object.keys(this.store).filter((res) => res != RESOURCE_ENERGY && this.store[res] != 0);
-	if (this.memory.task == 1 && res.length == 0) {
+	if (this.task == 1 && res.length == 0) {
 		targets = this.pos.findClosestByRange(FIND_STRUCTURES, {
 			filter: (targets) =>
 				targets.structureType != STRUCTURE_TERMINAL &&
@@ -252,9 +252,9 @@ Creep.prototype.doRunner = function () {
 		}
 	}
 
-	if ((this.memory.task + 1) % 3 != 1 && this.store.getUsedCapacity() > 0) {
-		this.memory.building = true;
-		this.memory.task = (this.memory.task + 1) % 3;
+	if ((this.task + 1) % 3 != 1 && this.store.getUsedCapacity() > 0) {
+		this.working = true;
+		this.task = (this.task + 1) % 3;
 		this.say("pass");
 	}
 };
