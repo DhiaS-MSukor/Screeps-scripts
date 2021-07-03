@@ -95,7 +95,7 @@ Creep.prototype.doHarvest = function () {
 		}
 		if (this.store.getUsedCapacity(RESOURCE_ENERGY) > 0) {
 			targets = this.pos.findInRange(FIND_STRUCTURES, 1, {
-				filter: (structure) => structure.store && structure.store.getFreeCapacity() >= 0,
+				filter: (structure) => structure.store && structure.store.getFreeCapacity() > 0,
 			});
 			this.harvesterTransfer(targets);
 		}
