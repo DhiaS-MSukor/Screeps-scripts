@@ -86,7 +86,7 @@ Creep.prototype.doHarvest = function () {
 		} else {
 			var harv = this.harvest(this.assignedSource);
 			if (harv == ERR_NOT_IN_RANGE) {
-				this.moveTo(targets[0], { visualizePathStyle: { stroke: "#00ff00" }, maxOps: 100, range: 1 });
+				this.moveTo(this.assignedSource, { visualizePathStyle: { stroke: "#00ff00" }, maxOps: 100, range: 1 });
 			} else if (harv == ERR_NOT_ENOUGH_RESOURCES) {
 				this.working = false;
 				this.say("!_!");
