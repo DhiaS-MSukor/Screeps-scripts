@@ -92,6 +92,7 @@ Creep.prototype.doRunner = function () {
 		this.say("pass");
 	}
 
+	const enemy = this.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
 	if (this.working) {
 		res = _.filter(Object.keys(this.store), (res) => res != RESOURCE_ENERGY && this.store[res] != 0);
 		if (res.length) {
@@ -106,7 +107,6 @@ Creep.prototype.doRunner = function () {
 		}
 
 		if (this.store[RESOURCE_ENERGY] != 0) {
-			const enemy = this.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
 			if (enemy) {
 				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_SPAWN))) {
 					return;
@@ -177,6 +177,24 @@ Creep.prototype.doRunner = function () {
 					}
 				}
 			}
+		}
+	}
+
+	if (enemy) {
+		targets = this.room.find(FIND_STRUCTURES, {
+			filter: (target) => target.structureType == STRUCTURE_CONTAINER && target.store.getUsedCapacity(RESOURCE_ENERGY) > this.store.getFreeCapacity(),
+		});
+
+		if (targets.length > 0 && this.doWithdraw(targets[0])) {
+			return;
+		}
+
+		targets = this.room
+			.find(FIND_STRUCTURES, { filter: (target) => target.structureType == STRUCTURE_CONTAINER && target.store.getUsedCapacity(RESOURCE_ENERGY) > 0 })
+			.sort((a, b) => b.store.getUsedCapacity(RESOURCE_ENERGY) - a.store.getUsedCapacity(RESOURCE_ENERGY));
+
+		if (targets.length > 0 && this.doWithdraw(targets[0])) {
+			return;
 		}
 	}
 
