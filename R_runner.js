@@ -73,6 +73,25 @@ Creep.prototype.transferCreepTarget = function (role) {
 	});
 };
 
+Creep.prototype.withdrawFromContainer = function () {
+	let targets = this.room.find(FIND_STRUCTURES, {
+		filter: (target) => target.structureType == STRUCTURE_CONTAINER && target.store.getUsedCapacity(RESOURCE_ENERGY) > this.store.getFreeCapacity(),
+	});
+
+	if (targets.length > 0 && this.doWithdraw(targets[0])) {
+		return true;
+	}
+
+	targets = this.room
+		.find(FIND_STRUCTURES, { filter: (target) => target.structureType == STRUCTURE_CONTAINER && target.store.getUsedCapacity(RESOURCE_ENERGY) > 0 })
+		.sort((a, b) => b.store.getUsedCapacity(RESOURCE_ENERGY) - a.store.getUsedCapacity(RESOURCE_ENERGY));
+
+	if (targets.length > 0 && this.doWithdraw(targets[0])) {
+		return true;
+	}
+	return false;
+};
+
 Creep.prototype.doRunner = function () {
 	if (this.getActiveBodyparts(CARRY) == 0 || (this.body.length < 50 && this.room.energyAvailable > (this.body.length + 2) * 50)) {
 		this.suicide();
@@ -180,22 +199,8 @@ Creep.prototype.doRunner = function () {
 		}
 	}
 
-	if (enemy) {
-		targets = this.room.find(FIND_STRUCTURES, {
-			filter: (target) => target.structureType == STRUCTURE_CONTAINER && target.store.getUsedCapacity(RESOURCE_ENERGY) > this.store.getFreeCapacity(),
-		});
-
-		if (targets.length > 0 && this.doWithdraw(targets[0])) {
-			return;
-		}
-
-		targets = this.room
-			.find(FIND_STRUCTURES, { filter: (target) => target.structureType == STRUCTURE_CONTAINER && target.store.getUsedCapacity(RESOURCE_ENERGY) > 0 })
-			.sort((a, b) => b.store.getUsedCapacity(RESOURCE_ENERGY) - a.store.getUsedCapacity(RESOURCE_ENERGY));
-
-		if (targets.length > 0 && this.doWithdraw(targets[0])) {
-			return;
-		}
+	if (enemy && this.withdrawFromContainer()) {
+		return;
 	}
 
 	targets = this.pos.findInRange(FIND_DROPPED_RESOURCES, 2);
@@ -238,19 +243,7 @@ Creep.prototype.doRunner = function () {
 		return;
 	}
 
-	targets = this.room.find(FIND_STRUCTURES, {
-		filter: (target) => target.structureType == STRUCTURE_CONTAINER && target.store.getUsedCapacity(RESOURCE_ENERGY) > this.store.getFreeCapacity(),
-	});
-
-	if (targets.length > 0 && this.doWithdraw(targets[0])) {
-		return;
-	}
-
-	targets = this.room
-		.find(FIND_STRUCTURES, { filter: (target) => target.structureType == STRUCTURE_CONTAINER && target.store.getUsedCapacity(RESOURCE_ENERGY) > 0 })
-		.sort((a, b) => b.store.getUsedCapacity(RESOURCE_ENERGY) - a.store.getUsedCapacity(RESOURCE_ENERGY));
-
-	if (targets.length > 0 && this.doWithdraw(targets[0])) {
+	if (this.withdrawFromContainer()) {
 		return;
 	}
 
