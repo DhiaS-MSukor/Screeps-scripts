@@ -1,13 +1,13 @@
 Object.defineProperty(Creep.prototype, "assignedSource", {
 	configurable: true,
 	get: function () {
-		if (!_.isUndefined(this.memory?.assignedSource)) {
+		if (!_.isUndefined(this.memory.assignedSource)) {
 			return Game.getObjectById(this.memory.assignedSource);
 		}
 		return undefined;
 	},
 	set: function (value) {
-		if (!_.isUndefined(this.memory?.assignedSource) && "id" in value) {
+		if ("id" in value) {
 			this.memory.assignedSource = value.id;
 		}
 	},
