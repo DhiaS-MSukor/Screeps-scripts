@@ -63,12 +63,8 @@ StructureSpawn.prototype.do_spawn = function (theRole, mode) {
 	} else if (theRole == "harvester") {
 		const base = BODYPART_COST[WORK];
 		const p = BODYPART_COST[MOVE] + BODYPART_COST[CARRY];
-		const w = this.getMul(base, 2, p);
-		const c = Math.ceil((w * HARVEST_POWER) / CARRY_CAPACITY);
-		const body = new Array(w + c)
-			.fill(WORK, 0, w)
-			.fill(CARRY, w, w + c)
-			.concat([MOVE]);
+		const w = Math.min(6, this.getMul(base, 1, p));
+		const body = new Array(w).fill(WORK, 0, w).concat([CARRY, MOVE]);
 		res = this.spawnCreep(body, name, mem);
 	} else if (theRole == "troll") {
 		const base = BODYPART_COST[MOVE] + BODYPART_COST[HEAL] + BODYPART_COST[ATTACK];
