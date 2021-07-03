@@ -220,7 +220,8 @@ Creep.prototype.doRunner = function () {
 				targets.structureType != STRUCTURE_TERMINAL &&
 				targets.store &&
 				(targets.store.getUsedCapacity() > Math.max(targets.store.getUsedCapacity(RESOURCE_ENERGY), targets.store.getFreeCapacity()) ||
-					minerals.some((mineral) => targets.store.getUsedCapacity(mineral.mineralType) > 0 || targets.hits < targets.hitsMax / 2)),
+					minerals.some((mineral) => targets.store.getUsedCapacity(mineral.mineralType) > 0) ||
+					targets.hits < targets.hitsMax / 2),
 		});
 		if (targets) {
 			res = _.filter(Object.keys(targets.store), (res) => res != RESOURCE_ENERGY && targets.store[res] != 0);
