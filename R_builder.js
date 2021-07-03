@@ -95,9 +95,9 @@ Creep.prototype.doBuilder = function () {
 	let sources = this.pos.findInRange(FIND_STRUCTURES, 10, {
 		filter: (structure) => structure.structureType == STRUCTURE_CONTAINER && structure.store[RESOURCE_ENERGY] > this.store.getFreeCapacity(),
 	});
-	if (sources) {
-		if (this.withdraw(sources, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-			this.builderMove(sources, 1);
+	if (sources.length > 0) {
+		if (this.withdraw(sources[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+			this.builderMove(sources[0], 1);
 			return;
 		}
 	}
