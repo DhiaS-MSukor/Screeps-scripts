@@ -8,6 +8,7 @@ var b_tower = require("B_tower");
 var b_spawn = require("B_spawn");
 var b_terminal = require("B_terminal");
 require("Creep");
+require("Source");
 
 var clean_mem = function () {
 	for (var name in Memory.creeps) {

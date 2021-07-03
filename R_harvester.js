@@ -72,13 +72,25 @@ Creep.prototype.doHarvest = function () {
 			return;
 		}
 
-		targets = this.room.find(FIND_SOURCES);
-		var harv = this.harvest(targets[0]);
-		if (harv == ERR_NOT_IN_RANGE) {
-			this.moveTo(targets[0], { visualizePathStyle: { stroke: "#00ff00" }, maxOps: 100, range: 1 });
-		} else if (harv == ERR_NOT_ENOUGH_RESOURCES) {
-			this.working = false;
-			this.say("!_!");
+		if (!this.assignedSource) {
+			targets = this.room.find(FIND_SOURCES);
+			for (const key in targets) {
+				if (Object.hasOwnProperty.call(targets, key)) {
+					const target = targets[key];
+					if (!target.isHarvesterAlive) {
+						target.assignedHarvesterName = this.name;
+						this.assignedSource = target;
+					}
+				}
+			}
+		} else {
+			var harv = this.harvest(this.assignedSource);
+			if (harv == ERR_NOT_IN_RANGE) {
+				this.moveTo(targets[0], { visualizePathStyle: { stroke: "#00ff00" }, maxOps: 100, range: 1 });
+			} else if (harv == ERR_NOT_ENOUGH_RESOURCES) {
+				this.working = false;
+				this.say("!_!");
+			}
 		}
 		if (this.store.getUsedCapacity(RESOURCE_ENERGY) > 0) {
 			targets = this.pos.findInRange(FIND_STRUCTURES, 1, {
