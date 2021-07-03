@@ -5,6 +5,7 @@ Creep.prototype.repairerMove = function (target, range = 3) {
 			visualizePathStyle: { stroke: "#ffff00" },
 			range: range,
 			reusePath: Math.floor(Math.random() * distance * 10) + distance,
+			ignoreRoads: true,
 		});
 	}
 };
@@ -39,7 +40,7 @@ Creep.prototype.doRepairer = function () {
 		this.say("harvest");
 	}
 	if (!this.working && this.store.getFreeCapacity() < HARVEST_POWER * this.getActiveBodyparts(WORK)) {
-		this.working = true; 
+		this.working = true;
 		this.say("repair");
 	}
 
