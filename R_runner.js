@@ -218,8 +218,7 @@ Creep.prototype.doRunner = function () {
 			filter: (targets) =>
 				targets.structureType != STRUCTURE_TERMINAL &&
 				targets.store &&
-				(targets.store.getUsedCapacity() > targets.store.getUsedCapacity(RESOURCE_ENERGY) ||
-					(targets.store.getUsedCapacity(RESOURCE_ENERGY) == null && targets.store.getUsedCapacity() > 0)),
+				targets.store.getUsedCapacity() > Math.max(targets.store.getUsedCapacity(RESOURCE_ENERGY), targets.store.getFreeCapacity()),
 		});
 		if (targets) {
 			res = _.filter(Object.keys(targets.store), (res) => res != RESOURCE_ENERGY && targets.store[res] != 0);
