@@ -74,7 +74,7 @@ Creep.prototype.transferCreepTarget = function (role) {
 };
 
 Creep.prototype.doRunner = function () {
-	if (this.getActiveBodyparts(CARRY) == 0 || (this.body.length < 50 && this.room.energyAvailable > this.body.length * 50)) {
+	if (this.getActiveBodyparts(CARRY) == 0 || (this.body.length < 50 && this.room.energyAvailable > this.body.length + 2 * 50)) {
 		this.suicide();
 		return;
 	}
