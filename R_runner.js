@@ -214,11 +214,13 @@ Creep.prototype.doRunner = function () {
 
 	res = Object.keys(this.store).filter((res) => res != RESOURCE_ENERGY && this.store[res] != 0);
 	if (this.task == 1 && this.store.getFreeCapacity() > 350 && res.length == 0) {
+		let minerals = this.room.find(FIND_MINERALS, { filter: (target) => target.mineralAmount == 0 });
 		targets = this.pos.findClosestByRange(FIND_STRUCTURES, {
 			filter: (targets) =>
 				targets.structureType != STRUCTURE_TERMINAL &&
 				targets.store &&
-				targets.store.getUsedCapacity() > Math.max(targets.store.getUsedCapacity(RESOURCE_ENERGY), targets.store.getFreeCapacity()),
+				(targets.store.getUsedCapacity() > Math.max(targets.store.getUsedCapacity(RESOURCE_ENERGY), targets.store.getFreeCapacity()) ||
+					minerals.some((mineral) => targets.store.getUsedCapacity(mineral.mineralType) > 0)),
 		});
 		if (targets) {
 			res = _.filter(Object.keys(targets.store), (res) => res != RESOURCE_ENERGY && targets.store[res] != 0);
