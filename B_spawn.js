@@ -123,6 +123,8 @@ StructureSpawn.prototype.auto_respawn = function () {
 		)
 	) {
 		return;
+	} else if (this.spawn_check("runner", 0, this.room.find(FIND_SOURCES).length)) {
+		return;
 	}
 	// else if (spawn_check(spawn, 'builder', 0, Memory.spawns[spawn].builder)) { return; }
 	// else if (spawn_check(spawn, 'runner', 0, Memory.spawns[spawn].runner)) { return; }
