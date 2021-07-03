@@ -22,13 +22,13 @@ Object.defineProperty(Source.prototype, "memory", {
 Object.defineProperty(Source.prototype, "assignedHarvesterName", {
 	configurable: true,
 	get: function () {
-		if (!_.isUndefined(this.memory?.assignedHarvesterName)) {
+		if (!_.isUndefined(this.memory.assignedHarvesterName)) {
 			return this.memory.assignedHarvesterName;
 		}
 		return undefined;
 	},
 	set: function (value) {
-		if (!_.isUndefined(this.memory?.assignedHarvesterName)) {
+		if (!_.isUndefined(this.memory.assignedHarvesterName)) {
 			this.memory.assignedHarvesterName = value;
 		}
 	},
