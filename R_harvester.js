@@ -80,6 +80,7 @@ Creep.prototype.doHarvest = function () {
 					if (!target.isHarvesterAlive) {
 						target.assignedHarvesterName = this.name;
 						this.assignedSource = target;
+						break;
 					}
 				}
 			}
