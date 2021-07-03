@@ -93,7 +93,7 @@ Creep.prototype.withdrawFromContainer = function () {
 };
 
 Creep.prototype.doRunner = function () {
-	if (this.getActiveBodyparts(CARRY) == 0 || (this.body.length < 50 && this.room.energyAvailable > Math.max(600, (this.body.length + 2) * 50))) {
+	if (this.getActiveBodyparts(CARRY) == 0 || (this.body.length < 50 && this.room.energyAvailable > Math.max(700, (this.body.length + 2) * 50))) {
 		this.suicide();
 		return;
 	}
@@ -149,11 +149,8 @@ Creep.prototype.doRunner = function () {
 					return;
 				}
 
-				targets = this.transferCreepTarget("builder");
-				if (targets) {
-					if (this.runnerTransfer(targets)) {
-						return;
-					}
+				if (this.runnerTransfer(this.transferCreepTarget("builder"))) {
+					return;
 				}
 			} else if (this.task == 2) {
 				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_SPAWN))) {
@@ -169,11 +166,8 @@ Creep.prototype.doRunner = function () {
 					return;
 				}
 
-				targets = transferCreepTarget(this, "builder");
-				if (targets) {
-					if (this.runnerTransfer(targets)) {
-						return;
-					}
+				if (this.runnerTransfer(this.transferCreepTarget("builder"))) {
+					return;
 				}
 			} else {
 				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_SPAWN))) {
@@ -189,11 +183,8 @@ Creep.prototype.doRunner = function () {
 					return;
 				}
 
-				targets = tthis.ransferCreepTarget("builder");
-				if (targets) {
-					if (this.runnerTransfer(targets)) {
-						return;
-					}
+				if (this.runnerTransfer(this.transferCreepTarget("builder"))) {
+					return;
 				}
 			}
 		}
