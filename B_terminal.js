@@ -43,7 +43,7 @@ StructureTerminal.prototype.tryBuy = function (order, left = 0) {
 		return false;
 	}
 
-	let amount = Math.min(order.remainingAmount, Math.floor(Game.market.credits / order.price), Game.market.credits - left);
+	let amount = Math.min(order.remainingAmount, Math.floor((Game.market.credits - left) / order.price));
 	if (amount > 0) {
 		const cost = Game.market.calcTransactionCost(amount, this.room.name, order.roomName);
 		if (order.resourceType == RESOURCE_ENERGY && cost >= amount) {
@@ -99,7 +99,7 @@ StructureTerminal.prototype.buyResource = function (resource, left = 2000) {
 		const avgPrice = GetMedian(history.map((i) => i.avgPrice));
 		const stddev = GetMedian(history.map((i) => i.stddevPrice));
 
-		const avg = avgPrice - stddev / 4;
+		const avg = avgPrice - stddev / 3;
 		const orders = Game.market
 			.getAllOrders({
 				type: ORDER_SELL,
