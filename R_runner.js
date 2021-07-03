@@ -92,9 +92,9 @@ Creep.prototype.withdrawFromContainer = function () {
 		return true;
 	}
 
-	targets = this.room.find(FIND_STRUCTURES, {
-		filter: (target) => target.structureType == STRUCTURE_CONTAINER && target.store.getUsedCapacity(RESOURCE_ENERGY) > 0,
-	});
+	targets = this.room
+		.find(FIND_STRUCTURES, { filter: (target) => target.structureType == STRUCTURE_CONTAINER && target.store.getUsedCapacity(RESOURCE_ENERGY) > 0 })
+		.sort((a, b) => b.store.getUsedCapacity(RESOURCE_ENERGY) - a.store.getUsedCapacity(RESOURCE_ENERGY));
 
 	if (targets.length > 0 && this.doWithdraw(targets[0])) {
 		return true;
