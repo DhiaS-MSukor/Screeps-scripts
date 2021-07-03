@@ -28,7 +28,7 @@ Object.defineProperty(Source.prototype, "assignedHarvesterName", {
 		return undefined;
 	},
 	set: function (value) {
-		if (!_.isUndefined(this.memory.assignedHarvesterName)) {
+		if (!_.isUndefined(this.memory)) {
 			this.memory.assignedHarvesterName = value;
 		}
 	},
