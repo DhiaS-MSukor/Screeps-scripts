@@ -212,7 +212,7 @@ Creep.prototype.doRunner = function () {
 	}
 
 	res = Object.keys(this.store).filter((res) => res != RESOURCE_ENERGY && this.store[res] != 0);
-	if (this.task == 1 && this.store.getFreeCapacity() > 200 && res.length == 0) {
+	if (this.task == 1 && this.store.getFreeCapacity() > 150 && res.length == 0) {
 		targets = this.pos.findClosestByRange(FIND_STRUCTURES, {
 			filter: (targets) =>
 				targets.structureType != STRUCTURE_TERMINAL &&
