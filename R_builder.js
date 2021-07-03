@@ -92,15 +92,15 @@ Creep.prototype.doBuilder = function () {
 		}
 	}
 
-	// let sources = creep.pos.findClosestByRange(FIND_STRUCTURES, {
-	// 	filter: (structure) => structure.structureType == STRUCTURE_CONTAINER && structure.store[RESOURCE_ENERGY] > 1000,
-	// });
-	// if (sources) {
-	// 	if (creep.withdraw(sources, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-	// 		move(creep, sources, 1);
-	// 		return;
-	// 	}
-	// }
+	let sources = creep.pos.findClosestByRange(FIND_STRUCTURES, {
+		filter: (structure) => structure.structureType == STRUCTURE_CONTAINER && structure.store[RESOURCE_ENERGY] > 1000,
+	});
+	if (sources) {
+		if (creep.withdraw(sources, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+			move(creep, sources, 1);
+			return;
+		}
+	}
 
 	sources = this.room.find(FIND_SOURCES_ACTIVE);
 	if (sources.length) {
