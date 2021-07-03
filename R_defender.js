@@ -50,7 +50,7 @@ Creep.prototype.doKnightAction = function (target) {
 };
 
 Creep.prototype.doKnightRole = function (target) {
-	if (this.doAction(target) == ERR_NOT_IN_RANGE) {
+	if (this.doKnightAction(target) == ERR_NOT_IN_RANGE) {
 		this.moveTo(target, {
 			visualizePathStyle: { stroke: "#ff0000" },
 			range: 1,

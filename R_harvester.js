@@ -1,3 +1,18 @@
+Object.defineProperty(Creep.prototype, "assignedSource", {
+	configurable: true,
+	get: function () {
+		if (!_.isUndefined(this.memory?.assignedSource)) {
+			return Game.getObjectById(this.memory.assignedSource);
+		}
+		return undefined;
+	},
+	set: function (value) {
+		if (!_.isUndefined(this.memory?.assignedSource) && "id" in value) {
+			this.memory.assignedSource = value.id;
+		}
+	},
+});
+
 Creep.prototype.harvesterTransfer = function (targets, res = RESOURCE_ENERGY) {
 	if (targets.length > 0) {
 		var result = this.transfer(targets[0], res);

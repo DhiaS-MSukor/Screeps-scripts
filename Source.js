@@ -19,17 +19,17 @@ Object.defineProperty(Source.prototype, "memory", {
 	},
 });
 
-Object.defineProperty(Source.prototype, "assignedHarvester", {
+Object.defineProperty(Source.prototype, "assignedHarvesterName", {
 	configurable: true,
 	get: function () {
-		if (!_.isUndefined(this.memory?.assignedHarvester)) {
-			return this.memory.assignedHarvester;
+		if (!_.isUndefined(this.memory?.assignedHarvesterName)) {
+			return this.memory.assignedHarvesterName;
 		}
 		return undefined;
 	},
 	set: function (value) {
-		if (!_.isUndefined(this.memory?.assignedHarvester)) {
-			this.memory.assignedHarvester = value;
+		if (!_.isUndefined(this.memory?.assignedHarvesterName)) {
+			this.memory.assignedHarvesterName = value;
 		}
 	},
 });
@@ -38,6 +38,6 @@ Object.defineProperty(Source.prototype, "isHarvesterAlive", {
 	configurable: true,
 	enumerable: false,
 	get: function () {
-		return this.assignedHarvester in Game.creeps;
+		return this.assignedHarvesterName in Game.creeps;
 	},
 });
