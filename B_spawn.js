@@ -38,12 +38,12 @@ StructureSpawn.prototype.do_spawn = function (theRole, mode) {
 			res = this.spawnCreep([WORK, MOVE, CARRY, MOVE], name, mem);
 		}
 	} else if (theRole == "defender") {
-		const base = BODYPART_COST[MOVE] + BODYPART_COST[TOUGH] + BODYPART_COST[ATTACK];
-		const mul = this.getMul(base, 3);
-		const body = new Array(mul * 3)
+		const base = BODYPART_COST[MOVE] * 2 + BODYPART_COST[TOUGH] + BODYPART_COST[ATTACK];
+		const mul = this.getMul(base, 4);
+		const body = new Array(mul * 4)
 			.fill(TOUGH, 0, mul)
-			.fill(MOVE, mul, mul * 2)
-			.fill(ATTACK, mul * 2);
+			.fill(MOVE, mul, mul * 3)
+			.fill(ATTACK, mul * 3);
 		res = this.spawnCreep(body, name, mem);
 	} else if (theRole == "healer") {
 		const base = BODYPART_COST[MOVE] + BODYPART_COST[HEAL];
