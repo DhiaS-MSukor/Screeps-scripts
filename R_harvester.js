@@ -35,10 +35,7 @@ Creep.prototype.doHarvest = function () {
 	if (this.getActiveBodyparts(WORK) == 0 || (this.body.filter((i) => i.type == WORK).length < 5 && this.room.energyAvailable > 600)) {
 		this.suicide();
 		return;
-	}
-	if (this.fatigue > 0) {
-		return;
-	}
+	} 
 
 	var targets;
 
