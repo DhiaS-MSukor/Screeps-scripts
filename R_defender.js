@@ -67,14 +67,14 @@ Creep.prototype.doKnight = function () {
 			filter: (targets) => targets.hits < targets.hitsMax,
 		});
 		if (target) {
-			this.doRole(target);
+			this.doKnightRole(target);
 			return;
 		}
 	} else {
 		var all = this.room.find(FIND_HOSTILE_CREEPS).concat(this.room.find(FIND_HOSTILE_STRUCTURES));
 		target = this.pos.findClosestByRange(all);
 		if (target) {
-			this.doRole(target);
+			this.doKnightRole(target);
 			return;
 		}
 	}
