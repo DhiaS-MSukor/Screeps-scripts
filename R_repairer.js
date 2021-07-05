@@ -4,8 +4,7 @@ Creep.prototype.repairerMove = function (target, range = 3) {
 		return this.moveTo(target, {
 			visualizePathStyle: { stroke: "#ffff00" },
 			range: range,
-			reusePath: Math.floor(Math.random() * distance * 10) + distance,
-			ignoreRoads: true,
+			reusePath: Math.floor(Math.random() * distance * 10) + distance, 
 		});
 	}
 };
