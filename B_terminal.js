@@ -97,7 +97,7 @@ StructureTerminal.prototype.buyResource = function (resource, left = 2000) {
 	const transactions = history.reduce((a, b) => a.transactions + b.transactions) / history.length;
 	if (transactions > 100) {
 		const avgPrice = GetMedian(history.map((i) => i.avgPrice));
-		const stddev = GetMedian(history.map((i) => i.stddevPrice));
+		const stddev = history.reduce((a, b) => Math.min(a.stddevPrice, b.stddevPrice), history[0].stddevPrice);
 
 		const avg = avgPrice - stddev / 4;
 		const orders = Game.market
