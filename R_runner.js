@@ -176,7 +176,7 @@ Creep.prototype.doRunner = function () {
 				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_SPAWN))) {
 					return;
 				}
-				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_TERMINAL))) {
+				if (this.store.getFreeCapacity() == 0 && this.runnerTransfer(this.transferStructureTarget(STRUCTURE_TERMINAL))) {
 					return;
 				}
 				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_EXTENSION))) {
