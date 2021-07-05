@@ -185,6 +185,9 @@ Creep.prototype.doRunner = function () {
 				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_TOWER, 10, RESOURCE_ENERGY, true))) {
 					return;
 				}
+				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_TERMINAL))) {
+					return;
+				}
 
 				if (this.runnerTransfer(this.transferCreepTarget("builder"))) {
 					return;
