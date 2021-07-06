@@ -32,10 +32,13 @@ Creep.prototype.harvesterTransfer = function (targets, res = RESOURCE_ENERGY) {
 };
 
 Creep.prototype.doHarvest = function () {
-	if (this.getActiveBodyparts(WORK) == 0 || (this.body.filter((i) => i.type == WORK).length < 5 && this.room.energyAvailable > 600)) {
+	if (
+		this.getActiveBodyparts(WORK) == 0 ||
+		(this.body.filter((i) => i.type == WORK).length < 5 && this.room.energyAvailable > Math.max(600, (this.body.length + 2) * 75))
+	) {
 		this.suicide();
 		return;
-	} 
+	}
 
 	var targets;
 
