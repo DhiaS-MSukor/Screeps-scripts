@@ -94,8 +94,8 @@ Creep.prototype.doRepairer = function () {
 		if (targets) {
 			if (this.withdraw(targets, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
 				this.repairerMove(targets, 1);
-				return;
 			}
+			return;
 		}
 
 		var t = this.room.find(FIND_SOURCES_ACTIVE);

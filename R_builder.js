@@ -101,8 +101,8 @@ Creep.prototype.doBuilder = function () {
 	if (sources.length > 0) {
 		if (this.withdraw(sources[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
 			this.builderMove(sources[0], 1);
-			return;
 		}
+		return;
 	}
 
 	sources = this.room.find(FIND_SOURCES_ACTIVE);
