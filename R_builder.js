@@ -62,8 +62,8 @@ Creep.prototype.doBuilder = function () {
 				this.builderMove(Game.rooms[Memory.roomTarget].controller, 1);
 				return;
 			}
-		} else if (this.mode != 1 && this.room.name != Game.spawns[this.memory.spawn].room.name) {
-			this.builderMove(Game.spawns[this.memory.spawn], 1);
+		} else if (this.mode != 1 && (this.room.name != Game.spawns[this.memory.spawn].room.name || this.room.name != this.origin)) {
+			this.builderMove(Game.spawns[this.memory.spawn] || (Game.rooms[this.origin] && Game.rooms[this.origin].terminal), 1);
 			return;
 		}
 
