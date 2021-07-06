@@ -22,6 +22,17 @@ Object.defineProperty(Creep.prototype, "mode", {
 	configurable: true,
 });
 
+Object.defineProperty(Creep.prototype, "origin", {
+	get: function () {
+		return this.memory.origin;
+	},
+	set: function (newValue) {
+		this.memory.origin = newValue;
+	},
+	enumerable: false,
+	configurable: true,
+});
+
 Object.defineProperty(Creep.prototype, "working", {
 	get: function () {
 		if (_.isUndefined(this.memory.working)) {

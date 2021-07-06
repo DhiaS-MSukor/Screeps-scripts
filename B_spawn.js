@@ -6,8 +6,8 @@ StructureSpawn.prototype.getMul = function (baseCost, baseCount, penalty = 0) {
 };
 
 StructureSpawn.prototype.do_spawn = function (theRole, mode) {
-	const name = theRole + (Game.time % 1000) + "" + Math.floor(Math.random() * 10);
-	const mem = { memory: { role: theRole, spawn: this.name, mode: mode, task: 0 } };
+	const name = theRole + (Game.time % 1000) * 10 + Math.floor(Math.random() * 10);
+	const mem = { memory: { role: theRole, origin: this.room.name, mode: mode, task: 0 } };
 	var res = -2;
 
 	if (theRole == "repairer") {
@@ -61,10 +61,10 @@ StructureSpawn.prototype.do_spawn = function (theRole, mode) {
 		const body = new Array(mul * 2).fill(MOVE, 0, mul).fill(CLAIM, mul);
 		res = this.spawnCreep(body, name, mem);
 	} else if (theRole == "harvester") {
-		const base = BODYPART_COST[WORK];
-		const p = BODYPART_COST[MOVE] + BODYPART_COST[CARRY];
-		const w = Math.min(6, this.getMul(base, 1, p));
-		const body = new Array(w).fill(WORK, 0, w).concat([CARRY, MOVE]);
+		const base = BODYPART_COST[MOVE] + BODYPART_COST[WORK];
+		const p = BODYPART_COST[CARRY];
+		const w = Math.min(6, this.getMul(base, 2, p));
+		const body = new Array(w * 2).fill(WORK, 0, w).fill(MOVE, w).concat([CARRY]);
 		res = this.spawnCreep(body, name, mem);
 	} else if (theRole == "troll") {
 		const base = BODYPART_COST[MOVE] + BODYPART_COST[HEAL] + BODYPART_COST[ATTACK];
@@ -81,7 +81,7 @@ StructureSpawn.prototype.do_spawn = function (theRole, mode) {
 
 StructureSpawn.prototype.spawn_check = function (theRole, mode, n) {
 	var creeps = _.filter(Game.creeps, (creep) => {
-		return creep.memory.role == theRole && creep.memory.mode == mode && creep.memory.spawn == this.name;
+		return creep.role == theRole && creep.mode == mode && (creep.memory.spawn == this.name || creep.memory.origin == this.room.name);
 	});
 
 	return creeps.length < n && this.do_spawn(theRole, mode);
