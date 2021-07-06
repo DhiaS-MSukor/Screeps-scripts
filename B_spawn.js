@@ -127,9 +127,9 @@ StructureSpawn.prototype.auto_respawn = function () {
 	//else if (spawn_check(spawn, 'repairer', 0, 1)) {return;}
 
 	// local healer and defender
-	else if (this.spawn_check("ranger", 0, 1)) {
-		return;
-	}
+	// else if (this.spawn_check("ranger", 0, 1)) {
+	// 	return;
+	// }
 	//else if (spawn_check(spawn, 'healer', 0, 1)) {return;}
 	// else if (spawn_check(spawn, 'defender', 0, 1)) {return;}
 
