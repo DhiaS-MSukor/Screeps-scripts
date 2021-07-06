@@ -111,6 +111,18 @@ Creep.prototype.withdrawFromContainer = function () {
 	return false;
 };
 
+Creep.prototype.addEnergyToRoom = function () {
+	const target = this.pos.findClosestByRange(FIND_STRUCTURES, {
+		filter: (targets) => {
+			return (
+				(targets.structureType == STRUCTURE_SPAWN || targets.structureType == STRUCTURE_EXTENSION) &&
+				targets.store.getFreeCapacity(RESOURCE_ENERGY) > 0
+			);
+		},
+	});
+	return this.runnerTransfer(target);
+};
+
 Creep.prototype.doRunner = function () {
 	if (this.getActiveBodyparts(CARRY) == 0 || (this.body.length < 20 && this.room.energyAvailable > Math.max(700, (this.body.length + 8) * 50))) {
 		this.suicide();
@@ -155,10 +167,7 @@ Creep.prototype.doRunner = function () {
 			}
 
 			if (this.task == 1) {
-				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_SPAWN))) {
-					return;
-				}
-				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_EXTENSION))) {
+				if (this.addEnergyToRoom()) {
 					return;
 				}
 				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_TOWER, 10, RESOURCE_ENERGY, true))) {
