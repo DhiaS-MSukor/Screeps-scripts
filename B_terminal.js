@@ -134,13 +134,10 @@ StructureTerminal.prototype.doRole = function () {
 			}
 		}
 	}
-
-	for (const key in RESOURCES_ALL) {
-		if (Object.hasOwnProperty.call(RESOURCES_ALL, key)) {
-			const element = RESOURCES_ALL[key];
-			if (element != RESOURCE_ENERGY && this.buyResource(element)) {
-				return;
-			}
+	
+	for (const element of RESOURCES_ALL) {
+		if (element != RESOURCE_ENERGY && this.buyResource(element)) {
+			return;
 		}
 	}
 
