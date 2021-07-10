@@ -77,12 +77,9 @@ StructureTerminal.prototype.sellResource = function (resource, left = 0) {
 			resourceType: resource,
 		})
 		.sort((a, b) => b.price - a.price);
-	for (const key1 in orders) {
-		if (Object.hasOwnProperty.call(orders, key1)) {
-			const order = orders[key1];
-			if (order.price > avg && this.trySell(order, left)) {
-				return true;
-			}
+	for (const order of orders) {
+		if (order.price > avg && this.trySell(order, left)) {
+			return true;
 		}
 	}
 	return false;
@@ -106,12 +103,9 @@ StructureTerminal.prototype.buyResource = function (resource, left = 2000) {
 				resourceType: resource,
 			})
 			.sort((a, b) => a.price - b.price);
-		for (const key1 in orders) {
-			if (Object.hasOwnProperty.call(orders, key1)) {
-				const order = orders[key1];
-				if (order.price < avg && this.tryBuy(order, left)) {
-					return true;
-				}
+		for (const order of orders) {
+			if (order.price < avg && this.tryBuy(order, left)) {
+				return true;
 			}
 		}
 	}
@@ -125,16 +119,13 @@ StructureTerminal.prototype.doRole = function () {
 
 	res = Object.keys(this.store).filter((res) => res != RESOURCE_ENERGY);
 	if (res.length) {
-		for (const key in res) {
-			if (Object.hasOwnProperty.call(res, key)) {
-				const element = res[key];
-				if (this.sellResource(element)) {
-					return;
-				}
+		for (const element of res) {
+			if (this.sellResource(element)) {
+				return;
 			}
 		}
 	}
-	
+
 	for (const element of RESOURCES_ALL) {
 		if (element != RESOURCE_ENERGY && this.buyResource(element)) {
 			return;
