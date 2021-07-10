@@ -117,12 +117,9 @@ StructureTerminal.prototype.doRole = function () {
 		return;
 	}
 
-	res = Object.keys(this.store).filter((res) => res != RESOURCE_ENERGY);
-	if (res.length) {
-		for (const element of res) {
-			if (this.sellResource(element)) {
-				return;
-			}
+	for (const element of Object.keys(this.store)) {
+		if (element != RESOURCE_ENERGY && this.sellResource(element)) {
+			return;
 		}
 	}
 
