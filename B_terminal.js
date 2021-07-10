@@ -91,12 +91,12 @@ StructureTerminal.prototype.buyResource = function (resource, left = 2000) {
 	}
 
 	const history = Game.market.getHistory(resource);
-	const transactions = history.map((i) => i.transactions).reduce((a, b) => a + b) / history.length;
+	const transactions = GetMedian(history.map((i) => i.transactions));
 	if (transactions > 100) {
 		const avgPrice = GetMedian(history.map((i) => i.avgPrice));
-		const stddev = history.map((i) => i.stddevPrice).reduce((a, b) => Math.min(a, b), history[0].stddevPrice);
+		const stddev = GetMedian(history.map((i) => i.stddevPrice));
 
-		const avg = avgPrice - stddev / 4;
+		const avg = avgPrice - stddev;
 		const orders = Game.market
 			.getAllOrders({
 				type: ORDER_SELL,
