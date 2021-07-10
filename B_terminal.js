@@ -104,7 +104,7 @@ StructureTerminal.prototype.buyResource = function (resource, left = 2000) {
 			})
 			.sort((a, b) => a.price - b.price);
 		for (const order of orders) {
-			if (order.price < avg && this.tryBuy(order, left)) {
+			if (order.price < avg && order.price < Game.market.credits - left && this.tryBuy(order, left)) {
 				return true;
 			}
 		}
