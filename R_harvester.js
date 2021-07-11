@@ -67,7 +67,7 @@ Creep.prototype.harvesterTransfer = function (targets, res = RESOURCE_ENERGY) {
 Creep.prototype.doMining = function () {
 	var targets = this.pos.findClosestByRange(FIND_MINERALS, {
 		filter: (mineral) =>
-			mineral.mineralAmount > 0 && mineral.pos.lookFor(LOOK_STRUCTURES).some((structure) => structure.structure.structureType == STRUCTURE_EXTRACTOR),
+			mineral.mineralAmount > 0 && mineral.pos.lookFor(LOOK_STRUCTURES).some((structure) => structure.structureType == STRUCTURE_EXTRACTOR),
 	});
 	if (targets) {
 		var harv = this.harvest(targets);
