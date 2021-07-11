@@ -66,6 +66,9 @@ StructureTerminal.prototype.sellResource = function (resource, left = 0) {
 	}
 
 	const history = Game.market.getHistory(resource);
+	if (!history.length) {
+		return false;
+	}
 
 	const avgPrice = GetMedian(history.map((i) => i.avgPrice));
 	const stddev = GetMedian(history.map((i) => i.stddevPrice));
@@ -91,6 +94,10 @@ StructureTerminal.prototype.buyResource = function (resource, left = 2000) {
 	}
 
 	const history = Game.market.getHistory(resource);
+	if (!history.length) {
+		return false;
+	}
+
 	const transactions = GetMedian(history.map((i) => i.transactions));
 	if (transactions > 100) {
 		const avgPrice = GetMedian(history.map((i) => i.avgPrice));
