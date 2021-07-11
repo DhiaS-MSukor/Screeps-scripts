@@ -85,7 +85,7 @@ Creep.prototype.doMining = function () {
 	} else {
 		targets = this.pos.findClosestByRange(FIND_DEPOSITS, { filter: (i) => i.cooldown <= this.pos.getRangeTo(i) * 5 });
 
-		if (targets) {
+		if (targets && targets.pos.look().some((i) => i.type == LOOK_STRUCTURES && i.structure.structureType == STRUCTURE_EXTRACTOR)) {
 			var harv = this.harvest(targets);
 			if (harv != OK) {
 				this.moveTo(targets, { visualizePathStyle: { stroke: "#00ff00" }, range: 1 });
