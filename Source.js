@@ -1,20 +1,20 @@
 Object.defineProperty(Source.prototype, "memory", {
 	configurable: true,
 	get: function () {
-		if (_.isUndefined(Memory.mySourcesMemory)) {
-			Memory.mySourcesMemory = {};
+		if (_.isUndefined(this.room.memory)) {
+			this.room.memory = {};
 		}
-		if (!_.isObject(Memory.mySourcesMemory)) {
+		if (!_.isObject(this.room.memory)) {
 			return undefined;
 		}
-		return (Memory.mySourcesMemory[this.id] = Memory.mySourcesMemory[this.id] || {});
+		return (this.room.memory[this.id] = this.room.memory[this.id] || {});
 	},
 	set: function (value) {
-		if (_.isUndefined(Memory.mySourcesMemory)) {
-			Memory.mySourcesMemory = {};
+		if (_.isUndefined(this.room.memory)) {
+			this.room.memory = {};
 		}
-		if (_.isObject(Memory.mySourcesMemory)) {
-			Memory.mySourcesMemory[this.id] = value;
+		if (_.isObject(this.room.memory)) {
+			this.room.memory[this.id] = value;
 		}
 	},
 });

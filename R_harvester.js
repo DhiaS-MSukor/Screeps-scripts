@@ -13,6 +13,40 @@ Object.defineProperty(Creep.prototype, "assignedSource", {
 	},
 });
 
+Object.defineProperty(Creep.prototype, "checkedRooms", {
+	configurable: true,
+	get: function () {
+		if (!_.isUndefined(this.memory.checkedRooms) && Array.isArray(this.memory.checkedRooms)) {
+			return this.memory.checkedRooms;
+		}
+		this.memory.checkedRooms = [];
+		return [];
+	},
+});
+
+Creep.prototype.addCheckedRoom = function () {
+	if (!this.checkedRooms.includes(this.room.name)) {
+		this.checkedRooms.push(this.room.name);
+	}
+};
+
+Creep.prototype.minerToRoom = function (target) {
+	if (Game.rooms[target]) {
+		this.moveTo(Game.rooms[target].controller, {
+			visualizePathStyle: { stroke: "#00ff00" },
+			range: 1,
+			reusePath: Math.floor(Math.random() * 90) + 10,
+		});
+	} else if (target != "false") {
+		this.moveTo(new RoomPosition(25, 25, target), {
+			visualizePathStyle: { stroke: "#00ff00" },
+			range: 1,
+			reusePath: Math.floor(Math.random() * 90) + 10,
+		});
+	}
+	return;
+};
+
 Creep.prototype.harvesterTransfer = function (targets, res = RESOURCE_ENERGY) {
 	if (targets.length > 0) {
 		var result = this.transfer(targets[0], res);
@@ -29,6 +63,65 @@ Creep.prototype.harvesterTransfer = function (targets, res = RESOURCE_ENERGY) {
 	}
 
 	return false;
+};
+Creep.prototype.doMining = function () {
+	var targets = this.pos.findClosestByRange(FIND_MINERALS, { filter: (i) => i.mineralAmount > 0 });
+	if (targets) {
+		var harv = this.harvest(targets);
+		if (harv != OK) {
+			this.moveTo(targets, { visualizePathStyle: { stroke: "#00ff00" }, range: 1 });
+			return;
+		}
+		targets = this.pos.findInRange(FIND_STRUCTURES, 1, {
+			filter: { structureType: STRUCTURE_TERMINAL },
+		});
+		if (targets.length == 0) {
+			targets = this.pos.findInRange(FIND_STRUCTURES, 1, {
+				filter: { structureType: STRUCTURE_CONTAINER },
+			});
+		}
+		res = Object.keys(this.store).filter((res) => res != RESOURCE_ENERGY && this.store[res] != 0);
+		this.harvesterTransfer(targets, res[0]);
+	} else {
+		targets = this.pos.findClosestByRange(FIND_DEPOSITS, { filter: (i) => i.cooldown <= this.pos.getRangeTo(i) * 5 });
+
+		if (targets) {
+			var harv = this.harvest(targets);
+			if (harv != OK) {
+				this.moveTo(targets, { visualizePathStyle: { stroke: "#00ff00" }, range: 1 });
+				return;
+			}
+		} else if (this.room.isHighway) {
+			this.addCheckedRoom();
+
+			const exits = Game.map.describeExits(this.room.name);
+			for (const direction in exits) {
+				if (Object.hasOwnProperty.call(exits, direction)) {
+					const roomName = exits[direction];
+					if (!this.checkedRooms.includes(roomName)) {
+						minerToRoom(roomName);
+						return;
+					}
+				}
+			}
+			const distanceToOrigin = Game.map.getRoomLinearDistance(this.room.name, this.origin);
+			for (const direction in exits) {
+				if (Object.hasOwnProperty.call(exits, direction)) {
+					const roomName = exits[direction];
+					const distance = Game.map.getRoomLinearDistance(roomName, this.origin);
+					if (distance > distanceToOrigin) {
+						minerToRoom(roomName);
+						return;
+					}
+				}
+			}
+		} else {
+			this.addCheckedRoom();
+
+			const highway = this.room.getClosestHighway();
+			minerToRoom(highway);
+		}
+	}
 };
 
 Creep.prototype.doHarvest = function () {
@@ -53,22 +146,7 @@ Creep.prototype.doHarvest = function () {
 
 	if (this.working) {
 		if (this.mode == 1) {
-			targets = this.pos.findClosestByRange(FIND_MINERALS);
-			var harv = this.harvest(targets);
-			if (harv != OK) {
-				this.moveTo(targets, { visualizePathStyle: { stroke: "#00ff00" }, range: 1 });
-				return;
-			}
-			targets = this.pos.findInRange(FIND_STRUCTURES, 1, {
-				filter: { structureType: STRUCTURE_TERMINAL },
-			});
-			if (targets.length == 0) {
-				targets = this.pos.findInRange(FIND_STRUCTURES, 1, {
-					filter: { structureType: STRUCTURE_CONTAINER },
-				});
-			}
-			res = _.filter(Object.keys(this.store), (res) => res != RESOURCE_ENERGY && this.store[res] != 0);
-			this.harvesterTransfer(targets, res[0]);
+			this.doMining();
 			return;
 		}
 
@@ -100,6 +178,10 @@ Creep.prototype.doHarvest = function () {
 			this.harvesterTransfer(targets);
 		}
 	} else {
+		if (this.room.name != this.origin) {
+			minerToRoom(this.origin);
+		}
+
 		if (this.mode == 1) {
 			targets = this.pos.findClosestByRange(FIND_STRUCTURES, {
 				filter: (structure) => {

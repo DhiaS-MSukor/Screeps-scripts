@@ -1,5 +1,5 @@
 // JavaScript source code
-Creep.prototype.goToRoom = function (target) {
+Creep.prototype.knightToRoom = function (target) {
 	if (Game.rooms[target]) {
 		this.moveTo(Game.rooms[target].controller, {
 			visualizePathStyle: { stroke: "#ff0000" },
@@ -80,10 +80,10 @@ Creep.prototype.doKnight = function () {
 	}
 
 	if (this.mode == 1 && Memory.roomTarget != "false" && this.room.name != Memory.roomTarget) {
-		this.goToRoom(Memory.roomTarget);
+		this.knightToRoom(Memory.roomTarget);
 		return;
 	} else if (this.mode == 2 && Memory.raidTarget != "false" && this.room.name != Memory.raidTarget) {
-		this.goToRoom(Memory.raidTarget);
+		this.knightToRoom(Memory.raidTarget);
 		return;
 	}
 

@@ -9,11 +9,24 @@ var b_spawn = require("B_spawn");
 var b_terminal = require("B_terminal");
 require("Creep");
 require("Source");
+require("Room");
 
 var clean_mem = function () {
 	for (var name in Memory.creeps) {
 		if (!Game.creeps[name]) {
 			delete Memory.creeps[name];
+		}
+	}
+
+	for (const name in Memory.rooms) {
+		if (!Game.rooms[name]) {
+			delete Memory.rooms[name];
+		}
+	}
+
+	for (const name in Memory.spawns) {
+		if (!Game.spawns[name]) {
+			delete Memory.spawns[name];
 		}
 	}
 };
