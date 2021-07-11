@@ -273,9 +273,9 @@ Creep.prototype.doRunner = function () {
 	}
 
 	if (this.room.terminal) {
-		// if (this.room.terminal.store.getUsedCapacity(RESOURCE_ENERGY) > 1000 && this.doWithdraw(this.room.terminal)) {
-		// 	return;
-		// }
+		if (enemy && this.doWithdraw(this.room.terminal)) {
+			return;
+		}
 
 		targets = this.pos.findClosestByRange(FIND_STRUCTURES, {
 			filter: (targets) =>
