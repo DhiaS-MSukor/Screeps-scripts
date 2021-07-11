@@ -32,17 +32,20 @@ Creep.prototype.addCheckedRoom = function () {
 
 Creep.prototype.minerToRoom = function (target) {
 	if (Game.rooms[target] && Game.rooms[target].controller) {
-		const distance = this.pos.getRangeTo(Game.rooms[target].controller);
-		this.moveTo(Game.rooms[target].controller, {
+		const controller = Game.rooms[target].controller;
+		const distance = this.pos.getRangeTo(controller);
+		this.moveTo(controller, {
 			visualizePathStyle: { stroke: "#00ff00" },
 			range: 1,
 			reusePath: distance * 10 + 10,
 		});
 	} else if (target != "false") {
-		this.moveTo(new RoomPosition(25, 25, target), {
+		const pos = new RoomPosition(25, 25, target);
+		const distance = this.pos.getRangeTo(pos);
+		this.moveTo(pos, {
 			visualizePathStyle: { stroke: "#00ff00" },
 			range: 1,
-			reusePath: Math.floor(Math.random() * 90) + 10,
+			reusePath: distance * 10 + 10,
 		});
 	}
 	return;
