@@ -1,11 +1,7 @@
-Object.defineProperty(Room.prototype, "isHighway", {
-	configurable: true,
-	enumerable: false,
-	get: function () {
-		const parsed = /^[WE]([0-9]+)[NS]([0-9]+)$/.exec(this.name);
-		return parsed[1] % 10 === 0 || parsed[2] % 10 === 0;
-	},
-});
+Room.prototype.isHighway = function (room) {
+	const parsed = /^[WE]([0-9]+)[NS]([0-9]+)$/.exec(room || this.name);
+	return parsed[1] % 10 === 0 || parsed[2] % 10 === 0;
+};
 
 function closestNumber(n, m) {
 	// find the quotient

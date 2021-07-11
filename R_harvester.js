@@ -101,7 +101,7 @@ Creep.prototype.doMining = function () {
 				this.moveTo(targets, { visualizePathStyle: { stroke: "#00ff00" }, range: 1 });
 				return;
 			}
-		} else if (this.room.isHighway) {
+		} else if (this.room.isHighway()) {
 			this.addCheckedRoom();
 
 			const exits = Game.map.describeExits(this.room.name);
@@ -115,6 +115,16 @@ Creep.prototype.doMining = function () {
 				}
 			}
 			const distanceToOrigin = Game.map.getRoomLinearDistance(this.room.name, this.origin);
+			for (const direction in exits) {
+				if (Object.hasOwnProperty.call(exits, direction)) {
+					const roomName = exits[direction];
+					const distance = Game.map.getRoomLinearDistance(roomName, this.origin);
+					if (distance > distanceToOrigin && this.room.isHighway(roomName)) {
+						this.minerToRoom(roomName);
+						return;
+					}
+				}
+			}
 			for (const direction in exits) {
 				if (Object.hasOwnProperty.call(exits, direction)) {
 					const roomName = exits[direction];
@@ -191,7 +201,7 @@ Creep.prototype.doHarvest = function () {
 		if (this.room.name != this.origin) {
 			const closestHighway = this.room.getClosestHighway(this.origin);
 			const highwayExits = Game.map.describeExits(closestHighway);
-			if (this.room.isHighway && !Object.values(highwayExits).includes(this.room.name)) {
+			if (this.room.isHighway() && !Object.values(highwayExits).includes(this.room.name)) {
 				this.minerToRoom();
 			} else {
 				this.minerToRoom(this.origin);
