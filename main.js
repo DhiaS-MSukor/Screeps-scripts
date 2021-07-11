@@ -43,15 +43,14 @@ function trade_pixel() {
 			resourceType: PIXEL,
 		})
 		.sort((a, b) => a.price - b.price);
-	for (const key in orders) {
-		if (Object.hasOwnProperty.call(orders, key)) {
-			const order = orders[key];
-			let amount = Math.floor(Game.market.credits / order.price);
-			amount = amount > order.remainingAmount ? order.remainingAmount : amount;
-			const deal = Game.market.deal(order.id, amount);
-			if (deal == OK || deal == ERR_TIRED || deal == ERR_FULL) {
-				return;
-			}
+	if (orders.length > 0) {
+		const order = orders[0];
+		Memory.bestPixelPrice = order.price;
+		let amount = Math.floor(Game.market.credits / order.price);
+		amount = amount > order.remainingAmount ? order.remainingAmount : amount;
+		const deal = Game.market.deal(order.id, amount);
+		if (deal == OK || deal == ERR_TIRED || deal == ERR_FULL) {
+			return;
 		}
 	}
 }

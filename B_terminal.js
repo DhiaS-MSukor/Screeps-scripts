@@ -91,7 +91,7 @@ StructureTerminal.prototype.sellResource = function (resource, left = 0) {
 	return false;
 };
 
-StructureTerminal.prototype.buyResource = function (resource, left = 2000) {
+StructureTerminal.prototype.buyResource = function (resource, left = 0) {
 	if (Game.market.credits < left) {
 		return false;
 	}
@@ -139,7 +139,7 @@ StructureTerminal.prototype.doRole = function () {
 	if (this.store.getUsedCapacity(RESOURCE_ENERGY) > 10000) {
 		if (this.store.getFreeCapacity() > 10000) {
 			for (const element of RESOURCES_ALL) {
-				if (element != RESOURCE_ENERGY && this.buyResource(element)) {
+				if (element != RESOURCE_ENERGY && this.buyResource(element, Memory.bestPixelPrice)) {
 					return;
 				}
 			}
