@@ -65,8 +65,11 @@ Creep.prototype.harvesterTransfer = function (targets, res = RESOURCE_ENERGY) {
 	return false;
 };
 Creep.prototype.doMining = function () {
-	var targets = this.pos.findClosestByRange(FIND_MINERALS, { filter: (i) => i.mineralAmount > 0 });
-	if (targets && targets.pos.lookFor(LOOK_STRUCTURES).some((i) => i.structure.structureType == STRUCTURE_EXTRACTOR)) {
+	var targets = this.pos.findClosestByRange(FIND_MINERALS, {
+		filter: (mineral) =>
+			mineral.mineralAmount > 0 && mineral.pos.lookFor(LOOK_STRUCTURES).some((structure) => structure.structure.structureType == STRUCTURE_EXTRACTOR),
+	});
+	if (targets) {
 		var harv = this.harvest(targets);
 		if (harv != OK) {
 			this.moveTo(targets, { visualizePathStyle: { stroke: "#00ff00" }, range: 1 });
