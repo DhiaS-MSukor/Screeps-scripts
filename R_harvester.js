@@ -36,6 +36,7 @@ Creep.prototype.minerToRoom = function (target) {
 		const distance = this.pos.getRangeTo(controller);
 		this.moveTo(controller, {
 			visualizePathStyle: { stroke: "#00ff00" },
+			maxOps: 100,
 			range: 1,
 			reusePath: distance * 10 + 10,
 		});
@@ -44,6 +45,7 @@ Creep.prototype.minerToRoom = function (target) {
 		const distance = this.pos.getRangeTo(pos);
 		this.moveTo(pos, {
 			visualizePathStyle: { stroke: "#00ff00" },
+			maxOps: 100,
 			range: 1,
 			reusePath: distance * 10 + 10,
 		});
