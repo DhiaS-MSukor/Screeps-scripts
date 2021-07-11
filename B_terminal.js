@@ -103,13 +103,13 @@ StructureTerminal.prototype.buyResource = function (resource, left = 2000) {
 
 	const transactions = GetMedian(history.map((i) => i.transactions));
 	if (transactions > 100) {
-		const avgPrice = GetMedian(history.map((i) => i.avgPrice));
-		const stddev = GetMedian(history.map((i) => i.stddevPrice));
-
-		const avg = avgPrice - stddev;
 		const allOrders = Game.market.getAllOrders({ resourceType: resource });
 
 		if (allOrders.filter((order) => order.type == ORDER_BUY).length > 10) {
+			const avgPrice = GetMedian(history.map((i) => i.avgPrice));
+			const stddev = GetMedian(history.map((i) => i.stddevPrice));
+			const avg = avgPrice - stddev;
+
 			const orders = allOrders.filter((order) => order.type == ORDER_SELL).sort((a, b) => a.price - b.price);
 
 			for (const order of orders) {
