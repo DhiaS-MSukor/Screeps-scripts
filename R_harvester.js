@@ -67,7 +67,8 @@ Creep.prototype.harvesterTransfer = function (targets, res = RESOURCE_ENERGY) {
 Creep.prototype.doMining = function () {
 	var targets = this.pos.findClosestByRange(FIND_MINERALS, {
 		filter: (mineral) =>
-			mineral.mineralAmount > 0 && mineral.pos.lookFor(LOOK_STRUCTURES).some((structure) => structure.structureType == STRUCTURE_EXTRACTOR),
+			mineral.mineralAmount > 0 &&
+			mineral.pos.lookFor(LOOK_STRUCTURES).some((structure) => structure.structureType == STRUCTURE_EXTRACTOR && structure.my),
 	});
 	if (targets) {
 		var harv = this.harvest(targets);
@@ -86,7 +87,12 @@ Creep.prototype.doMining = function () {
 		res = Object.keys(this.store).filter((res) => res != RESOURCE_ENERGY && this.store[res] != 0);
 		this.harvesterTransfer(targets, res[0]);
 	} else {
-		targets = this.pos.findClosestByRange(FIND_DEPOSITS, { filter: (i) => i.cooldown <= this.pos.getRangeTo(i) * 5 });
+		if (this.ticksToLive < CREEP_LIFE_TIME / 4) {
+			this.minerToRoom(this.origin);
+			this.working = false;
+			this.say("transfer");
+		}
+		targets = this.pos.findClosestByRange(FIND_DEPOSITS, { filter: (i) => i.cooldown <= this.ticksToLive });
 
 		if (targets) {
 			var harv = this.harvest(targets);
@@ -182,7 +188,7 @@ Creep.prototype.doHarvest = function () {
 		}
 	} else {
 		if (this.room.name != this.origin) {
-			minerToRoom(this.origin);
+			this.minerToRoom(this.origin);
 		}
 
 		if (this.mode == 1) {
