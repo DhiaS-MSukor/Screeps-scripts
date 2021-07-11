@@ -81,8 +81,12 @@ StructureTerminal.prototype.sellResource = function (resource, left = 0) {
 		})
 		.sort((a, b) => b.price - a.price);
 	for (const order of orders) {
-		if (order.price > avg && this.trySell(order, left)) {
-			return true;
+		if (order.price > avg) {
+			if (this.trySell(order, left)) {
+				return true;
+			}
+		} else {
+			break;
 		}
 	}
 	return false;
@@ -111,8 +115,12 @@ StructureTerminal.prototype.buyResource = function (resource, left = 2000) {
 			})
 			.sort((a, b) => a.price - b.price);
 		for (const order of orders) {
-			if (order.price < avg && order.price < Game.market.credits - left && avg < Game.market.credits - left && this.tryBuy(order, left)) {
-				return true;
+			if (order.price < avg && order.price < Game.market.credits - left && avg < Game.market.credits - left) {
+				if (this.tryBuy(order, left)) {
+					return true;
+				}
+			} else {
+				break;
 			}
 		}
 	}
