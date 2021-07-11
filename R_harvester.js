@@ -110,7 +110,7 @@ Creep.prototype.doMining = function () {
 					const roomName = exits[direction];
 					const distance = Game.map.getRoomLinearDistance(roomName, this.origin);
 					if (distance > distanceToOrigin) {
-						minerToRoom(roomName);
+						this.minerToRoom(roomName);
 						return;
 					}
 				}
@@ -119,7 +119,7 @@ Creep.prototype.doMining = function () {
 			this.addCheckedRoom();
 
 			const highway = this.room.getClosestHighway();
-			minerToRoom(highway);
+			this.minerToRoom(highway);
 		}
 	}
 };
