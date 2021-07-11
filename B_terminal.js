@@ -74,14 +74,13 @@ StructureTerminal.prototype.sellResource = function (resource, left = 0) {
 	const stddev = GetMedian(history.map((i) => i.stddevPrice));
 
 	const avg = avgPrice + stddev / 2;
-	const orders = Game.market
-		.getAllOrders({
-			type: ORDER_BUY,
-			resourceType: resource,
-		})
-		.sort((a, b) => b.price - a.price);
+	const allOrders = Game.market.getAllOrders({ resourceType: resource });
+
+	const orders = allOrders.filter((order) => order.type == ORDER_BUY).sort((a, b) => b.price - a.price);
+	const highDemand = allOrders.filter((order) => order.type == ORDER_SELL).length < 3;
+
 	for (const order of orders) {
-		if (order.price > avg) {
+		if (highDemand || order.price > avg) {
 			if (this.trySell(order, left)) {
 				return true;
 			}
@@ -108,19 +107,19 @@ StructureTerminal.prototype.buyResource = function (resource, left = 2000) {
 		const stddev = GetMedian(history.map((i) => i.stddevPrice));
 
 		const avg = avgPrice - stddev;
-		const orders = Game.market
-			.getAllOrders({
-				type: ORDER_SELL,
-				resourceType: resource,
-			})
-			.sort((a, b) => a.price - b.price);
-		for (const order of orders) {
-			if (order.price < avg && order.price < Game.market.credits - left && avg < Game.market.credits - left) {
-				if (this.tryBuy(order, left)) {
-					return true;
+		const allOrders = Game.market.getAllOrders({ resourceType: resource });
+
+		if (allOrders.filter((order) => order.type == ORDER_BUY).length > 10) {
+			const orders = allOrders.filter((order) => order.type == ORDER_SELL).sort((a, b) => a.price - b.price);
+
+			for (const order of orders) {
+				if (order.price < avg && order.price < Game.market.credits - left && avg < Game.market.credits - left) {
+					if (this.tryBuy(order, left)) {
+						return true;
+					}
+				} else {
+					break;
 				}
-			} else {
-				break;
 			}
 		}
 	}
