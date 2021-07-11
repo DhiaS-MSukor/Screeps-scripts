@@ -102,7 +102,7 @@ Creep.prototype.doMining = function () {
 				if (Object.hasOwnProperty.call(exits, direction)) {
 					const roomName = exits[direction];
 					if (!this.checkedRooms.includes(roomName)) {
-						minerToRoom(roomName);
+						this.minerToRoom(roomName);
 						return;
 					}
 				}
