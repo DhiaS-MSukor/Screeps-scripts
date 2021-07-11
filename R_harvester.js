@@ -87,7 +87,7 @@ Creep.prototype.doMining = function () {
 		res = Object.keys(this.store).filter((res) => res != RESOURCE_ENERGY && this.store[res] != 0);
 		this.harvesterTransfer(targets, res[0]);
 	} else {
-		if (this.ticksToLive < CREEP_LIFE_TIME / 4) {
+		if (this.ticksToLive < CREEP_LIFE_TIME / 4 || (this.hits < this.hitsMax && this.store.getUsedCapacity() > 0)) {
 			this.minerToRoom(this.origin);
 			this.working = false;
 			this.say("transfer");
