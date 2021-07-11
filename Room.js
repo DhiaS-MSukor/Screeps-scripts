@@ -26,12 +26,12 @@ function closestNumber(n, m) {
 	return n2;
 }
 
-Room.prototype.getClosestHighway = function () {
+Room.prototype.getClosestHighway = function (room) {
 	if (this.isHighway) {
 		return this.name;
 	}
 
-	const parsed = /^([WE])([0-9]+)([NS])([0-9]+)$/.exec(this.name);
+	const parsed = /^([WE])([0-9]+)([NS])([0-9]+)$/.exec(room || this.name);
 
 	const d1 = parsed[2] % 10 > 5 ? 10 - (parsed[2] % 10) : parsed[2] % 10;
 	const d2 = parsed[4] % 10 > 5 ? 10 - (parsed[4] % 10) : parsed[4] % 10;
