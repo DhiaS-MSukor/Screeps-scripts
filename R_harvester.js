@@ -79,7 +79,7 @@ Creep.prototype.doMining = function () {
 	if (this.room.name == this.origin && targets) {
 		var harv = this.harvest(targets);
 		if (harv != OK) {
-			this.moveTo(targets, { visualizePathStyle: { stroke: "#00ff00" }, range: 1 });
+			this.moveTo(targets, { visualizePathStyle: { stroke: "#00ff00" }, maxOps: (Game.cpu.limit - Game.cpu.getUsed()) * 100, range: 1 });
 			return;
 		}
 		targets = this.pos.findInRange(FIND_STRUCTURES, 1, {
@@ -208,7 +208,7 @@ Creep.prototype.doHarvest = function () {
 		}
 	} else {
 		if (this.room.name != this.origin) {
-			const closestHighway = this.room.getClosestHighway(this.origin);
+			// const closestHighway = this.room.getClosestHighway(this.origin);
 			// const highwayExits = Game.map.describeExits(closestHighway);
 			//&& !Object.values(highwayExits).includes(this.room.name)
 			// if (this.room.isHighway()) {
