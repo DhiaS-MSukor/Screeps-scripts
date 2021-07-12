@@ -110,7 +110,7 @@ Creep.prototype.doMining = function () {
 				for (const key in Memory.deposits) {
 					if (Object.hasOwnProperty.call(Memory.deposits, key)) {
 						const deposit = Game.getObjectById(Memory.deposits[key]);
-						if (deposit) {
+						if (deposit && deposit.lastCooldown < 100) {
 							this.assignedSource = deposit;
 						} else {
 							Memory.deposits = Memory.deposits.splice(key);
@@ -122,7 +122,7 @@ Creep.prototype.doMining = function () {
 			}
 		}
 
-		targets = this.pos.findClosestByRange(FIND_DEPOSITS, { filter: (i) => i.cooldown <= this.ticksToLive });
+		targets = this.pos.findClosestByRange(FIND_DEPOSITS, { filter: (i) => i.cooldown <= this.ticksToLive && deposit.lastCooldown < 100 });
 
 		if (targets) {
 			var harv = this.harvest(targets);
