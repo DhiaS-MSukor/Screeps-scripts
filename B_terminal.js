@@ -150,7 +150,7 @@ StructureTerminal.prototype.doRole = function () {
 		}
 	}
 
-	this.buyResource(RESOURCE_ENERGY);
+	this.buyResource(RESOURCE_ENERGY, Memory.bestPixelPrice);
 };
 
 module.exports = {
