@@ -37,7 +37,7 @@ Creep.prototype.minerToRoom = function (target) {
 		this.moveTo(controller, {
 			visualizePathStyle: { stroke: "#00ff00" },
 			range: 1,
-			maxOps: (Game.cpu.limit - Game.cpu.getUsed()) * 100,
+			maxOps: (Game.cpu.tickLimit - Game.cpu.getUsed()) * 100,
 			reusePath: distance * 2 + 10,
 		});
 	} else if (target != "false") {
@@ -46,7 +46,7 @@ Creep.prototype.minerToRoom = function (target) {
 		this.moveTo(pos, {
 			visualizePathStyle: { stroke: "#00ff00" },
 			range: 1,
-			maxOps: (Game.cpu.limit - Game.cpu.getUsed()) * 100,
+			maxOps: (Game.cpu.tickLimit - Game.cpu.getUsed()) * 100,
 			reusePath: distance * 2 + 10,
 		});
 	}
