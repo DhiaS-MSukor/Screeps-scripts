@@ -176,7 +176,9 @@ Creep.prototype.doMining = function () {
 Creep.prototype.doHarvest = function () {
 	if (
 		this.getActiveBodyparts(WORK) == 0 ||
-		(this.body.filter((i) => i.type == WORK).length < 5 && Game.rooms[this.origin].energyAvailable > Math.max(600, (this.body.length + 2) * 75))
+		(this.mode != 1 &&
+			this.body.filter((i) => i.type == WORK).length < 5 &&
+			Game.rooms[this.origin].energyAvailable > Math.max(600, (this.body.length + 2) * 75))
 	) {
 		this.suicide();
 		return;
