@@ -38,7 +38,7 @@ Creep.prototype.minerToRoom = function (target) {
 			visualizePathStyle: { stroke: "#00ff00" },
 			range: 1,
 			maxOps: (Game.cpu.tickLimit - Game.cpu.getUsed()) * 100,
-			reusePath: distance * 2 + 10,
+			reusePath: Math.floor(Math.random() * distance * 10) + 10,
 		});
 	} else if (target != "false") {
 		const pos = new RoomPosition(25, 25, target);
@@ -47,7 +47,7 @@ Creep.prototype.minerToRoom = function (target) {
 			visualizePathStyle: { stroke: "#00ff00" },
 			range: 1,
 			maxOps: (Game.cpu.tickLimit - Game.cpu.getUsed()) * 100,
-			reusePath: distance * 2 + 10,
+			reusePath: Math.floor(Math.random() * distance * 10) + 10,
 		});
 	}
 	return;
