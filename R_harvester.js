@@ -106,7 +106,7 @@ Creep.prototype.doMining = function () {
 				return;
 			}
 		} else {
-			if (Memory.deposits.length > 0) {
+			if (Memory.deposits && Memory.deposits.length > 0) {
 				for (const key in Memory.deposits) {
 					if (Object.hasOwnProperty.call(Memory.deposits, key)) {
 						const deposit = Game.getObjectById(Memory.deposits[key]);
