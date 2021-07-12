@@ -23,7 +23,7 @@ Creep.prototype.doBuild = function (target) {
 Creep.prototype.doBuilder = function () {
 	if (
 		this.getActiveBodyparts(WORK) == 0 ||
-		(this.body.length < 48 && this.room.energyAvailable > Math.max(700, ((this.body.length + 12) * 400) / 6))
+		(this.body.length < 48 && Game.rooms[this.origin].energyAvailable > Math.max(700, ((this.body.length + 12) * 400) / 6))
 	) {
 		this.suicide();
 		return;
