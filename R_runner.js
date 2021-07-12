@@ -158,7 +158,7 @@ Creep.prototype.doRunner = function () {
 
 		if (this.store[RESOURCE_ENERGY] != 0) {
 			if (enemy) {
-				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_SPAWN))) {
+				if (this.room.energyAvailable < SPAWN_ENERGY_CAPACITY && this.addEnergyToRoom()) {
 					return;
 				}
 				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_TOWER, 10, RESOURCE_ENERGY, true))) {
@@ -181,7 +181,7 @@ Creep.prototype.doRunner = function () {
 					return;
 				}
 			} else if (this.task == 2) {
-				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_SPAWN))) {
+				if (this.room.energyAvailable < SPAWN_ENERGY_CAPACITY && this.addEnergyToRoom()) {
 					return;
 				}
 				if (this.store.getFreeCapacity() == 0 && this.runnerTransfer(this.transferStructureTarget(STRUCTURE_TERMINAL))) {
@@ -201,7 +201,7 @@ Creep.prototype.doRunner = function () {
 					return;
 				}
 			} else {
-				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_SPAWN))) {
+				if (this.room.energyAvailable < SPAWN_ENERGY_CAPACITY && this.addEnergyToRoom()) {
 					return;
 				}
 				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_TOWER, 0, RESOURCE_ENERGY, true))) {
