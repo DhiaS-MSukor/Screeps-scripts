@@ -77,7 +77,7 @@ StructureTerminal.prototype.sellResource = function (resource, left = 0) {
 	const allOrders = Game.market.getAllOrders({ resourceType: resource });
 
 	const orders = allOrders.filter((order) => order.type == ORDER_BUY).sort((a, b) => b.price - a.price);
-	const highDemand = allOrders.filter((order) => order.type == ORDER_SELL).length < 3;
+	const highDemand = allOrders.filter((order) => order.type == ORDER_SELL).length < 10;
 
 	for (const order of orders) {
 		if (highDemand || order.price > avg) {
