@@ -11,7 +11,7 @@ require("Creep");
 require("Source");
 require("Room");
 
-var clean_mem = function () {
+function clean_mem() {
 	for (var name in Memory.creeps) {
 		if (!Game.creeps[name]) {
 			delete Memory.creeps[name];
@@ -29,13 +29,14 @@ var clean_mem = function () {
 			delete Memory.spawns[name];
 		}
 	}
-};
+}
 
-var gen_pixel = function () {
+function gen_pixel() {
 	if (Game.cpu.bucket >= PIXEL_CPU_COST) {
 		Game.cpu.generatePixel();
 	}
-};
+}
+
 function trade_pixel() {
 	const orders = Game.market
 		.getAllOrders({
@@ -55,14 +56,7 @@ function trade_pixel() {
 	}
 }
 
-module.exports.loop = function () {
-	gen_pixel();
-
-	if (Game.time % 1000 == 0) {
-		trade_pixel();
-		clean_mem();
-	}
-
+function handle_creeps() {
 	for (const name in Game.creeps) {
 		const creep = Game.creeps[name];
 		switch (creep.role) {
@@ -97,7 +91,9 @@ module.exports.loop = function () {
 				break;
 		}
 	}
+}
 
+function handle_buildings() {
 	for (const element in Game.structures) {
 		const structure = Game.structures[element];
 		switch (structure.structureType) {
@@ -115,4 +111,15 @@ module.exports.loop = function () {
 				break;
 		}
 	}
+}
+
+module.exports.loop = function () {
+	gen_pixel();
+
+	if (Game.time % 1000 == 0) {
+		trade_pixel();
+		clean_mem();
+	}
+	handle_buildings();
+	handle_creeps();
 };
