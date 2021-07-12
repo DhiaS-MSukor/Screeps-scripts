@@ -98,6 +98,30 @@ Creep.prototype.doMining = function () {
 			this.working = false;
 			this.say("transfer");
 		}
+
+		if (this.assignedSource) {
+			var harv = this.harvest(this.assignedSource);
+			if (harv != OK) {
+				this.moveTo(targets, { visualizePathStyle: { stroke: "#00ff00" }, maxOps: (Game.cpu.limit - Game.cpu.getUsed()) * 100, range: 1 });
+				return;
+			}
+		} else {
+			if (Memory.deposits.length > 0) {
+				for (const key in Memory.deposits) {
+					if (Object.hasOwnProperty.call(Memory.deposits, key)) {
+						const deposit = Game.getObjectById(Memory.deposits[key]);
+						if (deposit) {
+							this.assignedSource = deposit;
+						} else {
+							Memory.deposits = Memory.deposits.splice(key);
+						}
+					}
+				}
+			} else {
+				Memory.deposits = [];
+			}
+		}
+
 		targets = this.pos.findClosestByRange(FIND_DEPOSITS, { filter: (i) => i.cooldown <= this.ticksToLive });
 
 		if (targets) {
