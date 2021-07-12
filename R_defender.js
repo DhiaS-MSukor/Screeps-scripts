@@ -4,14 +4,14 @@ Creep.prototype.knightToRoom = function (target) {
 		this.moveTo(Game.rooms[target].controller, {
 			visualizePathStyle: { stroke: "#ff0000" },
 			range: 1,
-			maxOps: (Game.cpu.tickLimit - Game.cpu.getUsed()) * 100,
+			maxOps: Math.min(2000, (Game.cpu.tickLimit - Game.cpu.getUsed()) * 100),
 			reusePath: Math.floor(Math.random() * 90) + 10,
 		});
 	} else if (target != "false") {
 		this.moveTo(new RoomPosition(25, 25, target), {
 			visualizePathStyle: { stroke: "#ff0000" },
 			range: 1,
-			maxOps: (Game.cpu.tickLimit - Game.cpu.getUsed()) * 100,
+			maxOps: Math.min(2000, (Game.cpu.tickLimit - Game.cpu.getUsed()) * 100),
 			reusePath: Math.floor(Math.random() * 90) + 10,
 		});
 	}
