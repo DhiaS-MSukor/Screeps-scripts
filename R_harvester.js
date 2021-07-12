@@ -76,7 +76,7 @@ Creep.prototype.doMining = function () {
 			mineral.mineralAmount > 0 &&
 			mineral.pos.lookFor(LOOK_STRUCTURES).some((structure) => structure.structureType == STRUCTURE_EXTRACTOR && structure.my),
 	});
-	if (targets) {
+	if (this.room.name == this.origin && targets) {
 		var harv = this.harvest(targets);
 		if (harv != OK) {
 			this.moveTo(targets, { visualizePathStyle: { stroke: "#00ff00" }, range: 1 });
