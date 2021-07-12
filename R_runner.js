@@ -4,6 +4,7 @@ Creep.prototype.runnerMove = function (target, range = 1) {
 	return this.moveTo(target, {
 		visualizePathStyle: { stroke: "#ff00ff" },
 		range: range,
+		maxOps: (Game.cpu.limit - Game.cpu.getUsed()) * 100,
 		reusePath: distance + 1,
 	});
 };

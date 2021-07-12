@@ -37,6 +37,7 @@ Creep.prototype.minerToRoom = function (target) {
 		this.moveTo(controller, {
 			visualizePathStyle: { stroke: "#00ff00" },
 			range: 1,
+			maxOps: (Game.cpu.limit - Game.cpu.getUsed()) * 100,
 			reusePath: distance * 10 + 10,
 		});
 	} else if (target != "false") {
@@ -45,6 +46,7 @@ Creep.prototype.minerToRoom = function (target) {
 		this.moveTo(pos, {
 			visualizePathStyle: { stroke: "#00ff00" },
 			range: 1,
+			maxOps: (Game.cpu.limit - Game.cpu.getUsed()) * 100,
 			reusePath: distance * 10 + 10,
 		});
 	}
@@ -57,7 +59,7 @@ Creep.prototype.harvesterTransfer = function (targets, res = RESOURCE_ENERGY) {
 		if (result == ERR_NOT_IN_RANGE) {
 			this.moveTo(targets[0], {
 				visualizePathStyle: { stroke: "#00ff00" },
-				maxOps: 100,
+				maxOps: (Game.cpu.limit - Game.cpu.getUsed()) * 100,
 				reusePath: 4,
 				range: 1,
 			});
@@ -101,7 +103,7 @@ Creep.prototype.doMining = function () {
 		if (targets) {
 			var harv = this.harvest(targets);
 			if (harv != OK) {
-				this.moveTo(targets, { visualizePathStyle: { stroke: "#00ff00" }, range: 1 });
+				this.moveTo(targets, { visualizePathStyle: { stroke: "#00ff00" }, maxOps: (Game.cpu.limit - Game.cpu.getUsed()) * 100, range: 1 });
 				return;
 			}
 		} else if (this.room.isHighway()) {
@@ -188,7 +190,11 @@ Creep.prototype.doHarvest = function () {
 		} else {
 			var harv = this.harvest(this.assignedSource);
 			if (harv == ERR_NOT_IN_RANGE) {
-				this.moveTo(this.assignedSource, { visualizePathStyle: { stroke: "#00ff00" }, maxOps: 100, range: 1 });
+				this.moveTo(this.assignedSource, {
+					visualizePathStyle: { stroke: "#00ff00" },
+					maxOps: (Game.cpu.limit - Game.cpu.getUsed()) * 100,
+					range: 1,
+				});
 			} else if (harv == ERR_NOT_ENOUGH_RESOURCES) {
 				this.working = false;
 				this.say("!_!");

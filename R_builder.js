@@ -4,6 +4,7 @@ Creep.prototype.builderMove = function (target, range = 3) {
 		return this.moveTo(target, {
 			visualizePathStyle: { stroke: "#0000ff" },
 			range: range,
+			maxOps: (Game.cpu.limit - Game.cpu.getUsed()) * 100,
 			reusePath: Math.floor(Math.random() * distance * 10) + distance,
 		});
 	}

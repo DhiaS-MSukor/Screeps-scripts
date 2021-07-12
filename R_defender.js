@@ -4,12 +4,14 @@ Creep.prototype.knightToRoom = function (target) {
 		this.moveTo(Game.rooms[target].controller, {
 			visualizePathStyle: { stroke: "#ff0000" },
 			range: 1,
+			maxOps: (Game.cpu.limit - Game.cpu.getUsed()) * 100,
 			reusePath: Math.floor(Math.random() * 90) + 10,
 		});
 	} else if (target != "false") {
 		this.moveTo(new RoomPosition(25, 25, target), {
 			visualizePathStyle: { stroke: "#ff0000" },
 			range: 1,
+			maxOps: (Game.cpu.limit - Game.cpu.getUsed()) * 100,
 			reusePath: Math.floor(Math.random() * 90) + 10,
 		});
 	}
@@ -24,6 +26,7 @@ Creep.prototype.doKnightAction = function (target) {
 				visualizePathStyle: { stroke: "#ff0000" },
 				range: 3,
 				ignoreCreeps: true,
+				maxOps: (Game.cpu.limit - Game.cpu.getUsed()) * 100,
 			});
 		}
 		const rampart = this.pos.findInRange(FIND_STRUCTURES, 1, { filter: { structureType: STRUCTURE_RAMPART } });
@@ -31,7 +34,7 @@ Creep.prototype.doKnightAction = function (target) {
 			return this.moveTo(rampart[0], {
 				visualizePathStyle: { stroke: "#ff0000" },
 				ignoreCreeps: true,
-				maxOps: 100,
+				maxOps: (Game.cpu.limit - Game.cpu.getUsed()) * 100,
 			});
 		}
 		return res;
@@ -54,6 +57,7 @@ Creep.prototype.doKnightRole = function (target) {
 		this.moveTo(target, {
 			visualizePathStyle: { stroke: "#ff0000" },
 			range: 1,
+			maxOps: (Game.cpu.limit - Game.cpu.getUsed()) * 100,
 		});
 		return;
 	}
@@ -92,6 +96,7 @@ Creep.prototype.doKnight = function () {
 		this.moveTo(target, {
 			visualizePathStyle: { stroke: "#ff0000" },
 			range: 1,
+			maxOps: (Game.cpu.limit - Game.cpu.getUsed()) * 100,
 			reusePath: Math.floor(Math.random() * 90) + 10,
 		});
 		return;
@@ -105,6 +110,7 @@ Creep.prototype.doKnight = function () {
 		this.moveTo(target[0], {
 			visualizePathStyle: { stroke: "#ff0000" },
 			range: 1,
+			maxOps: (Game.cpu.limit - Game.cpu.getUsed()) * 100,
 			reusePath: Math.floor(Math.random() * 90) + 10,
 		});
 		return;
