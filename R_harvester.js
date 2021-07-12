@@ -122,7 +122,7 @@ Creep.prototype.doMining = function () {
 			}
 		}
 
-		targets = this.pos.findClosestByRange(FIND_DEPOSITS, { filter: (i) => i.cooldown <= this.ticksToLive && deposit.lastCooldown < 100 });
+		targets = this.pos.findClosestByRange(FIND_DEPOSITS, { filter: (i) => i.cooldown <= this.ticksToLive && i.lastCooldown < 100 });
 
 		if (targets) {
 			var harv = this.harvest(targets);
