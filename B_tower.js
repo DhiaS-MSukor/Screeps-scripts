@@ -25,6 +25,12 @@ StructureTower.prototype.doRole = function () {
 		return;
 	}
 
+	var target = this.pos.findClosestByRange(FIND_MY_CREEPS, { filter: (creep) => creep.hits < creep.hitsMax });
+	if (target) {
+		this.heal(target);
+		return;
+	}
+
 	if (this.store.getUsedCapacity(RESOURCE_ENERGY) > 509) {
 		target = this.room
 			.find(FIND_STRUCTURES, {
