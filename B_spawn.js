@@ -146,7 +146,7 @@ StructureSpawn.prototype.auto_respawn = function () {
 		this.spawn_check("claimer", 0, 1)
 	) {
 		return;
-	} else if (Memory.roomTarget != "false" && this.spawn_check("builder", 1, 3)) {
+	} else if (Memory.roomTarget != "false" && this.spawn_check("builder", 1, 1)) {
 		return;
 	}
 
