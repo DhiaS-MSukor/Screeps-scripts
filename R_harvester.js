@@ -240,6 +240,7 @@ Creep.prototype.doHarvest = function () {
 			// } else {
 			// }
 			this.minerToRoom(this.origin);
+			return;
 		}
 
 		if (this.mode == 1) {
