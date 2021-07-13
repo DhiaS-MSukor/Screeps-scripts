@@ -88,7 +88,7 @@ Creep.prototype.doKnight = function () {
 	if (target) {
 		this.moveTo(target, {
 			visualizePathStyle: { stroke: "#ff0000" },
-			range: 1,
+			range: 10,
 			maxOps: (Game.cpu.limit - Game.cpu.getUsed()) * 100,
 			reusePath: Math.floor(Math.random() * 90) + 10,
 		});
