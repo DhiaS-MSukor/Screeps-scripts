@@ -127,7 +127,7 @@ Creep.prototype.doMining = function () {
 			for (const direction in exits) {
 				if (Object.hasOwnProperty.call(exits, direction)) {
 					const roomName = exits[direction];
-					if (!this.checkedRooms.includes(roomName)) {
+					if (!this.room.isAvoid(roomName) && !this.checkedRooms.includes(roomName)) {
 						this.minerToRoom(roomName);
 						return;
 					}
@@ -148,7 +148,7 @@ Creep.prototype.doMining = function () {
 				if (Object.hasOwnProperty.call(exits, direction)) {
 					const roomName = exits[direction];
 					const distance = Game.map.getRoomLinearDistance(roomName, this.origin);
-					if (distance > distanceToOrigin) {
+					if (!this.room.isAvoid(roomName) && distance > distanceToOrigin) {
 						this.minerToRoom(roomName);
 						return;
 					}
