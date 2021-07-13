@@ -143,7 +143,7 @@ Creep.prototype.exitToRoom = function (roomName) {
 			console.log("Creep " + this.name + " saved exit has used " + elapsed + " CPU time");
 			return this.savedExit;
 		}
-		const exit = this.pos.findClosestByRange(route[0].exit);
+		const exit = this.pos.findClosestByPath(route[0].exit);
 		this.savedExit = exit;
 		const elapsed = Game.cpu.getUsed() - startCpu;
 		console.log("Creep " + this.name + " saved route has used " + elapsed + " CPU time");
@@ -151,7 +151,7 @@ Creep.prototype.exitToRoom = function (roomName) {
 	} else {
 		const route = this.getRouteToRoom(roomName);
 		if (route != ERR_NO_PATH) {
-			const exit = this.pos.findClosestByRange(route[0].exit);
+			const exit = this.pos.findClosestByPath(route[0].exit);
 			const elapsed = Game.cpu.getUsed() - startCpu;
 			console.log("Creep " + this.name + " has used " + elapsed + " CPU time");
 			return exit;
