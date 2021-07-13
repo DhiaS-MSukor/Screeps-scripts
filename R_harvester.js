@@ -36,7 +36,6 @@ Creep.prototype.minerToRoom = function (target) {
 		const distance = this.pos.getRangeTo(pos);
 		this.moveTo(pos, {
 			visualizePathStyle: { stroke: "#00ff00" },
-			range: 1,
 			maxOps: Math.min(2000, (Game.cpu.tickLimit - Game.cpu.getUsed()) * 100),
 			reusePath: Math.floor(Math.random() * distance * 10) + 10,
 		});

@@ -4,8 +4,7 @@ Creep.prototype.knightToRoom = function (target) {
 	if (pos) {
 		const distance = this.pos.getRangeTo(pos);
 		this.moveTo(pos, {
-			visualizePathStyle: { stroke: "#ff0000" },
-			range: 1,
+			visualizePathStyle: { stroke: "#ff0000" }, 
 			maxOps: Math.min(2000, (Game.cpu.tickLimit - Game.cpu.getUsed()) * 100),
 			reusePath: Math.floor(Math.random() * distance * 10) + 10,
 		});
