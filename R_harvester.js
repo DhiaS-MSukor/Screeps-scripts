@@ -83,7 +83,7 @@ Creep.prototype.doMining = function () {
 		this.harvesterTransfer(targets, res[0]);
 	} else {
 		const distanceToOrigin = Game.map.getRoomLinearDistance(this.room.name, this.origin);
-		if (this.ticksToLive < distanceToOrigin * 50 || (this.hits < this.hitsMax && this.store.getUsedCapacity() > 0)) {
+		if (this.ticksToLive < distanceToOrigin * 75 || (this.hits < this.hitsMax && this.store.getUsedCapacity() > 0)) {
 			this.minerToRoom(this.origin);
 			this.working = false;
 			return;
