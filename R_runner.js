@@ -72,7 +72,7 @@ Creep.prototype.transferCreepTarget = function (role) {
 				return targets.memory.role == role && targets.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
 			},
 		})
-		.sort((a, b) => a.store.getFreeCapacity() - b.store.getFreeCapacity());
+		.sort((a, b) => b.store.getFreeCapacity() - a.store.getFreeCapacity());
 	if (near.length > 0) {
 		return near[0];
 	}
