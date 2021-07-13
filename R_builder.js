@@ -59,8 +59,9 @@ Creep.prototype.doBuilder = function () {
 
 	if (this.working && this.store[RESOURCE_ENERGY] > 0) {
 		if (this.mode == 1 && this.room.name != Memory.roomTarget) {
-			if (Game.rooms[Memory.roomTarget]) {
-				this.builderMove(Game.rooms[Memory.roomTarget].controller, 1);
+			const pos = this.exitToRoom(target);
+			if (pos) {
+				this.builderMove(pos, 0);
 				return;
 			}
 		} else if (
@@ -68,8 +69,11 @@ Creep.prototype.doBuilder = function () {
 			this.room.name != (Game.spawns[this.memory.spawn] && Game.spawns[this.memory.spawn].room.name) &&
 			this.room.name != this.origin
 		) {
-			this.builderMove(Game.spawns[this.memory.spawn] || (Game.rooms[this.origin] && Game.rooms[this.origin].terminal), 1);
-			return;
+			const pos = this.exitToRoom(this.origin);
+			if (pos) {
+				this.builderMove(pos, 0);
+				return;
+			}
 		}
 
 		if (this.doBuild(this.pos.findClosestByRange(FIND_MY_CONSTRUCTION_SITES, { filter: { structureType: STRUCTURE_SPAWN } }))) {
