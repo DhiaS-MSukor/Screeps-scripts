@@ -2,6 +2,7 @@
 Creep.prototype.knightToRoom = function (target) {
 	const pos = this.exitToRoom(target);
 	if (pos) {
+		const distance = this.pos.getRangeTo(pos);
 		this.moveTo(pos, {
 			visualizePathStyle: { stroke: "#ff0000" },
 			range: 1,

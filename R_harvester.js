@@ -33,6 +33,7 @@ Creep.prototype.addCheckedRoom = function () {
 Creep.prototype.minerToRoom = function (target) {
 	const pos = this.exitToRoom(target);
 	if (pos) {
+		const distance = this.pos.getRangeTo(pos);
 		this.moveTo(pos, {
 			visualizePathStyle: { stroke: "#00ff00" },
 			range: 1,
