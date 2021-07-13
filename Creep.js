@@ -91,7 +91,7 @@ Object.defineProperty(Creep.prototype, "roomDestination", {
 
 Creep.prototype.getRouteToRoom = function (room) {
 	const route = Game.map.findRoute(this.room.name, room, {
-		routeCallback(roomName) {
+		routeCallback: (roomName) => {
 			const parsed = /^[WE]([0-9]+)[NS]([0-9]+)$/.exec(roomName);
 			const isHighway = parsed[1] % 10 === 0 || parsed[2] % 10 === 0;
 			const isMyRoom = Game.rooms[roomName] && Game.rooms[roomName].controller && Game.rooms[roomName].controller.my;
