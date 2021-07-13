@@ -132,6 +132,7 @@ Creep.prototype.getRouteToRoom = function (room) {
 };
 
 Creep.prototype.exitToRoom = function (roomName) {
+	const startCpu = Game.cpu.getUsed();
 	if (this.roomDestination == roomName && this.routeToRoom && this.routeToRoom.length > 0) {
 		const route = this.routeToRoom;
 		if (this.room.name == route[0].room) {
@@ -139,15 +140,21 @@ Creep.prototype.exitToRoom = function (roomName) {
 			this.routeToRoom = route;
 		}
 		if (this.savedExit) {
+			const elapsed = Game.cpu.getUsed() - startCpu;
+			console.log("Creep " + this.name + " saved exit has used " + elapsed + " CPU time");
 			return this.savedExit;
 		}
 		const exit = this.pos.findClosestByRange(route[0].exit);
 		this.savedExit = exit;
+		const elapsed = Game.cpu.getUsed() - startCpu;
+		console.log("Creep " + this.name + " saved route has used " + elapsed + " CPU time");
 		return exit;
 	} else {
 		const route = this.getRouteToRoom(roomName);
 		if (route != ERR_NO_PATH) {
 			const exit = this.pos.findClosestByRange(route[0].exit);
+			const elapsed = Game.cpu.getUsed() - startCpu;
+			console.log("Creep " + this.name + " has used " + elapsed + " CPU time");
 			return exit;
 		}
 	}
