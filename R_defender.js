@@ -59,7 +59,6 @@ Creep.prototype.doKnightRole = function (target) {
 Creep.prototype.doKnight = function () {
 	var target;
 
-	const startCpu = Game.cpu.getUsed();
 	if (this.role == "healer") {
 		target = this.pos.findClosestByRange(FIND_MY_CREEPS, {
 			filter: (targets) => targets.hits < targets.hitsMax,
@@ -76,11 +75,12 @@ Creep.prototype.doKnight = function () {
 			return;
 		}
 	}
-	const elapsed = Game.cpu.getUsed() - startCpu;
-	console.log("Creep " + this.name + " has used " + elapsed + " CPU time");
-
+	const startCpu = Game.cpu.getUsed();
+	
 	if (this.mode == 1 && Memory.roomTarget != "false" && this.room.name != Memory.roomTarget) {
 		this.knightToRoom(Memory.roomTarget);
+		const elapsed = Game.cpu.getUsed() - startCpu;
+		console.log("Creep " + this.name + " has used " + elapsed + " CPU time");
 		return;
 	} else if (this.mode == 2 && Memory.raidTarget != "false" && this.room.name != Memory.raidTarget) {
 		this.knightToRoom(Memory.raidTarget);
