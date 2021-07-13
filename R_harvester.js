@@ -87,6 +87,7 @@ Creep.prototype.doMining = function () {
 			this.minerToRoom(this.origin);
 			this.working = false;
 			this.say("transfer");
+			return;
 		}
 
 		if (this.assignedSource) {
