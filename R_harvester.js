@@ -82,7 +82,8 @@ Creep.prototype.doMining = function () {
 		res = Object.keys(this.store).filter((res) => res != RESOURCE_ENERGY && this.store[res] != 0);
 		this.harvesterTransfer(targets, res[0]);
 	} else {
-		if (this.ticksToLive < CREEP_LIFE_TIME / 4 || (this.hits < this.hitsMax && this.store.getUsedCapacity() > 0)) {
+		const distanceToOrigin = Game.map.getRoomLinearDistance(this.room.name, this.origin);
+		if (this.ticksToLive < distanceToOrigin * 50 || (this.hits < this.hitsMax && this.store.getUsedCapacity() > 0)) {
 			this.minerToRoom(this.origin);
 			this.working = false;
 			this.say("transfer");
@@ -132,7 +133,6 @@ Creep.prototype.doMining = function () {
 					}
 				}
 			}
-			const distanceToOrigin = Game.map.getRoomLinearDistance(this.room.name, this.origin);
 			for (const direction in exits) {
 				if (Object.hasOwnProperty.call(exits, direction)) {
 					const roomName = exits[direction];
