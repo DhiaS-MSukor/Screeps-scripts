@@ -111,7 +111,11 @@ Creep.prototype.getRouteToRoom = function (room) {
 			const parsed = /^[WE]([0-9]+)[NS]([0-9]+)$/.exec(roomName);
 			const isHighway = parsed[1] % 10 === 0 || parsed[2] % 10 === 0;
 			const isMyRoom = Game.rooms[roomName] && Game.rooms[roomName].controller && Game.rooms[roomName].controller.my;
-			const shouldAvoid = (Game.rooms[roomName] && Game.rooms[roomName].controller && Game.rooms[roomName].controller.owner != "None" && !Game.rooms[roomName].controller.my);
+			const shouldAvoid =
+				Game.rooms[roomName] &&
+				Game.rooms[roomName].controller &&
+				Game.rooms[roomName].controller.owner != "None" &&
+				!Game.rooms[roomName].controller.my;
 			if (isHighway || isMyRoom) {
 				return 1;
 			} else if (shouldAvoid) {
@@ -138,7 +142,7 @@ Creep.prototype.exitToRoom = function (roomName) {
 			route.shift();
 			this.routeToRoom = route;
 		}
-		if (this.savedExit) {
+		if (this.savedExit && this.savedExit.roomName == this.room.name) {
 			const elapsed = Game.cpu.getUsed() - startCpu;
 			console.log("Creep " + this.name + " saved exit has used " + elapsed + " CPU time");
 			return this.savedExit;
