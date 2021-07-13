@@ -4,7 +4,7 @@ Creep.prototype.knightToRoom = function (target) {
 	if (pos) {
 		const distance = this.pos.getRangeTo(pos);
 		this.moveTo(pos, {
-			visualizePathStyle: { stroke: "#ff0000" }, 
+			visualizePathStyle: { stroke: "#ff0000" },
 			maxOps: (Game.cpu.limit - Game.cpu.getUsed()) * 100,
 			reusePath: Math.floor(Math.random() * distance * 10) + 10,
 		});
@@ -59,6 +59,7 @@ Creep.prototype.doKnightRole = function (target) {
 Creep.prototype.doKnight = function () {
 	var target;
 
+	const startCpu = Game.cpu.getUsed();
 	if (this.role == "healer") {
 		target = this.pos.findClosestByRange(FIND_MY_CREEPS, {
 			filter: (targets) => targets.hits < targets.hitsMax,
@@ -75,6 +76,8 @@ Creep.prototype.doKnight = function () {
 			return;
 		}
 	}
+	const elapsed = Game.cpu.getUsed() - startCpu;
+	console.log("Creep " + this.name + " has used " + elapsed + " CPU time");
 
 	if (this.mode == 1 && Memory.roomTarget != "false" && this.room.name != Memory.roomTarget) {
 		this.knightToRoom(Memory.roomTarget);
