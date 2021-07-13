@@ -132,7 +132,7 @@ Creep.prototype.getRouteToRoom = function (room) {
 };
 
 Creep.prototype.exitToRoom = function (roomName) {
-	if (this.roomDestination == roomName && this.routeToRoom.length > 0) {
+	if (this.roomDestination == roomName && this.routeToRoom && this.routeToRoom.length > 0) {
 		const route = this.routeToRoom;
 		if (this.room.name == route[0].room) {
 			route.shift();
