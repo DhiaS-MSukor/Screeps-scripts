@@ -116,6 +116,12 @@ Creep.prototype.doMining = function () {
 		targets = this.pos.findClosestByRange(FIND_DEPOSITS, { filter: (i) => i.cooldown <= this.ticksToLive && i.lastCooldown < 100 });
 
 		if (targets) {
+			if (Array.isArray(Memory.deposits) && !Memory.deposits.includes(targets.id)) {
+				Memory.deposits.push(targets.id);
+			} else {
+				Memory.deposits = [targets.id];
+			}
+
 			var harv = this.harvest(targets);
 			if (harv != OK) {
 				this.moveTo(targets, { visualizePathStyle: { stroke: "#00ff00" }, maxOps: (Game.cpu.limit - Game.cpu.getUsed()) * 100, range: 1 });
