@@ -31,18 +31,8 @@ Creep.prototype.addCheckedRoom = function () {
 };
 
 Creep.prototype.minerToRoom = function (target) {
-	if (Game.rooms[target] && Game.rooms[target].controller) {
-		const controller = Game.rooms[target].controller;
-		const distance = this.pos.getRangeTo(controller);
-		this.moveTo(controller, {
-			visualizePathStyle: { stroke: "#00ff00" },
-			range: 1,
-			maxOps: Math.min(2000, (Game.cpu.tickLimit - Game.cpu.getUsed()) * 100),
-			reusePath: Math.floor(Math.random() * distance * 10) + 10,
-		});
-	} else if (target != "false") {
-		const pos = new RoomPosition(25, 25, target);
-		const distance = this.pos.getRangeTo(pos);
+	const pos = this.exitToRoom(target);
+	if (pos) {
 		this.moveTo(pos, {
 			visualizePathStyle: { stroke: "#00ff00" },
 			range: 1,
@@ -50,7 +40,6 @@ Creep.prototype.minerToRoom = function (target) {
 			reusePath: Math.floor(Math.random() * distance * 10) + 10,
 		});
 	}
-	return;
 };
 
 Creep.prototype.harvesterTransfer = function (targets, res = RESOURCE_ENERGY) {

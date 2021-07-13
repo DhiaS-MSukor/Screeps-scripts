@@ -35,3 +35,21 @@ Room.prototype.getClosestHighway = function (room) {
 	const h = closestNumber(parsed[2], 10);
 	return `${parsed[1]}${h}${parsed[3]}${parsed[4]}`;
 };
+
+Room.prototype.isAvoid = function (room) {
+	return Memory.avoidRoom && Array.isArray(Memory.avoidRoom) && room && Memory.avoidRoom.includes(room);
+};
+
+Room.prototype.avoidThis = function (room) {
+	if (Memory.avoidRoom && Array.isArray(Memory.avoidRoom)) {
+		if (room && !Memory.avoidRoom.includes(room)) {
+			Memory.avoidRoom.push(room);
+			return room;
+		} else if (!Memory.avoidRoom.includes(this.name)) {
+			Memory.avoidRoom.push(this.name);
+			return this.name;
+		}
+	} else {
+		Memory.avoidRoom = [];
+	}
+};

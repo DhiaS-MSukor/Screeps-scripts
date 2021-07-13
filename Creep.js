@@ -60,3 +60,74 @@ Object.defineProperty(Creep.prototype, "task", {
 	enumerable: false,
 	configurable: true,
 });
+
+Object.defineProperty(Creep.prototype, "routeToRoom", {
+	get: function () {
+		if (_.isUndefined(this.memory.routeToRoom)) {
+			this.memory.routeToRoom = [];
+		}
+		return this.memory.routeToRoom;
+	},
+	set: function (newValue) {
+		this.memory.routeToRoom = newValue;
+	},
+	enumerable: false,
+	configurable: true,
+});
+
+Object.defineProperty(Creep.prototype, "roomDestination", {
+	get: function () {
+		if (_.isUndefined(this.memory.roomDestination)) {
+			this.memory.roomDestination = false;
+		}
+		return this.memory.roomDestination;
+	},
+	set: function (newValue) {
+		this.memory.roomDestination = newValue;
+	},
+	enumerable: false,
+	configurable: true,
+});
+
+Creep.prototype.getRouteToRoom = function (room) {
+	const route = Game.map.findRoute(this.room.name, room, {
+		routeCallback(roomName) {
+			const parsed = /^[WE]([0-9]+)[NS]([0-9]+)$/.exec(roomName);
+			const isHighway = parsed[1] % 10 === 0 || parsed[2] % 10 === 0;
+			const isMyRoom = Game.rooms[roomName] && Game.rooms[roomName].controller && Game.rooms[roomName].controller.my;
+			const shouldAvoid =
+				this.room.isAvoid(roomName) || (Game.rooms[roomName] && Game.rooms[roomName].controller && Game.rooms[roomName].controller.owner != "None");
+			if (isHighway || isMyRoom) {
+				return 1;
+			} else if (shouldAvoid) {
+				this.room.avoidThis(roomName);
+				return Infinity;
+			} else {
+				return 2.5;
+			}
+		},
+	});
+
+	if (route != ERR_NO_PATH) {
+		this.routeToRoom = route;
+		this.roomDestination = room;
+	}
+	return route;
+};
+
+Creep.prototype.exitToRoom = function (roomName) {
+	if (this.roomDestination == roomName && this.routeToRoom.length > 0) {
+		const route = this.routeToRoom;
+		if (this.room.name == route[0].room) {
+			route.shift();
+			this.routeToRoom = route;
+		}
+		return this.pos.findClosestByRange(route[0].exit);
+	} else {
+		const route = this.getRouteToRoom(roomName);
+		if (route != ERR_NO_PATH) {
+			return this.pos.findClosestByRange(route[0].exit);
+		}
+	}
+	return null;
+};
