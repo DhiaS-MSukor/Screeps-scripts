@@ -91,13 +91,13 @@ Object.defineProperty(Creep.prototype, "roomDestination", {
 
 Object.defineProperty(Creep.prototype, "savedExit", {
 	get: function () {
-		if ("x" in this.memory.savedExit && "y" in this.memory.savedExit && "roomName" in this.memory.savedExit) {
+		if (this.memory.savedExit && "x" in this.memory.savedExit && "y" in this.memory.savedExit && "roomName" in this.memory.savedExit) {
 			return new RoomPosition(this.memory.savedExit.x, this.memory.savedExit.y, this.memory.savedExit.roomName);
 		}
 		return null;
 	},
 	set: function (newValue) {
-		if ("x" in newValue && "y" in newValue && "roomName" in newValue) {
+		if (newValue && "x" in newValue && "y" in newValue && "roomName" in newValue) {
 			this.memory.savedExit = { x: newValue.x, y: newValue.y, roomName: newValue.roomName };
 		}
 	},
