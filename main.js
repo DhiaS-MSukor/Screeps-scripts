@@ -132,6 +132,7 @@ function handle_buildings() {
 }
 
 module.exports.loop = function () {
+	const startCpu = Game.cpu.getUsed();
 	gen_pixel();
 
 	if (Game.time % 1000 == 0) {
@@ -140,4 +141,14 @@ module.exports.loop = function () {
 	}
 	handle_buildings();
 	handle_creeps();
+	total_cpuLog();
+
+	const elapsed = Game.cpu.getUsed() - startCpu;
+	if (!Memory.cpuLog) {
+		Memory.cpuLog = {};
+	}
+	if (!Memory.cpuLog.total) {
+		Memory.cpuLog.total = 0;
+	}
+	Memory.cpuLog.total = (Memory.cpuLog.total * 99 + elapsed) / 100;
 };
