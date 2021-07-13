@@ -86,7 +86,6 @@ Creep.prototype.doMining = function () {
 		if (this.ticksToLive < distanceToOrigin * 50 || (this.hits < this.hitsMax && this.store.getUsedCapacity() > 0)) {
 			this.minerToRoom(this.origin);
 			this.working = false;
-			this.say("transfer");
 			return;
 		}
 
