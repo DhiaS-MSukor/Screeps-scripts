@@ -103,6 +103,7 @@ function handle_creeps() {
 }
 
 function handle_buildings() {
+	const startCpu1 = Game.cpu.getUsed();
 	for (const element in Game.structures) {
 		const startCpu = Game.cpu.getUsed();
 		const structure = Game.structures[element];
@@ -129,6 +130,14 @@ function handle_buildings() {
 		}
 		Memory.cpuLog[structure.structureType] = (Memory.cpuLog[structure.structureType] * 99 + elapsed) / 100;
 	}
+	const elapsed1 = Game.cpu.getUsed() - startCpu;
+	if (!Memory.cpuLog) {
+		Memory.cpuLog = {};
+	}
+	if (!Memory.cpuLog.structure) {
+		Memory.cpuLog.structure = 0;
+	}
+	Memory.cpuLog.structure = (Memory.cpuLog.structure * 99 + elapsed1) / 100;
 }
 
 module.exports.loop = function () {
@@ -141,7 +150,6 @@ module.exports.loop = function () {
 	}
 	handle_buildings();
 	handle_creeps();
-	total_cpuLog();
 
 	const elapsed = Game.cpu.getUsed() - startCpu;
 	if (!Memory.cpuLog) {
