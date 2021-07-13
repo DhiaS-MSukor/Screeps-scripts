@@ -58,6 +58,7 @@ function trade_pixel() {
 
 function handle_creeps() {
 	for (const name in Game.creeps) {
+		const startCpu = Game.cpu.getUsed();
 		const creep = Game.creeps[name];
 		switch (creep.role) {
 			case "harvester":
@@ -90,11 +91,20 @@ function handle_creeps() {
 			default:
 				break;
 		}
+		const elapsed = Game.cpu.getUsed() - startCpu;
+		if (!Memory.cpuLog) {
+			Memory.cpuLog = {};
+		}
+		if (!Memory.cpuLog[creep.role]) {
+			Memory.cpuLog[creep.role] = 0;
+		}
+		Memory.cpuLog[creep.role] = (Memory.cpuLog[creep.role] * 99 + elapsed) / 100;
 	}
 }
 
 function handle_buildings() {
 	for (const element in Game.structures) {
+		const startCpu = Game.cpu.getUsed();
 		const structure = Game.structures[element];
 		switch (structure.structureType) {
 			case STRUCTURE_TOWER:
@@ -110,6 +120,14 @@ function handle_buildings() {
 			default:
 				break;
 		}
+		const elapsed = Game.cpu.getUsed() - startCpu;
+		if (!Memory.cpuLog) {
+			Memory.cpuLog = {};
+		}
+		if (!Memory.cpuLog[structure.structureType]) {
+			Memory.cpuLog[structure.structureType] = 0;
+		}
+		Memory.cpuLog[structure.structureType] = (Memory.cpuLog[structure.structureType] * 99 + elapsed) / 100;
 	}
 }
 
