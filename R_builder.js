@@ -59,7 +59,7 @@ Creep.prototype.doBuilder = function () {
 
 	if (this.working && this.store[RESOURCE_ENERGY] > 0) {
 		if (this.mode == 1 && this.room.name != Memory.roomTarget) {
-			const pos = this.exitToRoom(target);
+			const pos = this.exitToRoom(Memory.roomTarget);
 			if (pos) {
 				this.builderMove(pos, 0);
 				return;
