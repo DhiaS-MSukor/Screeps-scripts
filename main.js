@@ -130,7 +130,7 @@ function handle_buildings() {
 		}
 		Memory.cpuLog[structure.structureType] = (Memory.cpuLog[structure.structureType] * 99 + elapsed) / 100;
 	}
-	const elapsed1 = Game.cpu.getUsed() - startCpu;
+	const elapsed1 = Game.cpu.getUsed() - startCpu1;
 	if (!Memory.cpuLog) {
 		Memory.cpuLog = {};
 	}
