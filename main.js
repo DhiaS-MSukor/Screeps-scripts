@@ -12,6 +12,8 @@ require("Source");
 require("Room");
 
 function clean_mem() {
+	const startCpu = Game.cpu.getUsed();
+
 	for (var name in Memory.creeps) {
 		if (!Game.creeps[name]) {
 			delete Memory.creeps[name];
@@ -29,6 +31,14 @@ function clean_mem() {
 			delete Memory.spawns[name];
 		}
 	}
+	const elapsed = Game.cpu.getUsed() - startCpu;
+	if (!Memory.cpuLog) {
+		Memory.cpuLog = {};
+	}
+	if (!Memory.cpuLog.memClear) {
+		Memory.cpuLog.memClear = 0;
+	}
+	Memory.cpuLog.memClear = (Memory.cpuLog.memClear * 99 + elapsed) / 100;
 }
 
 function gen_pixel() {
@@ -38,6 +48,8 @@ function gen_pixel() {
 }
 
 function trade_pixel() {
+	const startCpu = Game.cpu.getUsed();
+
 	const orders = Game.market
 		.getAllOrders({
 			type: ORDER_SELL,
@@ -54,9 +66,19 @@ function trade_pixel() {
 			return;
 		}
 	}
+
+	const elapsed = Game.cpu.getUsed() - startCpu;
+	if (!Memory.cpuLog) {
+		Memory.cpuLog = {};
+	}
+	if (!Memory.cpuLog.pixelTrade) {
+		Memory.cpuLog.pixelTrade = 0;
+	}
+	Memory.cpuLog.pixelTrade = (Memory.cpuLog.pixelTrade * 99 + elapsed) / 100;
 }
 
 function handle_creeps() {
+	const startCpu1 = Game.cpu.getUsed();
 	for (const name in Game.creeps) {
 		const startCpu = Game.cpu.getUsed();
 		const creep = Game.creeps[name];
@@ -100,6 +122,14 @@ function handle_creeps() {
 		}
 		Memory.cpuLog[creep.role] = (Memory.cpuLog[creep.role] * 99 + elapsed) / 100;
 	}
+	const elapsed1 = Game.cpu.getUsed() - startCpu1;
+	if (!Memory.cpuLog) {
+		Memory.cpuLog = {};
+	}
+	if (!Memory.cpuLog.creep) {
+		Memory.cpuLog.creep = 0;
+	}
+	Memory.cpuLog.creep = (Memory.cpuLog.creep * 99 + elapsed1) / 100;
 }
 
 function handle_buildings() {
