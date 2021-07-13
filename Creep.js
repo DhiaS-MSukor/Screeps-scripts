@@ -158,5 +158,7 @@ Creep.prototype.exitToRoom = function (roomName) {
 			return exit;
 		}
 	}
+	const elapsed = Game.cpu.getUsed() - startCpu;
+	console.log("Creep " + this.name + " null has used " + elapsed + " CPU time");
 	return null;
 };
