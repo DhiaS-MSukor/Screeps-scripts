@@ -66,6 +66,15 @@ Creep.prototype.transferStructureTarget = function (type, minCap = 0, res = RESO
 };
 
 Creep.prototype.transferCreepTarget = function (role) {
+	const nearestEmpty = this.pos.findClosestByRange(FIND_MY_CREEPS, {
+		filter: (targets) => {
+			return targets.memory.role == role && targets.store.getUsedCapacity(RESOURCE_ENERGY) == 0;
+		},
+	});
+	if (nearestEmpty) {
+		return nearestEmpty;
+	}
+
 	const near = this.pos
 		.findInRange(FIND_MY_CREEPS, 1, {
 			filter: (targets) => {
