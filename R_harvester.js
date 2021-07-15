@@ -258,30 +258,19 @@ Creep.prototype.doHarvest = function () {
 			return;
 		}
 
-		targets = this.pos.findClosestByRange(FIND_STRUCTURES, {
-			filter: { structureType: STRUCTURE_CONTAINER },
-		});
+		targets = this.pos.findClosestByRange(FIND_STRUCTURES, { filter: { structureType: STRUCTURE_CONTAINER } });
 		if (this.harvesterTransfer([targets])) {
 			return;
 		}
 
-		targets = this.room.find(FIND_STRUCTURES, {
-			filter: (structure) => {
-				return structure.structureType == STRUCTURE_SPAWN && structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
-			},
-		});
-		if (this.harvesterTransfer(targets)) {
+		targets = this.pos.findClosestByRange(FIND_MY_SPAWNS, { filter: (spawn) => spawn.store.getFreeCapacity() > 0 });
+		if (this.harvesterTransfer([targets])) {
 			return;
 		}
 
 		if (this.store.getFreeCapacity() > 0) {
 			this.working = true;
 			this.say("working");
-		}
-
-		targets = this.room.find(FIND_MY_SPAWNS);
-		if (this.harvesterTransfer(targets)) {
-			return;
 		}
 	}
 };
