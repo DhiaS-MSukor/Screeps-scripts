@@ -228,15 +228,8 @@ Creep.prototype.doHarvest = function () {
 			this.harvesterTransfer(targets);
 		}
 	} else {
-		if (this.room.name != this.origin) {
-			const closestHighway = this.room.getClosestHighway(this.origin);
-			const highwayExits = Game.map.describeExits(closestHighway);
-
-			if (this.room.isHighway() && !Object.values(highwayExits).includes(this.room.name)) {
-				this.minerToRoom(closestHighway);
-			} else {
-				this.minerToRoom(this.origin);
-			}
+		if (this.room.name != this.origin) { 
+			this.minerToRoom(this.origin);
 			return;
 		}
 
