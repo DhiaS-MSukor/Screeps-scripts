@@ -279,9 +279,7 @@ Creep.prototype.doHarvest = function () {
 			this.say("working");
 		}
 
-		targets = this.room.find(FIND_STRUCTURES, {
-			filter: { structureType: STRUCTURE_SPAWN },
-		});
+		targets = this.room.find(FIND_MY_SPAWNS);
 		if (this.harvesterTransfer(targets)) {
 			return;
 		}
