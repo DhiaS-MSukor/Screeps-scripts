@@ -182,7 +182,7 @@ Creep.prototype.doRunner = function () {
 				if (this.room.energyAvailable < SPAWN_ENERGY_CAPACITY && this.addEnergyToRoom()) {
 					return;
 				}
-				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_TOWER, 10, RESOURCE_ENERGY, true))) {
+				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_TOWER, 0, RESOURCE_ENERGY, true))) {
 					return;
 				}
 			}
@@ -191,7 +191,7 @@ Creep.prototype.doRunner = function () {
 				if (this.addEnergyToRoom()) {
 					return;
 				}
-				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_TOWER, 10, RESOURCE_ENERGY, true))) {
+				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_TOWER, 0, RESOURCE_ENERGY, true))) {
 					return;
 				}
 				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_TERMINAL))) {
@@ -219,7 +219,7 @@ Creep.prototype.doRunner = function () {
 					return;
 				}
 
-				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_TOWER, 10, RESOURCE_ENERGY, true))) {
+				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_TOWER, 0, RESOURCE_ENERGY, true))) {
 					return;
 				}
 			} else {
