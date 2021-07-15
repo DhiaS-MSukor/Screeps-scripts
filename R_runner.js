@@ -205,10 +205,11 @@ Creep.prototype.doRunner = function () {
 				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_TERMINAL))) {
 					return;
 				}
+
 				if (this.runnerTransfer(this.transferCreepTarget("builder"))) {
 					return;
 				}
-				
+
 				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_TOWER, 10, RESOURCE_ENERGY, true))) {
 					return;
 				}
@@ -222,11 +223,12 @@ Creep.prototype.doRunner = function () {
 				if (this.addEnergyToRoom()) {
 					return;
 				}
-				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_TERMINAL))) {
+
+				if (this.runnerTransfer(this.transferCreepTarget("builder"))) {
 					return;
 				}
 
-				if (this.runnerTransfer(this.transferCreepTarget("builder"))) {
+				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_TERMINAL))) {
 					return;
 				}
 			}
