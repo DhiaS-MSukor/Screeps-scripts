@@ -119,8 +119,8 @@ Creep.prototype.doBuilder = function () {
 		if (target) {
 			if (this.withdraw(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
 				this.builderMove(target, 1);
+				return;
 			}
-			return;
 		}
 	}
 	let sources = this.pos.findInRange(FIND_STRUCTURES, 10, {
