@@ -182,11 +182,11 @@ function draw_room() {
 			const gplLeft = Math.ceil(Game.gpl.progressTotal - Game.gpl.progress);
 
 			room.visual.text(`Time: ${Game.time}`, 0, 0, { align: "left" });
-			room.visual.text(`CPU bucket: ${Game.cpu.bucket}`, 0, 1, { align: "left" });
-			room.visual.text(`GCL: ${gclPercent}% (${gclLeft})`, 0, 2, { align: "left" });
-			room.visual.text(`GPL: ${gplPercent}% (${gplLeft})`, 0, 3, { align: "left" });
-			room.visual.text(`Pixel cost: ${Memory.bestPixelPrice}`, 0, 4, { align: "left" });
-			room.visual.text(`Energy: ${room.energyAvailable}`, 0, 5, { align: "left" });
+			room.visual.text(`CPU bucket: ${Game.cpu.bucket}`, 0, 1, { align: "left", opacity: 0.6 });
+			room.visual.text(`GCL: ${gclPercent}% (${gclLeft})`, 0, 2, { align: "left", opacity: 0.6 });
+			room.visual.text(`GPL: ${gplPercent}% (${gplLeft})`, 0, 3, { align: "left", opacity: 0.6 });
+			room.visual.text(`Pixel cost: ${Memory.bestPixelPrice}`, 0, 4, { align: "left", opacity: 0.6 });
+			room.visual.text(`Energy: ${room.energyAvailable}`, 0, 5, { align: "left", opacity: 0.6 });
 		}
 	}
 }
