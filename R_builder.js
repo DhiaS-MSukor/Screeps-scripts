@@ -114,7 +114,15 @@ Creep.prototype.doBuilder = function () {
 			return;
 		}
 	}
-
+	if (this.mode == 1) {
+		target = this.pos.findClosestByRange(FIND_RUINS, { filter: (targets) => targets.store.getUsedCapacity(RESOURCE_ENERGY) > 0 });
+		if (target) {
+			if (this.withdraw(sources, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+				this.builderMove(sources, 1);
+			}
+			return;
+		}
+	}
 	let sources = this.pos.findInRange(FIND_STRUCTURES, 10, {
 		filter: (structure) => structure.structureType == STRUCTURE_CONTAINER && structure.store[RESOURCE_ENERGY] > this.store.getFreeCapacity(),
 	});
