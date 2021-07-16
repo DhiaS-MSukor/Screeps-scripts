@@ -21,7 +21,7 @@ module.exports = {
 			if (creep.room.name != Memory.roomTarget) {
 				const pos = creep.exitToRoom(Memory.roomTarget);
 				if (pos) {
-					const distance = this.pos.getRangeTo(pos);
+					const distance = creep.pos.getRangeTo(pos);
 					this.moveTo(pos, {
 						visualizePathStyle: { stroke: "#ff0000" },
 						maxOps: (Game.cpu.limit - Game.cpu.getUsed()) * 100,
