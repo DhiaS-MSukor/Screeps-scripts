@@ -238,7 +238,7 @@ Creep.prototype.doHarvest = function () {
 				filter: (structure) =>
 					(structure.structureType == STRUCTURE_TERMINAL || structure.structureType == STRUCTURE_CONTAINER) && structure.store.getFreeCapacity() > 0,
 			});
-			res = _.filter(Object.keys(this.store), (res) => res != RESOURCE_ENERGY && this.store[res] != 0);
+			res = Object.keys(this.store).filter( (res) => res != RESOURCE_ENERGY && this.store[res] != 0);
 			this.harvesterTransfer([targets], res[0]);
 			return;
 		}

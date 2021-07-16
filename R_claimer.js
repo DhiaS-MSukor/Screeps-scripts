@@ -18,6 +18,18 @@ module.exports = {
 	/** @param {Creep} creep **/
 	run: function (creep) {
 		if (Game.rooms[Memory.roomTarget]) {
+			if (creep.room.name != Memory.roomTarget) {
+				const pos = creep.exitToRoom(Memory.roomTarget);
+				if (pos) {
+					const distance = this.pos.getRangeTo(pos);
+					this.moveTo(pos, {
+						visualizePathStyle: { stroke: "#ff0000" },
+						maxOps: (Game.cpu.limit - Game.cpu.getUsed()) * 100,
+						reusePath: Math.floor(Math.random() * distance * 10) + 10,
+					});
+				}
+			}
+
 			creep.doClaimer(Game.rooms[Memory.roomTarget].controller);
 		}
 	},
