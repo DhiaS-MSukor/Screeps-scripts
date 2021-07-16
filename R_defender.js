@@ -68,14 +68,25 @@ Creep.prototype.doKnight = function () {
 			return;
 		}
 	} else {
-		var all = this.room.find(FIND_HOSTILE_CREEPS).concat(this.room.find(FIND_HOSTILE_STRUCTURES));
-		target = this.pos.findClosestByRange(all);
+		target = this.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
 		if (target) {
 			this.doKnightRole(target);
 			return;
 		}
+
+		if (this.room.controller && this.room.controller.my) {
+			target = this.pos.findClosestByRange(FIND_RUINS, { filter: (targets) => targets.store.getUsedCapacity(RESOURCE_ENERGY) > 0 });
+			if (!target) {
+				target = this.pos.findClosestByRange(FIND_HOSTILE_STRUCTURES);
+				this.doKnightRole(target);
+				return;
+			}
+		}
+		target = this.pos.findClosestByRange(FIND_HOSTILE_STRUCTURES);
+		this.doKnightRole(target);
+		return;
 	}
-	
+
 	if (this.mode == 1 && Memory.roomTarget != "false" && this.room.name != Memory.roomTarget) {
 		this.knightToRoom(Memory.roomTarget);
 		return;
