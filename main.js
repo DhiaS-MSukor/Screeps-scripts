@@ -192,8 +192,8 @@ function handle_room() {
 				const controllerPercent = Math.floor((room.controller.progress * 100) / room.controller.progressTotal);
 				const controllerLeft = Math.ceil(room.controller.progressTotal - room.controller.progress);
 
-				room.visual.text(`Energy: ${room.energyAvailable}`, 0, 49, { align: "left", opacity: 0.6 });
-				room.visual.text(`Controller: ${controllerPercent}% (${controllerLeft} @ ${ctrl.avg})`, 0, 50, { align: "left", opacity: 0.6 });
+				room.visual.text(`Energy: ${room.energyAvailable}`, 0, 48, { align: "left", opacity: 0.6 });
+				room.visual.text(`Controller: ${controllerPercent}% (${controllerLeft} @ ${ctrl.avg})`, 0, 49, { align: "left", opacity: 0.6 });
 			}
 		}
 	}
