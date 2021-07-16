@@ -28,9 +28,9 @@ module.exports = {
 						reusePath: Math.floor(Math.random() * distance * 10) + 10,
 					});
 				}
+			} else {
+				creep.doClaimer(Game.rooms[Memory.roomTarget].controller);
 			}
-
-			creep.doClaimer(Game.rooms[Memory.roomTarget].controller);
 		}
 	},
 };
