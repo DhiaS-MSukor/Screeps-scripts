@@ -117,8 +117,8 @@ Creep.prototype.doBuilder = function () {
 	if (this.mode == 1) {
 		target = this.pos.findClosestByRange(FIND_RUINS, { filter: (targets) => targets.store.getUsedCapacity(RESOURCE_ENERGY) > 0 });
 		if (target) {
-			if (this.withdraw(sources, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-				this.builderMove(sources, 1);
+			if (this.withdraw(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+				this.builderMove(target, 1);
 			}
 			return;
 		}
