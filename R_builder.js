@@ -115,7 +115,7 @@ Creep.prototype.doBuilder = function () {
 		}
 	}
 	if (this.mode == 1) {
-		target = this.room.find(FIND_RUINS).sort((a, b) => a.store.getUsedCapacity(RESOURCE_ENERGY) - b.store.getUsedCapacity(RESOURCE_ENERGY));
+		target = this.room.find(FIND_RUINS).sort((a, b) => b.store.getUsedCapacity(RESOURCE_ENERGY) - a.store.getUsedCapacity(RESOURCE_ENERGY));
 		if (target.length > 0) {
 			if (this.withdraw(target[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
 				this.builderMove(target[0], 1);
