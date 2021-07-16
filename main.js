@@ -176,8 +176,14 @@ function draw_room() {
 			const room = Game.rooms[roomName];
 			room.visual.text(`Time: ${Game.time}`, 0, 0, { align: "left" });
 			room.visual.text(`CPU bucket: ${Game.cpu.bucket}`, 0, 1, { align: "left" });
-			room.visual.text(`Pixel cost: ${Memory.bestPixelPrice}`, 0, 2, { align: "left" });
-			room.visual.text(`Energy: ${room.energyAvailable}`, 0, 3, { align: "left" });
+			room.visual.text(`GCL: ${(Game.gcl.progress * 100) / Game.gcl.progressTotal}% (${Game.gcl.progressTotal - Game.gcl.progress})`, 0, 2, {
+				align: "left",
+			});
+			room.visual.text(`GPL: ${(Game.gpl.progress * 100) / Game.gpl.progressTotal}% (${Game.gpl.progressTotal - Game.gpl.progress})`, 0, 3, {
+				align: "left",
+			});
+			room.visual.text(`Pixel cost: ${Memory.bestPixelPrice}`, 0, 4, { align: "left" });
+			room.visual.text(`Energy: ${room.energyAvailable}`, 0, 5, { align: "left" });
 		}
 	}
 }
