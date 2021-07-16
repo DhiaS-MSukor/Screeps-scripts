@@ -170,7 +170,7 @@ function handle_buildings() {
 	Memory.cpuLog.structure = (Memory.cpuLog.structure * 99 + elapsed1) / 100;
 }
 
-function draw_room() {
+function handle_room() {
 	for (const roomName in Game.rooms) {
 		if (Object.hasOwnProperty.call(Game.rooms, roomName)) {
 			const room = Game.rooms[roomName];
@@ -186,13 +186,13 @@ function draw_room() {
 			room.visual.text(`GCL: ${gclPercent}% (${gclLeft})`, 0, 2, { align: "left", opacity: 0.6 });
 			room.visual.text(`GPL: ${gplPercent}% (${gplLeft})`, 0, 3, { align: "left", opacity: 0.6 });
 			room.visual.text(`Pixel cost: ${Memory.bestPixelPrice}`, 0, 4, { align: "left", opacity: 0.6 });
-			room.visual.text(`Energy: ${room.energyAvailable}`, 0, 5, { align: "left", opacity: 0.6 });
 
 			if (room.controller && room.controller.my) {
 				const controllerPercent = Math.floor((room.controller.progress * 100) / room.controller.progressTotal);
 				const controllerLeft = Math.ceil(room.controller.progressTotal - room.controller.progress);
 
-				room.visual.text(`Controller: ${controllerPercent}% (${controllerLeft})`, 0, 6, { align: "left", opacity: 0.6 });
+				room.visual.text(`Energy: ${room.energyAvailable}`, 50, 5, { align: "right", opacity: 0.6 });
+				room.visual.text(`Controller: ${controllerPercent}% (${controllerLeft})`, 50, 6, { align: "right", opacity: 0.6 });
 			}
 		}
 	}
@@ -208,7 +208,7 @@ module.exports.loop = function () {
 	}
 	handle_buildings();
 	handle_creeps();
-	draw_room();
+	handle_room();
 
 	const elapsed = Game.cpu.getUsed() - startCpu;
 	if (!Memory.cpuLog) {
