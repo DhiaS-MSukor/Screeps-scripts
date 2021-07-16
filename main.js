@@ -187,6 +187,13 @@ function draw_room() {
 			room.visual.text(`GPL: ${gplPercent}% (${gplLeft})`, 0, 3, { align: "left", opacity: 0.6 });
 			room.visual.text(`Pixel cost: ${Memory.bestPixelPrice}`, 0, 4, { align: "left", opacity: 0.6 });
 			room.visual.text(`Energy: ${room.energyAvailable}`, 0, 5, { align: "left", opacity: 0.6 });
+
+			if (room.controller && room.controller.my) {
+				const controllerPercent = Math.floor((room.controller.progress * 100) / room.controller.progressTotal);
+				const controllerLeft = Math.ceil(room.controller.progressTotal - room.controller.progress);
+
+				room.visual.text(`Controller: ${controllerPercent}% (${controllerLeft})`, 0, 6, { align: "left", opacity: 0.6 });
+			}
 		}
 	}
 }
