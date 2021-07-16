@@ -174,14 +174,17 @@ function draw_room() {
 	for (const roomName in Game.rooms) {
 		if (Object.hasOwnProperty.call(Game.rooms, roomName)) {
 			const room = Game.rooms[roomName];
+
+			const gclPercent = Math.floor((Game.gcl.progress * 100) / Game.gcl.progressTotal);
+			const gclLeft = Math.ceil(Game.gcl.progressTotal - Game.gcl.progress);
+
+			const gplPercent = Math.floor((Game.gpl.progress * 100) / Game.gpl.progressTotal);
+			const gplLeft = Math.ceil(Game.gpl.progressTotal - Game.gpl.progress);
+
 			room.visual.text(`Time: ${Game.time}`, 0, 0, { align: "left" });
 			room.visual.text(`CPU bucket: ${Game.cpu.bucket}`, 0, 1, { align: "left" });
-			room.visual.text(`GCL: ${(Game.gcl.progress * 100) / Game.gcl.progressTotal}% (${Game.gcl.progressTotal - Game.gcl.progress})`, 0, 2, {
-				align: "left",
-			});
-			room.visual.text(`GPL: ${(Game.gpl.progress * 100) / Game.gpl.progressTotal}% (${Game.gpl.progressTotal - Game.gpl.progress})`, 0, 3, {
-				align: "left",
-			});
+			room.visual.text(`GCL: ${gclPercent}% (${gclLeft})`, 0, 2, { align: "left" });
+			room.visual.text(`GPL: ${gplPercent}% (${gplLeft})`, 0, 3, { align: "left" });
 			room.visual.text(`Pixel cost: ${Memory.bestPixelPrice}`, 0, 4, { align: "left" });
 			room.visual.text(`Energy: ${room.energyAvailable}`, 0, 5, { align: "left" });
 		}
