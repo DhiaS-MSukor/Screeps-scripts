@@ -191,6 +191,12 @@ Creep.prototype.doRunner = function () {
 				if (this.addEnergyToRoom()) {
 					return;
 				}
+				if (Memory.roomTarget == this.room.name) {
+					if (this.runnerTransfer(this.transferCreepTarget("builder"))) {
+						return;
+					}
+				}
+
 				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_TOWER, 0, RESOURCE_ENERGY, true))) {
 					return;
 				}
@@ -207,6 +213,12 @@ Creep.prototype.doRunner = function () {
 				}
 				if (this.store.getFreeCapacity() == 0 && this.runnerTransfer(this.transferStructureTarget(STRUCTURE_TERMINAL))) {
 					return;
+				}
+
+				if (Memory.roomTarget == this.room.name) {
+					if (this.runnerTransfer(this.transferCreepTarget("builder"))) {
+						return;
+					}
 				}
 				if (this.addEnergyToRoom()) {
 					return;
@@ -228,6 +240,11 @@ Creep.prototype.doRunner = function () {
 				}
 				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_TOWER, 0, RESOURCE_ENERGY, true))) {
 					return;
+				}
+				if (Memory.roomTarget == this.room.name) {
+					if (this.runnerTransfer(this.transferCreepTarget("builder"))) {
+						return;
+					}
 				}
 				if (this.addEnergyToRoom()) {
 					return;
