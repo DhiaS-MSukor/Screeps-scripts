@@ -220,11 +220,12 @@ function handle_room() {
 
 			const ctrl = room.getControllerPerformance();
 			if (ctrl) {
-				const controllerPercent = Math.floor((room.controller.progress * 100) / room.controller.progressTotal);
-				const controllerLeft = Math.ceil(room.controller.progressTotal - room.controller.progress);
+				const ctrlPercent = Math.floor((room.controller.progress * 100) / room.controller.progressTotal);
+				const ctrlLeft = Math.ceil(room.controller.progressTotal - room.controller.progress);
+				const ctrlEta = Math.ceil(ctrlLeft / ctrl.avg);
 
 				room.visual.text(`Energy: ${room.energyAvailable}`, 0, 48, { align: "left", opacity: 0.6 });
-				room.visual.text(`Controller: ${controllerPercent}% (${controllerLeft}) @ ${Math.floor(ctrl.avg)}`, 0, 49, { align: "left", opacity: 0.6 });
+				room.visual.text(`Controller: ${ctrlPercent}% (${ctrlLeft}) @ ${Math.floor(ctrl.avg)} ~ ${ctrlEta}`, 0, 49, { align: "left", opacity: 0.6 });
 			}
 		}
 	}
