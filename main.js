@@ -175,7 +175,9 @@ function draw_room() {
 		if (Object.hasOwnProperty.call(Game.rooms, roomName)) {
 			const room = Game.rooms[roomName];
 			room.visual.text(`Time: ${Game.time}`, 0, 0, { align: "left" });
-			room.visual.text(`Energy: ${room.energyAvailable}`, 0, 1, { align: "left" });
+			room.visual.text(`CPU bucket: ${Game.cpu.bucket}`, 0, 1, { align: "left" });
+			room.visual.text(`Pixel cost: ${Memory.bestPixelPrice}`, 0, 2, { align: "left" });
+			room.visual.text(`Energy: ${room.energyAvailable}`, 0, 3, { align: "left" });
 		}
 	}
 }
