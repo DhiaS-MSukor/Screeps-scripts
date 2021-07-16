@@ -181,11 +181,14 @@ function handle_room() {
 			const gplPercent = Math.floor((Game.gpl.progress * 100) / Game.gpl.progressTotal);
 			const gplLeft = Math.ceil(Game.gpl.progressTotal - Game.gpl.progress);
 
+			const credits = Game.market.credits;
+
 			room.visual.text(`Time: ${Game.time}`, 0, 0, { align: "left", opacity: 0.6 });
 			room.visual.text(`CPU bucket: ${Game.cpu.bucket}`, 0, 1, { align: "left", opacity: 0.6 });
 			room.visual.text(`GCL: ${gclPercent}% (${gclLeft}) @ ${Math.floor(Memory.gclPerformance.avg)}`, 0, 2, { align: "left", opacity: 0.6 });
 			room.visual.text(`GPL: ${gplPercent}% (${gplLeft}) @ ${Math.floor(Memory.gplPerformance.avg)}`, 0, 3, { align: "left", opacity: 0.6 });
-			room.visual.text(`Pixel cost: ${Memory.bestPixelPrice}`, 0, 4, { align: "left", opacity: 0.6 });
+			room.visual.text(`Credit: ${credits} @ ${Math.floor(Memory.creditPerformance.avg)}`, 0, 4, { align: "left", opacity: 0.6 });
+			room.visual.text(`Pixel cost: ${Memory.bestPixelPrice}`, 0, 5, { align: "left", opacity: 0.6 });
 
 			const ctrl = room.getControllerPerformance();
 			if (ctrl) {
@@ -214,6 +217,14 @@ function calc_game_performance() {
 		Memory.gplPerformance.prev = progress;
 	} else {
 		Memory.gplPerformance = { prev: Game.gpl.progress, avg: 0 };
+	}
+
+	if (Memory.creditPerformance && "prev" in Memory.creditPerformance && "avg" in Memory.creditPerformance) {
+		const progress = Game.market.credits;
+		Memory.creditPerformance.avg = (Memory.creditPerformance.avg * 9999 + (progress - Memory.creditPerformance.prev)) / 10000;
+		Memory.creditPerformance.prev = progress;
+	} else {
+		Memory.creditPerformance = { prev: Game.market.credits, avg: 0 };
 	}
 }
 
