@@ -115,6 +115,14 @@ Creep.prototype.doBuilder = function () {
 		}
 	}
 	if (this.mode == 1) {
+		targets = this.room.find(FIND_DROPPED_RESOURCES, { filter: { resourceType: RESOURCE_ENERGY } }).sort((a, b) => a.amount - b.amount);
+		if (targets.length > 0) {
+			if (this.pickup(targets[0]) == ERR_NOT_IN_RANGE) {
+				this.builderMove(targets[0], 0);
+				return;
+			}
+		}
+
 		target = this.room.find(FIND_RUINS).sort((a, b) => a.store.getUsedCapacity(RESOURCE_ENERGY) - b.store.getUsedCapacity(RESOURCE_ENERGY));
 		if (target.length > 0) {
 			if (this.withdraw(target[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
