@@ -204,11 +204,14 @@ function handle_room() {
 
 			const credits = Game.market.credits;
 			const creditAvg = Math.floor(Memory.creditPerformance.avg * 1000) / 1000;
-			const creditEta = Math.ceil((Memory.bestPixelPrice - (credits % Memory.bestPixelPrice)) / Memory.creditPerformance.avg);
+			const creditEta =
+				Math.ceil((Memory.bestPixelPrice - (credits % Memory.bestPixelPrice)) / Memory.creditPerformance.avg) -
+				Game.time +
+				Memory.creditPerformance.time;
 
 			const pixel = Game.resources.pixel;
 			const pixelAvg = Math.floor(Memory.pixelPerformance.avg * 10000) / 10000;
-			const pixelEta = Math.ceil((500 - (pixel % 500)) / Memory.pixelPerformance.avg);
+			const pixelEta = Math.ceil((500 - (pixel % 500)) / Memory.pixelPerformance.avg) - Game.time + Memory.pixelPerformance.time;
 
 			room.visual.text(`Time: ${Game.time}`, 0, 0, { align: "left", opacity: 0.6 });
 			room.visual.text(`CPU bucket: ${bucket} @ ${bucketAvg} ~ ${bucketEta}`, 0, 1, { align: "left", opacity: 0.6 });
