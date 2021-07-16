@@ -53,3 +53,18 @@ Room.prototype.avoidThis = function (room) {
 		Memory.avoidRoom = [];
 	}
 };
+
+Room.prototype.getControllerPerformance = function () {
+	if (this.controller && this.controller.my) {
+		if (this.memory.controllerPerformance && "prev" in this.memory.controllerPerformance && "avg" in this.memory.controllerPerformance) {
+			const progress = this.controller.progress;
+			this.memory.controllerPerformance.avg =
+				(this.memory.controllerPerformance.avg * 99 + (progress - this.memory.controllerPerformance.prev)) / 100;
+			this.memory.controllerPerformance.prev = progress;
+		} else {
+			this.memory.controllerPerformance = { prev: this.controller.progress, avg: 0 };
+		}
+		return this.memory.controllerPerformance;
+	}
+	return null;
+};
