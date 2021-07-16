@@ -83,7 +83,7 @@ Creep.prototype.doKnight = function () {
 				}
 				if (!target) {
 					target = this.room
-						.find(FIND_HOSTILE_STRUCTURES, { filter: (struct) => struct.store && struct.store.getUsedCapacity(RESOURCE_ENERGY) > 0 })
+						.find(FIND_HOSTILE_STRUCTURES, { filter: (struct) => struct.store && struct.store.getUsedCapacity() > 0 })
 						.sort((a, b) => a.store.getUsedCapacity(RESOURCE_ENERGY) - b.store.getUsedCapacity(RESOURCE_ENERGY));
 					if (target.length > 0) {
 						target = target[0];
