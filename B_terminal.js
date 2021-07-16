@@ -15,9 +15,22 @@ function GetMedian(values) {
 StructureTerminal.prototype.getMaxAmount = function (order) {
 	const amount = this.store.getUsedCapacity(RESOURCE_ENERGY);
 	const distance = Game.map.getRoomLinearDistance(order.roomName, this.room.name, true);
-	return order.resourceType == RESOURCE_ENERGY
-		? Math.floor(amount / (2 - Math.exp(-distance / 30))) - 1
-		: Math.floor(amount / (1 - Math.exp(-distance / 30))) - 1;
+	if (order) {
+		const flag = [order.resourceType == RESOURCE_ENERGY, distance > 30].reduce((prev, curr, index) => (curr ? prev + 2 ** index : prev), 0);
+		switch (flag) {
+			case 0:
+				return Math.floor(amount / (1 - Math.exp(-distance / 30))) - 1;
+			case 1:
+				return Math.floor(amount / (2 - Math.exp(-distance / 30))) - 1;
+			case 2:
+				return Math.min(order.remainingAmount, this.store.getUsedCapacity(order.resourceType));
+			case 3:
+				return Math.min(Math.floor(amount / 2), order.remainingAmount * 2);
+			default:
+				console.log("flag not found");
+				return 0;
+		}
+	}
 };
 
 StructureTerminal.prototype.trySell = function (order, left = 0) {
@@ -144,10 +157,10 @@ StructureTerminal.prototype.doRole = function () {
 				}
 			}
 		}
+	}
 
-		if (this.sellResource(RESOURCE_ENERGY, 10000)) {
-			return;
-		}
+	if (this.sellResource(RESOURCE_ENERGY, 10000)) {
+		return;
 	}
 
 	this.buyResource(RESOURCE_ENERGY, Memory.bestPixelPrice);
