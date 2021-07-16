@@ -46,6 +46,14 @@ Creep.prototype.doBuilder = function () {
 				this.builderMove(targets[0], 1);
 			}
 		}
+		targets = this.pos.findInRange(FIND_RUINS, 2, {
+			filter: (targets) => targets.store.getUsedCapacity(RESOURCE_ENERGY) > 0,
+		});
+		if (targets.length > 0) {
+			if (this.withdraw(targets[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+				this.builderMove(targets[0], 1);
+			}
+		}
 	}
 
 	if (this.working && this.store[RESOURCE_ENERGY] == 0) {
