@@ -12,6 +12,17 @@ function GetMedian(values) {
 	return (values[half - 1] + values[half]) / 2.0;
 }
 
+function CalcCreditPerformance(amount) {
+	if (Memory.creditPerformance && "time" in Memory.creditPerformance && "prev" in Memory.creditPerformance && "avg" in Memory.creditPerformance) {
+		const timePast = Game.time - Memory.creditPerformance.time;
+		Memory.creditPerformance.avg = (Memory.creditPerformance.avg * 9999 + amount / timePast) / 10000;
+		Memory.creditPerformance.prev = progress;
+		Memory.creditPerformance.time = Game.time;
+	} else {
+		Memory.creditPerformance = { prev: Game.market.credits, avg: 0, time: Game.time };
+	}
+}
+
 StructureTerminal.prototype.getMaxAmount = function (order) {
 	const amount = this.store.getUsedCapacity(RESOURCE_ENERGY);
 	const distance = Game.map.getRoomLinearDistance(order.roomName, this.room.name, true);
@@ -43,7 +54,10 @@ StructureTerminal.prototype.trySell = function (order, left = 0) {
 		const cost = Game.market.calcTransactionCost(amount, this.room.name, order.roomName);
 		if (cost < this.store.getUsedCapacity(RESOURCE_ENERGY)) {
 			var deal = Game.market.deal(order.id, amount, this.room.name);
-			if (deal == OK || deal == ERR_TIRED || deal == ERR_FULL) {
+			if (deal == OK) {
+				CalcCreditPerformance(amount);
+				return true;
+			} else if (deal == ERR_TIRED || deal == ERR_FULL) {
 				return true;
 			}
 		}

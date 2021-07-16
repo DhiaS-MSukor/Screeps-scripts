@@ -42,8 +42,19 @@ function clean_mem() {
 }
 
 function gen_pixel() {
-	if (Game.cpu.bucket >= PIXEL_CPU_COST) {
-		Game.cpu.generatePixel();
+	if (Game.cpu.bucket >= PIXEL_CPU_COST && Game.cpu.generatePixel() == OK) {
+		UpdatePixelPerformance(1);
+	}
+}
+
+function UpdatePixelPerformance(amount) {
+	if (Memory.pixelPerformance && "time" in Memory.pixelPerformance && "prev" in Memory.pixelPerformance && "avg" in Memory.pixelPerformance) {
+		const timePast = Game.time - Memory.pixelPerformance.time;
+		Memory.pixelPerformance.avg = (Memory.pixelPerformance.avg * 9999 + amount / timePast) / 10000;
+		Memory.pixelPerformance.prev = progress;
+		Memory.pixelPerformance.time = Game.time;
+	} else {
+		Memory.pixelPerformance = { prev: amount, avg: 0, time: Game.time };
 	}
 }
 
@@ -62,7 +73,10 @@ function trade_pixel() {
 		let amount = Math.floor(Game.market.credits / order.price);
 		amount = amount > order.remainingAmount ? order.remainingAmount : amount;
 		const deal = Game.market.deal(order.id, amount);
-		if (deal == OK || deal == ERR_TIRED || deal == ERR_FULL) {
+		if (deal == OK) {
+			UpdatePixelPerformance(amount);
+			return;
+		} else if (deal == ERR_TIRED || deal == ERR_FULL) {
 			return;
 		}
 	}
@@ -183,9 +197,10 @@ function handle_room() {
 
 			const credits = Game.market.credits;
 			const pixel = Game.resources.pixel;
+			const bucket = Game.cpu.bucket;
 
 			room.visual.text(`Time: ${Game.time}`, 0, 0, { align: "left", opacity: 0.6 });
-			room.visual.text(`CPU bucket: ${Game.cpu.bucket}`, 0, 1, { align: "left", opacity: 0.6 });
+			room.visual.text(`CPU bucket: ${bucket} @ ${Math.floor(Memory.bucketPerformance.avg)}`, 0, 1, { align: "left", opacity: 0.6 });
 			room.visual.text(`GCL: ${gclPercent}% (${gclLeft}) @ ${Math.floor(Memory.gclPerformance.avg)}`, 0, 2, { align: "left", opacity: 0.6 });
 			room.visual.text(`GPL: ${gplPercent}% (${gplLeft}) @ ${Math.floor(Memory.gplPerformance.avg)}`, 0, 3, { align: "left", opacity: 0.6 });
 			room.visual.text(`Credit: ${credits} @ ${Math.floor(Memory.creditPerformance.avg * 1000) / 1000}`, 0, 4, { align: "left", opacity: 0.6 });
@@ -221,20 +236,12 @@ function calc_game_performance() {
 		Memory.gplPerformance = { prev: Game.gpl.progress, avg: 0 };
 	}
 
-	if (Memory.creditPerformance && "prev" in Memory.creditPerformance && "avg" in Memory.creditPerformance) {
-		const progress = Game.market.credits;
-		Memory.creditPerformance.avg = (Memory.creditPerformance.avg * 9999 + (progress - Memory.creditPerformance.prev)) / 10000;
-		Memory.creditPerformance.prev = progress;
+	if (Memory.bucketPerformance && "prev" in Memory.bucketPerformance && "avg" in Memory.bucketPerformance) {
+		const progress = Game.cpu.bucket;
+		Memory.bucketPerformance.avg = (Memory.bucketPerformance.avg * 9999 + (progress - Memory.bucketPerformance.prev)) / 10000;
+		Memory.bucketPerformance.prev = progress;
 	} else {
-		Memory.creditPerformance = { prev: Game.market.credits, avg: 0 };
-	}
-
-	if (Memory.pixelPerformance && "prev" in Memory.pixelPerformance && "avg" in Memory.pixelPerformance) {
-		const progress = Game.resources.pixel;
-		Memory.pixelPerformance.avg = (Memory.pixelPerformance.avg * 9999 + (progress - Memory.pixelPerformance.prev)) / 10000;
-		Memory.pixelPerformance.prev = progress;
-	} else {
-		Memory.pixelPerformance = { prev: Game.resources.pixel, avg: 0 };
+		Memory.bucketPerformance = { prev: Game.cpu.bucket, avg: 0 };
 	}
 }
 
