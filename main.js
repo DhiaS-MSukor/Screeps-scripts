@@ -183,8 +183,8 @@ function handle_room() {
 
 			room.visual.text(`Time: ${Game.time}`, 0, 0, { align: "left", opacity: 0.6 });
 			room.visual.text(`CPU bucket: ${Game.cpu.bucket}`, 0, 1, { align: "left", opacity: 0.6 });
-			room.visual.text(`GCL: ${gclPercent}% (${gclLeft})`, 0, 2, { align: "left", opacity: 0.6 });
-			room.visual.text(`GPL: ${gplPercent}% (${gplLeft})`, 0, 3, { align: "left", opacity: 0.6 });
+			room.visual.text(`GCL: ${gclPercent}% (${gclLeft}) @ ${Math.floor(Memory.gclPerformance.avg)}`, 0, 2, { align: "left", opacity: 0.6 });
+			room.visual.text(`GPL: ${gplPercent}% (${gplLeft}) @ ${Math.floor(Memory.gplPerformance.avg)}`, 0, 3, { align: "left", opacity: 0.6 });
 			room.visual.text(`Pixel cost: ${Memory.bestPixelPrice}`, 0, 4, { align: "left", opacity: 0.6 });
 
 			const ctrl = room.getControllerPerformance();
@@ -193,9 +193,27 @@ function handle_room() {
 				const controllerLeft = Math.ceil(room.controller.progressTotal - room.controller.progress);
 
 				room.visual.text(`Energy: ${room.energyAvailable}`, 0, 48, { align: "left", opacity: 0.6 });
-				room.visual.text(`Controller: ${controllerPercent}% (${controllerLeft} @ ${ctrl.avg})`, 0, 49, { align: "left", opacity: 0.6 });
+				room.visual.text(`Controller: ${controllerPercent}% (${controllerLeft}) @ ${Math.floor(ctrl.avg)}`, 0, 49, { align: "left", opacity: 0.6 });
 			}
 		}
+	}
+}
+
+function calc_game_performance() {
+	if (Memory.gclPerformance && "prev" in Memory.gclPerformance && "avg" in Memory.gclPerformance) {
+		const progress = Game.gcl.progress;
+		Memory.gclPerformance.avg = (Memory.gclPerformance.avg * 99 + (progress - Memory.gclPerformance.prev)) / 100;
+		Memory.gclPerformance.prev = progress;
+	} else {
+		Memory.gclPerformance = { prev: Game.gcl.progress, avg: 0 };
+	}
+
+	if (Memory.gplPerformance && "prev" in Memory.gplPerformance && "avg" in Memory.gplPerformance) {
+		const progress = Game.gpl.progress;
+		Memory.gplPerformance.avg = (Memory.gplPerformance.avg * 99 + (progress - Memory.gplPerformance.prev)) / 100;
+		Memory.gplPerformance.prev = progress;
+	} else {
+		Memory.gplPerformance = { prev: Game.gpl.progress, avg: 0 };
 	}
 }
 
@@ -209,6 +227,9 @@ module.exports.loop = function () {
 	}
 	handle_buildings();
 	handle_creeps();
+
+	calc_game_performance();
+
 	handle_room();
 
 	const elapsed = Game.cpu.getUsed() - startCpu;
