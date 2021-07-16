@@ -170,6 +170,16 @@ function handle_buildings() {
 	Memory.cpuLog.structure = (Memory.cpuLog.structure * 99 + elapsed1) / 100;
 }
 
+function draw_room() {
+	for (const roomName in Game.rooms) {
+		if (Object.hasOwnProperty.call(Game.rooms, roomName)) {
+			const room = Game.rooms[roomName];
+			room.visual.text(`Time :${Game.time}`, 0, 0, { align: "left", font: "20px" });
+			room.visual.text(`Energy :${room.energyAvailable}`, 0, 0, { align: "left", font: "20px" });
+		}
+	}
+}
+
 module.exports.loop = function () {
 	const startCpu = Game.cpu.getUsed();
 	gen_pixel();
@@ -180,6 +190,7 @@ module.exports.loop = function () {
 	}
 	handle_buildings();
 	handle_creeps();
+	draw_room();
 
 	const elapsed = Game.cpu.getUsed() - startCpu;
 	if (!Memory.cpuLog) {
