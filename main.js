@@ -237,7 +237,7 @@ function calc_game_performance() {
 
 	if (Memory.bucketPerformance && "prev" in Memory.bucketPerformance && "avg" in Memory.bucketPerformance) {
 		const progress = Game.cpu.bucket;
-		Memory.bucketPerformance.avg = (Memory.bucketPerformance.avg * 9999 + (progress - Memory.bucketPerformance.prev)) / 10000;
+		Memory.bucketPerformance.avg = (Memory.bucketPerformance.avg * 99 + (progress - Memory.bucketPerformance.prev)) / 100;
 		Memory.bucketPerformance.prev = progress;
 	} else {
 		Memory.bucketPerformance = { prev: Game.cpu.bucket, avg: 0 };
