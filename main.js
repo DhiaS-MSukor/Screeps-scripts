@@ -203,7 +203,7 @@ function handle_room() {
 			room.visual.text(`GCL: ${gclPercent}% (${gclLeft}) @ ${Math.floor(Memory.gclPerformance.avg)}`, 0, 2, { align: "left", opacity: 0.6 });
 			room.visual.text(`GPL: ${gplPercent}% (${gplLeft}) @ ${Math.floor(Memory.gplPerformance.avg)}`, 0, 3, { align: "left", opacity: 0.6 });
 			room.visual.text(`Credit: ${credits} @ ${Math.floor(Memory.creditPerformance.avg * 1000) / 1000}`, 0, 4, { align: "left", opacity: 0.6 });
-			room.visual.text(`Pixel: ${pixel} @ ${Math.floor(Memory.pixelPerformance.avg * 1000) / 1000}`, 0, 5, { align: "left", opacity: 0.6 });
+			room.visual.text(`Pixel: ${pixel} @ ${Math.floor(Memory.pixelPerformance.avg * 10000) / 10000}`, 0, 5, { align: "left", opacity: 0.6 });
 			room.visual.text(`Pixel cost: ${Memory.bestPixelPrice}`, 0, 6, { align: "left", opacity: 0.6 });
 
 			const ctrl = room.getControllerPerformance();
