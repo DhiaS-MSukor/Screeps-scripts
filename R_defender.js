@@ -81,10 +81,11 @@ Creep.prototype.doKnight = function () {
 				this.doKnightRole(target);
 				return;
 			}
+		} else {
+			target = this.pos.findClosestByRange(FIND_HOSTILE_STRUCTURES);
+			this.doKnightRole(target);
+			return;
 		}
-		target = this.pos.findClosestByRange(FIND_HOSTILE_STRUCTURES);
-		this.doKnightRole(target);
-		return;
 	}
 
 	if (this.mode == 1 && Memory.roomTarget != "false" && this.room.name != Memory.roomTarget) {
