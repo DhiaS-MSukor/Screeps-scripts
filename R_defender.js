@@ -74,7 +74,7 @@ Creep.prototype.doKnight = function () {
 			return;
 		}
 
-		if (this.mode == 1 && this.room.name == Memory.roomTarget && this.room.controller && this.room.controller.my) {
+		if (this.room.name == Memory.roomTarget && this.room.controller && this.room.controller.my) {
 			target = this.pos.findClosestByRange(FIND_RUINS, { filter: (targets) => targets.store.getUsedCapacity(RESOURCE_ENERGY) > 0 });
 			if (!target) {
 				target = this.pos.findClosestByRange(FIND_HOSTILE_STRUCTURES, { filter: (struct) => !struct.store });
