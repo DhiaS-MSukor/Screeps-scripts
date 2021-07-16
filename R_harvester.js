@@ -228,35 +228,25 @@ Creep.prototype.doHarvest = function () {
 			this.harvesterTransfer(targets);
 		}
 	} else {
-		if (this.room.name != this.origin) { 
+		if (this.room.name != this.origin) {
 			this.minerToRoom(this.origin);
 			return;
 		}
 
 		if (this.mode == 1) {
 			targets = this.pos.findClosestByRange(FIND_STRUCTURES, {
-				filter: (structure) => {
-					return structure.structureType == STRUCTURE_TERMINAL && structure.store.getFreeCapacity() > 0;
-				},
+				filter: (structure) =>
+					(structure.structureType == STRUCTURE_TERMINAL || structure.structureType == STRUCTURE_CONTAINER) && structure.store.getFreeCapacity() > 0,
 			});
-			if (!targets) {
-				targets = this.pos.findClosestByRange(FIND_STRUCTURES, {
-					filter: (structure) => {
-						return structure.structureType == STRUCTURE_CONTAINER && structure.store.getFreeCapacity() > 0;
-					},
-				});
-			}
 			res = _.filter(Object.keys(this.store), (res) => res != RESOURCE_ENERGY && this.store[res] != 0);
 			this.harvesterTransfer([targets], res[0]);
 			return;
 		}
 
-		targets = this.pos.findClosestByRange(FIND_STRUCTURES, { filter: { structureType: STRUCTURE_CONTAINER } });
-		if (this.harvesterTransfer([targets])) {
-			return;
-		}
-
-		targets = this.pos.findClosestByRange(FIND_MY_SPAWNS, { filter: (spawn) => spawn.store.getFreeCapacity() > 0 });
+		targets = this.pos.findClosestByRange(FIND_STRUCTURES, {
+			filter: (structure) =>
+				(structure.structureType == STRUCTURE_CONTAINER || structure.structureType == STRUCTURE_SPAWN) && structure.store.getFreeCapacity() > 0,
+		});
 		if (this.harvesterTransfer([targets])) {
 			return;
 		}
