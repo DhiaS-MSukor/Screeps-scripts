@@ -203,14 +203,19 @@ function handle_room() {
 			const gplEta = Math.ceil(gplLeft / Memory.gplPerformance.avg);
 
 			const credits = Game.market.credits;
+			const creditAvg = Math.floor(Memory.creditPerformance.avg * 1000) / 1000;
+			const creditEta = Math.ceil((Memory.bestPixelPrice - (credits % Memory.bestPixelPrice)) / Memory.creditPerformance.avg);
+
 			const pixel = Game.resources.pixel;
+			const pixelAvg = Math.floor(Memory.pixelPerformance.avg * 10000) / 10000;
+			const pixelEta = Math.ceil((500 - (pixel % 500)) / Memory.pixelPerformance.avg);
 
 			room.visual.text(`Time: ${Game.time}`, 0, 0, { align: "left", opacity: 0.6 });
 			room.visual.text(`CPU bucket: ${bucket} @ ${bucketAvg} ~ ${bucketEta}`, 0, 1, { align: "left", opacity: 0.6 });
 			room.visual.text(`GCL: ${gclPercent}% (${gclLeft}) @ ${gclAvg} ~ ${gclEta}`, 0, 2, { align: "left", opacity: 0.6 });
 			room.visual.text(`GPL: ${gplPercent}% (${gplLeft}) @ ${gplAvg} ~ ${gplEta}`, 0, 3, { align: "left", opacity: 0.6 });
-			room.visual.text(`Credit: ${credits} @ ${Math.floor(Memory.creditPerformance.avg * 1000) / 1000}`, 0, 4, { align: "left", opacity: 0.6 });
-			room.visual.text(`Pixel: ${pixel} @ ${Math.floor(Memory.pixelPerformance.avg * 10000) / 10000}`, 0, 5, { align: "left", opacity: 0.6 });
+			room.visual.text(`Credit: ${credits} @ ${creditAvg} ~ ${creditEta}`, 0, 4, { align: "left", opacity: 0.6 });
+			room.visual.text(`Pixel: ${pixel} @ ${pixelAvg} ~ ${pixelEta}`, 0, 5, { align: "left", opacity: 0.6 });
 			room.visual.text(`Pixel cost: ${Memory.bestPixelPrice}`, 0, 6, { align: "left", opacity: 0.6 });
 
 			const ctrl = room.getControllerPerformance();
