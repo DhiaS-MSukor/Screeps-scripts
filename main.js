@@ -183,8 +183,14 @@ function handle_room() {
 
 			room.visual.text(`Time: ${Game.time}`, 0, 0, { align: "left", opacity: 0.6 });
 			room.visual.text(`CPU bucket: ${Game.cpu.bucket}`, 0, 1, { align: "left", opacity: 0.6 });
-			room.visual.text(`GCL: ${gclPercent}% (${gclLeft}) @ ${Math.floor(Memory.gclPerformance.avg)}`, 0, 2, { align: "left", opacity: 0.6 });
-			room.visual.text(`GPL: ${gplPercent}% (${gplLeft}) @ ${Math.floor(Memory.gplPerformance.avg)}`, 0, 3, { align: "left", opacity: 0.6 });
+			room.visual.text(`GCL: ${gclPercent}% (${gclLeft}) @ ${Math.floor(Memory.gclPerformance.avg * 100) / 100}`, 0, 2, {
+				align: "left",
+				opacity: 0.6,
+			});
+			room.visual.text(`GPL: ${gplPercent}% (${gplLeft}) @ ${Math.floor(Memory.gplPerformance.avg * 100) / 100}`, 0, 3, {
+				align: "left",
+				opacity: 0.6,
+			});
 			room.visual.text(`Pixel cost: ${Memory.bestPixelPrice}`, 0, 4, { align: "left", opacity: 0.6 });
 
 			const ctrl = room.getControllerPerformance();
@@ -193,7 +199,10 @@ function handle_room() {
 				const controllerLeft = Math.ceil(room.controller.progressTotal - room.controller.progress);
 
 				room.visual.text(`Energy: ${room.energyAvailable}`, 0, 48, { align: "left", opacity: 0.6 });
-				room.visual.text(`Controller: ${controllerPercent}% (${controllerLeft}) @ ${Math.floor(ctrl.avg)}`, 0, 49, { align: "left", opacity: 0.6 });
+				room.visual.text(`Controller: ${controllerPercent}% (${controllerLeft}) @ ${Math.floor(ctrl.avg * 100) / 100}`, 0, 49, {
+					align: "left",
+					opacity: 0.6,
+				});
 			}
 		}
 	}
