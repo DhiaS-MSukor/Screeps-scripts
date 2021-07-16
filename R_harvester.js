@@ -245,7 +245,10 @@ Creep.prototype.doHarvest = function () {
 
 		targets = this.pos.findClosestByRange(FIND_STRUCTURES, {
 			filter: (structure) =>
-				(structure.structureType == STRUCTURE_CONTAINER || structure.structureType == STRUCTURE_SPAWN) && structure.store.getFreeCapacity() > 0,
+				(structure.structureType == STRUCTURE_CONTAINER ||
+					targets.structureType == STRUCTURE_EXTENSION ||
+					structure.structureType == STRUCTURE_SPAWN) &&
+				structure.store.getFreeCapacity() > 0,
 		});
 		if (this.harvesterTransfer([targets])) {
 			return;
