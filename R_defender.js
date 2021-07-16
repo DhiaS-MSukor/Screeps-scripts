@@ -82,7 +82,9 @@ Creep.prototype.doKnight = function () {
 					target = this.pos.findClosestByRange(FIND_HOSTILE_STRUCTURES, { filter: (struct) => struct.store && struct.store.getUsedCapacity() == 0 });
 				}
 				if (!target) {
-					target = this.pos.findClosestByRange(FIND_HOSTILE_STRUCTURES, { filter: (struct) => struct.store && struct.store.getUsedCapacity(RESOURCE_ENERGY) == 0 });
+					target = this.pos.findClosestByRange(FIND_HOSTILE_STRUCTURES, {
+						filter: (struct) => struct.store && struct.store.getUsedCapacity(RESOURCE_ENERGY) == 0,
+					});
 				}
 				if (!target) {
 					target = this.room
@@ -95,14 +97,17 @@ Creep.prototype.doKnight = function () {
 				if (!target) {
 					target = this.pos.findClosestByRange(FIND_HOSTILE_STRUCTURES);
 				}
-
-				this.doKnightRole(target);
-				return;
+				if (target) {
+					this.doKnightRole(target);
+					return;
+				}
 			}
 		} else {
 			target = this.pos.findClosestByRange(FIND_HOSTILE_STRUCTURES);
-			this.doKnightRole(target);
-			return;
+			if (target) {
+				this.doKnightRole(target);
+				return;
+			}
 		}
 	}
 
