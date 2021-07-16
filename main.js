@@ -174,8 +174,8 @@ function draw_room() {
 	for (const roomName in Game.rooms) {
 		if (Object.hasOwnProperty.call(Game.rooms, roomName)) {
 			const room = Game.rooms[roomName];
-			room.visual.text(`Time :${Game.time}`, 0, 0, { align: "left", font: "20px" });
-			room.visual.text(`Energy :${room.energyAvailable}`, 0, 25, { align: "left", font: "20px" });
+			room.visual.text(`Time :${Game.time}`, 0, 0, { align: "left" });
+			room.visual.text(`Energy :${room.energyAvailable}`, 0, 1, { align: "left" });
 		}
 	}
 }
