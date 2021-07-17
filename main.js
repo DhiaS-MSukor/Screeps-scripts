@@ -203,7 +203,7 @@ function handle_room() {
 			const gplEta = Math.ceil(gplLeft / Memory.gplPerformance.avg);
 
 			const credits = Game.market.credits;
-			const creditAvg = Math.floor(Memory.creditPerformance.avg * 100) / 100;
+			const creditAvg = Math.floor(Memory.creditPerformance.avg * 10) / 10;
 			const creditEta =
 				Math.ceil((Memory.bestPixelPrice - (credits % Memory.bestPixelPrice)) / Memory.creditPerformance.avg) -
 				Game.time +
