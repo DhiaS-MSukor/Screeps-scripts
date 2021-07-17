@@ -256,7 +256,7 @@ function calc_game_performance() {
 		Memory.bucketPerformance.avg = (Memory.bucketPerformance.avg * 99 + progress) / 100;
 		Memory.bucketPerformance.prev = progress;
 	} else {
-		Memory.bucketPerformance = { prev: Game.cpu.bucket, avg: 0 };
+		Memory.bucketPerformance = { prev: progress, avg: 0 };
 	}
 }
 
