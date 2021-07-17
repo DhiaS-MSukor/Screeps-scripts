@@ -50,7 +50,7 @@ function gen_pixel() {
 function UpdatePixelPerformance(amount) {
 	if (Memory.pixelPerformance && "time" in Memory.pixelPerformance && "avg" in Memory.pixelPerformance) {
 		const timePast = Game.time - Memory.pixelPerformance.time;
-		Memory.pixelPerformance.avg = (Memory.pixelPerformance.avg * 9999 + amount / timePast) / 10000;
+		Memory.pixelPerformance.avg = (Memory.pixelPerformance.avg * 499 + amount / timePast) / 500;
 		Memory.pixelPerformance.time = Game.time;
 	} else {
 		Memory.pixelPerformance = { avg: 0, time: Game.time };
