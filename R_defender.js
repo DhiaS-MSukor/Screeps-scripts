@@ -59,11 +59,6 @@ Creep.prototype.doKnightRole = function (target) {
 Creep.prototype.doKnight = function () {
 	var target;
 
-	if (this.mode == 1 && Memory.roomTarget != "false" && this.room.name != Memory.roomTarget) {
-		this.knightToRoom(Memory.roomTarget);
-		return;
-	}
-
 	if (this.role == "healer") {
 		target = this.pos.findClosestByRange(FIND_MY_CREEPS, {
 			filter: (targets) => targets.hits < targets.hitsMax,
@@ -126,7 +121,11 @@ Creep.prototype.doKnight = function () {
 			}
 		}
 	}
-	if (this.mode == 2 && Memory.raidTarget != "false" && this.room.name != Memory.raidTarget) {
+
+	if (this.mode == 1 && Memory.roomTarget != "false" && this.room.name != Memory.roomTarget) {
+		this.knightToRoom(Memory.roomTarget);
+		return;
+	} else if (this.mode == 2 && Memory.raidTarget != "false" && this.room.name != Memory.raidTarget) {
 		this.knightToRoom(Memory.raidTarget);
 		return;
 	}
