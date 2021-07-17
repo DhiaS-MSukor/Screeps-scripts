@@ -54,7 +54,7 @@ StructureTerminal.prototype.trySell = function (order, left = 0) {
 		if (cost < this.store.getUsedCapacity(RESOURCE_ENERGY)) {
 			var deal = Game.market.deal(order.id, amount, this.room.name);
 			if (deal == OK) {
-				CalcCreditPerformance(amount);
+				CalcCreditPerformance(amount * order.price);
 				return true;
 			} else if (deal == ERR_TIRED || deal == ERR_FULL) {
 				return true;
