@@ -162,7 +162,7 @@ StructureTerminal.prototype.doRole = function () {
 			return;
 		}
 	}
-	if (this.store.getUsedCapacity(RESOURCE_ENERGY) > 10000) {
+	if (this.store.getUsedCapacity(RESOURCE_ENERGY) > 100000) {
 		if (this.store.getFreeCapacity() > 10000) {
 			for (const element of RESOURCES_ALL) {
 				if (element != RESOURCE_ENERGY && this.buyResource(element, Memory.bestPixelPrice)) {
@@ -170,10 +170,10 @@ StructureTerminal.prototype.doRole = function () {
 				}
 			}
 		}
-	}
 
-	if (this.store.getUsedCapacity(RESOURCE_ENERGY) > 100000 && this.sellResource(RESOURCE_ENERGY, 10000)) {
-		return;
+		if (this.sellResource(RESOURCE_ENERGY, 10000)) {
+			return;
+		}
 	}
 
 	this.buyResource(RESOURCE_ENERGY, Memory.bestPixelPrice);
