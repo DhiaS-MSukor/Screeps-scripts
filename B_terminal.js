@@ -172,7 +172,7 @@ StructureTerminal.prototype.doRole = function () {
 		}
 	}
 
-	if (this.sellResource(RESOURCE_ENERGY, 10000)) {
+	if (this.store.getUsedCapacity(RESOURCE_ENERGY) > 100000 && this.sellResource(RESOURCE_ENERGY, 10000)) {
 		return;
 	}
 
