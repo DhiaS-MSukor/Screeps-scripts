@@ -112,7 +112,9 @@ Creep.prototype.doKnight = function () {
 				}
 			}
 		} else {
-			target = this.pos.findClosestByRange(FIND_HOSTILE_STRUCTURES);
+			target = this.pos.findClosestByRange(FIND_HOSTILE_STRUCTURES, {
+				filter: (struct) => this.mode == 3 || struct.structureType != STRUCTURE_POWER_BANK,
+			});
 			if (target) {
 				this.doKnightRole(target);
 				return;
