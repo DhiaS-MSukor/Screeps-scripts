@@ -96,7 +96,7 @@ Creep.prototype.doKnight = function () {
 					});
 				}
 				if (!target) {
-					target = this.room.pos.findClosestByRange(FIND_HOSTILE_STRUCTURES, {
+					target = this.pos.findClosestByRange(FIND_HOSTILE_STRUCTURES, {
 						filter: (struct) => struct.store && struct.store.getUsedCapacity() > 0,
 					});
 				}
