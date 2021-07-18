@@ -112,7 +112,7 @@ Creep.prototype.getRouteToRoom = function (room) {
 			const isHighway = parsed[1] % 10 === 0 || parsed[2] % 10 === 0;
 			const isMyRoom = Game.rooms[roomName] && Game.rooms[roomName].controller && Game.rooms[roomName].controller.my;
 			const shouldAvoid =
-				this.room.isAvoid(room) ||
+				this.room.isAvoid(roomName) ||
 				(Game.rooms[roomName] && Game.rooms[roomName].controller && Game.rooms[roomName].controller.owner && !Game.rooms[roomName].controller.my);
 			if (isHighway || isMyRoom) {
 				return 1;
