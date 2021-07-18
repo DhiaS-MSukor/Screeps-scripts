@@ -65,3 +65,86 @@ Room.prototype.getControllerPerformance = function () {
 	}
 	return null;
 };
+
+function getWhitelist() {
+	//----return your whiteList here-------------------
+	return Memory.whiteList || [];
+}
+
+//------module code------------
+
+let originFind = Room.prototype.find;
+Room.prototype.myFind = function (type, opts) {
+	let result = originFind.call(this, type, opts);
+	if (
+		type === FIND_HOSTILE_CREEPS ||
+		type === FIND_HOSTILE_CONSTRUCTION_SITES ||
+		type === FIND_HOSTILE_POWER_CREEPS ||
+		type === FIND_HOSTILE_SPAWNS ||
+		type === FIND_HOSTILESTRUCTURES
+	) {
+		result = result.filter((o) => !getWhitelist().includes(o.owner.username));
+	}
+	return result;
+};
+
+let originLookForAt = Room.prototype.lookForAt;
+
+function isFriend(o) {
+	return getWhitelist().includes(o.owner.username) && !o.my;
+}
+
+function isHostile(o) {
+	return !getWhitelist().includes(o.owner.username) && !o.my;
+}
+
+Room.prototype.myLookForAt = function (type, firstArg, secondArg) {
+	if (type === "LOOK_FRIEND") {
+		let result = originLookForAt.call(this, LOOKCREEPS, firstArg, secondArg);
+		result = result.filter(isFriend);
+		return result;
+	} else if (type === "LOOK_HOSTILE") {
+		let result = originLookForAt.call(this, LOOKCREEPS, firstArg, secondArg);
+		result = result.filter(isHostile);
+		return result;
+	} else {
+		return originLookForAt.call(this, type, firstArg, secondArg);
+	}
+};
+let originLookForAtArea = Room.prototype.lookForAtArea;
+
+function solveArea(result, asArray, o) {
+	if (!asArray) {
+		for (let i in result) {
+			let temp = result[i];
+			for (let j in temp) {
+				let tmp = temp[j];
+				if (tmp) {
+					tmp = tmp.filter((o) => getWhitelist().includes(o.owner.username) && !o.my);
+				}
+				if (tmp.length === 0) {
+					temp[i] = undefined;
+				} else {
+					temp[i] = tmp;
+				}
+			}
+		}
+	} else {
+		result = result.filter((o) => getWhitelist().includes(o.creep.owner.username) && !o.creep.my);
+	}
+	return result;
+}
+
+Room.prototype.myLookForAtArea = function (type, top, left, bottom, right, asArray) {
+	if (type === "LOOK_FRIEND") {
+		let result = originLookForAtArea.call(this, LOOK_CREEPS, top, left, bottom, right, asArray);
+		result = solveArea(result, asArray, isFriend);
+		return result;
+	} else if (type === "LOOK_HOSTILE") {
+		let result = originLookForAtArea.call(this, LOOK_CREEPS, top, left, bottom, right, asArray);
+		result = solveArea(result, asArray, isHostile);
+		return result;
+	} else {
+		return originLookForAtArea.call(this, type, top, left, bottom, right, asArray);
+	}
+};
