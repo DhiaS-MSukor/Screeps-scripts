@@ -23,7 +23,7 @@ StructureSpawn.prototype.do_spawn = function (theRole, mode) {
 		}
 	} else if (theRole == "runner") {
 		const base = BODYPART_COST[MOVE] + BODYPART_COST[CARRY];
-		const mul = Math.min(10, this.getMul(base, 2));
+		const mul = Math.min(20, this.getMul(base, 2));
 		const body = new Array(mul * 2).fill(CARRY, 0, mul).fill(MOVE, mul);
 		res = this.spawnCreep(body, name, mem);
 	} else if (theRole == "builder") {
