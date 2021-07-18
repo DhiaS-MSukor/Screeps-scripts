@@ -11,7 +11,7 @@ RoomPosition.prototype.myFindClosestByRange = function (type, opts) {
 			const func = opts.filter;
 			opts.filter = (o) => !getWhitelist().includes(o.owner.username) && func.apply(o);
 		} else if (!opts) {
-			opts = { filter: (o) => !getWhitelist().includes(o.owner.username) && func.apply(o) };
+			opts = { filter: (o) => !getWhitelist().includes(o.owner.username) };
 		}
 	}
 	return originFind.call(this, type, opts);
