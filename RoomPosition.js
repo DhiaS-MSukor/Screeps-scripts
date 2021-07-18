@@ -9,18 +9,6 @@ RoomPosition.prototype.myFindClosestByRange = function (type, opts) {
 	if (types.includes(type) && "filter" in opts && opts.filter.constructor && opts.filter.call && opts.filter.apply) {
 		const func = opts.filter;
 		opts.filter = (o) => !getWhitelist().includes(o.owner.username) && func.apply(o);
-	} else {
-		return originFind.call(this, type, opts);
 	}
-
-	let result = originFind.call(this, type, opts);
-	if (
-		type === FIND_HOSTILE_CREEPS ||
-		type === FIND_HOSTILE_CONSTRUCTION_SITES ||
-		type === FIND_HOSTILE_POWER_CREEPS ||
-		type === FIND_HOSTILE_SPAWNS ||
-		type === FIND_HOSTILE_STRUCTURES
-	) {
-		result = result.filter((o) => !getWhitelist().includes(o.owner.username));
-	}
+	return originFind.call(this, type, opts);
 };
