@@ -10,6 +10,7 @@ var b_terminal = require("B_terminal");
 require("Creep");
 require("Source");
 require("Room");
+require("RoomPosition");
 
 function clean_mem() {
 	const startCpu = Game.cpu.getUsed();

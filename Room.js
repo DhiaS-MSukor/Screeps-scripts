@@ -81,7 +81,7 @@ Room.prototype.myFind = function (type, opts) {
 		type === FIND_HOSTILE_CONSTRUCTION_SITES ||
 		type === FIND_HOSTILE_POWER_CREEPS ||
 		type === FIND_HOSTILE_SPAWNS ||
-		type === FIND_HOSTILESTRUCTURES
+		type === FIND_HOSTILE_STRUCTURES
 	) {
 		result = result.filter((o) => !getWhitelist().includes(o.owner.username));
 	}
