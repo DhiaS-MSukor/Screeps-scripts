@@ -87,23 +87,23 @@ Creep.prototype.doBuilder = function () {
 			}
 		}
 
-		if (this.doBuild(this.pos.findClosestByRange(FIND_MY_CONSTRUCTION_SITES, { filter: { structureType: STRUCTURE_SPAWN } }))) {
+		if (this.doBuild(this.pos.myFindClosestByRange(FIND_MY_CONSTRUCTION_SITES, { filter: { structureType: STRUCTURE_SPAWN } }))) {
 			return;
 		}
 
-		if (this.doBuild(this.pos.findClosestByRange(FIND_MY_CONSTRUCTION_SITES, { filter: { structureType: STRUCTURE_TOWER } }))) {
+		if (this.doBuild(this.pos.myFindClosestByRange(FIND_MY_CONSTRUCTION_SITES, { filter: { structureType: STRUCTURE_TOWER } }))) {
 			return;
 		}
 
-		if (this.doBuild(this.pos.findClosestByRange(FIND_MY_CONSTRUCTION_SITES, { filter: { structureType: STRUCTURE_WALL } }))) {
+		if (this.doBuild(this.pos.myFindClosestByRange(FIND_MY_CONSTRUCTION_SITES, { filter: { structureType: STRUCTURE_WALL } }))) {
 			return;
 		}
 
-		if (this.doBuild(this.pos.findClosestByRange(FIND_MY_CONSTRUCTION_SITES, { filter: { structureType: STRUCTURE_RAMPART } }))) {
+		if (this.doBuild(this.pos.myFindClosestByRange(FIND_MY_CONSTRUCTION_SITES, { filter: { structureType: STRUCTURE_RAMPART } }))) {
 			return;
 		}
 
-		if (this.doBuild(this.pos.findClosestByRange(FIND_MY_CONSTRUCTION_SITES))) {
+		if (this.doBuild(this.pos.myFindClosestByRange(FIND_MY_CONSTRUCTION_SITES))) {
 			return;
 		}
 
@@ -152,7 +152,7 @@ Creep.prototype.doBuilder = function () {
 			return;
 		}
 	}
-	sources = this.pos.findClosestByRange(FIND_STRUCTURES, {
+	sources = this.pos.myFindClosestByRange(FIND_STRUCTURES, {
 		filter: (structure) => structure.structureType == STRUCTURE_CONTAINER && structure.store[RESOURCE_ENERGY] > 0,
 	});
 	if (sources) {

@@ -60,7 +60,7 @@ Creep.prototype.harvesterTransfer = function (targets, res = RESOURCE_ENERGY) {
 	return false;
 };
 Creep.prototype.doMining = function () {
-	var targets = this.pos.findClosestByRange(FIND_MINERALS, {
+	var targets = this.pos.myFindClosestByRange(FIND_MINERALS, {
 		filter: (mineral) =>
 			mineral.mineralAmount > 0 &&
 			mineral.pos.lookFor(LOOK_STRUCTURES).some((structure) => structure.structureType == STRUCTURE_EXTRACTOR && structure.my),
@@ -112,7 +112,7 @@ Creep.prototype.doMining = function () {
 			}
 		}
 
-		targets = this.pos.findClosestByRange(FIND_DEPOSITS, { filter: (i) => i.cooldown <= this.ticksToLive && i.lastCooldown < 100 });
+		targets = this.pos.myFindClosestByRange(FIND_DEPOSITS, { filter: (i) => i.cooldown <= this.ticksToLive && i.lastCooldown < 100 });
 
 		if (targets) {
 			if (Array.isArray(Memory.deposits) && !Memory.deposits.includes(targets.id)) {
@@ -234,16 +234,16 @@ Creep.prototype.doHarvest = function () {
 		}
 
 		if (this.mode == 1) {
-			targets = this.pos.findClosestByRange(FIND_STRUCTURES, {
+			targets = this.pos.myFindClosestByRange(FIND_STRUCTURES, {
 				filter: (structure) =>
 					(structure.structureType == STRUCTURE_TERMINAL || structure.structureType == STRUCTURE_CONTAINER) && structure.store.getFreeCapacity() > 0,
 			});
-			res = Object.keys(this.store).filter( (res) => res != RESOURCE_ENERGY && this.store[res] != 0);
+			res = Object.keys(this.store).filter((res) => res != RESOURCE_ENERGY && this.store[res] != 0);
 			this.harvesterTransfer([targets], res[0]);
 			return;
 		}
 
-		targets = this.pos.findClosestByRange(FIND_STRUCTURES, {
+		targets = this.pos.myFindClosestByRange(FIND_STRUCTURES, {
 			filter: (structure) =>
 				(structure.structureType == STRUCTURE_CONTAINER ||
 					structure.structureType == STRUCTURE_EXTENSION ||

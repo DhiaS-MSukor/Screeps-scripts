@@ -45,7 +45,7 @@ Creep.prototype.doRepairer = function () {
 	}
 
 	if (this.working && this.store[RESOURCE_ENERGY] > 0) {
-		targets = this.pos.findClosestByRange(FIND_STRUCTURES, {
+		targets = this.pos.myFindClosestByRange(FIND_STRUCTURES, {
 			filter: (structure) => {
 				return structure.hits < structure.hitsMax && (structure.structureType == STRUCTURE_CONTAINER || structure.structureType == STRUCTURE_ROAD);
 			},
@@ -54,7 +54,7 @@ Creep.prototype.doRepairer = function () {
 			return;
 		}
 
-		targets = this.pos.findClosestByRange(FIND_MY_STRUCTURES, {
+		targets = this.pos.myFindClosestByRange(FIND_MY_STRUCTURES, {
 			filter: (structure) => {
 				return structure.hits < structure.hitsMax;
 			},
@@ -63,7 +63,7 @@ Creep.prototype.doRepairer = function () {
 			return;
 		}
 
-		targets = this.pos.findClosestByRange(FIND_STRUCTURES, {
+		targets = this.pos.myFindClosestByRange(FIND_STRUCTURES, {
 			filter: (structure) => {
 				return structure.hits < structure.hitsMax && structure.structureType == STRUCTURE_RAMPART;
 			},
@@ -72,7 +72,7 @@ Creep.prototype.doRepairer = function () {
 			return;
 		}
 
-		targets = this.pos.findClosestByRange(FIND_STRUCTURES, {
+		targets = this.pos.myFindClosestByRange(FIND_STRUCTURES, {
 			filter: (structure) => {
 				return structure.hits < structure.hitsMax;
 			},
@@ -87,7 +87,7 @@ Creep.prototype.doRepairer = function () {
 			}
 		}
 	} else {
-		targets = this.pos.findClosestByRange(FIND_STRUCTURES, {
+		targets = this.pos.myFindClosestByRange(FIND_STRUCTURES, {
 			filter: (structure) => {
 				return structure.structureType == STRUCTURE_CONTAINER && structure.store[RESOURCE_ENERGY] > this.store.getFreeCapacity();
 			},

@@ -58,7 +58,7 @@ Creep.prototype.transferStructureTarget = function (type, minCap = 0, res = RESO
 			return;
 		}
 	}
-	return this.pos.findClosestByRange(FIND_STRUCTURES, {
+	return this.pos.myFindClosestByRange(FIND_STRUCTURES, {
 		filter: (targets) => {
 			return targets.structureType == type && targets.store.getFreeCapacity(res) > minCap;
 		},
@@ -66,7 +66,7 @@ Creep.prototype.transferStructureTarget = function (type, minCap = 0, res = RESO
 };
 
 Creep.prototype.transferCreepTarget = function (role) {
-	const nearestEmpty = this.pos.findClosestByRange(FIND_MY_CREEPS, {
+	const nearestEmpty = this.pos.myFindClosestByRange(FIND_MY_CREEPS, {
 		filter: (targets) => {
 			return targets.memory.role == role && targets.store.getUsedCapacity(RESOURCE_ENERGY) == 0;
 		},
@@ -86,7 +86,7 @@ Creep.prototype.transferCreepTarget = function (role) {
 		return near[0];
 	}
 
-	return this.pos.findClosestByRange(FIND_MY_CREEPS, {
+	return this.pos.myFindClosestByRange(FIND_MY_CREEPS, {
 		filter: (targets) => {
 			return targets.memory.role == role && targets.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
 		},
@@ -95,7 +95,7 @@ Creep.prototype.transferCreepTarget = function (role) {
 
 Creep.prototype.withdrawFromContainer = function () {
 	if (this.store.getFreeCapacity() > 350) {
-		let targets = this.pos.findClosestByRange(FIND_STRUCTURES, {
+		let targets = this.pos.myFindClosestByRange(FIND_STRUCTURES, {
 			filter: (target) => target.structureType == STRUCTURE_CONTAINER && target.store.getFreeCapacity(RESOURCE_ENERGY) == 0,
 		});
 
@@ -104,7 +104,7 @@ Creep.prototype.withdrawFromContainer = function () {
 		}
 	}
 
-	let targets = this.pos.findClosestByRange(FIND_STRUCTURES, {
+	let targets = this.pos.myFindClosestByRange(FIND_STRUCTURES, {
 		filter: (target) => target.structureType == STRUCTURE_CONTAINER && target.store.getUsedCapacity(RESOURCE_ENERGY) > this.store.getFreeCapacity(),
 	});
 
@@ -122,7 +122,7 @@ Creep.prototype.withdrawFromContainer = function () {
 		return true;
 	}
 
-	targets = this.pos.findClosestByRange(FIND_STRUCTURES, {
+	targets = this.pos.myFindClosestByRange(FIND_STRUCTURES, {
 		filter: (target) => target.structureType == STRUCTURE_CONTAINER && target.store.getUsedCapacity(RESOURCE_ENERGY) > 0,
 	});
 
@@ -133,7 +133,7 @@ Creep.prototype.withdrawFromContainer = function () {
 };
 
 Creep.prototype.addEnergyToRoom = function () {
-	const target = this.pos.findClosestByRange(FIND_STRUCTURES, {
+	const target = this.pos.myFindClosestByRange(FIND_STRUCTURES, {
 		filter: (targets) => {
 			return (
 				(targets.structureType == STRUCTURE_SPAWN || targets.structureType == STRUCTURE_EXTENSION) &&
@@ -163,7 +163,7 @@ Creep.prototype.doRunner = function () {
 		this.say("pass");
 	}
 
-	const enemy = this.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
+	const enemy = this.pos.myFindClosestByRange(FIND_HOSTILE_CREEPS);
 	if (this.working) {
 		res = _.filter(Object.keys(this.store), (res) => res != RESOURCE_ENERGY && this.store[res] != 0);
 		if (res.length) {
@@ -276,7 +276,7 @@ Creep.prototype.doRunner = function () {
 	res = Object.keys(this.store).filter((res) => res != RESOURCE_ENERGY && this.store[res] != 0);
 	if (this.task == 1 && this.store.getFreeCapacity() > 350 && res.length == 0) {
 		let minerals = this.room.myFind(FIND_MINERALS, { filter: (target) => target.mineralAmount == 0 });
-		targets = this.pos.findClosestByRange(FIND_STRUCTURES, {
+		targets = this.pos.myFindClosestByRange(FIND_STRUCTURES, {
 			filter: (targets) =>
 				targets.structureType != STRUCTURE_TERMINAL &&
 				targets.store &&
@@ -294,14 +294,14 @@ Creep.prototype.doRunner = function () {
 	} else if (res.length > 0 && this.store.getFreeCapacity() == 0) {
 		this.drop(res[0]);
 	}
-	targets = this.pos.findClosestByRange(FIND_TOMBSTONES, {
+	targets = this.pos.myFindClosestByRange(FIND_TOMBSTONES, {
 		filter: (targets) => targets.store.getUsedCapacity() != 0,
 	});
 	if (this.withdrawAll(targets)) {
 		return;
 	}
 
-	targets = this.pos.findClosestByRange(FIND_RUINS, {
+	targets = this.pos.myFindClosestByRange(FIND_RUINS, {
 		filter: (targets) => targets.store.getUsedCapacity() != 0,
 	});
 	if (this.withdrawAll(targets)) {
@@ -317,7 +317,7 @@ Creep.prototype.doRunner = function () {
 			return;
 		}
 
-		targets = this.pos.findClosestByRange(FIND_STRUCTURES, {
+		targets = this.pos.myFindClosestByRange(FIND_STRUCTURES, {
 			filter: (targets) =>
 				targets.structureType != STRUCTURE_TERMINAL &&
 				targets.store &&

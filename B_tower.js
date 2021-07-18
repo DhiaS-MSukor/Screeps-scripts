@@ -5,27 +5,27 @@ StructureTower.prototype.doRole = function () {
 		return;
 	}
 
-	var target = this.pos.findClosestByRange(FIND_HOSTILE_CREEPS, {
+	var target = this.pos.myFindClosestByRange(FIND_HOSTILE_CREEPS, {
 		filter: (creep) => creep.getActiveBodyparts(HEAL) > 0,
 	});
 	if (target) {
 		this.attack(target);
 		return;
 	}
-	var target = this.pos.findClosestByRange(FIND_HOSTILE_CREEPS, {
+	var target = this.pos.myFindClosestByRange(FIND_HOSTILE_CREEPS, {
 		filter: (creep) => creep.getActiveBodyparts(ATTACK) > 0 || creep.getActiveBodyparts(RANGED_ATTACK) > 0,
 	});
 	if (target) {
 		this.attack(target);
 		return;
 	}
-	var target = this.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
+	var target = this.pos.myFindClosestByRange(FIND_HOSTILE_CREEPS);
 	if (target) {
 		this.attack(target);
 		return;
 	}
 
-	var target = this.pos.findClosestByRange(FIND_MY_CREEPS, { filter: (creep) => creep.hits < creep.hitsMax });
+	var target = this.pos.myFindClosestByRange(FIND_MY_CREEPS, { filter: (creep) => creep.hits < creep.hitsMax });
 	if (target) {
 		this.heal(target);
 		return;

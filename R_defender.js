@@ -65,7 +65,7 @@ Creep.prototype.doKnight = function () {
 	}
 
 	if (this.role == "healer") {
-		target = this.pos.findClosestByRange(FIND_MY_CREEPS, {
+		target = this.pos.myFindClosestByRange(FIND_MY_CREEPS, {
 			filter: (targets) => targets.hits < targets.hitsMax,
 		});
 		if (target) {
@@ -73,30 +73,32 @@ Creep.prototype.doKnight = function () {
 			return;
 		}
 	} else {
-		target = this.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
+		target = this.pos.myFindClosestByRange(FIND_HOSTILE_CREEPS);
 		if (target) {
 			this.doKnightRole(target);
 			return;
 		}
 
 		if (this.room.name == Memory.roomTarget && this.room.controller && this.room.controller.my) {
-			target = this.pos.findClosestByRange(FIND_RUINS, { filter: (targets) => targets.store.getUsedCapacity(RESOURCE_ENERGY) > 0 });
+			target = this.pos.myFindClosestByRange(FIND_RUINS, { filter: (targets) => targets.store.getUsedCapacity(RESOURCE_ENERGY) > 0 });
 			if (!target) {
-				target = this.pos.findClosestByRange(FIND_DROPPED_RESOURCES, { filter: { resourceType: RESOURCE_ENERGY } });
+				target = this.pos.myFindClosestByRange(FIND_DROPPED_RESOURCES, { filter: { resourceType: RESOURCE_ENERGY } });
 			}
 
 			if (!target) {
-				target = this.pos.findClosestByRange(FIND_HOSTILE_STRUCTURES, {
+				target = this.pos.myFindClosestByRange(FIND_HOSTILE_STRUCTURES, {
 					filter: (struct) => struct.structureType == STRUCTURE_SPAWN || struct.structureType == STRUCTURE_EXTENSION,
 				});
 				if (!target) {
-					target = this.pos.findClosestByRange(FIND_HOSTILE_STRUCTURES, { filter: (struct) => !struct.store });
+					target = this.pos.myFindClosestByRange(FIND_HOSTILE_STRUCTURES, { filter: (struct) => !struct.store });
 				}
 				if (!target) {
-					target = this.pos.findClosestByRange(FIND_HOSTILE_STRUCTURES, { filter: (struct) => struct.store && struct.store.getUsedCapacity() == 0 });
+					target = this.pos.myFindClosestByRange(FIND_HOSTILE_STRUCTURES, {
+						filter: (struct) => struct.store && struct.store.getUsedCapacity() == 0,
+					});
 				}
 				if (!target) {
-					target = this.pos.findClosestByRange(FIND_HOSTILE_STRUCTURES, {
+					target = this.pos.myFindClosestByRange(FIND_HOSTILE_STRUCTURES, {
 						filter: (struct) => struct.store && struct.store.getUsedCapacity(RESOURCE_ENERGY) == 0,
 					});
 				}
@@ -109,7 +111,7 @@ Creep.prototype.doKnight = function () {
 					}
 				}
 				if (!target) {
-					target = this.pos.findClosestByRange(FIND_HOSTILE_STRUCTURES);
+					target = this.pos.myFindClosestByRange(FIND_HOSTILE_STRUCTURES);
 				}
 				if (target) {
 					this.doKnightRole(target);
@@ -117,7 +119,7 @@ Creep.prototype.doKnight = function () {
 				}
 			}
 		} else {
-			target = this.pos.findClosestByRange(FIND_HOSTILE_STRUCTURES, {
+			target = this.pos.myFindClosestByRange(FIND_HOSTILE_STRUCTURES, {
 				filter: (struct) => this.mode == 3 || struct.structureType != STRUCTURE_POWER_BANK,
 			});
 			if (target) {
