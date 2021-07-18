@@ -197,7 +197,7 @@ Creep.prototype.doHarvest = function () {
 		}
 
 		if (!this.assignedSource) {
-			targets = this.room.find(FIND_SOURCES);
+			targets = this.room.myFind(FIND_SOURCES);
 			for (const key in targets) {
 				if (Object.hasOwnProperty.call(targets, key)) {
 					const target = targets[key];

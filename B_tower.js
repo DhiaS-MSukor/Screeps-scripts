@@ -33,7 +33,7 @@ StructureTower.prototype.doRole = function () {
 
 	if (this.store.getUsedCapacity(RESOURCE_ENERGY) > 509) {
 		target = this.room
-			.find(FIND_STRUCTURES, {
+			.myFind(FIND_STRUCTURES, {
 				filter: (structure) => structure.hits < structure.hitsMax,
 			})
 			.sort((a, b) => a.hits - b.hits);

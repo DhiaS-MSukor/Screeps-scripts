@@ -105,13 +105,13 @@ StructureSpawn.prototype.auto_respawn = function () {
 
 	// spawn to num
 	// essentials
-	else if (this.spawn_check("harvester", 0, this.room.find(FIND_SOURCES).length)) {
+	else if (this.spawn_check("harvester", 0, this.room.myFind(FIND_SOURCES).length)) {
 		return;
 	} else if (
 		this.spawn_check(
 			"harvester",
 			1,
-			this.room.find(FIND_MY_STRUCTURES, {
+			this.room.myFind(FIND_MY_STRUCTURES, {
 				filter: {
 					structureType: STRUCTURE_EXTRACTOR,
 				},
@@ -119,7 +119,7 @@ StructureSpawn.prototype.auto_respawn = function () {
 		)
 	) {
 		return;
-	} else if (this.spawn_check("runner", 0, this.room.find(FIND_SOURCES).length)) {
+	} else if (this.spawn_check("runner", 0, this.room.myFind(FIND_SOURCES).length)) {
 		return;
 	}
 	// else if (spawn_check(spawn, 'builder', 0, Memory.spawns[spawn].builder)) { return; }
@@ -127,7 +127,7 @@ StructureSpawn.prototype.auto_respawn = function () {
 	//else if (spawn_check(spawn, 'repairer', 0, 1)) {return;}
 
 	// local healer and defender
-	else if (this.room.find(FIND_HOSTILE_CREEPS).length > 0 && this.spawn_check("ranger", 0, 1)) {
+	else if (this.room.myFind(FIND_HOSTILE_CREEPS).length > 0 && this.spawn_check("ranger", 0, 1)) {
 		return;
 	}
 	//else if (spawn_check(spawn, 'healer', 0, 1)) {return;}

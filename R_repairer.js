@@ -99,7 +99,7 @@ Creep.prototype.doRepairer = function () {
 			return;
 		}
 
-		var t = this.room.find(FIND_SOURCES_ACTIVE);
+		var t = this.room.myFind(FIND_SOURCES_ACTIVE);
 		if (t.length) {
 			targets = t[t.length - 1];
 			if (this.harvest(targets) != OK) {

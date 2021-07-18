@@ -102,7 +102,7 @@ Creep.prototype.doKnight = function () {
 				}
 				if (!target) {
 					const temp = this.room
-						.find(FIND_HOSTILE_STRUCTURES, { filter: (struct) => struct.store && struct.store.getUsedCapacity() > 0 })
+						.myFind(FIND_HOSTILE_STRUCTURES, { filter: (struct) => struct.store && struct.store.getUsedCapacity() > 0 })
 						.sort((a, b) => a.store.getUsedCapacity(RESOURCE_ENERGY) - b.store.getUsedCapacity(RESOURCE_ENERGY));
 					if (temp.length > 0) {
 						target = temp[0];
@@ -142,7 +142,7 @@ Creep.prototype.doKnight = function () {
 		return;
 	}
 
-	target = this.room.find(FIND_STRUCTURES, {
+	target = this.room.myFind(FIND_STRUCTURES, {
 		filter: { structureType: STRUCTURE_KEEPER_LAIR },
 	});
 	target = target.sort((a, b) => a.ticksToSpawn - b.ticksToSpawn);

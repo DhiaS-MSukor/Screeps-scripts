@@ -115,7 +115,7 @@ Creep.prototype.doBuilder = function () {
 		}
 	}
 	if (this.mode == 1) {
-		targets = this.room.find(FIND_DROPPED_RESOURCES, { filter: { resourceType: RESOURCE_ENERGY } }).sort((a, b) => b.amount - a.amount);
+		targets = this.room.myFind(FIND_DROPPED_RESOURCES, { filter: { resourceType: RESOURCE_ENERGY } }).sort((a, b) => b.amount - a.amount);
 		if (targets.length > 0) {
 			if (this.pickup(targets[0]) == ERR_NOT_IN_RANGE) {
 				this.builderMove(targets[0], 0);
@@ -123,7 +123,7 @@ Creep.prototype.doBuilder = function () {
 			}
 		}
 
-		target = this.room.find(FIND_RUINS).sort((a, b) => b.store.getUsedCapacity(RESOURCE_ENERGY) - a.store.getUsedCapacity(RESOURCE_ENERGY));
+		target = this.room.myFind(FIND_RUINS).sort((a, b) => b.store.getUsedCapacity(RESOURCE_ENERGY) - a.store.getUsedCapacity(RESOURCE_ENERGY));
 		if (target.length > 0) {
 			if (this.withdraw(target[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
 				this.builderMove(target[0], 1);
@@ -141,7 +141,7 @@ Creep.prototype.doBuilder = function () {
 		return;
 	}
 
-	sources = this.room.find(FIND_SOURCES_ACTIVE);
+	sources = this.room.myFind(FIND_SOURCES_ACTIVE);
 	if (sources.length) {
 		var target = sources[sources.length - 1];
 		if (this.harvest(target) == ERR_NOT_IN_RANGE) {

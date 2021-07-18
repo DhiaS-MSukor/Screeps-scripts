@@ -46,7 +46,7 @@ Creep.prototype.withdrawAll = function (targets) {
 Creep.prototype.transferStructureTarget = function (type, minCap = 0, res = RESOURCE_ENERGY, sortByRes = false) {
 	if (sortByRes) {
 		const items = this.room
-			.find(FIND_STRUCTURES, {
+			.myFind(FIND_STRUCTURES, {
 				filter: (targets) => {
 					return targets.structureType == type && targets.store.getFreeCapacity(res) > minCap;
 				},
@@ -275,7 +275,7 @@ Creep.prototype.doRunner = function () {
 
 	res = Object.keys(this.store).filter((res) => res != RESOURCE_ENERGY && this.store[res] != 0);
 	if (this.task == 1 && this.store.getFreeCapacity() > 350 && res.length == 0) {
-		let minerals = this.room.find(FIND_MINERALS, { filter: (target) => target.mineralAmount == 0 });
+		let minerals = this.room.myFind(FIND_MINERALS, { filter: (target) => target.mineralAmount == 0 });
 		targets = this.pos.findClosestByRange(FIND_STRUCTURES, {
 			filter: (targets) =>
 				targets.structureType != STRUCTURE_TERMINAL &&
