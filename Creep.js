@@ -89,22 +89,6 @@ Object.defineProperty(Creep.prototype, "roomDestination", {
 	configurable: true,
 });
 
-Object.defineProperty(Creep.prototype, "savedExit", {
-	get: function () {
-		if (this.memory.savedExit && "x" in this.memory.savedExit && "y" in this.memory.savedExit && "roomName" in this.memory.savedExit) {
-			return new RoomPosition(this.memory.savedExit.x, this.memory.savedExit.y, this.memory.savedExit.roomName);
-		}
-		return null;
-	},
-	set: function (newValue) {
-		if (newValue && "x" in newValue && "y" in newValue && "roomName" in newValue) {
-			this.memory.savedExit = { x: newValue.x, y: newValue.y, roomName: newValue.roomName };
-		}
-	},
-	enumerable: false,
-	configurable: true,
-});
-
 Creep.prototype.getRouteToRoom = function (room) {
 	const route = Game.map.findRoute(this.room.name, room, {
 		routeCallback: (roomName) => {
@@ -139,11 +123,7 @@ Creep.prototype.exitToRoom = function (roomName) {
 			route.shift();
 			this.routeToRoom = route;
 		}
-		if (this.savedExit && this.savedExit.roomName == this.room.name) {
-			return this.savedExit;
-		}
 		const exit = this.pos.findClosestByPath(route[0].exit);
-		this.savedExit = exit;
 		return exit;
 	} else {
 		const route = this.getRouteToRoom(roomName);
