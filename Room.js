@@ -45,9 +45,6 @@ Room.prototype.avoidThis = function (room) {
 		if (room && !Memory.avoidRoom.includes(room)) {
 			Memory.avoidRoom.push(room);
 			return room;
-		} else if (!Memory.avoidRoom.includes(this.name)) {
-			Memory.avoidRoom.push(this.name);
-			return this.name;
 		}
 	} else {
 		Memory.avoidRoom = [];
