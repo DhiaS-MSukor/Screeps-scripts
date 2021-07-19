@@ -9,7 +9,7 @@ RoomPosition.prototype.myFindClosestByRange = function (type, opts) {
 	if (types.includes(type)) {
 		if (opts && "filter" in opts && opts.filter.constructor && opts.filter.call && opts.filter.apply) {
 			const func = opts.filter;
-			opts.filter = (o) => !getWhitelist().includes(o.owner.username) && func.apply(o);
+			opts.filter = (o) => !getWhitelist().includes(o.owner.username) && func.apply(null, o);
 		} else if (!opts) {
 			opts = { filter: (o) => !getWhitelist().includes(o.owner.username) };
 		}
