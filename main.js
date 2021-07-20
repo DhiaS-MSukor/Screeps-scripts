@@ -195,7 +195,7 @@ function handle_room() {
 
 			const gclPercent = Math.floor((Game.gcl.progress * 100) / Game.gcl.progressTotal);
 			const gclLeft = Math.ceil(Game.gcl.progressTotal - Game.gcl.progress);
-			const gclAvg = Math.floor(Memory.gclPerformance.avg);
+			const gclAvg = Memory.gclPerformance.avg.toFixed(20).match(/^-?\d*\.?0*\d{0,2}/)[0];
 			const gclEta = Math.ceil(gclLeft / Memory.gclPerformance.avg);
 
 			const gplPercent = Math.floor((Game.gpl.progress * 100) / Game.gpl.progressTotal);
