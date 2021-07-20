@@ -190,7 +190,7 @@ function handle_room() {
 			const room = Game.rooms[roomName];
 
 			const bucket = Game.cpu.bucket;
-			const bucketAvg = Math.floor(Memory.bucketPerformance.avg);
+			const bucketAvg = Memory.bucketPerformance.avg.toFixed(20).match(/^-?\d*\.?0*\d{0,2}/)[0];
 			const bucketEta = Math.ceil((PIXEL_CPU_COST - bucket) / Memory.bucketPerformance.avg);
 
 			const gclPercent = Math.floor((Game.gcl.progress * 100) / Game.gcl.progressTotal);
@@ -200,18 +200,18 @@ function handle_room() {
 
 			const gplPercent = Math.floor((Game.gpl.progress * 100) / Game.gpl.progressTotal);
 			const gplLeft = Math.ceil(Game.gpl.progressTotal - Game.gpl.progress);
-			const gplAvg = Math.floor(Memory.gplPerformance.avg);
+			const gplAvg = Memory.gplPerformance.avg.toFixed(20).match(/^-?\d*\.?0*\d{0,2}/)[0];
 			const gplEta = Math.ceil(gplLeft / Memory.gplPerformance.avg);
 
 			const credits = Game.market.credits;
-			const creditAvg = Math.floor(Memory.creditPerformance.avg * 10) / 10;
+			const creditAvg = Memory.creditPerformance.avg.toFixed(20).match(/^-?\d*\.?0*\d{0,2}/)[0];
 			const creditEta =
 				Math.ceil((Memory.bestPixelPrice - (credits % Memory.bestPixelPrice)) / Memory.creditPerformance.avg) -
 				Game.time +
 				Memory.creditPerformance.time;
 
 			const pixel = Game.resources.pixel;
-			const pixelAvg = Math.floor(Memory.pixelPerformance.avg * 10000) / 10000;
+			const pixelAvg = Memory.pixelPerformance.avg.toFixed(20).match(/^-?\d*\.?0*\d{0,2}/)[0];
 			const pixelEta = Math.ceil((500 - (pixel % 500)) / Memory.pixelPerformance.avg) - Game.time + Memory.pixelPerformance.time;
 
 			room.visual.text(`Time: ${Game.time}`, 0, 0, { align: "left", opacity: 0.6 });
@@ -227,9 +227,10 @@ function handle_room() {
 				const ctrlPercent = Math.floor((room.controller.progress * 100) / room.controller.progressTotal);
 				const ctrlLeft = Math.ceil(room.controller.progressTotal - room.controller.progress);
 				const ctrlEta = Math.ceil(ctrlLeft / ctrl.avg);
+				const ctrlAvg = ctrl.avg.toFixed(20).match(/^-?\d*\.?0*\d{0,2}/)[0];
 
 				room.visual.text(`Energy: ${room.energyAvailable}`, 0, 7, { align: "left", opacity: 0.6 });
-				room.visual.text(`Controller: ${ctrlPercent}% (${ctrlLeft}) @ ${Math.floor(ctrl.avg)} ~ ${ctrlEta}`, 0, 8, { align: "left", opacity: 0.6 });
+				room.visual.text(`Controller: ${ctrlPercent}% (${ctrlLeft}) @ ${ctrlAvg} ~ ${ctrlEta}`, 0, 8, { align: "left", opacity: 0.6 });
 			}
 		}
 	}
