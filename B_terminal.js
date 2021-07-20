@@ -134,7 +134,7 @@ StructureTerminal.prototype.buyResource = function (resource, left = 0) {
 		if (allOrders.filter((order) => order.type == ORDER_BUY).length > 10) {
 			const avgPrice = GetMedian(history.map((i) => i.avgPrice));
 			const stddev = GetMedian(history.map((i) => i.stddevPrice));
-			const avg = avgPrice - stddev;
+			const avg = avgPrice - stddev / 10;
 
 			const orders = allOrders.filter((order) => order.type == ORDER_SELL).sort((a, b) => a.price - b.price);
 
