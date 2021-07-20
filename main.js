@@ -186,7 +186,7 @@ function handle_buildings() {
 
 function rounder(n) {
 	if (n > 1 || n === 0) {
-		return Math.floor(n * 10) / 10;
+		return Math.floor(n);
 	} else {
 		return n.toFixed(10).match(/^-?\d*\.?0*\d{0,1}/)[0];
 	}
