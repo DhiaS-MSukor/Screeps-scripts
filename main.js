@@ -190,28 +190,28 @@ function handle_room() {
 			const room = Game.rooms[roomName];
 
 			const bucket = Game.cpu.bucket;
-			const bucketAvg = Memory.bucketPerformance.avg.toFixed(20).match(/^-?\d*\.?0*\d{0,2}/)[0];
+			const bucketAvg = Memory.bucketPerformance.avg.toFixed(10).match(/^-?\d*\.?0*\d{0,2}/)[0];
 			const bucketEta = Math.ceil((PIXEL_CPU_COST - bucket) / Memory.bucketPerformance.avg);
 
 			const gclPercent = Math.floor((Game.gcl.progress * 100) / Game.gcl.progressTotal);
 			const gclLeft = Math.ceil(Game.gcl.progressTotal - Game.gcl.progress);
-			const gclAvg = Memory.gclPerformance.avg.toFixed(20).match(/^-?\d*\.?0*\d{0,2}/)[0];
+			const gclAvg = Memory.gclPerformance.avg.toFixed(10).match(/^-?\d*\.?0*\d{0,2}/)[0];
 			const gclEta = Math.ceil(gclLeft / Memory.gclPerformance.avg);
 
 			const gplPercent = Math.floor((Game.gpl.progress * 100) / Game.gpl.progressTotal);
 			const gplLeft = Math.ceil(Game.gpl.progressTotal - Game.gpl.progress);
-			const gplAvg = Memory.gplPerformance.avg.toFixed(20).match(/^-?\d*\.?0*\d{0,2}/)[0];
+			const gplAvg = Memory.gplPerformance.avg.toFixed(10).match(/^-?\d*\.?0*\d{0,2}/)[0];
 			const gplEta = Math.ceil(gplLeft / Memory.gplPerformance.avg);
 
 			const credits = Game.market.credits;
-			const creditAvg = Memory.creditPerformance.avg.toFixed(20).match(/^-?\d*\.?0*\d{0,2}/)[0];
+			const creditAvg = Memory.creditPerformance.avg.toFixed(10).match(/^-?\d*\.?0*\d{0,2}/)[0];
 			const creditEta =
 				Math.ceil((Memory.bestPixelPrice - (credits % Memory.bestPixelPrice)) / Memory.creditPerformance.avg) -
 				Game.time +
 				Memory.creditPerformance.time;
 
 			const pixel = Game.resources.pixel;
-			const pixelAvg = Memory.pixelPerformance.avg.toFixed(20).match(/^-?\d*\.?0*\d{0,2}/)[0];
+			const pixelAvg = Memory.pixelPerformance.avg.toFixed(10).match(/^-?\d*\.?0*\d{0,2}/)[0];
 			const pixelEta = Math.ceil((500 - (pixel % 500)) / Memory.pixelPerformance.avg) - Game.time + Memory.pixelPerformance.time;
 
 			room.visual.text(`Time: ${Game.time}`, 0, 0, { align: "left", opacity: 0.6 });
@@ -227,7 +227,7 @@ function handle_room() {
 				const ctrlPercent = Math.floor((room.controller.progress * 100) / room.controller.progressTotal);
 				const ctrlLeft = Math.ceil(room.controller.progressTotal - room.controller.progress);
 				const ctrlEta = Math.ceil(ctrlLeft / ctrl.avg);
-				const ctrlAvg = ctrl.avg.toFixed(20).match(/^-?\d*\.?0*\d{0,2}/)[0];
+				const ctrlAvg = ctrl.avg.toFixed(10).match(/^-?\d*\.?0*\d{0,2}/)[0];
 
 				room.visual.text(`Energy: ${room.energyAvailable}`, 0, 7, { align: "left", opacity: 0.6 });
 				room.visual.text(`Controller: ${ctrlPercent}% (${ctrlLeft}) @ ${ctrlAvg} ~ ${ctrlEta}`, 0, 8, { align: "left", opacity: 0.6 });
