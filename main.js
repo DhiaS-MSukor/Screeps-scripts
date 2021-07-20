@@ -186,7 +186,7 @@ function handle_buildings() {
 
 function rounder(n) {
 	if (Math.abs(n) > 2 || n === 0) {
-		return Math.floor(n);
+		return Math.round(n);
 	} else {
 		return n.toFixed(10).match(/^-?\d*\.?0*\d{0,1}/)[0];
 	}
