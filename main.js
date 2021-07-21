@@ -148,16 +148,15 @@ function handle_creeps() {
 
 function handle_buildings() {
 	const startCpu1 = Game.cpu.getUsed();
-	for (const element in Game.structures) {
+	for (const structure in Object.values(Game.structures).filter((i) => i.structureType != STRUCTURE_TERMINAL)) {
 		const startCpu = Game.cpu.getUsed();
-		const structure = Game.structures[element];
 		switch (structure.structureType) {
 			case STRUCTURE_TOWER:
-				b_tower.fx(Game.getObjectById(element));
+				b_tower.fx(structure);
 				break;
 
 			case STRUCTURE_SPAWN:
-				b_spawn.fx(Game.getObjectById(element));
+				b_spawn.fx(structure);
 				break;
 			case STRUCTURE_TERMINAL:
 				b_terminal.fx(Game.getObjectById(element));
@@ -174,6 +173,37 @@ function handle_buildings() {
 		}
 		Memory.cpuLog[structure.structureType] = (Memory.cpuLog[structure.structureType] * 99 + elapsed) / 100;
 	}
+	const terminals = Object.values(Game.structures).filter((i) => i.structureType == STRUCTURE_TERMINAL);
+	if (terminals.length > 0 && Memory.lastTerminal) {
+		const startCpu = Game.cpu.getUsed();
+
+		Memory.lastTerminal = (Memory.lastTerminal + 1) % terminals.length;
+		b_terminal.fx(terminals[Memory.lastTerminal]);
+
+		const elapsed = Game.cpu.getUsed() - startCpu;
+		if (!Memory.cpuLog) {
+			Memory.cpuLog = {};
+		}
+		if (!Memory.cpuLog[structure.structureType]) {
+			Memory.cpuLog[structure.structureType] = 0;
+		}
+		Memory.cpuLog[structure.structureType] = (Memory.cpuLog[structure.structureType] * 99 + elapsed) / 100;
+	} else {
+		const startCpu = Game.cpu.getUsed();
+
+		b_terminal.fx(terminals[0]);
+		Memory.lastTerminal = 0;
+
+		const elapsed = Game.cpu.getUsed() - startCpu;
+		if (!Memory.cpuLog) {
+			Memory.cpuLog = {};
+		}
+		if (!Memory.cpuLog[structure.structureType]) {
+			Memory.cpuLog[structure.structureType] = 0;
+		}
+		Memory.cpuLog[structure.structureType] = (Memory.cpuLog[structure.structureType] * 99 + elapsed) / 100;
+	}
+
 	const elapsed1 = Game.cpu.getUsed() - startCpu1;
 	if (!Memory.cpuLog) {
 		Memory.cpuLog = {};
@@ -212,18 +242,15 @@ function handle_room() {
 	const credits = Game.market.credits;
 	const creditAvg = rounder(Memory.creditPerformance.avg);
 	const creditEta =
-		Math.ceil((Memory.bestPixelPrice - (credits % Memory.bestPixelPrice)) / Memory.creditPerformance.avg) -
-		Game.time +
-		Memory.creditPerformance.time;
+		Math.ceil((Memory.bestPixelPrice - (credits % Memory.bestPixelPrice)) / Memory.creditPerformance.avg) - Game.time + Memory.creditPerformance.time;
 
 	const pixel = Game.resources.pixel;
 	const pixelAvg = rounder(Memory.pixelPerformance.avg);
 	const pixelEta = Math.ceil((500 - (pixel % 500)) / Memory.pixelPerformance.avg) - Game.time + Memory.pixelPerformance.time;
-	
+
 	for (const roomName in Game.rooms) {
 		if (Object.hasOwnProperty.call(Game.rooms, roomName)) {
 			const room = Game.rooms[roomName];
-
 
 			room.visual.text(`Time: ${Game.time}`, 0, 0, { align: "left", opacity: 0.6 });
 			room.visual.text(`CPU bucket: ${bucket} @ ${bucketAvg} ~ ${bucketEta}`, 0, 1, { align: "left", opacity: 0.6 });
