@@ -25,7 +25,7 @@ function CalcCreditPerformance(amount) {
 Object.defineProperty(StructureTerminal.prototype, "memory", {
 	configurable: true,
 	get: function () {
-		if (!_.isUndefined(Memory.terminals)) {
+		if (_.isUndefined(Memory.terminals)) {
 			Memory.terminals = {};
 		} else if (!_.isUndefined(Memory.terminals[this.id])) {
 			return Memory.terminals[this.id];
