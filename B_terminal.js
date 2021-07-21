@@ -177,7 +177,7 @@ StructureTerminal.prototype.buyResource = function (resource, left = 0) {
 StructureTerminal.prototype.doRole = function () {
 	const rand = Math.random();
 
-	if (this.cooldown > 0 || this.store.getUsedCapacity(RESOURCE_ENERGY) < 2 || (this.memory.random && rand < this.memory.random)) {
+	if (this.cooldown > 0 || this.store.getUsedCapacity(RESOURCE_ENERGY) < 2 || (this.memory.random && rand > this.memory.random / 2)) {
 		this.memory.random = rand;
 		return;
 	}
