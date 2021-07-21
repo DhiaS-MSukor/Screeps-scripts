@@ -158,9 +158,6 @@ function handle_buildings() {
 			case STRUCTURE_SPAWN:
 				b_spawn.fx(structure);
 				break;
-			case STRUCTURE_TERMINAL:
-				b_terminal.fx(Game.getObjectById(element));
-				break;
 			default:
 				break;
 		}
