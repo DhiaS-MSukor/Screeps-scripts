@@ -181,10 +181,10 @@ function handle_buildings() {
 		if (!Memory.cpuLog) {
 			Memory.cpuLog = {};
 		}
-		if (!Memory.cpuLog[structure.structureType]) {
-			Memory.cpuLog[structure.structureType] = 0;
+		if (!Memory.cpuLog[STRUCTURE_TERMINAL]) {
+			Memory.cpuLog[STRUCTURE_TERMINAL] = 0;
 		}
-		Memory.cpuLog[structure.structureType] = (Memory.cpuLog[structure.structureType] * 99 + elapsed) / 100;
+		Memory.cpuLog[STRUCTURE_TERMINAL] = (Memory.cpuLog[STRUCTURE_TERMINAL] * 99 + elapsed) / 100;
 	} else {
 		const startCpu = Game.cpu.getUsed();
 
@@ -195,10 +195,10 @@ function handle_buildings() {
 		if (!Memory.cpuLog) {
 			Memory.cpuLog = {};
 		}
-		if (!Memory.cpuLog[structure.structureType]) {
-			Memory.cpuLog[structure.structureType] = 0;
+		if (!Memory.cpuLog[STRUCTURE_TERMINAL]) {
+			Memory.cpuLog[STRUCTURE_TERMINAL] = 0;
 		}
-		Memory.cpuLog[structure.structureType] = (Memory.cpuLog[structure.structureType] * 99 + elapsed) / 100;
+		Memory.cpuLog[STRUCTURE_TERMINAL] = (Memory.cpuLog[STRUCTURE_TERMINAL] * 99 + elapsed) / 100;
 	}
 
 	const elapsed1 = Game.cpu.getUsed() - startCpu1;
