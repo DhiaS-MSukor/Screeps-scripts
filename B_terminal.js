@@ -22,28 +22,6 @@ function CalcCreditPerformance(amount) {
 	}
 }
 
-Object.defineProperty(StructureTerminal.prototype, "memory", {
-	configurable: true,
-	get: function () {
-		if (_.isUndefined(Memory.terminals)) {
-			Memory.terminals = {};
-		} else if (!_.isUndefined(Memory.terminals[this.id])) {
-			return Memory.terminals[this.id];
-		}
-		Memory.terminals[this.id] = {};
-		return {};
-	},
-	set: function (value) {
-		if (_.isUndefined(Memory.terminals)) {
-			let temp = {};
-			temp[this.id] = value;
-			Memory.terminals = temp;
-		} else if (!_.isUndefined(Memory.terminals[this.id])) {
-			Memory.terminals[this.id] = value;
-		}
-	},
-});
-
 StructureTerminal.prototype.getMaxAmount = function (order) {
 	const amount = this.store.getUsedCapacity(RESOURCE_ENERGY);
 	const distance = Game.map.getRoomLinearDistance(order.roomName, this.room.name, true);

@@ -171,7 +171,7 @@ function handle_buildings() {
 		Memory.cpuLog[structure.structureType] = (Memory.cpuLog[structure.structureType] * 99 + elapsed) / 100;
 	}
 	const terminals = Object.values(Game.structures).filter((i) => i.structureType == STRUCTURE_TERMINAL);
-	if (terminals.length > 0 && Memory.lastTerminal) {
+	if (terminals.length > 0 && !b_spawn.isUndefined(Memory.lastTerminal)) {
 		const startCpu = Game.cpu.getUsed();
 
 		Memory.lastTerminal = (Memory.lastTerminal + 1) % terminals.length;
