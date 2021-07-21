@@ -18,7 +18,7 @@ function CalcCreditPerformance(amount) {
 		Memory.creditPerformance.avg = (Memory.creditPerformance.avg * 999 + amount / timePast) / 1000;
 		Memory.creditPerformance.time = Game.time;
 	} else {
-		Memory.creditPerformance = { avg: 0, time: Game.time };
+		Memory.creditPerformance = { avg: amount, time: Game.time };
 	}
 }
 
