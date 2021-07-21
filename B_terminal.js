@@ -156,7 +156,6 @@ StructureTerminal.prototype.doRole = function () {
 	if (this.cooldown > 0 || this.store.getUsedCapacity(RESOURCE_ENERGY) < 2) {
 		return;
 	}
-	console.log(`terminal ${this.id} @ ${Game.time}`);
 
 	for (const element of Object.keys(this.store)) {
 		if (element != RESOURCE_ENERGY && this.sellResource(element)) {
