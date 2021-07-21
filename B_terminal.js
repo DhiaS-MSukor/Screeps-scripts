@@ -182,7 +182,6 @@ StructureTerminal.prototype.doRole = function () {
 		return;
 	}
 	this.memory.random = rand;
-	console.log(`terminal ${this.id} @ ${Game.time}`);
 
 	for (const element of Object.keys(this.store)) {
 		if (element != RESOURCE_ENERGY && this.sellResource(element)) {
