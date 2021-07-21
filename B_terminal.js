@@ -30,7 +30,8 @@ Object.defineProperty(StructureTerminal.prototype, "memory", {
 		} else if (!_.isUndefined(Memory.terminals[this.id])) {
 			return Memory.terminals[this.id];
 		}
-		return undefined;
+		Memory.terminals[this.id] = {};
+		return {};
 	},
 	set: function (value) {
 		if (_.isUndefined(Memory.terminals)) {
