@@ -152,11 +152,15 @@ function handle_buildings() {
 		const startCpu = Game.cpu.getUsed();
 		switch (structure.structureType) {
 			case STRUCTURE_TOWER:
-				b_tower.fx(structure);
+				if (structure.isActive()) {
+					b_tower.fx(structure);
+				}
 				break;
 
 			case STRUCTURE_SPAWN:
-				b_spawn.fx(structure);
+				if (structure.isActive()) {
+					b_spawn.fx(structure);
+				}
 				break;
 			default:
 				break;
@@ -170,7 +174,8 @@ function handle_buildings() {
 		}
 		Memory.cpuLog[structure.structureType] = (Memory.cpuLog[structure.structureType] * 99 + elapsed) / 100;
 	}
-	const terminals = Object.values(Game.structures).filter((i) => i.structureType == STRUCTURE_TERMINAL);
+
+	const terminals = Object.values(Game.structures).filter((i) => i.structureType == STRUCTURE_TERMINAL && i.isActive());
 	if (terminals.length > 0 && !_.isUndefined(Memory.lastTerminal)) {
 		const startCpu = Game.cpu.getUsed();
 
