@@ -148,16 +148,15 @@ function handle_creeps() {
 
 function handle_buildings() {
 	const startCpu1 = Game.cpu.getUsed();
-	for (const element in Game.structures) {
+	for (const structure in Object.values(Game.structures).filter((i) => i.structureType != STRUCTURE_TERMINAL)) {
 		const startCpu = Game.cpu.getUsed();
-		const structure = Game.structures[element];
 		switch (structure.structureType) {
 			case STRUCTURE_TOWER:
-				b_tower.fx(Game.getObjectById(element));
+				b_tower.fx(structure);
 				break;
 
 			case STRUCTURE_SPAWN:
-				b_spawn.fx(Game.getObjectById(element));
+				b_spawn.fx(structure);
 				break;
 			default:
 				break;
