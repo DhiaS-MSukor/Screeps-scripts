@@ -175,13 +175,10 @@ StructureTerminal.prototype.buyResource = function (resource, left = 0) {
 };
 
 StructureTerminal.prototype.doRole = function () {
-	const rand = Math.random();
-
-	if (this.cooldown > 0 || this.store.getUsedCapacity(RESOURCE_ENERGY) < 2 || (this.memory.random && rand > this.memory.random / 2)) {
-		this.memory.random = rand;
+	if (this.cooldown > 0 || this.store.getUsedCapacity(RESOURCE_ENERGY) < 2) {
 		return;
 	}
-	this.memory.random = rand;
+	console.log(`terminal ${this.id} @ ${Game.time}`);
 
 	for (const element of Object.keys(this.store)) {
 		if (element != RESOURCE_ENERGY && this.sellResource(element)) {
