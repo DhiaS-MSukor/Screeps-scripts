@@ -25,20 +25,20 @@ function CalcCreditPerformance(amount) {
 Object.defineProperty(StructureTerminal.prototype, "memory", {
 	configurable: true,
 	get: function () {
-		if (!_.isUndefined(Game.Memory.terminals[this.id])) {
-			return Game.Memory.terminals[this.id];
-		} else if (!_.isUndefined(Game.Memory.terminals)) {
+		if (!_.isUndefined(Game.Memory.terminals)) {
 			Game.Memory.terminals = {};
+		} else if (!_.isUndefined(Game.Memory.terminals[this.id])) {
+			return Game.Memory.terminals[this.id];
 		}
 		return undefined;
 	},
 	set: function (value) {
-		if (!_.isUndefined(Game.Memory.terminals[this.id])) {
-			Game.Memory.terminals[this.id] = value;
-		} else if (!_.isUndefined(Game.Memory.terminals)) {
+		if (!_.isUndefined(Game.Memory.terminals)) {
 			let temp = {};
 			temp[this.id] = value;
 			Game.Memory.terminals = temp;
+		} else if (!_.isUndefined(Game.Memory.terminals[this.id])) {
+			Game.Memory.terminals[this.id] = value;
 		}
 	},
 });
