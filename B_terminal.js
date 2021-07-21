@@ -22,6 +22,27 @@ function CalcCreditPerformance(amount) {
 	}
 }
 
+Object.defineProperty(StructureTerminal.prototype, "memory", {
+	configurable: true,
+	get: function () {
+		if (!_.isUndefined(Game.Memory.terminals[this.id])) {
+			return Game.Memory.terminals[this.id];
+		} else if (!_.isUndefined(Game.Memory.terminals)) {
+			Game.Memory.terminals = {};
+		}
+		return undefined;
+	},
+	set: function (value) {
+		if (!_.isUndefined(Game.Memory.terminals[this.id])) {
+			Game.Memory.terminals[this.id] = value;
+		} else if (!_.isUndefined(Game.Memory.terminals)) {
+			let temp = {};
+			temp[this.id] = value;
+			Game.Memory.terminals = temp;
+		}
+	},
+});
+
 StructureTerminal.prototype.getMaxAmount = function (order) {
 	const amount = this.store.getUsedCapacity(RESOURCE_ENERGY);
 	const distance = Game.map.getRoomLinearDistance(order.roomName, this.room.name, true);
@@ -153,9 +174,13 @@ StructureTerminal.prototype.buyResource = function (resource, left = 0) {
 };
 
 StructureTerminal.prototype.doRole = function () {
-	if (this.cooldown > 0 || this.store.getUsedCapacity(RESOURCE_ENERGY) < 2 || Math.random() * TERMINAL_COOLDOWN > 2) {
+	const rand = Math.random();
+
+	if (this.cooldown > 0 || this.store.getUsedCapacity(RESOURCE_ENERGY) < 2 || (this.memory.random && rand < this.memory.random)) {
+		this.memory.random = rand;
 		return;
 	}
+	this.memory.random = rand;
 
 	for (const element of Object.keys(this.store)) {
 		if (element != RESOURCE_ENERGY && this.sellResource(element)) {
