@@ -195,34 +195,35 @@ function rounder(n) {
 }
 
 function handle_room() {
+	const bucket = Game.cpu.bucket;
+	const bucketAvg = rounder(Memory.bucketPerformance.avg);
+	const bucketEta = Math.ceil((PIXEL_CPU_COST - bucket) / Memory.bucketPerformance.avg);
+
+	const gclPercent = Math.floor((Game.gcl.progress * 100) / Game.gcl.progressTotal);
+	const gclLeft = Math.ceil(Game.gcl.progressTotal - Game.gcl.progress);
+	const gclAvg = rounder(Memory.gclPerformance.avg);
+	const gclEta = Math.ceil(gclLeft / Memory.gclPerformance.avg);
+
+	const gplPercent = Math.floor((Game.gpl.progress * 100) / Game.gpl.progressTotal);
+	const gplLeft = Math.ceil(Game.gpl.progressTotal - Game.gpl.progress);
+	const gplAvg = rounder(Memory.gplPerformance.avg);
+	const gplEta = Math.ceil(gplLeft / Memory.gplPerformance.avg);
+
+	const credits = Game.market.credits;
+	const creditAvg = rounder(Memory.creditPerformance.avg);
+	const creditEta =
+		Math.ceil((Memory.bestPixelPrice - (credits % Memory.bestPixelPrice)) / Memory.creditPerformance.avg) -
+		Game.time +
+		Memory.creditPerformance.time;
+
+	const pixel = Game.resources.pixel;
+	const pixelAvg = rounder(Memory.pixelPerformance.avg);
+	const pixelEta = Math.ceil((500 - (pixel % 500)) / Memory.pixelPerformance.avg) - Game.time + Memory.pixelPerformance.time;
+	
 	for (const roomName in Game.rooms) {
 		if (Object.hasOwnProperty.call(Game.rooms, roomName)) {
 			const room = Game.rooms[roomName];
 
-			const bucket = Game.cpu.bucket;
-			const bucketAvg = rounder(Memory.bucketPerformance.avg);
-			const bucketEta = Math.ceil((PIXEL_CPU_COST - bucket) / Memory.bucketPerformance.avg);
-
-			const gclPercent = Math.floor((Game.gcl.progress * 100) / Game.gcl.progressTotal);
-			const gclLeft = Math.ceil(Game.gcl.progressTotal - Game.gcl.progress);
-			const gclAvg = rounder(Memory.gclPerformance.avg);
-			const gclEta = Math.ceil(gclLeft / Memory.gclPerformance.avg);
-
-			const gplPercent = Math.floor((Game.gpl.progress * 100) / Game.gpl.progressTotal);
-			const gplLeft = Math.ceil(Game.gpl.progressTotal - Game.gpl.progress);
-			const gplAvg = rounder(Memory.gplPerformance.avg);
-			const gplEta = Math.ceil(gplLeft / Memory.gplPerformance.avg);
-
-			const credits = Game.market.credits;
-			const creditAvg = rounder(Memory.creditPerformance.avg);
-			const creditEta =
-				Math.ceil((Memory.bestPixelPrice - (credits % Memory.bestPixelPrice)) / Memory.creditPerformance.avg) -
-				Game.time +
-				Memory.creditPerformance.time;
-
-			const pixel = Game.resources.pixel;
-			const pixelAvg = rounder(Memory.pixelPerformance.avg);
-			const pixelEta = Math.ceil((500 - (pixel % 500)) / Memory.pixelPerformance.avg) - Game.time + Memory.pixelPerformance.time;
 
 			room.visual.text(`Time: ${Game.time}`, 0, 0, { align: "left", opacity: 0.6 });
 			room.visual.text(`CPU bucket: ${bucket} @ ${bucketAvg} ~ ${bucketEta}`, 0, 1, { align: "left", opacity: 0.6 });
