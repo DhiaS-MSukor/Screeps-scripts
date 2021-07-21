@@ -187,8 +187,10 @@ function handle_buildings() {
 function rounder(n) {
 	if (Math.abs(n) >= 10 || n === 0) {
 		return Math.round(n);
-	} else {
+	} else if (n) {
 		return n.toFixed(10).match(/^-?\d*\.?0*\d{0,1}/)[0];
+	} else {
+		return n;
 	}
 }
 
