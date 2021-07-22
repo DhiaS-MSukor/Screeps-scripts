@@ -162,7 +162,7 @@ StructureTerminal.prototype.doRole = function () {
 			return;
 		}
 	}
-	if (this.store.getUsedCapacity(RESOURCE_ENERGY) > 10000) {
+	if (this.store.getUsedCapacity(RESOURCE_ENERGY) > 10000 && Game.market.credits > Memory.bestPixelPrice) {
 		if (this.store.getFreeCapacity() > 10000) {
 			for (const element of RESOURCES_ALL) {
 				if (element != RESOURCE_ENERGY && this.buyResource(element, Memory.bestPixelPrice)) {
@@ -175,7 +175,9 @@ StructureTerminal.prototype.doRole = function () {
 		return;
 	}
 
-	this.buyResource(RESOURCE_ENERGY, Memory.bestPixelPrice);
+	if (Game.market.credits > Memory.bestPixelPrice) {
+		this.buyResource(RESOURCE_ENERGY, Memory.bestPixelPrice);
+	}
 };
 
 module.exports = {

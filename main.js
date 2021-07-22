@@ -172,37 +172,35 @@ function handle_buildings() {
 		Memory.cpuLog[structure.structureType] = (Memory.cpuLog[structure.structureType] * 99 + elapsed) / 100;
 	}
 
-	if (Memory.cpuLog && Memory.cpuLog.total < 18) {
-		const terminals = Object.values(Game.structures).filter((i) => i.structureType == STRUCTURE_TERMINAL && i.isActive());
-		if (terminals.length > 0 && !_.isUndefined(Memory.lastTerminal)) {
-			const startCpu = Game.cpu.getUsed();
+	const terminals = Object.values(Game.structures).filter((i) => i.structureType == STRUCTURE_TERMINAL && i.isActive());
+	if (terminals.length > 0 && !_.isUndefined(Memory.lastTerminal)) {
+		const startCpu = Game.cpu.getUsed();
 
-			Memory.lastTerminal = (Memory.lastTerminal + 1) % terminals.length;
-			b_terminal.fx(terminals[Memory.lastTerminal]);
+		Memory.lastTerminal = (Memory.lastTerminal + 1) % terminals.length;
+		b_terminal.fx(terminals[Memory.lastTerminal]);
 
-			const elapsed = Game.cpu.getUsed() - startCpu;
-			if (!Memory.cpuLog) {
-				Memory.cpuLog = {};
-			}
-			if (!Memory.cpuLog[STRUCTURE_TERMINAL]) {
-				Memory.cpuLog[STRUCTURE_TERMINAL] = 0;
-			}
-			Memory.cpuLog[STRUCTURE_TERMINAL] = (Memory.cpuLog[STRUCTURE_TERMINAL] * 99 + elapsed) / 100;
-		} else {
-			const startCpu = Game.cpu.getUsed();
-
-			b_terminal.fx(terminals[0]);
-			Memory.lastTerminal = 0;
-
-			const elapsed = Game.cpu.getUsed() - startCpu;
-			if (!Memory.cpuLog) {
-				Memory.cpuLog = {};
-			}
-			if (!Memory.cpuLog[STRUCTURE_TERMINAL]) {
-				Memory.cpuLog[STRUCTURE_TERMINAL] = 0;
-			}
-			Memory.cpuLog[STRUCTURE_TERMINAL] = (Memory.cpuLog[STRUCTURE_TERMINAL] * 99 + elapsed) / 100;
+		const elapsed = Game.cpu.getUsed() - startCpu;
+		if (!Memory.cpuLog) {
+			Memory.cpuLog = {};
 		}
+		if (!Memory.cpuLog[STRUCTURE_TERMINAL]) {
+			Memory.cpuLog[STRUCTURE_TERMINAL] = 0;
+		}
+		Memory.cpuLog[STRUCTURE_TERMINAL] = (Memory.cpuLog[STRUCTURE_TERMINAL] * 99 + elapsed) / 100;
+	} else {
+		const startCpu = Game.cpu.getUsed();
+
+		b_terminal.fx(terminals[0]);
+		Memory.lastTerminal = 0;
+
+		const elapsed = Game.cpu.getUsed() - startCpu;
+		if (!Memory.cpuLog) {
+			Memory.cpuLog = {};
+		}
+		if (!Memory.cpuLog[STRUCTURE_TERMINAL]) {
+			Memory.cpuLog[STRUCTURE_TERMINAL] = 0;
+		}
+		Memory.cpuLog[STRUCTURE_TERMINAL] = (Memory.cpuLog[STRUCTURE_TERMINAL] * 99 + elapsed) / 100;
 	}
 
 	const elapsed1 = Game.cpu.getUsed() - startCpu1;
