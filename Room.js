@@ -56,7 +56,7 @@ Room.prototype.getControllerPerformance = function () {
 		if (this.memory.controllerPerformance && "prev" in this.memory.controllerPerformance && "avg" in this.memory.controllerPerformance) {
 			const progress = this.controller.progress;
 			this.memory.controllerPerformance.avg =
-				(this.memory.controllerPerformance.avg * 999 + (progress - this.memory.controllerPerformance.prev)) / 1000;
+				(this.memory.controllerPerformance.avg * (CREEP_LIFE_TIME - 1) + (progress - this.memory.controllerPerformance.prev)) / CREEP_LIFE_TIME;
 			this.memory.controllerPerformance.prev = progress;
 		} else {
 			this.memory.controllerPerformance = { prev: this.controller.progress, avg: 0 };
