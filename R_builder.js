@@ -1,7 +1,7 @@
 Creep.prototype.builderMove = function (target, range = 3) {
 	if (target) {
 		const distance = this.pos.getRangeTo(target);
-		const ops = math.max(Math.min((Game.cpu.limit - Game.cpu.getUsed()) * 100, 2000), 1);
+		const ops = Math.max(Math.min((Game.cpu.limit - Game.cpu.getUsed()) * 100, 2000), 1);
 		return this.moveTo(target, {
 			visualizePathStyle: { stroke: "#0000ff" },
 			range: range,

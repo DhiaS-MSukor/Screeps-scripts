@@ -33,7 +33,7 @@ Creep.prototype.addCheckedRoom = function () {
 Creep.prototype.minerToRoom = function (target) {
 	const pos = this.exitToRoom(target);
 	if (pos) {
-		const ops = math.max(Math.min((Game.cpu.limit - Game.cpu.getUsed()) * 100, 2000), 1);
+		const ops = Math.max(Math.min((Game.cpu.limit - Game.cpu.getUsed()) * 100, 2000), 1);
 		const distance = this.pos.getRangeTo(pos);
 		this.moveTo(pos, {
 			visualizePathStyle: { stroke: "#00ff00" },
@@ -47,7 +47,7 @@ Creep.prototype.harvesterTransfer = function (targets, res = RESOURCE_ENERGY) {
 	if (targets.length > 0) {
 		var result = this.transfer(targets[0], res);
 		if (result == ERR_NOT_IN_RANGE) {
-			const ops = math.max(Math.min((Game.cpu.limit - Game.cpu.getUsed()) * 100, 2000), 1);
+			const ops = Math.max(Math.min((Game.cpu.limit - Game.cpu.getUsed()) * 100, 2000), 1);
 			const distance = this.pos.getRangeTo(target);
 			this.moveTo(targets[0], {
 				visualizePathStyle: { stroke: "#00ff00" },
@@ -71,7 +71,7 @@ Creep.prototype.doMining = function () {
 	if (this.room.name == this.origin && targets) {
 		var harv = this.harvest(targets);
 		if (harv != OK) {
-			const ops = math.max(Math.min((Game.cpu.limit - Game.cpu.getUsed()) * 100, 2000), 1);
+			const ops = Math.max(Math.min((Game.cpu.limit - Game.cpu.getUsed()) * 100, 2000), 1);
 			this.moveTo(targets, { visualizePathStyle: { stroke: "#00ff00" }, maxOps: ops, range: 1 });
 			return;
 		}
