@@ -8,7 +8,14 @@ Creep.prototype.doClaimer = function (target) {
 	if (this.claimController(target) != OK) {
 		if (this.reserveController(target) != OK) {
 			if (this.attackController(target) != OK) {
-				this.moveTo(target, { visualizePathStyle: { stroke: "#ff0000" }, maxOps: (Game.cpu.limit - Game.cpu.getUsed()) * 100, range: 1 });
+				const distance = this.pos.getRangeTo(target);
+				const ops = math.max(Math.min((Game.cpu.limit - Game.cpu.getUsed()) * 100, 2000), 1);
+				this.moveTo(target, {
+					visualizePathStyle: { stroke: "#ff0000" },
+					maxOps: ops,
+					range: 1,
+					reusePath: Math.floor(Math.random() * distance) + distance + 1,
+				});
 			}
 		}
 	}
