@@ -48,7 +48,7 @@ Creep.prototype.harvesterTransfer = function (targets, res = RESOURCE_ENERGY) {
 		var result = this.transfer(targets[0], res);
 		if (result == ERR_NOT_IN_RANGE) {
 			const ops = Math.max(Math.min((Game.cpu.limit - Game.cpu.getUsed()) * 100, 2000), 1);
-			const distance = this.pos.getRangeTo(target);
+			const distance = this.pos.getRangeTo(targets[0]);
 			this.moveTo(targets[0], {
 				visualizePathStyle: { stroke: "#00ff00" },
 				maxOps: ops,
