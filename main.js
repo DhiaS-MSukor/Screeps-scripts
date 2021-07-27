@@ -71,12 +71,12 @@ function trade_pixel() {
 		for (const key in orders) {
 			if (Object.hasOwnProperty.call(orders, key)) {
 				const order = orders[key];
-				Memory.bestPixelPrice = order.price;
 				let amount = Math.floor(Game.market.credits / order.price);
 				amount = amount > order.remainingAmount ? order.remainingAmount : amount;
 				const deal = Game.market.deal(order.id, amount);
 				if (deal == OK) {
 					UpdatePixelPerformance(amount);
+					Memory.bestPixelPrice = order.price;
 					break;
 				} else if (deal == ERR_TIRED || deal == ERR_FULL) {
 					break;
