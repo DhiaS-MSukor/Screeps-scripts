@@ -15,7 +15,7 @@ function GetMedian(values) {
 function CalcCreditPerformance(amount) {
 	if (Memory.creditPerformance && Memory.creditPerformance.time && Memory.creditPerformance.avg) {
 		const timePast = Game.time - Memory.creditPerformance.time;
-		Memory.creditPerformance.avg = (Memory.creditPerformance.avg * (timePast - 1) + amount / timePast) / timePast;
+		Memory.creditPerformance.avg = (Memory.creditPerformance.avg * Math.min(timePast - 1, 1) + amount / timePast) / timePast;
 		Memory.creditPerformance.time = Game.time;
 	} else {
 		Memory.creditPerformance = { avg: amount, time: Game.time };
