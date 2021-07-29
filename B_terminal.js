@@ -97,7 +97,7 @@ StructureTerminal.prototype.sellResource = function (resource, left = 0) {
 	}
 
 	const avgPrice = GetMedian(history.map((i) => i.avgPrice));
-	const stddev = GetMedian(history.map((i) => i.stddevPrice));
+	const stddev = history.map((i) => i.stddevPrice).reduce((a, b) => Math.min(a, b), history[0].stddevPrice);
 
 	const avg = avgPrice + stddev / 2;
 	const allOrders = Game.market.getAllOrders({ resourceType: resource });
