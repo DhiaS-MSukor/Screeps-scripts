@@ -61,6 +61,12 @@ function UpdatePixelPerformance(amount) {
 function trade_pixel() {
 	const startCpu = Game.cpu.getUsed();
 
+	const history = Game.market.getHistory(PIXEL);
+	if (!history.length) {
+		return false;
+	}
+	const avgPrice = GetMedian(history.map((i) => i.avgPrice));
+
 	const orders = Game.market
 		.getAllOrders({
 			type: ORDER_SELL,
@@ -73,7 +79,7 @@ function trade_pixel() {
 				const order = orders[key];
 				Memory.bestPixelPrice = order.price;
 
-				if (Game.market.credits < order.price) {
+				if (Game.market.credits < order.price || order.price > avgPrice) {
 					break;
 				}
 
