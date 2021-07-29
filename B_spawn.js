@@ -88,7 +88,7 @@ StructureSpawn.prototype.spawn_check = function (theRole, mode, n) {
 };
 
 StructureSpawn.prototype.auto_respawn = function () {
-	if (this.room.energyAvailable < 100) {
+	if (this.room.energyAvailable < 100 || this.spawning != null) {
 		return;
 	}
 	// first spawn
