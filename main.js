@@ -333,7 +333,7 @@ module.exports.loop = function () {
 	gen_pixel();
 
 	if (Math.random() * 100 < 1) {
-		console.log("trade pixel");
+		console.log(`Trade pixel @ ${Game.time}`);
 		trade_pixel();
 		clean_mem();
 	}
