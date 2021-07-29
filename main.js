@@ -332,7 +332,7 @@ module.exports.loop = function () {
 	const startCpu = Game.cpu.getUsed();
 	gen_pixel();
 
-	if (Game.time % 1000 == 0) {
+	if (Math.random() * 100 < 1) {
 		trade_pixel();
 		clean_mem();
 	}
