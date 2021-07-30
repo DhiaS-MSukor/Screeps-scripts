@@ -175,7 +175,7 @@ StructureTerminal.prototype.doRole = function () {
 		return;
 	}
 
-	if (Game.market.credits > Memory.bestPixelPrice) {
+	if (Game.market.credits > Memory.bestPixelPrice && this.store.getUsedCapacity(RESOURCE_ENERGY) < 1000) {
 		this.buyResource(RESOURCE_ENERGY, Memory.bestPixelPrice);
 	}
 };
