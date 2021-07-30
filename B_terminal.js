@@ -175,9 +175,9 @@ StructureTerminal.prototype.doRole = function () {
 		return;
 	}
 
-	// if (Game.market.credits > Memory.bestPixelPrice) {
-	// 	this.buyResource(RESOURCE_ENERGY, Memory.bestPixelPrice);
-	// }
+	if (Game.market.credits > Memory.bestPixelPrice) {
+		this.buyResource(RESOURCE_ENERGY, Memory.bestPixelPrice);
+	}
 };
 
 module.exports = {
