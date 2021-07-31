@@ -103,8 +103,6 @@ function trade_pixel() {
 				if (deal == OK) {
 					UpdatePixelPerformance(amount);
 					break;
-				} else if (deal == ERR_TIRED || deal == ERR_FULL) {
-					break;
 				}
 			}
 		}
