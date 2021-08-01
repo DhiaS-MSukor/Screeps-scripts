@@ -97,7 +97,10 @@ Creep.prototype.transferCreepTarget = function (role) {
 Creep.prototype.withdrawFromContainer = function () {
 	if (this.store.getFreeCapacity() > 350) {
 		let targets = this.pos.myFindClosestByRange(FIND_STRUCTURES, {
-			filter: (target) => target.structureType == STRUCTURE_CONTAINER && target.store.getFreeCapacity(RESOURCE_ENERGY) == 0,
+			filter: (target) =>
+				target.structureType == STRUCTURE_CONTAINER &&
+				target.store.getFreeCapacity(RESOURCE_ENERGY) == 0 &&
+				target.store.getUsedCapacity(RESOURCE_ENERGY) > 0,
 		});
 
 		if (targets && this.doWithdraw(targets)) {
