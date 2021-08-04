@@ -1,7 +1,7 @@
 Creep.prototype.repairerMove = function (target, range = 3) {
 	if (target) {
 		const distance = this.pos.getRangeTo(target);
-		const ops = Math.max(Math.min((Game.cpu.limit - Game.cpu.getUsed()) * 100, 2000), 1);
+		const ops = Math.max(Math.min((Game.cpu.limit - Game.cpu.getUsed()) * 50, 2000), 1);
 		return this.moveTo(target, {
 			visualizePathStyle: { stroke: "#ffff00" },
 			range: range,

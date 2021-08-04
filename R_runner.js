@@ -1,7 +1,7 @@
 // JavaScript source code
 Creep.prototype.runnerMove = function (target, range = 1) {
 	const distance = this.pos.getRangeTo(target);
-	const ops = Math.max(Math.min((Game.cpu.limit - Game.cpu.getUsed()) * 100, 2000), 1);
+	const ops = Math.max(Math.min((Game.cpu.limit - Game.cpu.getUsed()) * 80, 2000), 1);
 	return this.moveTo(target, {
 		visualizePathStyle: { stroke: "#ff00ff" },
 		range: range,
