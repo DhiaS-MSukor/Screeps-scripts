@@ -171,9 +171,10 @@ Creep.prototype.doRunner = function () {
 	if (this.working) {
 		res = _.filter(Object.keys(this.store), (res) => res != RESOURCE_ENERGY && this.store[res] != 0);
 		if (res.length) {
-			targets = this.transferStructureTarget(STRUCTURE_TERMINAL, 0, res[0]);
+			const toTransfer = res[0];
+			targets = this.transferStructureTarget(STRUCTURE_TERMINAL, 0, toTransfer);
 			if (!targets) {
-				targets = this.transferStructureTarget(STRUCTURE_CONTAINER, 0, res[0]);
+				targets = this.transferStructureTarget(STRUCTURE_CONTAINER, this.store[toTransfer], toTransfer);
 			}
 
 			if (this.runnerTransfer(targets, res[0])) {
