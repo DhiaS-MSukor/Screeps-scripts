@@ -123,12 +123,12 @@ Creep.prototype.exitToRoom = function (roomName) {
 			route.shift();
 			this.routeToRoom = route;
 		}
-		const exit = this.pos.findClosestByPath(route[0].exit);
+		const exit = this.pos.findClosestByRange(route[0].exit);
 		return exit;
 	} else {
 		const route = this.getRouteToRoom(roomName);
 		if (route != ERR_NO_PATH) {
-			const exit = this.pos.findClosestByPath(route[0].exit);
+			const exit = this.pos.findClosestByRange(route[0].exit);
 			return exit;
 		}
 	}
