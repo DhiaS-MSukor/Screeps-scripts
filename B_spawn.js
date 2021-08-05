@@ -100,7 +100,7 @@ StructureSpawn.prototype.auto_respawn = function () {
 		return;
 	} else if (this.spawn_check("runner", 0, 1)) {
 		return;
-	} else if (this.room.myFind(FIND_STRUCTURES, { filter: { structureType: STRUCTURE_TOWER } }).length > 1 && this.spawn_check("repairer", 0, 1)) {
+	} else if (this.room.myFind(FIND_STRUCTURES, { filter: { structureType: STRUCTURE_TOWER } }).length < 2 && this.spawn_check("repairer", 0, 1)) {
 		return;
 	}
 
