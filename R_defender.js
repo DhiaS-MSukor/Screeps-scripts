@@ -87,6 +87,11 @@ Creep.prototype.doKnight = function () {
 			target = this.pos.myFindClosestByRange(FIND_HOSTILE_STRUCTURES, {
 				filter: (struct) => struct.structureType == STRUCTURE_INVADER_CORE,
 			});
+			if (!target) {
+				target = this.pos.myFindClosestByRange(FIND_STRUCTURES, {
+					filter: (struct) => struct.structureType == STRUCTURE_RAMPART,
+				});
+			}
 			if (target) {
 				this.doKnightRole(target);
 				return;
@@ -98,14 +103,9 @@ Creep.prototype.doKnight = function () {
 			}
 
 			if (!target) {
-				target = this.pos.myFindClosestByRange(FIND_STRUCTURES, {
-					filter: (struct) => struct.structureType == STRUCTURE_RAMPART,
+				target = this.pos.myFindClosestByRange(FIND_HOSTILE_STRUCTURES, {
+					filter: (struct) => struct.structureType == STRUCTURE_SPAWN || struct.structureType == STRUCTURE_EXTENSION,
 				});
-				if (!target) {
-					target = this.pos.myFindClosestByRange(FIND_HOSTILE_STRUCTURES, {
-						filter: (struct) => struct.structureType == STRUCTURE_SPAWN || struct.structureType == STRUCTURE_EXTENSION,
-					});
-				}
 				if (!target) {
 					target = this.pos.myFindClosestByRange(FIND_HOSTILE_STRUCTURES, { filter: (struct) => !struct.store });
 				}
