@@ -16,7 +16,7 @@ Creep.prototype.doKnightAction = function (target) {
 	if (this.role == "ranger") {
 		const res = this.rangedAttack(target);
 		if (res == ERR_NOT_IN_RANGE) {
-			const ops = Math.max(Math.min((Game.cpu.limit - Game.cpu.getUsed()) * 10, 2000), 1);
+			const ops = Math.max(Math.min((Game.cpu.tickLimit - Game.cpu.getUsed()) * 80, 2000), 1);
 			return this.moveTo(target, {
 				visualizePathStyle: { stroke: "#ff0000" },
 				range: 3,
