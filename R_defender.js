@@ -97,14 +97,13 @@ Creep.prototype.doKnight = function () {
 				this.doKnightRole(target);
 				return;
 			}
-			
+
 			target = this.pos.myFindClosestByRange(FIND_RUINS, { filter: (targets) => targets.store.getUsedCapacity(RESOURCE_ENERGY) > 0 });
 			if (!target) {
 				target = this.pos.myFindClosestByRange(FIND_DROPPED_RESOURCES, { filter: { resourceType: RESOURCE_ENERGY } });
 			}
-			
+
 			if (!target) {
-				console.log('leak');
 				target = this.pos.myFindClosestByRange(FIND_HOSTILE_STRUCTURES, {
 					filter: (struct) => struct.structureType == STRUCTURE_SPAWN || struct.structureType == STRUCTURE_EXTENSION,
 				});
