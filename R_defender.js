@@ -84,6 +84,14 @@ Creep.prototype.doKnight = function () {
 		}
 
 		if (this.room.name == Memory.roomTarget && this.room.controller && this.room.controller.my) {
+			target = this.pos.myFindClosestByRange(FIND_HOSTILE_STRUCTURES, {
+				filter: { structureType: STRUCTURE_INVADER_CORE },
+			});
+			if (target) {
+				this.doKnightRole(target);
+				return;
+			}
+
 			target = this.pos.myFindClosestByRange(FIND_RUINS, { filter: (targets) => targets.store.getUsedCapacity(RESOURCE_ENERGY) > 0 });
 			if (!target) {
 				target = this.pos.myFindClosestByRange(FIND_DROPPED_RESOURCES, { filter: { resourceType: RESOURCE_ENERGY } });
@@ -91,13 +99,8 @@ Creep.prototype.doKnight = function () {
 
 			if (!target) {
 				target = this.pos.myFindClosestByRange(FIND_HOSTILE_STRUCTURES, {
-					filter: { structureType: STRUCTURE_INVADER_CORE },
+					filter: (struct) => struct.structureType == STRUCTURE_SPAWN || struct.structureType == STRUCTURE_EXTENSION,
 				});
-				if (!target) {
-					target = this.pos.myFindClosestByRange(FIND_HOSTILE_STRUCTURES, {
-						filter: (struct) => struct.structureType == STRUCTURE_SPAWN || struct.structureType == STRUCTURE_EXTENSION,
-					});
-				}
 				if (!target) {
 					target = this.pos.myFindClosestByRange(FIND_HOSTILE_STRUCTURES, { filter: (struct) => !struct.store });
 				}
