@@ -92,8 +92,8 @@ Creep.prototype.doKnight = function () {
 					filter: (struct) => struct.structureType == STRUCTURE_RAMPART && !struct.my,
 				});
 			}
-			console.log(target);
 			if (target) {
+				console.log(target);
 				this.doKnightRole(target);
 				return;
 			}
