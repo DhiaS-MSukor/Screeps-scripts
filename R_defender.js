@@ -50,7 +50,7 @@ Creep.prototype.doKnightAction = function (target) {
 
 Creep.prototype.doKnightRole = function (target) {
 	if (this.doKnightAction(target) == ERR_NOT_IN_RANGE) {
-		const ops = Math.max(Math.min((Game.cpu.limit - Game.cpu.getUsed()) * 80, 2000), 1);
+		const ops = Math.max(Math.min((Game.cpu.tickLimit - Game.cpu.getUsed()) * 80, 2000), 1);
 		this.moveTo(target, {
 			visualizePathStyle: { stroke: "#ff0000" },
 			range: 1,
@@ -96,7 +96,6 @@ Creep.prototype.doKnight = function () {
 				this.doKnightRole(target);
 				return;
 			}
-			console.log(target);
 
 			target = this.pos.myFindClosestByRange(FIND_RUINS, { filter: (targets) => targets.store.getUsedCapacity(RESOURCE_ENERGY) > 0 });
 			if (!target) {
