@@ -89,7 +89,7 @@ Creep.prototype.doKnight = function () {
 			});
 			if (!target) {
 				target = this.pos.myFindClosestByRange(FIND_STRUCTURES, {
-					filter: (struct) => struct.structureType == STRUCTURE_RAMPART,
+					filter: (struct) => struct.structureType == STRUCTURE_RAMPART && !struct.my,
 				});
 			}
 			if (target) {
