@@ -152,9 +152,10 @@ StructureSpawn.prototype.auto_respawn = function () {
 	}
 
 	// raiders
-	else if (Memory.raidTarget != "false" && this.spawn_check("ranger", 2, 1)) {
-		return;
-	} else if (Memory.raidTarget != "false" && this.spawn_check("defender", 2, 1)) {
+	// else if (Memory.raidTarget != "false" && this.spawn_check("ranger", 2, 1)) {
+	// 	return;
+	// } 
+	else if (Memory.raidTarget != "false" && this.spawn_check("defender", 2, 1)) {
 		return;
 	}
 };
