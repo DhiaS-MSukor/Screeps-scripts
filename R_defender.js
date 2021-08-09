@@ -88,7 +88,7 @@ Creep.prototype.doKnight = function () {
 				filter: (struct) => struct.structureType == STRUCTURE_INVADER_CORE,
 			});
 			if (!target) {
-				target = this.pos.myFindClosestByRange(FIND_HOSTILE_STRUCTURES, {
+				target = this.pos.myFindClosestByRange(FIND_STRUCTURES, {
 					filter: (struct) => struct.structureType == STRUCTURE_RAMPART,
 				});
 			}
