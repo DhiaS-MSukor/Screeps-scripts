@@ -93,10 +93,10 @@ Creep.prototype.doKnight = function () {
 				});
 			}
 			if (target) {
-				console.log(target);
 				this.doKnightRole(target);
 				return;
 			}
+			console.log(target);
 
 			target = this.pos.myFindClosestByRange(FIND_RUINS, { filter: (targets) => targets.store.getUsedCapacity(RESOURCE_ENERGY) > 0 });
 			if (!target) {
