@@ -16,8 +16,8 @@ Creep.prototype.doKnightAction = function (target) {
 	if (this.role == "ranger") {
 		const res = this.rangedAttack(target);
 		if (res == ERR_NOT_IN_RANGE) {
-		const ops = Math.max(Math.min((Game.cpu.limit - Game.cpu.getUsed()) * 10, 2000), 1);
-		return this.moveTo(target, {
+			const ops = Math.max(Math.min((Game.cpu.limit - Game.cpu.getUsed()) * 10, 2000), 1);
+			return this.moveTo(target, {
 				visualizePathStyle: { stroke: "#ff0000" },
 				range: 3,
 				ignoreCreeps: true,
@@ -26,8 +26,8 @@ Creep.prototype.doKnightAction = function (target) {
 		}
 		const rampart = this.pos.findInRange(FIND_STRUCTURES, 1, { filter: { structureType: STRUCTURE_RAMPART } });
 		if (rampart.length > 0) {
-		const ops = Math.max(Math.min((Game.cpu.limit - Game.cpu.getUsed()) * 10, 2000), 1);
-		return this.moveTo(rampart[0], {
+			const ops = Math.max(Math.min((Game.cpu.limit - Game.cpu.getUsed()) * 10, 2000), 1);
+			return this.moveTo(rampart[0], {
 				visualizePathStyle: { stroke: "#ff0000" },
 				ignoreCreeps: true,
 				maxOps: ops,
@@ -91,8 +91,13 @@ Creep.prototype.doKnight = function () {
 
 			if (!target) {
 				target = this.pos.myFindClosestByRange(FIND_HOSTILE_STRUCTURES, {
-					filter: (struct) => struct.structureType == STRUCTURE_SPAWN || struct.structureType == STRUCTURE_EXTENSION,
+					filter: { structureType: STRUCTURE_INVADER_CORE },
 				});
+				if (!target) {
+					target = this.pos.myFindClosestByRange(FIND_HOSTILE_STRUCTURES, {
+						filter: (struct) => struct.structureType == STRUCTURE_SPAWN || struct.structureType == STRUCTURE_EXTENSION,
+					});
+				}
 				if (!target) {
 					target = this.pos.myFindClosestByRange(FIND_HOSTILE_STRUCTURES, { filter: (struct) => !struct.store });
 				}
