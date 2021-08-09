@@ -85,7 +85,7 @@ Creep.prototype.doKnight = function () {
 
 		if (this.room.name == Memory.roomTarget) {
 			target = this.pos.myFindClosestByRange(FIND_HOSTILE_STRUCTURES, {
-				filter: { structureType: STRUCTURE_INVADER_CORE },
+				filter: (struct) => struct.structureType == STRUCTURE_INVADER_CORE,
 			});
 			if (target) {
 				this.doKnightRole(target);
