@@ -123,14 +123,16 @@ Creep.prototype.exitToRoom = function (roomName) {
 			route.shift();
 			this.routeToRoom = route;
 		}
-		const exit = this.pos.findClosestByRange(route[0].exit);
-		return exit;
-	} else {
-		const route = this.getRouteToRoom(roomName);
-		if (route != ERR_NO_PATH) {
+		const hasExit = Object.values(Game.map.describeExits(roomName)).some((i) => i == route[0].room);
+		if (hasExit) {
 			const exit = this.pos.findClosestByRange(route[0].exit);
 			return exit;
 		}
+	}
+	const route = this.getRouteToRoom(roomName);
+	if (route != ERR_NO_PATH) {
+		const exit = this.pos.findClosestByRange(route[0].exit);
+		return exit;
 	}
 	return null;
 };
