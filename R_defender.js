@@ -2,7 +2,7 @@
 Creep.prototype.knightToRoom = function (target) {
 	const pos = this.exitToRoom(target);
 	if (pos) {
-		const ops = Math.max(Math.min((Game.cpu.limit - Game.cpu.getUsed()) * 100, 2000), 1);
+		const ops = Math.max(Math.min((Game.cpu.limit - Game.cpu.getUsed()) * 90, 2000), 1);
 		const distance = this.pos.getRangeTo(pos);
 		this.moveTo(pos, {
 			visualizePathStyle: { stroke: "#ff0000" },
@@ -50,7 +50,7 @@ Creep.prototype.doKnightAction = function (target) {
 
 Creep.prototype.doKnightRole = function (target) {
 	if (this.doKnightAction(target) == ERR_NOT_IN_RANGE) {
-		const ops = Math.max(Math.min((Game.cpu.limit - Game.cpu.getUsed()) * 10, 2000), 1);
+		const ops = Math.max(Math.min((Game.cpu.limit - Game.cpu.getUsed()) * 80, 2000), 1);
 		this.moveTo(target, {
 			visualizePathStyle: { stroke: "#ff0000" },
 			range: 1,
