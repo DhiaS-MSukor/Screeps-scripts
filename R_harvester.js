@@ -71,7 +71,7 @@ Creep.prototype.doMining = function () {
 	if (this.room.name == this.origin && targets) {
 		var harv = this.harvest(targets);
 		if (harv != OK) {
-			const ops = Math.max(Math.min((Game.cpu.limit - Game.cpu.getUsed()) * 50, 2000), 1);
+			const ops = Math.max(Math.min((Game.cpu.limit - Game.cpu.getUsed()) * 90, 2000), 1);
 			this.moveTo(targets, { visualizePathStyle: { stroke: "#00ff00" }, maxOps: ops, range: 1 });
 			return;
 		}
@@ -96,7 +96,7 @@ Creep.prototype.doMining = function () {
 		if (this.assignedSource) {
 			var harv = this.harvest(this.assignedSource);
 			if (harv != OK) {
-				this.moveTo(targets, { visualizePathStyle: { stroke: "#00ff00" }, maxOps: (Game.cpu.limit - Game.cpu.getUsed()) * 50, range: 1 });
+				this.moveTo(targets, { visualizePathStyle: { stroke: "#00ff00" }, maxOps: (Game.cpu.limit - Game.cpu.getUsed()) * 90, range: 1 });
 				return;
 			}
 		} else {
