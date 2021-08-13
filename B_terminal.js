@@ -177,6 +177,7 @@ StructureTerminal.prototype.doRole = function () {
 	}
 	if (this.store.getUsedCapacity(RESOURCE_ENERGY) > 10000 && Game.market.credits > Memory.bestPixelPrice && this.store.getFreeCapacity() > 10000) {
 		if (RESOURCES_ALL.includes(Memory.pump) && this.buyResource(Memory.pump, Memory.bestPixelPrice, true)) {
+			console.log(`pumped ${Memory.pump} @${Game.time}`);
 			return;
 		} else {
 			for (const element of RESOURCES_ALL) {
