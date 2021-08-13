@@ -117,34 +117,47 @@ StructureTerminal.prototype.sellResource = function (resource, left = 0) {
 	return false;
 };
 
-StructureTerminal.prototype.buyResource = function (resource, left = 0) {
+StructureTerminal.prototype.buyResource = function (resource, left = 0, force = false) {
 	if (Game.market.credits < left) {
 		return false;
 	}
 
-	const history = Game.market.getHistory(resource);
-	if (!history.length) {
-		return false;
-	}
+	if (force) {
+		const orders = Game.market.getAllOrders({ resourceType: resource, type: ORDER_SELL }).sort((a, b) => a.price - b.price);
+		for (const order of orders) {
+			if (order.price < Game.market.credits - left) {
+				if (this.tryBuy(order, left)) {
+					return true;
+				}
+			} else {
+				break;
+			}
+		}
+	} else {
+		const history = Game.market.getHistory(resource);
+		if (!history.length) {
+			return false;
+		}
 
-	const transactions = GetMedian(history.map((i) => i.transactions));
-	if (transactions > 100) {
-		const allOrders = Game.market.getAllOrders({ resourceType: resource });
+		const transactions = GetMedian(history.map((i) => i.transactions));
+		if (transactions > 100) {
+			const allOrders = Game.market.getAllOrders({ resourceType: resource });
 
-		if (allOrders.filter((order) => order.type == ORDER_BUY).length > 10) {
-			const avgPrice = GetMedian(history.map((i) => i.avgPrice));
-			// const stddev = GetMedian(history.map((i) => i.stddevPrice));
-			const avg = avgPrice; //- stddev / 10;
+			if (allOrders.filter((order) => order.type == ORDER_BUY).length > 10) {
+				const avgPrice = GetMedian(history.map((i) => i.avgPrice));
+				// const stddev = GetMedian(history.map((i) => i.stddevPrice));
+				const avg = avgPrice; //- stddev / 10;
 
-			const orders = allOrders.filter((order) => order.type == ORDER_SELL).sort((a, b) => a.price - b.price);
+				const orders = allOrders.filter((order) => order.type == ORDER_SELL).sort((a, b) => a.price - b.price);
 
-			for (const order of orders) {
-				if (order.price < avg && order.price < Game.market.credits - left && avg < Game.market.credits - left) {
-					if (this.tryBuy(order, left)) {
-						return true;
+				for (const order of orders) {
+					if (order.price < avg && order.price < Game.market.credits - left && avg < Game.market.credits - left) {
+						if (this.tryBuy(order, left)) {
+							return true;
+						}
+					} else {
+						break;
 					}
-				} else {
-					break;
 				}
 			}
 		}
@@ -162,8 +175,10 @@ StructureTerminal.prototype.doRole = function () {
 			return;
 		}
 	}
-	if (this.store.getUsedCapacity(RESOURCE_ENERGY) > 10000 && Game.market.credits > Memory.bestPixelPrice) {
-		if (this.store.getFreeCapacity() > 10000) {
+	if (this.store.getUsedCapacity(RESOURCE_ENERGY) > 10000 && Game.market.credits > Memory.bestPixelPrice && this.store.getFreeCapacity() > 10000) {
+		if (RESOURCES_ALL.includes(Memory.pump) && this.buyResource(Memory.pump, Memory.bestPixelPrice, true)) {
+			return;
+		} else {
 			for (const element of RESOURCES_ALL) {
 				if (element != RESOURCE_ENERGY && this.buyResource(element, Memory.bestPixelPrice)) {
 					return;
