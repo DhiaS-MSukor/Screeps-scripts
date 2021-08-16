@@ -142,13 +142,13 @@ StructureSpawn.prototype.auto_respawn = function () {
 	// else if (Memory.roomTarget != "false" && this.spawn_check("ranger", 1, 1)) {
 	// 	return;
 	// }
-	else if (
+	else if (Memory.roomTarget != "false" && this.spawn_check("builder", 1, 1)) {
+		return;
+	} else if (
 		Memory.roomTarget != "false" &&
 		!(Game.rooms[Memory.roomTarget] && Game.rooms[Memory.roomTarget].controller.my) &&
 		this.spawn_check("claimer", 0, 1)
 	) {
-		return;
-	} else if (Memory.roomTarget != "false" && this.spawn_check("builder", 1, 1)) {
 		return;
 	}
 
