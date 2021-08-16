@@ -184,10 +184,10 @@ Creep.prototype.doRunner = function () {
 
 		if (this.store[RESOURCE_ENERGY] != 0) {
 			if (enemy) {
-				if (this.room.energyAvailable < SPAWN_ENERGY_CAPACITY && this.addEnergyToRoom()) {
+				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_TOWER, 500, RESOURCE_ENERGY, true))) {
 					return;
 				}
-				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_TOWER, 0, RESOURCE_ENERGY, true))) {
+				if (this.addEnergyToRoom()) {
 					return;
 				}
 			}
