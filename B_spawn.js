@@ -139,9 +139,10 @@ StructureSpawn.prototype.auto_respawn = function () {
 	// else if (spawn_check(spawn, 'defender', 1, 1)) {return;}
 
 	// claimer
-	else if (Memory.roomTarget != "false" && this.spawn_check("ranger", 1, 1)) {
-		return;
-	} else if (
+	// else if (Memory.roomTarget != "false" && this.spawn_check("ranger", 1, 1)) {
+	// 	return;
+	// }
+	else if (
 		Memory.roomTarget != "false" &&
 		!(Game.rooms[Memory.roomTarget] && Game.rooms[Memory.roomTarget].controller.my) &&
 		this.spawn_check("claimer", 0, 1)
@@ -152,10 +153,9 @@ StructureSpawn.prototype.auto_respawn = function () {
 	}
 
 	// raiders
-	// else if (Memory.raidTarget != "false" && this.spawn_check("ranger", 2, 1)) {
-	// 	return;
-	// } 
-	else if (Memory.raidTarget != "false" && this.spawn_check("defender", 2, 1)) {
+	else if (Memory.raidTarget != "false" && this.spawn_check("ranger", 2, 1)) {
+		return;
+	} else if (Memory.raidTarget != "false" && this.spawn_check("defender", 2, 1)) {
 		return;
 	}
 };
