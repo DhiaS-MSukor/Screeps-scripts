@@ -130,9 +130,11 @@ StructureSpawn.prototype.auto_respawn = function () {
 	// local healer and defender
 	else if (this.room.myFind(FIND_HOSTILE_CREEPS).length > 0 && this.spawn_check("ranger", 0, 1)) {
 		return;
+	} else if (this.room.myFind(FIND_HOSTILE_CREEPS).length > 0 && spawn_check(spawn, "healer", 0, 1)) {
+		return;
+	} else if (this.room.myFind(FIND_HOSTILE_CREEPS).length > 0 && spawn_check(spawn, "defender", 0, 1)) {
+		return;
 	}
-	//else if (spawn_check(spawn, 'healer', 0, 1)) {return;}
-	// else if (spawn_check(spawn, 'defender', 0, 1)) {return;}
 
 	// looters
 	//else if (spawn_check(spawn, 'harvester', 1, 1)) { return; }
