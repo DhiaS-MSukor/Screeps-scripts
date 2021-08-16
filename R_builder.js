@@ -6,8 +6,7 @@ Creep.prototype.builderMove = function (target, range = 3) {
 			visualizePathStyle: { stroke: "#0000ff" },
 			range: range,
 			maxOps: ops,
-			reusePath: Math.floor(Math.random() * distance * 10) + distance + 1,
-			swampCost: 3
+			reusePath: Math.floor(Math.random() * distance * 10) + distance + 1, 
 		});
 	}
 };
