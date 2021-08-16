@@ -125,6 +125,10 @@ Creep.prototype.exitToRoom = function (roomName) {
 		}
 		const hasExit = Object.values(Game.map.describeExits(roomName)).some((i) => i == route[0].room);
 		if (hasExit) {
+			if (route.length > 1) {
+				const exit = this.pos.findClosestByRange(route[1].exit);
+				return exit;
+			}
 			const exit = this.pos.findClosestByRange(route[0].exit);
 			return exit;
 		}
