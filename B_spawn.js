@@ -92,6 +92,7 @@ StructureSpawn.prototype.auto_respawn = function () {
 	if (this.room.energyAvailable < 100 || this.spawning != null) {
 		return;
 	}
+	const enemy = this.room.myFind(FIND_HOSTILE_CREEPS).length > 0;
 	// first spawn
 	// essentials
 	if (this.spawn_check("harvester", 0, 1)) {
@@ -128,11 +129,11 @@ StructureSpawn.prototype.auto_respawn = function () {
 	//else if (spawn_check(spawn, 'repairer', 0, 1)) {return;}
 
 	// local healer and defender
-	else if (this.room.myFind(FIND_HOSTILE_CREEPS).length > 0 && this.spawn_check("ranger", 0, 1)) {
+	else if (enemy && this.spawn_check("ranger", 0, 1)) {
 		return;
-	} else if (this.room.myFind(FIND_HOSTILE_CREEPS).length > 0 && this.spawn_check("healer", 0, 1)) {
+	} else if (enemy && this.spawn_check("healer", 0, 1)) {
 		return;
-	} else if (this.room.myFind(FIND_HOSTILE_CREEPS).length > 0 && this.spawn_check("defender", 0, 1)) {
+	} else if (enemy && this.spawn_check("defender", 0, 1)) {
 		return;
 	}
 
