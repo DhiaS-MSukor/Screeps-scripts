@@ -154,11 +154,15 @@ Creep.prototype.doKnight = function () {
 	if (target) {
 		this.moveTo(target, {
 			visualizePathStyle: { stroke: "#ff0000" },
-			range: 10,
+			range: 2,
 			maxOps: (Game.cpu.limit - Game.cpu.getUsed()) * 10,
 			reusePath: Math.floor(Math.random() * 90) + 10,
 		});
 		return;
+	}
+
+	if (this.mode == 0 && this.pos.inRangeTo(this.room.controller, 4)){
+		this.suicide();
 	}
 
 	target = this.room.myFind(FIND_STRUCTURES, {
