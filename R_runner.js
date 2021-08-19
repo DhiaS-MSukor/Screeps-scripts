@@ -109,7 +109,7 @@ Creep.prototype.withdrawFromContainer = function () {
 	}
 
 	let targets = this.pos.myFindClosestByRange(FIND_STRUCTURES, {
-		filter: (target) => target.structureType == STRUCTURE_CONTAINER && target.store.getUsedCapacity(RESOURCE_ENERGY) > this.store.getFreeCapacity(),
+		filter: (target) => target.structureType == STRUCTURE_CONTAINER && target.store.getUsedCapacity(RESOURCE_ENERGY) >= this.store.getFreeCapacity(),
 	});
 
 	if (targets && this.doWithdraw(targets)) {
