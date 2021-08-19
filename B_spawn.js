@@ -104,7 +104,8 @@ StructureSpawn.prototype.auto_respawn = function () {
 	// spawn to num
 	// essentials
 	else if (this.room.energyCapacityAvailable == this.room.energyAvailable) {
-		if (this.spawn_check("harvester", 0, this.room.myFind(FIND_SOURCES).length)) {
+		const sourcesLen = this.room.myFind(FIND_SOURCES).length;
+		if (this.spawn_check("harvester", 0, sourcesLen)) {
 			return;
 		} else if (
 			this.spawn_check(
@@ -118,7 +119,7 @@ StructureSpawn.prototype.auto_respawn = function () {
 			)
 		) {
 			return;
-		} else if (this.spawn_check("runner", 0, this.room.myFind(FIND_SOURCES).length)) {
+		} else if (this.spawn_check("runner", 0, sourcesLen)) {
 			return;
 		}
 	}
