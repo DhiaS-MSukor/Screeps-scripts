@@ -132,7 +132,7 @@ StructureSpawn.prototype.auto_respawn = function () {
 	// else if (Memory.roomTarget != "false" && this.spawn_check("ranger", 1, 1)) {
 	// 	return;
 	// }
-	else if (this.room.energyCapacityAvailable < 3200 || this.room.energyAvailable >= 3200) {
+	else if (this.room.energyCapacityAvailable == this.room.energyAvailable || this.room.energyAvailable >= 3200) {
 		if (Memory.roomTarget != "false") {
 			if (this.spawn_check("builder", 1, 1)) {
 				return;
