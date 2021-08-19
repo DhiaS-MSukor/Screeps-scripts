@@ -95,18 +95,20 @@ StructureSpawn.prototype.auto_respawn = function () {
 
 	// first spawn
 	// essentials
-	const sourcesLen = this.room.myFind(FIND_SOURCES).length;
 	if (this.spawn_check("harvester", 0, 1) || this.spawn_check("builder", 0, 1) || this.spawn_check("runner", 0, 1)) {
 		return;
-	} else if (this.room.myFind(FIND_STRUCTURES, { filter: { structureType: STRUCTURE_TOWER } }).length < 2 && this.spawn_check("repairer", 0, 1)) {
+	}
+	if (this.room.myFind(FIND_STRUCTURES, { filter: { structureType: STRUCTURE_TOWER } }).length < 2 && this.spawn_check("repairer", 0, 1)) {
 		return;
 	}
 
 	// spawn to num
 	// essentials
-	else if (this.spawn_check("harvester", 0, sourcesLen)) {
+	const sourcesLen = this.room.myFind(FIND_SOURCES).length;
+	if (this.spawn_check("harvester", 0, sourcesLen)) {
 		return;
-	} else if (
+	}
+	if (
 		this.spawn_check(
 			"harvester",
 			1,
@@ -118,14 +120,15 @@ StructureSpawn.prototype.auto_respawn = function () {
 		)
 	) {
 		return;
-	} else if (this.room.energyCapacityAvailable == this.room.energyAvailable) {
+	}
+	if (this.room.energyCapacityAvailable == this.room.energyAvailable) {
 		if (this.spawn_check("runner", 0, sourcesLen)) {
 			return;
 		}
 	}
 
 	// local healer and defender
-	else if (this.room.myFind(FIND_HOSTILE_CREEPS).length > 0) {
+	if (this.room.myFind(FIND_HOSTILE_CREEPS).length > 0) {
 		if (this.spawn_check("ranger", 0, 1) || this.spawn_check("defender", 0, 1) || this.spawn_check("healer", 0, 1)) {
 			return;
 		}
@@ -135,16 +138,17 @@ StructureSpawn.prototype.auto_respawn = function () {
 	// else if (Memory.roomTarget != "false" && this.spawn_check("ranger", 1, 1)) {
 	// 	return;
 	// }
-	else if (this.room.energyCapacityAvailable == this.room.energyAvailable || this.room.energyAvailable >= 3200) {
+	if (this.room.energyCapacityAvailable == this.room.energyAvailable || this.room.energyAvailable >= 3200) {
 		if (Memory.roomTarget != "false") {
 			if (this.spawn_check("builder", 1, 1)) {
 				return;
-			} else if (!(Game.rooms[Memory.roomTarget] && Game.rooms[Memory.roomTarget].controller.my) && this.spawn_check("claimer", 0, 1)) {
+			}
+			if (!(Game.rooms[Memory.roomTarget] && Game.rooms[Memory.roomTarget].controller.my) && this.spawn_check("claimer", 0, 1)) {
 				return;
 			}
 		}
 		// raiders
-		else if (Memory.raidTarget != "false") {
+		if (Memory.raidTarget != "false") {
 			if (this.spawn_check("ranger", 2, 1) || this.spawn_check("defender", 2, 1) || this.spawn_check("healer", 2, 1)) {
 				return;
 			}
