@@ -95,6 +95,7 @@ StructureSpawn.prototype.auto_respawn = function () {
 
 	// first spawn
 	// essentials
+	const sourcesLen = this.room.myFind(FIND_SOURCES).length;
 	if (this.spawn_check("harvester", 0, 1) || this.spawn_check("builder", 0, 1) || this.spawn_check("runner", 0, 1)) {
 		return;
 	} else if (this.room.myFind(FIND_STRUCTURES, { filter: { structureType: STRUCTURE_TOWER } }).length < 2 && this.spawn_check("repairer", 0, 1)) {
@@ -103,23 +104,22 @@ StructureSpawn.prototype.auto_respawn = function () {
 
 	// spawn to num
 	// essentials
-	else if (this.room.energyCapacityAvailable == this.room.energyAvailable) {
-		const sourcesLen = this.room.myFind(FIND_SOURCES).length;
-		if (this.spawn_check("harvester", 0, sourcesLen)) {
-			return;
-		} else if (
-			this.spawn_check(
-				"harvester",
-				1,
-				this.room.myFind(FIND_MY_STRUCTURES, {
-					filter: {
-						structureType: STRUCTURE_EXTRACTOR,
-					},
-				}).length
-			)
-		) {
-			return;
-		} else if (this.spawn_check("runner", 0, sourcesLen)) {
+	else if (this.spawn_check("harvester", 0, sourcesLen)) {
+		return;
+	} else if (
+		this.spawn_check(
+			"harvester",
+			1,
+			this.room.myFind(FIND_MY_STRUCTURES, {
+				filter: {
+					structureType: STRUCTURE_EXTRACTOR,
+				},
+			}).length
+		)
+	) {
+		return;
+	} else if (this.room.energyCapacityAvailable == this.room.energyAvailable) {
+		if (this.spawn_check("runner", 0, sourcesLen)) {
 			return;
 		}
 	}
