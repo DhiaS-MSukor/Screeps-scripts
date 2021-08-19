@@ -137,6 +137,9 @@ Creep.prototype.withdrawFromContainer = function () {
 };
 
 Creep.prototype.addEnergyToRoom = function () {
+	if (this.room.energyCapacityAvailable == this.room.energyAvailable) {
+		return false;
+	}
 	const target = this.pos.myFindClosestByRange(FIND_STRUCTURES, {
 		filter: (targets) => {
 			return (
@@ -192,10 +195,10 @@ Creep.prototype.doRunner = function () {
 				}
 			}
 
+			if (this.addEnergyToRoom()) {
+				return;
+			}
 			if (this.task == 1) {
-				if (this.addEnergyToRoom()) {
-					return;
-				}
 				if (Memory.roomTarget == this.room.name) {
 					if (this.runnerTransfer(this.transferCreepTarget("builder"))) {
 						return;
@@ -213,9 +216,6 @@ Creep.prototype.doRunner = function () {
 					return;
 				}
 			} else if (this.task == 2) {
-				if (this.room.energyAvailable < SPAWN_ENERGY_CAPACITY && this.addEnergyToRoom()) {
-					return;
-				}
 				if (this.store.getFreeCapacity() == 0 && this.runnerTransfer(this.transferStructureTarget(STRUCTURE_TERMINAL))) {
 					return;
 				}
@@ -224,9 +224,6 @@ Creep.prototype.doRunner = function () {
 					if (this.runnerTransfer(this.transferCreepTarget("builder"))) {
 						return;
 					}
-				}
-				if (this.addEnergyToRoom()) {
-					return;
 				}
 				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_TERMINAL))) {
 					return;
@@ -240,9 +237,6 @@ Creep.prototype.doRunner = function () {
 					return;
 				}
 			} else {
-				if (this.room.energyAvailable < SPAWN_ENERGY_CAPACITY && this.addEnergyToRoom()) {
-					return;
-				}
 				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_TOWER, 0, RESOURCE_ENERGY, true))) {
 					return;
 				}
@@ -250,9 +244,6 @@ Creep.prototype.doRunner = function () {
 					if (this.runnerTransfer(this.transferCreepTarget("builder"))) {
 						return;
 					}
-				}
-				if (this.addEnergyToRoom()) {
-					return;
 				}
 
 				if (this.runnerTransfer(this.transferCreepTarget("builder"))) {
