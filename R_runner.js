@@ -95,34 +95,14 @@ Creep.prototype.transferCreepTarget = function (role) {
 };
 
 Creep.prototype.withdrawFromContainer = function () {
-	if (this.store.getFreeCapacity() > 350) {
-		let targets = this.pos.myFindClosestByRange(FIND_STRUCTURES, {
-			filter: (target) =>
-				target.structureType == STRUCTURE_CONTAINER &&
-				target.store.getFreeCapacity(RESOURCE_ENERGY) == 0 &&
-				target.store.getUsedCapacity(RESOURCE_ENERGY) > 0,
-		});
-
-		if (targets && this.doWithdraw(targets)) {
-			return true;
-		}
-	}
-
 	let targets = this.pos.myFindClosestByRange(FIND_STRUCTURES, {
-		filter: (target) => target.structureType == STRUCTURE_CONTAINER && target.store.getUsedCapacity(RESOURCE_ENERGY) >= this.store.getFreeCapacity(),
+		filter: (target) =>
+			target.structureType == STRUCTURE_CONTAINER &&
+			((target.store.getFreeCapacity(RESOURCE_ENERGY) == 0 && target.store.getUsedCapacity(RESOURCE_ENERGY) > 0) ||
+				target.store.getUsedCapacity(RESOURCE_ENERGY) >= this.store.getFreeCapacity()),
 	});
 
 	if (targets && this.doWithdraw(targets)) {
-		return true;
-	}
-
-	targets = this.pos
-		.findInRange(FIND_STRUCTURES, 5, {
-			filter: (target) => target.structureType == STRUCTURE_CONTAINER && target.store.getUsedCapacity(RESOURCE_ENERGY) > 0,
-		})
-		.sort((a, b) => b.store.getUsedCapacity(RESOURCE_ENERGY) - a.store.getUsedCapacity(RESOURCE_ENERGY));
-
-	if (targets.length > 0 && this.doWithdraw(targets[0])) {
 		return true;
 	}
 
