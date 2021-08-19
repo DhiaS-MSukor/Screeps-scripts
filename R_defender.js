@@ -161,7 +161,7 @@ Creep.prototype.doKnight = function () {
 		return;
 	}
 
-	if (this.mode == 0 && this.pos.inRangeTo(this.room.controller, 4)){
+	if (this.mode == 0 && this.pos.getRangeTo(this.room.controller) < 5) {
 		this.suicide();
 	}
 
