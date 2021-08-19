@@ -103,22 +103,24 @@ StructureSpawn.prototype.auto_respawn = function () {
 
 	// spawn to num
 	// essentials
-	else if (this.spawn_check("harvester", 0, this.room.myFind(FIND_SOURCES).length)) {
-		return;
-	} else if (
-		this.spawn_check(
-			"harvester",
-			1,
-			this.room.myFind(FIND_MY_STRUCTURES, {
-				filter: {
-					structureType: STRUCTURE_EXTRACTOR,
-				},
-			}).length
-		)
-	) {
-		return;
-	} else if (this.spawn_check("runner", 0, this.room.myFind(FIND_SOURCES).length)) {
-		return;
+	else if (this.room.energyCapacityAvailable == this.room.energyAvailable) {
+		if (this.spawn_check("harvester", 0, this.room.myFind(FIND_SOURCES).length)) {
+			return;
+		} else if (
+			this.spawn_check(
+				"harvester",
+				1,
+				this.room.myFind(FIND_MY_STRUCTURES, {
+					filter: {
+						structureType: STRUCTURE_EXTRACTOR,
+					},
+				}).length
+			)
+		) {
+			return;
+		} else if (this.spawn_check("runner", 0, this.room.myFind(FIND_SOURCES).length)) {
+			return;
+		}
 	}
 
 	// local healer and defender
