@@ -158,11 +158,10 @@ Creep.prototype.doKnight = function () {
 			maxOps: (Game.cpu.limit - Game.cpu.getUsed()) * 10,
 			reusePath: Math.floor(Math.random() * 90) + 10,
 		});
+		if (this.mode == 0 && this.pos.getRangeTo(this.room.controller) < 5) {
+			this.suicide();
+		}
 		return;
-	}
-
-	if (this.mode == 0 && this.pos.getRangeTo(this.room.controller) < 5) {
-		this.suicide();
 	}
 
 	target = this.room.myFind(FIND_STRUCTURES, {
