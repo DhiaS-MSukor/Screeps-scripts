@@ -145,7 +145,7 @@ StructureSpawn.prototype.auto_respawn = function () {
 		}
 		// raiders
 		else if (Memory.raidTarget != "false") {
-			if (this.spawn_check("ranger", 2, 1) || this.spawn_check("defender", 2, 1)) {
+			if (this.spawn_check("ranger", 2, 1) || this.spawn_check("defender", 2, 1) || this.spawn_check("healer", 2, 1)) {
 				return;
 			}
 		}
