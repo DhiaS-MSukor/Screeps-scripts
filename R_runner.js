@@ -150,6 +150,14 @@ Creep.prototype.doRunner = function () {
 		this.say("pass");
 	}
 
+	if (this.origin != this.room.name) {
+		const pos = this.exitToRoom(target);
+		if (pos) {
+			this.runnerMove(pos);
+			return;
+		}
+	}
+
 	const enemy = this.pos.myFindClosestByRange(FIND_HOSTILE_CREEPS);
 	if (this.working) {
 		res = _.filter(Object.keys(this.store), (res) => res != RESOURCE_ENERGY && this.store[res] != 0);
