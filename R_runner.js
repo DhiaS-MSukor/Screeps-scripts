@@ -151,7 +151,7 @@ Creep.prototype.doRunner = function () {
 	}
 
 	if (this.origin != this.room.name) {
-		const pos = this.exitToRoom(target);
+		const pos = this.exitToRoom(this.origin);
 		if (pos) {
 			this.runnerMove(pos);
 			return;
