@@ -146,7 +146,7 @@ Creep.prototype.doRunner = function () {
 	}
 	if (!this.working && (this.store.getUsedCapacity(RESOURCE_ENERGY) > 49 || this.store.getFreeCapacity() == 0)) {
 		this.working = true;
-		this.task = (this.task + 1) % 3;
+		this.task = (this.task + 1) % 2;
 		this.say("pass");
 	}
 
@@ -186,34 +186,8 @@ Creep.prototype.doRunner = function () {
 			if (this.addEnergyToRoom()) {
 				return;
 			}
-			if (this.task == 1) {
-				if (Memory.roomTarget == this.room.name) {
-					if (this.runnerTransfer(this.transferCreepTarget("builder"))) {
-						return;
-					}
-				}
-
+			if (this.task == 0) {
 				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_TOWER, 0, RESOURCE_ENERGY, true))) {
-					return;
-				}
-				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_TERMINAL))) {
-					return;
-				}
-
-				if (this.runnerTransfer(this.transferCreepTarget("builder"))) {
-					return;
-				}
-			} else if (this.task == 2) {
-				if (this.store.getFreeCapacity() == 0 && this.runnerTransfer(this.transferStructureTarget(STRUCTURE_TERMINAL))) {
-					return;
-				}
-
-				if (Memory.roomTarget == this.room.name) {
-					if (this.runnerTransfer(this.transferCreepTarget("builder"))) {
-						return;
-					}
-				}
-				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_TERMINAL))) {
 					return;
 				}
 
@@ -221,24 +195,20 @@ Creep.prototype.doRunner = function () {
 					return;
 				}
 
-				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_TOWER, 0, RESOURCE_ENERGY, true))) {
+				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_TERMINAL))) {
 					return;
 				}
 			} else {
-				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_TOWER, 0, RESOURCE_ENERGY, true))) {
+				//else if (this.task == 1) {
+				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_TERMINAL))) {
 					return;
-				}
-				if (Memory.roomTarget == this.room.name) {
-					if (this.runnerTransfer(this.transferCreepTarget("builder"))) {
-						return;
-					}
 				}
 
 				if (this.runnerTransfer(this.transferCreepTarget("builder"))) {
 					return;
 				}
 
-				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_TERMINAL))) {
+				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_TOWER, 0, RESOURCE_ENERGY, true))) {
 					return;
 				}
 			}
