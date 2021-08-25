@@ -98,7 +98,10 @@ StructureSpawn.prototype.auto_respawn = function () {
 	if (this.spawn_check("harvester", 0, 1) || this.spawn_check("builder", 0, 1) || this.spawn_check("runner", 0, 1)) {
 		return;
 	}
-	if (this.room.myFind(FIND_STRUCTURES, { filter: { structureType: STRUCTURE_TOWER } }).length < 2 && this.spawn_check("repairer", 0, 1)) {
+	if (
+		(this.room.name == Memory.roomTarget || this.room.myFind(FIND_STRUCTURES, { filter: { structureType: STRUCTURE_TOWER } }).length < 2) &&
+		this.spawn_check("repairer", 0, 1)
+	) {
 		return;
 	}
 
