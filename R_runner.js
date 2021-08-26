@@ -187,15 +187,11 @@ Creep.prototype.doRunner = function () {
 				return;
 			}
 			if (this.task == 0) {
-				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_TOWER, this.store.getUsedCapacity(RESOURCE_ENERGY)))) {
+				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_TOWER, 0, RESOURCE_ENERGY, true))) {
 					return;
 				}
 
 				if (this.runnerTransfer(this.transferCreepTarget("builder"))) {
-					return;
-				}
-
-				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_TOWER, 0, RESOURCE_ENERGY, true))) {
 					return;
 				}
 
