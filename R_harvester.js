@@ -33,7 +33,7 @@ Creep.prototype.addCheckedRoom = function () {
 Creep.prototype.minerToRoom = function (target) {
 	const pos = this.exitToRoom(target);
 	if (pos) {
-		const ops = Math.max(Math.min((Game.cpu.limit - Game.cpu.getUsed()) * 10, 2000), 1);
+		const ops = Math.max(Math.min((Game.cpu.tickLimit - Game.cpu.getUsed()) * 10, 2000), 1);
 		const distance = this.pos.getRangeTo(pos);
 		this.moveTo(pos, {
 			visualizePathStyle: { stroke: "#00ff00" },
@@ -47,7 +47,7 @@ Creep.prototype.harvesterTransfer = function (targets, res = RESOURCE_ENERGY) {
 	if (targets.length > 0) {
 		var result = this.transfer(targets[0], res);
 		if (result == ERR_NOT_IN_RANGE) {
-			const ops = Math.max(Math.min((Game.cpu.limit - Game.cpu.getUsed()) * 50, 2000), 1);
+			const ops = Math.max(Math.min((Game.cpu.tickLimit - Game.cpu.getUsed()) * 50, 2000), 1);
 			const distance = this.pos.getRangeTo(targets[0]);
 			this.moveTo(targets[0], {
 				visualizePathStyle: { stroke: "#00ff00" },
@@ -71,7 +71,7 @@ Creep.prototype.doMining = function () {
 	if (this.room.name == this.origin && targets) {
 		var harv = this.harvest(targets);
 		if (harv != OK) {
-			const ops = Math.max(Math.min((Game.cpu.limit - Game.cpu.getUsed()) * 90, 2000), 1);
+			const ops = Math.max(Math.min((Game.cpu.tickLimit - Game.cpu.getUsed()) * 90, 2000), 1);
 			this.moveTo(targets, { visualizePathStyle: { stroke: "#00ff00" }, maxOps: ops, range: 1 });
 			return;
 		}
@@ -96,7 +96,7 @@ Creep.prototype.doMining = function () {
 		if (this.assignedSource) {
 			var harv = this.harvest(this.assignedSource);
 			if (harv != OK) {
-				this.moveTo(targets, { visualizePathStyle: { stroke: "#00ff00" }, maxOps: (Game.cpu.limit - Game.cpu.getUsed()) * 90, range: 1 });
+				this.moveTo(targets, { visualizePathStyle: { stroke: "#00ff00" }, maxOps: (Game.cpu.tickLimit - Game.cpu.getUsed()) * 90, range: 1 });
 				return;
 			}
 		} else {
@@ -127,7 +127,7 @@ Creep.prototype.doMining = function () {
 
 			var harv = this.harvest(targets);
 			if (harv != OK) {
-				this.moveTo(targets, { visualizePathStyle: { stroke: "#00ff00" }, maxOps: (Game.cpu.limit - Game.cpu.getUsed()) * 50, range: 1 });
+				this.moveTo(targets, { visualizePathStyle: { stroke: "#00ff00" }, maxOps: (Game.cpu.tickLimit - Game.cpu.getUsed()) * 50, range: 1 });
 				return;
 			}
 		} else if (this.room.isHighway()) {
@@ -217,7 +217,7 @@ Creep.prototype.doHarvest = function () {
 			if (harv == ERR_NOT_IN_RANGE) {
 				this.moveTo(this.assignedSource, {
 					visualizePathStyle: { stroke: "#00ff00" },
-					maxOps: (Game.cpu.limit - Game.cpu.getUsed()) * 50,
+					maxOps: (Game.cpu.tickLimit - Game.cpu.getUsed()) * 50,
 					range: 1,
 				});
 			} else if (harv == ERR_NOT_ENOUGH_RESOURCES) {

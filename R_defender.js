@@ -26,7 +26,7 @@ Creep.prototype.doKnightAction = function (target) {
 		}
 		const rampart = this.pos.findInRange(FIND_STRUCTURES, 1, { filter: { structureType: STRUCTURE_RAMPART } });
 		if (rampart.length > 0) {
-			const ops = Math.max(Math.min((Game.cpu.limit - Game.cpu.getUsed()) * 10, 2000), 1);
+			const ops = Math.max(Math.min((Game.cpu.tickLimit - Game.cpu.getUsed()) * 10, 2000), 1);
 			return this.moveTo(rampart[0], {
 				visualizePathStyle: { stroke: "#ff0000" },
 				ignoreCreeps: true,
@@ -155,7 +155,7 @@ Creep.prototype.doKnight = function () {
 		this.moveTo(target, {
 			visualizePathStyle: { stroke: "#ff0000" },
 			range: 2,
-			maxOps: (Game.cpu.limit - Game.cpu.getUsed()) * 10,
+			maxOps: (Game.cpu.tickLimit - Game.cpu.getUsed()) * 10,
 			reusePath: Math.floor(Math.random() * 90) + 10,
 		});
 		if (this.mode == 0 && this.pos.getRangeTo(this.room.controller) < 5) {
@@ -172,7 +172,7 @@ Creep.prototype.doKnight = function () {
 		this.moveTo(target[0], {
 			visualizePathStyle: { stroke: "#ff0000" },
 			range: 1,
-			maxOps: (Game.cpu.limit - Game.cpu.getUsed()) * 10,
+			maxOps: (Game.cpu.tickLimit - Game.cpu.getUsed()) * 10,
 			reusePath: Math.floor(Math.random() * 90) + 10,
 		});
 		return;
