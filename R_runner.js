@@ -183,14 +183,14 @@ Creep.prototype.doRunner = function () {
 				}
 			}
 
-			if (this.addEnergyToRoom()) {
-				return;
-			}
 			if (this.task == 0) {
 				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_TOWER, 0, RESOURCE_ENERGY, true))) {
 					return;
 				}
 
+				if (this.addEnergyToRoom()) {
+					return;
+				}
 				if (this.runnerTransfer(this.transferCreepTarget("builder"))) {
 					return;
 				}
@@ -200,6 +200,9 @@ Creep.prototype.doRunner = function () {
 				}
 			} else {
 				//else if (this.task == 1) {
+				if (this.addEnergyToRoom()) {
+					return;
+				}
 				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_TERMINAL))) {
 					return;
 				}
