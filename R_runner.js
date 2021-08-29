@@ -184,6 +184,10 @@ Creep.prototype.doRunner = function () {
 			}
 
 			if (this.task == 0) {
+				if (this.room.energyAvailable < 300 && this.addEnergyToRoom()) {
+					return;
+				}
+
 				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_TOWER, 0, RESOURCE_ENERGY, true))) {
 					return;
 				}
