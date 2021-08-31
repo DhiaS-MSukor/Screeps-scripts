@@ -158,7 +158,6 @@ Creep.prototype.doRunner = function () {
 		}
 	}
 
-	const enemy = this.pos.myFindClosestByRange(FIND_HOSTILE_CREEPS);
 	if (this.working) {
 		res = _.filter(Object.keys(this.store), (res) => res != RESOURCE_ENERGY && this.store[res] != 0);
 		if (res.length) {
@@ -172,17 +171,11 @@ Creep.prototype.doRunner = function () {
 				return;
 			}
 		}
+		if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_TOWER, 500, RESOURCE_ENERGY, true))) {
+			return;
+		}
 
 		if (this.store[RESOURCE_ENERGY] != 0) {
-			if (enemy) {
-				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_TOWER, 500, RESOURCE_ENERGY, true))) {
-					return;
-				}
-				if (this.addEnergyToRoom()) {
-					return;
-				}
-			}
-
 			if (this.task == 0) {
 				if (this.room.energyAvailable < 300 && this.addEnergyToRoom()) {
 					return;
