@@ -145,7 +145,7 @@ Creep.prototype.doKnight = function () {
 			}
 		}
 	}
-	if (this.mode == 2 && Memory.raidTarget != "false" && this.room.name != Memory.raidTarget) {
+	if (Memory.raidTarget != "false" && this.room.name != Memory.raidTarget) {
 		this.knightToRoom(Memory.raidTarget);
 		return;
 	}
