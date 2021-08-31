@@ -67,13 +67,13 @@ Creep.prototype.doKnight = function () {
 		});
 		if (target) {
 			this.doKnightRole(target);
-			return;
+			return true;
 		}
 	} else {
 		target = this.pos.myFindClosestByRange(FIND_HOSTILE_CREEPS);
 		if (target) {
 			this.doKnightRole(target);
-			return;
+			return true;
 		}
 
 		if (this.room.name == Memory.roomTarget) {
@@ -87,7 +87,7 @@ Creep.prototype.doKnight = function () {
 			}
 			if (target) {
 				this.doKnightRole(target);
-				return;
+				return true;
 			}
 
 			target = this.pos.myFindClosestByRange(FIND_RUINS, { filter: (targets) => targets.store.getUsedCapacity(RESOURCE_ENERGY) > 0 });
@@ -125,7 +125,7 @@ Creep.prototype.doKnight = function () {
 				}
 				if (target) {
 					this.doKnightRole(target);
-					return;
+					return true;
 				}
 			}
 		} else {
@@ -134,7 +134,7 @@ Creep.prototype.doKnight = function () {
 			});
 			if (target) {
 				this.doKnightRole(target);
-				return;
+				return true;
 			}
 		}
 	}
@@ -147,14 +147,16 @@ Creep.prototype.moveKnight = function () {
 		this.knightToRoom(Memory.roomTarget);
 		return;
 	}
-	if (this.room.my) {
-		this.doKnight();
+	if (this.room.my && this.doKnight()) {
+		return;
 	}
 	if (Memory.raidTarget != "false" && this.room.name != Memory.raidTarget) {
 		this.knightToRoom(Memory.raidTarget);
 		return;
 	}
-	this.doKnight();
+	if (this.doKnight()) {
+		return;
+	}
 
 	target = this.room.controller;
 	if (target) {
