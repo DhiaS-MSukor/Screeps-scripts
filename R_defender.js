@@ -138,6 +138,7 @@ Creep.prototype.doKnight = function () {
 			}
 		}
 	}
+	return false;
 };
 
 Creep.prototype.moveKnight = function () {
