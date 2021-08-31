@@ -171,7 +171,7 @@ Creep.prototype.doRunner = function () {
 				return;
 			}
 		}
-		if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_TOWER, 500, RESOURCE_ENERGY, true))) {
+		if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_TOWER, 500))) {
 			return;
 		}
 
