@@ -215,7 +215,7 @@ Creep.prototype.doRunner = function () {
 		}
 	}
 
-	if (enemy && this.withdrawFromContainer()) {
+	if (this.withdrawFromContainer()) {
 		return;
 	}
 
