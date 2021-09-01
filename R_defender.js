@@ -8,6 +8,7 @@ Creep.prototype.knightToRoom = function (target) {
 			visualizePathStyle: { stroke: "#ff0000" },
 			maxOps: ops,
 			reusePath: Math.floor(Math.random() * distance * 10) + 10,
+			swampCost: 3,
 		});
 	}
 };
