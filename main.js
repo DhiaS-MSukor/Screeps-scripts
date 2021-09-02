@@ -120,7 +120,6 @@ function handle_creeps() {
 
 		if (creep.memory._move && creep.memory._move.path && !Array.isArray(creep.memory._move.path)) {
 			creep.memory._move = undefined;
-			console.log("delete move");
 		}
 
 		switch (creep.role) {
