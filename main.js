@@ -117,6 +117,11 @@ function handle_creeps() {
 	for (const name in Game.creeps) {
 		const startCpu = Game.cpu.getUsed();
 		const creep = Game.creeps[name];
+
+		if (creep.memory._move && creep.memory._move.path && creep.memory._move.path.length === 0){
+			creep.memory._move = undefined;
+		}
+
 		switch (creep.role) {
 			case "harvester":
 				r_harvester.run(creep);
