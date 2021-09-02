@@ -118,7 +118,7 @@ function handle_creeps() {
 		const startCpu = Game.cpu.getUsed();
 		const creep = Game.creeps[name];
 
-		if (creep.memory._move && creep.memory._move.path && creep.memory._move.path.length === 0) {
+		if (creep.memory._move && creep.memory._move.path && !Array.isArray(creep.memory._move.path)) {
 			creep.memory._move = undefined;
 			console.log("delete move");
 		}
