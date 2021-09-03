@@ -134,22 +134,18 @@ StructureSpawn.prototype.auto_respawn = function () {
 		}
 	}
 
-	if (this.room.energyCapacityAvailable == this.room.energyAvailable || this.room.energyAvailable >= 3200) {
-		// raiders
-		if (Memory.raidTarget != "false") {
-			if (this.spawn_check("ranger", 2, 1) || this.spawn_check("defender", 2, 1) || this.spawn_check("healer", 2, 1)) {
-				return;
-			}
-		}
-		// claimer
-		// else if (Memory.roomTarget != "false" && this.spawn_check("ranger", 1, 1)) {
-		// 	return;
-		// }
+	if (this.room.energyCapacityAvailable == this.room.energyAvailable || this.room.energyAvailable >= 3200) { 
 		if (Memory.roomTarget != "false") {
 			if (this.spawn_check("builder", 1, 1)) {
 				return;
 			}
 			if (!(Game.rooms[Memory.roomTarget] && Game.rooms[Memory.roomTarget].controller.my) && this.spawn_check("claimer", 0, 1)) {
+				return;
+			}
+		}
+		// raiders
+		if (Memory.raidTarget != "false") {
+			if (this.spawn_check("ranger", 2, 1) || this.spawn_check("defender", 2, 1) || this.spawn_check("healer", 2, 1)) {
 				return;
 			}
 		}
