@@ -1,6 +1,6 @@
 Creep.prototype.builderMove = function (target, range = 3) {
 	if (target) { 
-		const ops = Math.max(Math.min((Game.cpu.tickLimit - Game.cpu.getUsed()) * 90, 2000), 1);
+		const ops = Math.max(Math.min((Game.cpu.tickLimit - Game.cpu.getUsed()) * 75, 2000), 1);
 		return this.moveTo(target, {
 			visualizePathStyle: { stroke: "#0000ff" },
 			range: range,
