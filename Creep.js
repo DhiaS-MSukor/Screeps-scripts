@@ -126,15 +126,16 @@ Creep.prototype.exitToRoom = function (roomName) {
 		const hasExit = Object.values(Game.map.describeExits(roomName)).some((i) => i == route[0].room);
 		if (hasExit) {
 			if (route.length > 1) {
+				const place = route[0].room;
 				switch (route[1].exit) {
 					case FIND_EXIT_TOP:
-						return new RoomPosition(25, 0, route[1].room);
+						return new RoomPosition(25, 0, place);
 					case FIND_EXIT_RIGHT:
-						return new RoomPosition(49, 25, route[1].room);
+						return new RoomPosition(49, 25, place);
 					case FIND_EXIT_BOTTOM:
-						return new RoomPosition(25, 49, route[1].room);
+						return new RoomPosition(25, 49, place);
 					case FIND_EXIT_LEFT:
-						return new RoomPosition(0, 25, route[1].room);
+						return new RoomPosition(0, 25, place);
 					default:
 						break;
 				}
