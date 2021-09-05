@@ -33,12 +33,11 @@ Creep.prototype.addCheckedRoom = function () {
 Creep.prototype.minerToRoom = function (target) {
 	const pos = this.exitToRoom(target);
 	if (pos) {
-		const ops = Math.max(Math.min((Game.cpu.tickLimit - Game.cpu.getUsed()) * 10, 2000), 1);
-		const distance = this.pos.getRangeTo(pos);
+		const ops = Math.max(Math.min((Game.cpu.tickLimit - Game.cpu.getUsed()) * 10, 2000), 1); 
 		this.moveTo(pos, {
 			visualizePathStyle: { stroke: "#00ff00" },
 			maxOps: ops,
-			reusePath: Math.floor(Math.random() * distance * 10) + 10,
+			reusePath: 10000,
 		});
 	}
 };
