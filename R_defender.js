@@ -2,7 +2,7 @@
 Creep.prototype.knightToRoom = function (target) {
 	const pos = this.exitToRoom(target);
 	if (pos) {
-		const ops = Math.max(Math.min((Game.cpu.tickLimit - Game.cpu.getUsed()) * 90, 2000), 1);
+		const ops = Math.max(Math.min((Game.cpu.tickLimit - Game.cpu.getUsed()) * 90, 2000), 1000);
 		this.moveTo(pos, {
 			visualizePathStyle: { stroke: "#ff0000" },
 			maxOps: ops,
