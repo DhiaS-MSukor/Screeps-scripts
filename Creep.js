@@ -102,7 +102,7 @@ Creep.prototype.getRouteToRoom = function (room) {
 				return 1;
 			} else if (shouldAvoid) {
 				this.room.avoidThis(roomName);
-				return 20;
+				return 10;
 			} else {
 				return 1.5;
 			}
