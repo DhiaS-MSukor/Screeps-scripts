@@ -134,19 +134,34 @@ StructureSpawn.prototype.auto_respawn = function () {
 		}
 	}
 
-	if (Memory.roomTarget != "false") {
-		if (this.spawn_check("builder", 1, 1)) {
-			return;
+	if (this.room.energyCapacityAvailable == this.room.energyAvailable || this.room.energyAvailable >= 3200) {
+		if (Memory.roomTarget != "false") {
+			if (this.spawn_check("builder", 1, 1)) {
+				return;
+			}
+			if (!(Game.rooms[Memory.roomTarget] && Game.rooms[Memory.roomTarget].controller.my) && this.spawn_check("claimer", 0, 1)) {
+				return;
+			}
 		}
-		if (!(Game.rooms[Memory.roomTarget] && Game.rooms[Memory.roomTarget].controller.my) && this.spawn_check("claimer", 0, 1)) {
-			return;
-		}
-	}
-	if (this.room.energyCapacityAvailable == this.room.energyAvailable || this.room.energyAvailable >= 3200) { 
 		// raiders
 		if (Memory.raidTarget != "false") {
-			if (this.spawn_check("ranger", 2, 1) || this.spawn_check("defender", 2, 1) || this.spawn_check("healer", 2, 1)) {
-				return;
+			let r = Math.floor(Math.random() * 4);
+			while (r > 0) {
+				switch (r) {
+					case 1:
+						if (this.spawn_check("ranger", 2, 1)) {
+							return;
+						}
+					case 2:
+						if (this.spawn_check("defender", 2, 1)) {
+							return;
+						}
+					case 3:
+						if (this.spawn_check("healer", 2, 1)) {
+							return;
+						}
+				}
+				r--;
 			}
 		}
 	}
