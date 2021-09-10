@@ -133,7 +133,7 @@ StructureSpawn.prototype.auto_respawn = function () {
 			return;
 		}
 	}
-	if (this.room.energyCapacityAvailable <= this.room.energyAvailable) {
+	if (this.room.energyAvailable >= this.room.energyCapacityAvailable / 2) {
 		if (Memory.roomTarget != "false") {
 			if (this.spawn_check("builder", 1, 1)) {
 				return;
