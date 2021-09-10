@@ -145,7 +145,7 @@ Creep.prototype.doRunner = function () {
 	}
 	if (!this.working && (this.store.getUsedCapacity(RESOURCE_ENERGY) > 49 || this.store.getFreeCapacity() == 0)) {
 		this.working = true;
-		this.task = (this.task + 1) % 3;
+		this.task = (this.task + 1) % 2;
 		this.say("pass");
 	}
 
@@ -179,6 +179,9 @@ Creep.prototype.doRunner = function () {
 				if (this.room.energyAvailable < 300 && this.addEnergyToRoom()) {
 					return;
 				}
+				if (this.room.terminal && this.room.terminal.store.getUsedCapacity(RESOURCE_ENERGY) < 10000 && this.runnerTransfer(this.room.terminal)) {
+					return;
+				}
 
 				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_TOWER, 0, RESOURCE_ENERGY, true))) {
 					return;
@@ -209,25 +212,26 @@ Creep.prototype.doRunner = function () {
 				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_TOWER, 0, RESOURCE_ENERGY, true))) {
 					return;
 				}
-			} else if (this.task == 2) {
-				if (this.room.energyAvailable < 300 && this.addEnergyToRoom()) {
-					return;
-				}
-				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_TERMINAL))) {
-					return;
-				}
-
-				if (this.addEnergyToRoom()) {
-					return;
-				}
-				if (this.runnerTransfer(this.transferCreepTarget("builder"))) {
-					return;
-				}
-
-				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_TOWER, 0, RESOURCE_ENERGY, true))) {
-					return;
-				}
 			}
+			// else if (this.task == 2) {
+			// 	if (this.room.energyAvailable < 300 && this.addEnergyToRoom()) {
+			// 		return;
+			// 	}
+			// 	if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_TERMINAL))) {
+			// 		return;
+			// 	}
+
+			// 	if (this.addEnergyToRoom()) {
+			// 		return;
+			// 	}
+			// 	if (this.runnerTransfer(this.transferCreepTarget("builder"))) {
+			// 		return;
+			// 	}
+
+			// 	if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_TOWER, 0, RESOURCE_ENERGY, true))) {
+			// 		return;
+			// 	}
+			// }
 		}
 	}
 
