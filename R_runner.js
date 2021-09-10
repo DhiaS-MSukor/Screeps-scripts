@@ -197,7 +197,8 @@ Creep.prototype.doRunner = function () {
 				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_TERMINAL))) {
 					return;
 				}
-			} else if (this.task == 1) {
+			} else {
+				//} if (this.task == 1) {
 				if (this.addEnergyToRoom()) {
 					return;
 				}
