@@ -133,8 +133,7 @@ StructureSpawn.prototype.auto_respawn = function () {
 			return;
 		}
 	}
-
-	if (this.room.energyCapacityAvailable == this.room.energyAvailable || this.room.energyAvailable >= 3200) {
+	if (this.room.energyCapacityAvailable <= this.room.energyAvailable) {
 		if (Memory.roomTarget != "false") {
 			if (this.spawn_check("builder", 1, 1)) {
 				return;
@@ -143,6 +142,9 @@ StructureSpawn.prototype.auto_respawn = function () {
 				return;
 			}
 		}
+	}
+
+	if (this.room.energyCapacityAvailable == this.room.energyAvailable || this.room.energyAvailable >= 3200) {
 		// raiders
 		if (Memory.raidTarget != "false") {
 			let r = Math.floor(Math.random() * 4);
