@@ -202,7 +202,7 @@ Creep.prototype.doRunner = function () {
 				if (this.addEnergyToRoom()) {
 					return;
 				}
-				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_TERMINAL))) {
+				if (this.room.terminal && this.room.terminal.store.getUsedCapacity(RESOURCE_ENERGY) < 10000 && this.runnerTransfer(this.room.terminal)) {
 					return;
 				}
 
