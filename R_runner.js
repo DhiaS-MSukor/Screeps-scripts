@@ -192,11 +192,7 @@ Creep.prototype.doRunner = function () {
 				}
 				if (this.runnerTransfer(this.transferCreepTarget("builder"))) {
 					return;
-				}
-
-				if (this.runnerTransfer(this.transferStructureTarget(STRUCTURE_TERMINAL))) {
-					return;
-				}
+				} 
 			} else {
 				//} if (this.task == 1) {
 				if (this.addEnergyToRoom()) {
