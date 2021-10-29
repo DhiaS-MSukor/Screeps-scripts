@@ -175,15 +175,17 @@ StructureTerminal.prototype.doRole = function () {
 			return;
 		}
 	}
-	if (this.store.getUsedCapacity(RESOURCE_ENERGY) > 10000 && Game.market.credits > Memory.bestPixelPrice && this.store.getFreeCapacity() > 10000) {
+
+	const reserve = Memory.bestPixelPrice * 1.1;
+	if (this.store.getUsedCapacity(RESOURCE_ENERGY) > 10000 && Game.market.credits > reserve && this.store.getFreeCapacity() > 10000) {
 		if (RESOURCES_ALL.includes(Memory.pump)) {
-			if (this.buyResource(Memory.pump, Memory.bestPixelPrice, true)) {
+			if (this.buyResource(Memory.pump, reserve, true)) {
 				console.log(`pumped ${Memory.pump} @${Game.time}`);
 			}
 			return;
 		} else {
 			for (const element of RESOURCES_ALL) {
-				if (element != RESOURCE_ENERGY && this.buyResource(element, Memory.bestPixelPrice)) {
+				if (element != RESOURCE_ENERGY && this.buyResource(element, reserve)) {
 					return;
 				}
 			}
