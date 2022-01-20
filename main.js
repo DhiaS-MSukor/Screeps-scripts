@@ -87,7 +87,7 @@ function trade_pixel() {
 	const avgPrice = GetMedian(history.map((i) => i.avgPrice));
 	const stddev = history.map((i) => i.stddevPrice).reduce((a, b) => Math.min(a, b), history[0].stddevPrice);
 
-	const avg = avgPrice + stddev / 2;
+	const avg = avgPrice - stddev / 2;
 	const allOrders = Game.market.getAllOrders({ resourceType: PIXEL });
 
 	const orders = allOrders.filter((order) => order.type == ORDER_BUY).sort((a, b) => b.price - a.price);
@@ -140,7 +140,7 @@ function trade_pixel() {
 	// 	}
 	// }
 
-	const elapsed = Game.cpu.getUsed() - startCpu; 
+	const elapsed = Game.cpu.getUsed() - startCpu;
 	if (!Memory.cpuLog) {
 		Memory.cpuLog = {};
 	}
