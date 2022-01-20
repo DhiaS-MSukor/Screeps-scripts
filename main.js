@@ -75,10 +75,88 @@ function UpdatePixelPerformance(amount) {
 function trade_pixel() {
 	const startCpu = Game.cpu.getUsed();
 
+	if (Game.resources.pixel <= 0) {
+		return false;
+	}
+
+	const history = Game.market.getHistory(PIXEL);
+	if (!history.length) {
+		return false;
+	}
+
+	const avgPrice = GetMedian(history.map((i) => i.avgPrice));
+	const stddev = history.map((i) => i.stddevPrice).reduce((a, b) => Math.min(a, b), history[0].stddevPrice);
+
+	const avg = avgPrice + stddev / 2;
+	const allOrders = Game.market.getAllOrders({ resourceType: PIXEL });
+
+	const orders = allOrders.filter((order) => order.type == ORDER_BUY).sort((a, b) => b.price - a.price);
+	const highDemand = allOrders.filter((order) => order.type == ORDER_SELL).length < 10;
+
+	for (const order of orders) {
+		if (highDemand || order.price > avg) {
+			const amount = Math.min(order.remainingAmount, this.getMaxAmount(order), this.store.getUsedCapacity(order.resourceType) - left);
+			if (amount > 0) {
+				const cost = Game.market.calcTransactionCost(amount, this.room.name, order.roomName);
+				if (cost < this.store.getUsedCapacity(RESOURCE_ENERGY)) {
+					var deal = Game.market.deal(order.id, amount, this.room.name);
+					if (deal == OK) {
+						CalcCreditPerformance(amount * order.price);
+						return true;
+					} else if (deal == ERR_TIRED || deal == ERR_FULL) {
+						return true;
+					}
+				}
+			}
+		} else {
+			break;
+		}
+	}
+
+	// const orders = Game.market
+	// 	.getAllOrders({
+	// 		type: ORDER_SELL,
+	// 		resourceType: PIXEL,
+	// 	})
+	// 	.sort((a, b) => a.price - b.price);
+	// if (orders.length > 0) {
+	// 	for (const key in orders) {
+	// 		if (Object.hasOwnProperty.call(orders, key)) {
+	// 			const order = orders[key];
+	// 			Memory.bestPixelPrice = order.price;
+
+	// 			if (Game.market.credits < order.price) {
+	// 				break;
+	// 			}
+
+	// 			let amount = Math.floor(Game.market.credits / order.price);
+	// 			amount = amount > order.remainingAmount ? order.remainingAmount : amount;
+	// 			const deal = Game.market.deal(order.id, amount);
+	// 			if (deal == OK) {
+	// 				UpdatePixelPerformance(amount);
+	// 				break;
+	// 			}
+	// 		}
+	// 	}
+	// }
+
+	const elapsed = Game.cpu.getUsed() - startCpu;
+	if (!Memory.cpuLog) {
+		Memory.cpuLog = {};
+	}
+	if (!Memory.cpuLog.pixelTrade) {
+		Memory.cpuLog.pixelTrade = 0;
+	}
+	Memory.cpuLog.pixelTrade = (Memory.cpuLog.pixelTrade * 99 + elapsed) / 100;
+}
+
+function trade_cpu() {
+	const startCpu = Game.cpu.getUsed();
+
 	const orders = Game.market
 		.getAllOrders({
 			type: ORDER_SELL,
-			resourceType: PIXEL,
+			resourceType: CPU_UNLOCK,
 		})
 		.sort((a, b) => a.price - b.price);
 	if (orders.length > 0) {
@@ -333,6 +411,11 @@ module.exports.loop = function () {
 		trade_pixel();
 		clean_mem();
 	}
+
+	if (Math.random() * 100 < 1) {
+		trade_cpu();
+	}
+
 	handle_buildings();
 	handle_creeps();
 
