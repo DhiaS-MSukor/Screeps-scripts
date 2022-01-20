@@ -140,7 +140,7 @@ function trade_pixel() {
 	// 	}
 	// }
 
-	const elapsed = Game.cpu.getUsed() - startCpu;
+	const elapsed = Game.cpu.getUsed() - startCpu; 
 	if (!Memory.cpuLog) {
 		Memory.cpuLog = {};
 	}
