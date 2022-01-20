@@ -402,12 +402,9 @@ module.exports.loop = function () {
 	gen_pixel();
 
 	if (Math.random() * 100 < 1) {
+		trade_pixel();
 		clean_mem();
 		trade_cpu();
-	}
-
-	if (Math.random() * 10 < 1) {
-		trade_pixel();
 	}
 
 	handle_buildings();
