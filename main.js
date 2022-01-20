@@ -87,7 +87,7 @@ function trade_pixel() {
 	const avgPrice = GetMedian(history.map((i) => i.avgPrice));
 	const stddev = history.map((i) => i.stddevPrice).reduce((a, b) => Math.min(a, b), history[0].stddevPrice);
 
-	const avg = avgPrice - stddev / 2;
+	const avg = avgPrice + stddev / 2;
 	const allOrders = Game.market.getAllOrders({ resourceType: PIXEL });
 
 	const orders = allOrders.filter((order) => order.type == ORDER_BUY).sort((a, b) => b.price - a.price);
@@ -97,15 +97,9 @@ function trade_pixel() {
 		if (highDemand || order.price > avg) {
 			const amount = Math.min(order.remainingAmount, Game.resources.pixel); //Math.min(order.remainingAmount, this.getMaxAmount(order), this.store.getUsedCapacity(order.resourceType) - left);
 			if (amount > 0) {
-				const cost = Game.market.calcTransactionCost(amount, this.room.name, order.roomName);
-				if (cost < this.store.getUsedCapacity(RESOURCE_ENERGY)) {
-					var deal = Game.market.deal(order.id, amount, this.room.name);
-					if (deal == OK) {
-						CalcCreditPerformance(amount * order.price);
-						return true;
-					} else if (deal == ERR_TIRED || deal == ERR_FULL) {
-						return true;
-					}
+				var deal = Game.market.deal(order.id, amount);
+				if (deal == OK || deal == ERR_TIRED || deal == ERR_FULL) {
+					return true;
 				}
 			}
 		} else {
