@@ -95,7 +95,7 @@ function trade_pixel() {
 
 	for (const order of orders) {
 		if (highDemand || order.price > avg) {
-			const amount = Math.min(order.remainingAmount, this.getMaxAmount(order), this.store.getUsedCapacity(order.resourceType) - left);
+			const amount = Math.min(order.remainingAmount, Game.resources.pixel); //Math.min(order.remainingAmount, this.getMaxAmount(order), this.store.getUsedCapacity(order.resourceType) - left);
 			if (amount > 0) {
 				const cost = Game.market.calcTransactionCost(amount, this.room.name, order.roomName);
 				if (cost < this.store.getUsedCapacity(RESOURCE_ENERGY)) {
@@ -408,12 +408,12 @@ module.exports.loop = function () {
 	gen_pixel();
 
 	if (Math.random() * 100 < 1) {
-		trade_pixel();
 		clean_mem();
+		trade_cpu();
 	}
 
-	if (Math.random() * 100 < 1) {
-		trade_cpu();
+	if (Math.random() * 10 < 1) {
+		trade_pixel();
 	}
 
 	handle_buildings();
